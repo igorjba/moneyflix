@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+:root {
+  --background-button-approved: #DA0175;
+  --color-font-button-approved: #F8F8F9;
+  --background-button-cancel: #DEDEE9;
+  --color-font-button-cancel: #0E8750;
+  --font: #3F3F55;
+
+  min-height: 100vh;
+}
+
+.initial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.fontStyleNunito {
+  font-size: 1.125rem;
+  line-height: 1.4625rem;
+}
+
+.fontStyleNunito2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.fontStyleNunito3 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.fontStyleNunito4 {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+}
+
+h2 {
+  font-family: Montserrat;
+  font-style: normal;
+}
+
+.fontStyleMontserrat {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.95rem;
+}
+
+.fontStyleMontserrat1 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4625rem;
+
+}
