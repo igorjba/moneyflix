@@ -210,7 +210,7 @@ E portanto o Pull Request de **BACKEND** deverá ser criado a partir do fork de 
 - <b>Critérios de aceite</b>
 
   - O frontend poderá ser hospedado na <b>Netlify</b>
-  - O backend e banco de dados poderá ser hospedado na <b>Heroku</b>
+  - O backend e banco de dados poderá ser hospedado na <b>Cyclic</b>
   - O frontend hospedado deverá ser <b>integrado</b> ao backend também hospedado
 
 </details>
