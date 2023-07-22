@@ -1,73 +1,120 @@
 .mainBody {
-    height: 100vh;
-    background-color: var(--color-font-button-approved);
+  height: 100vh;
+  background-color: var(--color-font-button-approved);
 }
 
 .navegation {
-    flex-direction: column;
-    justify-content: flex-start !important;
+  flex-direction: column;
+  justify-content: flex-start !important;
 
-    padding: 2.81rem 0 0;
+  padding: 2.81rem 0 0;
 
-    width: 10.80rem;
-    height: 100%;
+  width: 10.8rem;
+  height: 100%;
 
-    background-color: var(--background-button-cancel);
+  background-color: var(--background-button-cancel);
 }
 
 .navegation div {
-    margin-bottom: 4.5rem;
+  margin-bottom: 4.5rem;
 }
 
 .atived {
-    width: 100%;
-    border-right: 0.3rem solid var(--background-button-approved);
+  width: 100%;
+  border-right: 0.3rem solid var(--background-button-approved);
 }
 
 .center {
-    width: calc(100% - 10.80rem);
-    height: 100%;
+  width: calc(100% - 10.8rem);
+  height: 100%;
 
-    padding: 0 3.2rem;
+  padding: 0 3.2rem;
 }
 
 header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
-    padding: 0 13.7rem;
+  padding: 0 5rem;
 
-    width: 100%;
-    height: 10rem;
+  width: 100%;
+  height: 10rem;
 
-    border-bottom: 0.2rem solid #ACD9C5;
+  border-bottom: 0.2rem solid #acd9c5;
 }
 
 .title {
-    padding: 0.9rem;
-    margin-right: 1.6rem;
-    border-radius: 50%;
-    background-color: var(--background-button-cancel);
+  padding: 0.9rem;
+  margin-right: 1.6rem;
+  border-radius: 50%;
+  background-color: var(--background-button-cancel);
 }
 
 .title h1 {
-    color: var(--color-font-button-cancel);
+  color: var(--color-font-button-cancel);
 }
 
 .profile h1 {
-    margin-right: 0.8rem;
+  margin-right: 0.8rem;
 }
 
+.main {
+  width: 100%;
+  padding: 2rem 4.8rem 0 4.8rem;
+  border: #acd9c5 solid 2px;
+}
 
+h3 {
+  font-family: Montserrat;
+  font-style: normal;
+  font-size: 1.8rem !important;
+  text-align: center;
+  color: var(--font);
+}
 
+.value {
+  font-size: 2.4rem !important;
+}
 
+.contentResume {
+  justify-content: space-between !important;
+  width: 100%;
+  height: 11.2rem;
+  margin-bottom: 2.4rem;
+}
 
+.resumeCharge {
+  width: 36rem;
+  height: 11rem;
+  padding: 2.3rem 4rem;
 
+  border-radius: 30px;
+}
 
+.resumeCharge img {
+  margin-right: 5.4rem;
+}
 
+.resumeCharge div {
+  flex-direction: column;
+}
 
+.resumeCharge div :first-child {
+  margin-bottom: 1.1rem;
+}
 
+.paidCharge {
+  background: #eef6f6;
+}
+
+.expiredCharge {
+  background: #ffefef;
+}
+
+.pendingCharge {
+  background: #fcf6dc;
+}
 
 /* .butMain {
     width: 22.1875rem;
