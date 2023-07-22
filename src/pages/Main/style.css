@@ -1,12 +1,75 @@
-.main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.mainBody {
     height: 100vh;
+    background-color: var(--color-font-button-approved);
 }
 
-.butMain {
+.navegation {
+    flex-direction: column;
+    justify-content: flex-start !important;
+
+    padding: 2.81rem 0 0;
+
+    width: 10.80rem;
+    height: 100%;
+
+    background-color: var(--background-button-cancel);
+}
+
+.navegation div {
+    margin-bottom: 4.5rem;
+}
+
+.atived {
+    width: 100%;
+    border-right: 0.3rem solid var(--background-button-approved);
+}
+
+.center {
+    width: calc(100% - 10.80rem);
+    height: 100%;
+
+    padding: 0 3.2rem;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 0 13.7rem;
+
+    width: 100%;
+    height: 10rem;
+
+    border-bottom: 0.2rem solid #ACD9C5;
+}
+
+.title {
+    padding: 0.9rem;
+    margin-right: 1.6rem;
+    border-radius: 50%;
+    background-color: var(--background-button-cancel);
+}
+
+.title h1 {
+    color: var(--color-font-button-cancel);
+}
+
+.profile h1 {
+    margin-right: 0.8rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* .butMain {
     width: 22.1875rem;
     height: 2.875rem;
 
@@ -15,4 +78,4 @@
 
     background-color: var(--background-button-approved);
     color: var(--color-font-button-approved);
-}
+} */
