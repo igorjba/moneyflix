@@ -52,7 +52,9 @@ function Main() {
             <CardResume IconCard={Expired} backgroundColor="#ffefef" />
             <CardResume IconCard={Pending} backgroundColor="#fcf6dc" />
           </div>
-          <div className="contentCads">
+          <div className="contentCards">
+            <Card />
+            <Card />
             <Card />
             <Card />
             <Card />
