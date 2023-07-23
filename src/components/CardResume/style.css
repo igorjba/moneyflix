@@ -1,0 +1,31 @@
+h3 {
+  font-family: Montserrat;
+  font-style: normal;
+  font-size: 1.8rem !important;
+  text-align: center;
+  color: var(--font);
+}
+
+.value {
+  font-size: 2.4rem !important;
+}
+
+.resumeCharge {
+  width: 36rem;
+  height: 11rem;
+  padding: 2.3rem 4rem;
+
+  border-radius: 30px;
+}
+
+.resumeCharge img {
+  margin-right: 5.4rem;
+}
+
+.resumeCharge div {
+  flex-direction: column;
+}
+
+.resumeCharge div :first-child {
+  margin-bottom: 1.1rem;
+}

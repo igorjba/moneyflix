@@ -3,10 +3,12 @@ import home from "../../assets/Home.svg";
 import client from "../../assets/Client.svg";
 import charge from "../../assets/Charge.svg";
 import setbottom from "../../assets/chevron-down.svg";
+import ModalSet from "../../components/ModalSet";
+import Card from "../../components/Card";
+import CardResume from "../../components/CardResume";
 import Expired from "../../assets/Expired.svg";
 import Paid from "../../assets/Paid.svg";
 import Pending from "../../assets/Pending.svg";
-import ModalSet from "../../components/ModalSet";
 import { useState } from "react";
 
 function Main() {
@@ -43,31 +45,18 @@ function Main() {
             </div>
           </div>
         </header>
+
         <div className="main">
           <div className="contentResume initial">
-            <div className="resumeCharge paidCharge initial">
-              <img src={Paid} alt="cobranças pagas" />
-              <div className="initial">
-                <h3 className="fontStyleMontserrat">Cobraças Pagas</h3>
-                <h3 className="fontStyleMontserrat value">R$ 30.000</h3>
-              </div>
-            </div>
-            <div className="resumeCharge expiredCharge initial">
-              <img src={Expired} alt="Cobranças Vencidas" />
-              <div className="initial">
-                <h3 className="fontStyleMontserrat">Cobranças Vencidas</h3>
-                <h3 className="fontStyleMontserrat value">R$ 7.000</h3>
-              </div>
-            </div>
-            <div className="resumeCharge pendingCharge initial">
-              <img src={Pending} alt="Cobranças Vencidas" />
-              <div className="initial">
-                <h3 className="fontStyleMontserrat">Cobranças Previstas</h3>
-                <h3 className="fontStyleMontserrat value">R$ 10.000</h3>
-              </div>
-            </div>
+            <CardResume IconCard={Paid} backgroundColor="#eef6f6" />
+            <CardResume IconCard={Expired} backgroundColor="#ffefef" />
+            <CardResume IconCard={Pending} backgroundColor="#fcf6dc" />
           </div>
-          <div className="contentCads"></div>
+          <div className="contentCads">
+            <Card />
+            <Card />
+            <Card />
+          </div>
         </div>
       </div>
     </div>

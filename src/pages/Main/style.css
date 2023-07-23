@@ -62,19 +62,7 @@ header {
 .main {
   width: 100%;
   padding: 2rem 4.8rem 0 4.8rem;
-  border: #acd9c5 solid 2px;
-}
-
-h3 {
-  font-family: Montserrat;
-  font-style: normal;
-  font-size: 1.8rem !important;
-  text-align: center;
-  color: var(--font);
-}
-
-.value {
-  font-size: 2.4rem !important;
+  /* border: #acd9c5 solid 2px; */
 }
 
 .contentResume {
@@ -83,46 +71,3 @@ h3 {
   height: 11.2rem;
   margin-bottom: 2.4rem;
 }
-
-.resumeCharge {
-  width: 36rem;
-  height: 11rem;
-  padding: 2.3rem 4rem;
-
-  border-radius: 30px;
-}
-
-.resumeCharge img {
-  margin-right: 5.4rem;
-}
-
-.resumeCharge div {
-  flex-direction: column;
-}
-
-.resumeCharge div :first-child {
-  margin-bottom: 1.1rem;
-}
-
-.paidCharge {
-  background: #eef6f6;
-}
-
-.expiredCharge {
-  background: #ffefef;
-}
-
-.pendingCharge {
-  background: #fcf6dc;
-}
-
-/* .butMain {
-    width: 22.1875rem;
-    height: 2.875rem;
-
-    border-radius: 0.625rem;
-    border: none;
-
-    background-color: var(--background-button-approved);
-    color: var(--color-font-button-approved);
-} */
