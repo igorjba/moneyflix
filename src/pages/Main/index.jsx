@@ -57,7 +57,6 @@ function Main() {
           <img src={imageNavCharge ? charge : chargePink} alt="Cliente" />
         </div>
       </nav >
-
       <div className='center'>
         {openModalRegister && <div className='backgroundModal'></div>}
         <header>
@@ -68,8 +67,9 @@ function Main() {
             <div className='title'>
               <h1>LR</h1>
             </div>
-            <div className='profile initial'>
+            <div className="profile initial">
               {modalExit && <ModalSet />}
+
               <h1>Lorena</h1>
               <img src={setbottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
@@ -83,14 +83,26 @@ function Main() {
           />}
         </div>
       </div>
+      
+      
       {openModalRegister &&
         <ModalRegister
           setOpenModalRegister={setOpenModalRegister}
           openModalRegister={openModalRegister}
         />}
-
+        
+        
+       {!imageNavHome && <div className="contentResume initial">
+            <CardResume IconCard={Paid} backgroundColor="#eef6f6" />
+            <CardResume IconCard={Expired} backgroundColor="#ffefef" />
+            <CardResume IconCard={Pending} backgroundColor="#fcf6dc" />
+          </div>
+          <div className="contentCads">
+            <Card />
+            <Card />
+            <Card />
+          </div>}
     </div >
-  )
-}
+  )}
 
-export default Main
+export default Main;
