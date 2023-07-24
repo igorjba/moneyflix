@@ -67,6 +67,10 @@ body {
   min-height: 100vh;
 }
 
+input {
+  outline-color: #DA0175;
+}
+
 .initial {
   display: flex;
   align-items: center;
