@@ -1,35 +1,113 @@
 .mainBody {
-  height: 100vh;
-  background-color: var(--color-font-button-approved);
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--font-clr-white);
 }
 
 .navegation {
-  flex-direction: column;
-  justify-content: flex-start !important;
-
-  padding: 2.81rem 0 0;
-
-  width: 10.8rem;
-  height: 100%;
-
-  background-color: var(--background-button-cancel);
+    flex-direction: column;
+    padding: 2.81rem 0 0;
+    width: 10.80rem;
+    height: 100%;
+    background-color: var(--bg-nav);
 }
 
 .navegation div {
   margin-bottom: 4.5rem;
 }
 
+.nav-icons {
+    justify-content: center;
+}
+
 .atived {
+    width: 100%;
+    border-right: 0.3rem solid var(--bg-pink);
+}
+
+.center {
+    width: calc(100% - 10.80rem);
+    height: 100%;
+    padding: 0 3.2rem;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 13.7rem;
+    width: 100%;
+    height: 10rem;
+    border-bottom: 0.2rem solid var(--bg-line-green);
+}
+
+header h2 {
+    text-align: center;
+    font-size: var(--fz-26);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-130);
+}
+
+.title {
+    padding: 0.9rem;
+    margin-right: 1.6rem;
+    border-radius: 50%;
+    background-color: var(--bg-white-gray);
+}
+
+.title h1 {
+    font-size: var(--fz-22);
+    font-weight: var(--fw-medium);
+    line-height: var(--fstyle-normal);
+    color: var(--font-clr-green);
+}
+
+.titleSecond {
+    color: var(--bg-line-green);
+    font-family: var(--ff-inter);
+    font-size: var(--fz-16);
+    font-style: var(--fstyle-normal);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-24);
+    align-items: flex-end !important;
+}
+
+.profile h1 {
+    margin-right: 0.8rem;
+    color: var(--font-clr-green);
+    font-size: var(--fz-18);
+    font-weight: var(--fw-medium);
+    line-height: normal;
+}
+
+.main {
+    padding: 0 calc(10.4rem - 3.2rem);
+}
+
+.backgroundModal {
+    position: absolute;
+    top: 0;
+    left: 10.80rem;
+
+    width: calc(100% - 10.80rem);
+    height: 100%;
+
+    background-color: rgba(145, 154, 150, 0.30);
+    backdrop-filter: blur(2px);
+
+}
+
+/*
   width: 100%;
   border-right: 0.3rem solid var(--background-button-approved);
 }
 
-.center {
+ center {
   width: calc(100% - 10.8rem);
   height: 100%;
 
   padding: 0 3.2rem;
-}
+} 
 
 header {
   display: flex;
@@ -53,11 +131,11 @@ header {
 
 .title h1 {
   color: var(--color-font-button-cancel);
-}
+} 
 
 .profile h1 {
   margin-right: 0.8rem;
-}
+} */
 
 .main {
   width: 100%;
