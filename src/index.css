@@ -13,14 +13,32 @@ body {
 }
 
 :root {
-  --bg-button-approved: #DA0175;
-  --bg-button-cancel: #DEDEE9;
+  --bg-pink: #DA0175;
+  --bg-white-gray: #DEDEE9;
   --bg-modal: #FFF;
+  --bg-card-gray: #EEF6F6;
+  --bg-card-red: #FFEFEF;
+  --bg-card-yellow: #FCF6DC;
+  --bg-line-green: #ACD9C5;
+  --bg-toast-blue: #C3D4FE;
+  --bg-nav: #F0F0F5;
 
-  --clr-verde-normal: #0E8750;
-  --clr-rosa-normal: #DA0175;
+  --border-input: #D0D5DD;
 
-  --font-clr-button-approved: #F8F8F9;
+  --font-clr-white: #F8F8F9;
+  --font-clr-green: #0E8750;
+  --font-clr-gray-title: #343447;
+  --font-clr-gray-text: #344054;
+  --font-clr-gray-text-modal: #3F3F55;
+  --font-clr-gray-input: #667085;
+  --font-clr-gray-input-modal: #9B9BB2;
+  --font-clr-gray-extract-client: #747488;
+  --font-clr-blue-number: #1FA7AF;
+  --font-clr-yellow-number: #C5A605;
+  --font-clr-red-number: #971D1D;
+  --font-clr-text-card: #6E6E85;
+  --font-clr-text-error: #E70000;
+  --font-clr-toast: #243F80;
   --font: #3F3F55;
 
   --fw-regular: 400;
@@ -30,6 +48,21 @@ body {
   --ff-nunito: 'Nunito', sans-serif;
   --ff-montserrat: 'Montserrat', sans-serif;
   --ff-inter: 'Inter', sans-serif;
+
+  --fz-14: 1.4rem;
+  --fz-16: 1.6rem;
+  --fz-18: 1.8rem;
+  --fz-22: 2.2rem;
+  --fz-24: 2.4rem;
+  --fz-26: 2.6rem;
+
+  --fstyle-normal: normal;
+
+  --lineh-130: 130%;
+  --lineh-20: 2rem;
+  --lineh-24: 2.4rem;
+  --lineh-40: 4rem;
+  --lineh-50: 5rem;
 
   min-height: 100vh;
 }
@@ -44,52 +77,20 @@ input {
 }
 
 h1 {
-  font-family: Nunito;
+  font-family: var(--ff-nunito);
   font-style: normal;
-  font-weight: 600;
-}
-
-.fontStyleNunito {
-  font-size: 1.125rem;
-  line-height: 1.4625rem;
-}
-
-.fontStyleNunito2 {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.fontStyleNunito3 {
-  font-size: 1.125rem;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.fontStyleNunito4 {
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 2.5rem;
-}
-
-.fontStyleNunito5 {
-  font-size: 2.2rem;
-  line-height: normal;
 }
 
 h2 {
-  font-family: Montserrat;
+  font-family: var(--ff-montserrat);
+  font-style: normal;
+}
+h3 {
+  font-family: var(--ff-inter);
   font-style: normal;
 }
 
-.fontStyleMontserrat {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.95rem;
-}
-
-.fontStyleMontserrat1 {
-  font-size: 2.6rem;
-  font-weight: 600;
-  line-height: 13rem;
-
+button {
+  border: none;
+  cursor: pointer;
 }
