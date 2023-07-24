@@ -1,0 +1,266 @@
+.container-sign-up {
+    display: flex;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #F8F8F9;
+}
+
+.sign-up-steps {
+    display: flex;
+    justify-content: center;
+
+    max-width: 50rem;
+    width: 100%;
+    height: 100%;
+
+    background-color: #F0F0F5;
+}
+
+.sign-up-steps-item {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    max-width: 38.9rem;
+    width: 100%;
+    max-height: 21.4rem;
+    height: 100%;
+
+    margin-top: 17.4rem;
+}
+
+.container-sign-up-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-up-circle {
+    width: 3.2rem;
+    height: 3.2rem;
+    margin: 0 2.4rem 0.4rem 0;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: contain
+}
+
+.sign-up-step-one-title {
+    font-family: var(--ff-montserrat);
+    font-weight: var(--fw-bold);
+    font-size: 1.8rem;
+
+    color: #0E8750;
+}
+
+.sign-up-bar {
+    width: 0.3rem;
+    height: 3.3rem;
+    margin: 0 3.9rem 0.4rem 1.4rem;
+
+    background-color: #0E8750;
+}
+
+.sign-up-step-subtitle {
+    font-family: var(--ff-nunito);
+    font-weight: var(--fw-medium);
+    font-size: 1.8rem;
+    font-weight: 600;
+
+    color: #3F3F55;
+}
+
+.sign-up-last-step-subtitle {
+    margin-left: 5.7rem;
+}
+
+.container-sign-up-forms {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 94rem;
+    width: 100%;
+    height: 100%;
+
+}
+
+.sign-up-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+
+    max-width: 38rem;
+    width: 100%;
+    max-height: 34rem;
+    height: 100%;
+    margin-top: 20.8rem;
+}
+
+.step-one-form {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    max-width: 36.8rem;
+    width: 100%;
+    max-height: 16rem;
+    height: 100%;
+}
+
+.step-one-tittle {
+    margin-bottom: 3.2rem;
+
+    font-family: var(--ff-montserrat);
+    font-weight: var(--fw-bold);
+    font-size: 2.4rem;
+
+    color: #343447;
+}
+
+.container-input {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+
+    max-width: 36.8rem;
+    width: 100%;
+    max-height: 7rem;
+    height: 100%;
+
+}
+
+.container-name-step-one-form {
+    margin-bottom: 2rem;
+}
+
+.span-forms {
+    margin-bottom: 0.6rem;
+
+    font-family: var(--ff-nunito);
+    font-weight: var(--fw-medium);
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    color: #344054;
+}
+
+.input-forms {
+    max-width: 36.8rem;
+    width: 100%;
+    max-height: 4.4rem;
+    height: 100%;
+    padding: 1rem 1.4rem;
+    border: 0.1rem solid #D0D5DD;
+    border-radius: 0.8rem;
+
+    background-color: #fff;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.input-forms::placeholder {
+    font-family: var(--ff-inter);
+    font-weight: var(--fw-regular);
+    font-size: 1.6rem;
+
+    color: #667085
+}
+
+.input-forms:focus {
+    outline-color: #DA0175;
+}
+
+.container-step-one-form-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 36.8rem;
+    max-height: 4.4rem;
+    width: 100%;
+    max-height: 4.6rem;
+    height: 100%;
+    margin-top: 4rem;
+}
+
+.step-one-next-page-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 16rem;
+    width: 100%;
+    max-height: 3.3rem;
+    height: 100%;
+    border-radius: 1rem;
+    border: none;
+    scale: 1;
+
+    text-align: center;
+    font-family: var(--ff-nunito);
+    font-size: 1.8rem;
+    font-weight: var(--fw-regular);
+    color: #F8F8F9;
+
+    cursor: pointer;
+
+    background-color: #DA0175;
+}
+
+.step-one-next-page-button:active {
+    scale: 0.98;
+}
+
+.container-step-one-form-subtitle {
+    margin-top: 1.5rem;
+}
+
+.step-one-form-subtitle {
+    font-family: var(--ff-nunito);
+    font-weight: var(--fw-medium);
+    font-size: 1.8rem;
+    line-height: 2rem;
+
+    color: #344054;
+}
+
+.step-one-form-subtitle a {
+    font-family: var(--ff-nunito);
+    font-weight: var(--fw-medium);
+    font-size: 1.8rem;
+    line-height: 2rem;
+
+    color: #DA0175;
+}
+
+
+.container-sign-up-indicator-forms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+
+    max-width: 36.8rem;
+    width: 100%;
+    max-height: 0.3rem;
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: 6.4rem;
+}
+
+.steps-bar {
+    max-width: 8.2rem;
+    width: 100%;
+    max-height: 0.6rem;
+    height: 100%;
+}
+
+.sign-up-indicator-forms-one {
+    cursor: pointer;
+}

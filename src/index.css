@@ -13,19 +13,33 @@ body {
 }
 
 :root {
-  --background-button-approved: #DA0175;
-  --color-font-button-approved: #F8F8F9;
-  --background-button-cancel: #DEDEE9;
-  --color-font-button-cancel: #0E8750;
-  --background-modal: #FFF;
+  --bg-button-approved: #DA0175;
+  --bg-button-cancel: #DEDEE9;
+  --bg-modal: #FFF;
+
+  --clr-verde-normal: #0E8750;
+  --clr-rosa-normal: #DA0175;
+
+  --font-clr-button-approved: #F8F8F9;
   --font: #3F3F55;
+
+  --fw-regular: 400;
+  --fw-medium: 600;
+  --fw-bold: 700;
+
+  --ff-nunito: 'Nunito', sans-serif;
+  --ff-montserrat: 'Montserrat', sans-serif;
+  --ff-inter: 'Inter', sans-serif;
 
   min-height: 100vh;
 }
 
+input {
+  outline-color: #DA0175;
+}
+
 .initial {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
