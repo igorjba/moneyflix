@@ -1,9 +1,13 @@
 import "./style.css";
 
-export default function Card() {
+export default function Card({ iconCard }) {
   return (
     <div className="card">
       <div className="headerCard initial">
+        <div
+          className="iconCard"
+          style={{ backgroundImage: `url(${iconCard})` }}
+        ></div>
         <h3>Cobranças Vencidas</h3>
         <div className="numberClient initial fontStyleMontserrat">08</div>
       </div>

@@ -1,16 +1,12 @@
-.mainBody {
-  height: 100vh;
-  background-color: var(--color-font-button-approved);
-}
-
 .navegation {
   flex-direction: column;
   justify-content: flex-start !important;
 
   padding: 2.81rem 0 0;
 
+  position: fixed;
   width: 10.8rem;
-  height: 100%;
+  height: 100vh;
 
   background-color: var(--background-button-cancel);
 }
@@ -28,7 +24,10 @@
   width: calc(100% - 10.8rem);
   height: 100%;
 
-  padding: 0 3.2rem;
+  margin-left: 10.8rem;
+  padding: 0 3.2rem 3.7rem 3.2rem;
+
+  background-color: var(--color-font-button-approved);
 }
 
 header {
@@ -38,10 +37,14 @@ header {
 
   padding: 0 5rem;
 
-  width: 100%;
+  position: fixed;
+  right: 3.2rem;
+  width: calc(100% - 17.2rem);
   height: 10rem;
 
   border-bottom: 0.2rem solid #acd9c5;
+  background-color: var(--color-font-button-approved);
+  z-index: 1000;
 }
 
 .title {
@@ -64,23 +67,22 @@ header {
   display: flex;
   flex-direction: column;
 
-  max-height: calc(100vh - 10rem);
   padding: 2rem 4.8rem 0 4.8rem;
 }
 
 .contentResume {
-  /* justify-content: space-between !important; */
-  width: 100%;
-  /* height: 11.2rem; */
-  margin-bottom: 2.4rem;
+  justify-content: space-between !important;
   flex-wrap: wrap;
   gap: 3.5rem;
+
+  width: 100%;
+  margin-bottom: 2.4rem;
 }
 
 .contentCards {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 3.2rem;
 }

@@ -2,8 +2,13 @@ h3 {
   font-family: Montserrat;
   font-style: normal;
   font-size: 1.8rem !important;
-  text-align: center;
   color: var(--font);
+}
+
+.iconCard {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-right: 0.8rem;
 }
 
 .value {
