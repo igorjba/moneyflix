@@ -7,17 +7,17 @@ export default function Card({ iconCard }) {
         <div
           className="iconCard"
           style={{ backgroundImage: `url(${iconCard})` }}
-        ></div>
+        >
+        </div>
         <h3>Cobranças Vencidas</h3>
-        <div className="numberClient initial fontStyleMontserrat">08</div>
+        <div className="numberClient initial">08</div>
       </div>
-      <table>
+      <table className="table-main-card">
         <thead className="titlesTable">
           <th>Clintes</th>
           <th>ID da cob.</th>
           <th>Valor</th>
         </thead>
-
         <tbody>
           <tr>
             <td>Sara Silva</td>
