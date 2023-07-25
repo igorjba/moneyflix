@@ -15,13 +15,12 @@ export default function ModalSet({ SetOpenModalEditPerfil, openModalEditPerfil }
     function onClickExit() {
         navigate('/Login')
     }
-
     return (
         <div className='modalExit initial'>
             <img className='set' src={set} alt="" />
-
             <img src={edit} alt="editar" onClick={openModal} />
             <img src={exit} alt="sair" onClick={onClickExit} />
+
         </div>
     )
 }
