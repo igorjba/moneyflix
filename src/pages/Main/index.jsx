@@ -71,7 +71,6 @@ function Main() {
               <h1>LR</h1>
             </div>
             <div className="profile initial">
-
               <h1>Lorena</h1>
               <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>

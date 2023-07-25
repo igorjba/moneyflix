@@ -1,6 +1,6 @@
 .mainModalRegister {
     position: absolute;
-    width: 40vw;
+    width: 30vw;
     height: 80vh;
     background-color: var(--bg-modal);
     border-radius: 3rem;
