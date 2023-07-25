@@ -29,7 +29,7 @@
     font-weight: var(--fw-bold);
     font-size: 2.4rem;
 
-    color: #343447;
+    color: var(--font-clr-gray-title);
 }
 
 .container-input {
@@ -57,7 +57,7 @@
     font-size: 1.4rem;
     line-height: 2rem;
 
-    color: #344054;
+    color: var(--font-clr-gray-text);
 }
 
 .input-forms {
@@ -66,10 +66,10 @@
     max-height: 4.4rem;
     height: 100%;
     padding: 1rem 1.4rem;
-    border: 0.1rem solid #D0D5DD;
+    border: 0.1rem solid var(--border-input);
     border-radius: 0.8rem;
 
-    background-color: #fff;
+    background-color: var(--bg-modal);
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }
 
@@ -78,7 +78,7 @@
     font-weight: var(--fw-regular);
     font-size: 1.6rem;
 
-    color: #667085
+    color: var(--font-clr-gray-input);
 }
 
 .container-step-one-form-button {
@@ -111,11 +111,11 @@
     font-family: var(--ff-nunito);
     font-size: 1.8rem;
     font-weight: var(--fw-regular);
-    color: #F8F8F9;
+    color: var(--font-clr-white);
 
     cursor: pointer;
 
-    background-color: #DA0175;
+    background-color: var(--bg-pink);
 }
 
 .step-one-next-page-button:active {
@@ -132,7 +132,7 @@
     font-size: 1.8rem;
     line-height: 2rem;
 
-    color: #344054;
+    color: var(--font-clr-gray-text);
 }
 
 .step-one-form-subtitle a {
@@ -141,5 +141,5 @@
     font-size: 1.8rem;
     line-height: 2rem;
 
-    color: #DA0175;
+    color: var(--bg-pink);
 }

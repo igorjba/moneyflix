@@ -11,7 +11,7 @@
     margin-top: 20rem;
     border-radius: 3rem;
 
-    background-color: #F0F0F5;
+    background-color: var(--bg-nav);
 }
 
 .success-img {
@@ -62,9 +62,9 @@
     font-family: var(--ff-nunito);
     font-size: 1.8rem;
     font-weight: var(--fw-regular);
-    color: #F8F8F9;
+    color: var(--font-clr-white);
 
     cursor: pointer;
 
-    background-color: #DA0175;
+    background-color: var(--bg-pink);
 }

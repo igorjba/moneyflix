@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
   const [localForm, setLocalForm] = useState({
     username: signInForm.username,
     email: signInForm.email,
   });
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleChangeSignIn = (event) => {
     setLocalForm({
@@ -27,6 +29,10 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       });
     }
   };
+
+  function handleSignUpRedirect() {
+    navigate('/cadastro')
+  }
 
   return (
     <div className="sign-in">
@@ -71,7 +77,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       <div className="container-sign-in-form-subtitle">
         <span className="sign-in-form-subtitle">
           Ainda não possui uma conta?{" "}
-          <a className="sign-in-form-link" href="#">
+          <a className="sign-in-form-link" href="#" onClick={handleSignUpRedirect}>
             Cadastre-se
           </a>{" "}
         </span>
