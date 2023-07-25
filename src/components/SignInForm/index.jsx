@@ -4,8 +4,8 @@ import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
   const [localForm, setLocalForm] = useState({
-    username: signInForm.username,
     email: signInForm.email,
+    password: signInForm.password,
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -15,10 +15,11 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       ...localForm,
       [event.target.name]: event.target.value,
     });
+    console.log(event.target);
   };
 
   const handleSubmitSignIn = () => {
-    if (!localForm.username || !localForm.email) {
+    if (!localForm.password || !localForm.email) {
       toast.error("Por favor preencha todos os campos");
     } else {
       setSignInForm({
@@ -54,10 +55,10 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
             </span>
           </div>
           <input
-            className="sign-in-form-input input-forms input-password-confirm"
+            className="sign-in-form-input input-forms input-password"
             type={showPassword ? "text" : "password"}
-            name="confirmPassword"
-            value={localForm.confirmPassword}
+            name="password"
+            value={localForm.password}
             onChange={handleChangeSignIn}
             placeholder="Digite sua senha"
           />
@@ -73,7 +74,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           Ainda não possui uma conta?{" "}
           <a className="sign-in-form-link" href="#">
             Cadastre-se
-          </a>{" "}
+          </a>
         </span>
       </div>
     </div>
