@@ -68,7 +68,7 @@
   font-family: var(--ff-nunito);
   font-weight: var(--fw-medium);
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: var(--fw-regular);
 
   color: var(--font-clr-gray-text-modal);
 }
