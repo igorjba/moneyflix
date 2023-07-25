@@ -1,0 +1,18 @@
+.ModalEdit-Main {
+    position: absolute;
+
+    background-color: var(--bg-modal);
+    height: 75%;
+    width: 40%;
+    border-radius: 3rem;
+    padding: 4rem 5.6rem;
+}
+
+.header-ModalEdit {
+    justify-content: center;
+}
+
+.closedEdit {
+    position: absolute;
+    right: 5rem;
+}

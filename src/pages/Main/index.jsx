@@ -10,6 +10,7 @@ import ModalRegister from '../../components/ModalRegister';
 import ModalSet from '../../components/ModalSet';
 import PageClient from '../../components/PageClient';
 import PageHome from '../../components/PageHome';
+import ModalEdit from '../../components/ModalEdit';
 import './style.css';
 
 function Main() {
@@ -19,6 +20,8 @@ function Main() {
   const [imageNavClient, setimageNavClient] = useState(true)
   const [imageNavCharge, setimageNavCharge] = useState(true)
   const [title, setTitle] = useState('Resumo de Cobranças')
+  const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false)
+  const [openModalEdit, SetOpenModalEdit] = useState(false)
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll('div')
@@ -54,7 +57,7 @@ function Main() {
           <img src={imageNavClient ? client : clientePink} alt="Cliente" />
         </div>
         <div className='initial nav-icons' onClick={((event) => { onClickNavLeft(event), setimageNavClient(true), setimageNavHome(true), setimageNavCharge(false) })}>
-          <img src={imageNavCharge ? charge : chargePink} alt="Cliente" />
+          <img src={imageNavCharge ? charge : chargePink} alt="Cobranças" />
         </div>
       </nav >
       <div className='center'>
@@ -68,7 +71,7 @@ function Main() {
               <h1>LR</h1>
             </div>
             <div className="profile initial">
-              {modalExit && <ModalSet />}
+
               <h1>Lorena</h1>
               <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
@@ -83,11 +86,25 @@ function Main() {
           {!imageNavHome && <PageHome />}
         </div>
       </div>
+
+      {modalExit && <ModalSet
+        SetOpenModalEditPerfil={SetOpenModalEditPerfil}
+        openModalEditPerfil={openModalEditPerfil}
+        setModalExit={setModalExit}
+        modalExit={modalExit}
+      />}
+
       {openModalRegister &&
         <ModalRegister
           setOpenModalRegister={setOpenModalRegister}
           openModalRegister={openModalRegister}
         />}
+
+      {openModalEditPerfil && <ModalEdit
+        SetOpenModalEdit={setOpenModalRegister}
+        openModalEditPerfil={openModalEditPerfil}
+        SetOpenModalEditPerfil={SetOpenModalEditPerfil}
+      />}
 
     </div>
   );

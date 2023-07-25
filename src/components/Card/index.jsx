@@ -14,9 +14,11 @@ export default function Card({ iconCard }) {
       </div>
       <table className="table-main-card">
         <thead className="titlesTable">
-          <th>Clintes</th>
-          <th>ID da cob.</th>
-          <th>Valor</th>
+          <tr>
+            <th>Clintes</th>
+            <th>ID da cob.</th>
+            <th>Valor</th>
+          </tr>
         </thead>
         <tbody>
           <tr>

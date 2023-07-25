@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import clientSFont from '../../assets/Client(2).svg';
@@ -8,16 +8,14 @@ import lupa from '../../assets/lupa.svg';
 import sets from '../../assets/sets.svg';
 import './style.css';
 
-const situation = document.querySelectorAll('.situation');
+export default function PageClient({ setOpenModalRegister }) {
 
-export default function PageClient({ setOpenModalRegister, setTitle }) {
-    setTitle('Clientes')
     function backgroundSituation() {
+        const situation = document.querySelectorAll('.situation');
         situation.forEach(element => {
-            if (element.outerText === 'Inadimplente') {
+            if (element.textContent === 'Inadimplente') {
                 return element.classList.add('situationDefaulter')
             }
-
             return element.classList.add('situationOk')
         });
     }
@@ -85,6 +83,7 @@ export default function PageClient({ setOpenModalRegister, setTitle }) {
             <ToastContainer
                 position="bottom-right"
                 autoClose={3000}
+                closeButton={true}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
@@ -92,7 +91,7 @@ export default function PageClient({ setOpenModalRegister, setTitle }) {
                 pauseOnFocusLoss={false}
                 draggable={false}
                 pauseOnHover
-                theme="light"
+            /* icon={false} */
             />
         </>
     )
