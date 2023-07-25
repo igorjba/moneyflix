@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
 
 const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
+    const navigate = useNavigate();
+
+    function handleSignInRedirect() {
+        navigate('/login')
+    }
+
     const [localForm, setLocalForm] = useState({
         username: signUpForm.username,
         email: signUpForm.email,
@@ -58,7 +65,7 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
                 <button className='step-one-next-page-button' onClick={handleSubmitStepOne}>Continuar</button>
             </div>
             <div className='container-step-one-form-subtitle'>
-                <span className='step-one-form-subtitle'>Já tem uma conta? Faça seu <a href="#">Login</a> </span>
+                <span className='step-one-form-subtitle'>Já tem uma conta? Faça seu <a href="#" onClick={handleSignInRedirect}>Login</a> </span>
             </div>
         </div>
     )
