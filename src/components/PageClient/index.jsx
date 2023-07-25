@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import clientSFont from '../../assets/Client(2).svg';
@@ -7,6 +7,7 @@ import filter from '../../assets/filter.svg';
 import lupa from '../../assets/lupa.svg';
 import sets from '../../assets/sets.svg';
 import './style.css';
+
 const situation = document.querySelectorAll('.situation');
 
 export default function PageClient({ setOpenModalRegister, setTitle }) {

@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
 
-  background-color: #f8f8f9;
+  background-color: var(--font-clr-white);
 }
 
 .sign-up-steps {
@@ -16,7 +16,7 @@
   width: 100%;
   height: 100%;
 
-  background-color: #f0f0f5;
+  background-color: var(--bg-nav);
 }
 
 .sign-up-steps-item {
@@ -53,7 +53,7 @@
   font-weight: var(--fw-bold);
   font-size: 1.8rem;
 
-  color: #0e8750;
+  color: var(--font-clr-green);
 }
 
 .sign-up-bar {
@@ -61,16 +61,16 @@
   height: 3.3rem;
   margin: 0 3.9rem 0.4rem 1.4rem;
 
-  background-color: #0e8750;
+  background-color: var(--font-clr-green);
 }
 
 .sign-up-step-subtitle {
   font-family: var(--ff-nunito);
   font-weight: var(--fw-medium);
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: var(--fw-regular);
 
-  color: #3f3f55;
+  color: var(--font-clr-gray-text-modal);
 }
 
 .sign-up-last-step-subtitle {
@@ -118,7 +118,7 @@
   font-weight: var(--fw-bold);
   font-size: 2.4rem;
 
-  color: #343447;
+  color: var(--font-clr-gray-title);
 }
 
 .container-input {
@@ -145,7 +145,7 @@
   font-size: 1.4rem;
   line-height: 2rem;
 
-  color: #344054;
+  color: var(--font-clr-gray-text);
 }
 
 .input-forms {
@@ -154,10 +154,10 @@
   max-height: 4.4rem;
   height: 100%;
   padding: 1rem 1.4rem;
-  border: 0.1rem solid #d0d5dd;
+  border: 0.1rem solid var(--border-input);
   border-radius: 0.8rem;
 
-  background-color: #fff;
+  background-color: var(--bg-modal);
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }
 
@@ -166,11 +166,11 @@
   font-weight: var(--fw-regular);
   font-size: 1.6rem;
 
-  color: #667085;
+  color: var(--font-clr-gray-input);
 }
 
 .input-forms:focus {
-  outline-color: #da0175;
+  outline-color: var(--bg-pink)
 }
 
 .container-step-one-form-button {
@@ -203,11 +203,11 @@
   font-family: var(--ff-nunito);
   font-size: 1.8rem;
   font-weight: var(--fw-regular);
-  color: #f8f8f9;
+  color: var(--font-clr-white);
 
   cursor: pointer;
 
-  background-color: #da0175;
+  background-color: var(--bg-pink);
 }
 
 .step-one-next-page-button:active {
@@ -224,7 +224,7 @@
   font-size: 1.8rem;
   line-height: 2rem;
 
-  color: #344054;
+  color: var(--font-clr-gray-text);
 }
 
 .step-one-form-subtitle a {
@@ -233,7 +233,7 @@
   font-size: 1.8rem;
   line-height: 2rem;
 
-  color: #da0175;
+  color: var(--bg-pink);
 }
 
 .container-sign-up-indicator-forms {

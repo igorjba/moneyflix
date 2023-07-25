@@ -39,7 +39,6 @@ body {
   --font-clr-text-card: #6E6E85;
   --font-clr-text-error: #E70000;
   --font-clr-toast: #243F80;
-  --font: #3F3F55;
 
   --fw-regular: 400;
   --fw-medium: 600;
@@ -68,7 +67,7 @@ body {
 }
 
 input {
-  outline-color: #DA0175;
+  outline-color: var(--bg-pink);
 }
 
 .initial {
@@ -85,6 +84,7 @@ h2 {
   font-family: var(--ff-montserrat);
   font-style: normal;
 }
+
 h3 {
   font-family: var(--ff-inter);
   font-style: normal;
