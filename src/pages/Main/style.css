@@ -30,7 +30,6 @@
 
 .center {
   width: calc(100% - 10.80rem);
-  /* right: 0; */
   min-height: 100vh;
   padding: 0 3.2rem;
 }
@@ -92,8 +91,6 @@ header h2 {
 }
 
 .main {
-  /* position: absolute;
-  right: 0; */
   margin-top: 10rem;
   padding: 1.9rem calc(10.4rem - 3.2rem) 3.7rem calc(10.4rem - 3.2rem);
   width: calc(100vw - 10.8rem);
