@@ -8,6 +8,7 @@
     top: 7rem;
     right: 5rem;
     filter: drop-shadow(0px 4px 42px rgba(0, 0, 0, 0.20));
+    z-index: 2;
 }
 
 .set {
