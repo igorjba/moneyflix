@@ -153,9 +153,6 @@ export default function ModalRegister({ setOpenModalRegister }) {
                         </div>
                     </div>
 
-
-
-
                 </div>
                 <div className='formButton initial'>
                     <button onClick={() => setOpenModalRegister(false)}>Cancelar</button>

@@ -1,11 +1,11 @@
-import Card from "../Card/index";
-import CardResume from "../CardResume/index";
-import Paid from "../../assets/Paid.svg";
-import Pending from "../../assets/Pending.svg";
 import ClienteOK from "../../assets/ClienteOK.svg";
 import ClienteOverdue from "../../assets/ClienteOverdue.svg";
 import Expired from "../../assets/Expired.svg";
-import './style.css'
+import Paid from "../../assets/Paid.svg";
+import Pending from "../../assets/Pending.svg";
+import Card from "../Card/index";
+import CardResume from "../CardResume/index";
+import './style.css';
 
 export default function PageHome() {
 

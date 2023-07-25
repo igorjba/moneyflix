@@ -1,14 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import Main from "./pages/Main/index";
-import "./index.css";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import AppRoutes from './routes/routes';
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
-    {/* <Main /> */}
-    {/* <SignUp /> */}
-    <SignIn />
+    <AppRoutes />
   </React.StrictMode>
 );

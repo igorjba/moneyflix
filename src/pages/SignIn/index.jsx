@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./style.css";
 import SignInForm from "../../components/SignInForm";
+import "./style.css";
 
 export default function SignIn() {
   const [signInForm, setSignInForm] = useState({
