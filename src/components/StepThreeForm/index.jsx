@@ -1,8 +1,14 @@
+import imageSuccess from '../../assets/success.svg';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
-import imageSuccess from '../../assets/success.svg'
-
 
 export default function StepThreeForm() {
+    const navigate = useNavigate();
+
+    const handleButtonSuccess = () => {
+        navigate('/login');
+    };
+
     return (
         <>
             <div className='modal-home-success'>
@@ -15,6 +21,7 @@ export default function StepThreeForm() {
             <div className='container-step-three-form-button'>
                 <button
                     className='step-three-next-page-button'
+                    onClick={handleButtonSuccess}
                 >
                     Ir para Login
                 </button>

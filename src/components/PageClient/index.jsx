@@ -8,7 +8,6 @@ import lupa from '../../assets/lupa.svg';
 import sets from '../../assets/sets.svg';
 import './style.css';
 
-
 export default function PageClient({ setOpenModalRegister }) {
 
     function backgroundSituation() {
@@ -93,7 +92,6 @@ export default function PageClient({ setOpenModalRegister }) {
                 draggable={false}
                 pauseOnHover
             /* icon={false} */
-            /* theme="blue" */
             />
         </>
     )

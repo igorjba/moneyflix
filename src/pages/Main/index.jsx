@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import chargePink from '../../assets/Charge-Pìnk.svg';
+import chargePink from '../../assets/Charge-Pink.svg';
 import charge from '../../assets/Charge.svg';
 import clientePink from '../../assets/Client-Pink.svg';
 import client from '../../assets/Client.svg';
 import homePink from '../../assets/Home-Pink.svg';
 import home from '../../assets/Home.svg';
-import setbottom from '../../assets/chevron-down.svg';
+import setBottom from '../../assets/chevron-down.svg';
 import ModalRegister from '../../components/ModalRegister';
 import ModalSet from '../../components/ModalSet';
 import PageClient from '../../components/PageClient';
@@ -73,7 +73,7 @@ function Main() {
             <div className="profile initial">
 
               <h1>Lorena</h1>
-              <img src={setbottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
+              <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
           </div>
         </header>

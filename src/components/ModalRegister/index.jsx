@@ -97,7 +97,70 @@ export default function ModalRegister({ setOpenModalRegister }) {
     }
   }
 
-  function handleChangeForm(e) {
+// <<<<<<< feature/devChai
+//   function handleChangeForm(e) {
+// =======
+//     return (
+//         <div className='mainModalRegister'>
+//             <div className='headerModal initial'>
+//                 <div className='initial'>
+//                     <img src={clientSFont} alt="" />
+//                     <h2>Cadastro do Cliente</h2>
+//                 </div>
+//                 <img src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
+//             </div>
+//             <form onSubmit={handleSubmit}>
+//                 <div className='divs-inputs-form'>
+//                     <label htmlFor=""><h1>Nome*</h1></label>
+//                     <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite o nome' id='name' maxLength={200} onChange={(event) => handleChangeForm(event)} />
+//                     {errorName && <span className='error'>{errorName}</span>}
+//                     <label htmlFor=""><h1>E-mail*</h1></label>
+//                     <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" placeholder='Digite o e-mail' id='email' maxLength={200} onChange={(event) => handleChangeForm(event)} />
+//                     {errorEmail && <span className='error'>{errorEmail}</span>}
+//                     <div className='formInformation'>
+//                         <div>
+//                             <label htmlFor=""><h1>CPF*</h1></label>
+//                             <input className={`${errorCPF ? 'errorLine' : ''}`} type="number" placeholder='Digite o CPF' id='cpf' maxLength={11} onChange={(event) => handleChangeForm(event)} />
+//                             {errorCPF && <span className='error'>{errorCPF}</span>}
+//                         </div>
+//                         <div>
+//                             <label htmlFor=""><h1>Telefone*</h1></label>
+//                             <input className={`${errorPhone ? 'errorLine' : ''}`} type="number" placeholder='Digite o telefone' id='telefone' maxLength={11} onChange={(event) => handleChangeForm(event)} />
+//                             {errorPhone && <span className='error'>{errorPhone}</span>}
+//                         </div>
+//                     </div>
+//                     <label htmlFor=""><h1>Endereço</h1></label>
+//                     <input type="text" placeholder='Digite o endereço' value={verifyCep.logradouro} />
+//                     <label htmlFor=""><h1>Complemento</h1></label>
+//                     <input type="text" placeholder='Digite o complemento' />
+//                     <div className='formInformation'>
+//                         <div>
+//                             <label htmlFor=""><h1>CEP</h1></label>
+//                             <input type="text" placeholder='Digite o CEP' onBlur={(event) => searchCep(event)} />
+//                         </div>
+//                         <div>
+//                             <label htmlFor=""><h1>Bairro</h1></label>
+//                             <input type="text" placeholder='Digite o Bairro' value={verifyCep.bairro} defaultValue={verifyCep.bairro} />
+//                         </div>
+//                     </div>
+//                     <div className='formAndress'>
+//                         <div>
+//                             <label htmlFor=""><h1>Cidade</h1></label>
+//                             <input type="text" placeholder='Digite o Cidade' value={verifyCep.localidade} />
+//                         </div>
+//                         <div>
+//                             <label htmlFor=""><h1>UF</h1></label>
+//                             <input type="text" placeholder='Digite o UF' value={verifyCep.uf} />
+//                         </div>
+//                     </div>
+
+//                 </div>
+//                 <div className='formButton initial'>
+//                     <button onClick={() => setOpenModalRegister(false)}>Cancelar</button>
+//                     <button type='submit'>Aplicar</button>
+//                 </div>
+//             </form>
+// >>>>>>> hml
 
     console.log(e.target.value)
 
