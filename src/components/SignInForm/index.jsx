@@ -31,7 +31,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
       console.log(response);
       localStorage.setItem("token", `Bearer ${response.data.token}`);
-      localStorage.setItem("id", response.data.user2.id_usuario);
+      localStorage.setItem("id", response.data.userLogged.id_usuario);
 
       toast.error(response.data.message);
       navigate("/home");

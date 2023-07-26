@@ -107,6 +107,14 @@ function Main() {
               />
             </div>
           </div>
+          {modalExit && (
+            <ModalSet
+              SetOpenModalEditPerfil={SetOpenModalEditPerfil}
+              openModalEditPerfil={openModalEditPerfil}
+              setModalExit={setModalExit}
+              modalExit={modalExit}
+            />
+          )}
         </header>
         <div className="main">
           {!imageNavClient && (
@@ -119,15 +127,6 @@ function Main() {
           {!imageNavHome && <PageHome />}
         </div>
       </div>
-
-      {modalExit && (
-        <ModalSet
-          SetOpenModalEditPerfil={SetOpenModalEditPerfil}
-          openModalEditPerfil={openModalEditPerfil}
-          setModalExit={setModalExit}
-          modalExit={modalExit}
-        />
-      )}
 
       {openModalRegister && (
         <ModalRegister
