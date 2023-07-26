@@ -4,11 +4,14 @@ export default function Card({ iconCard }) {
   return (
     <div className="card">
       <div className="headerCard initial">
-        <div
-          className="iconCard"
-          style={{ backgroundImage: `url(${iconCard})` }}
-        ></div>
-        <h3 className="title-card">Cobranças Vencidas</h3>
+        <div className="initial">
+          <div
+            className="iconCard"
+            style={{ backgroundImage: `url(${iconCard})` }}
+          ></div>
+          <h3 className="title-card">Cobranças Vencidas</h3>
+        </div>
+
         <div className="numberClient initial">08</div>
       </div>
       <table className="table-main-card">

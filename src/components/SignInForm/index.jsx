@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import openEye from "../../assets/OpenEye.svg";
+import closedEye from "../../assets/ClosedEye.svg";
+import api from "../../api/api.jsx";
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
@@ -8,8 +11,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
   const navigate = useNavigate();
 
   const [localForm, setLocalForm] = useState({
-    username: signInForm.username,
     email: signInForm.email,
+    password: signInForm.password,
   });
 
   const handleChangeSignIn = (event) => {
@@ -19,24 +22,55 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
     });
   };
 
-  const handleSubmitSignIn = () => {
-    if (!localForm.username || !localForm.email) {
-      toast.error("Por favor preencha todos os campos");
+  async function login() {
+    try {
+      const response = await api.post("/login", {
+        email: localForm.email,
+        senha: localForm.password,
+      });
+
+      console.log(response);
+      localStorage.setItem("token", `Bearer ${response.data.token}`);
+      localStorage.setItem("id", response.data.user2.id_usuario);
+
+      toast.error(response.data.message);
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível realizar o Login!");
+    }
+  }
+
+  const handleSubmitSignIn = (event) => {
+    event.preventDefault();
+
+    if (!localForm.password || !localForm.email) {
+      return toast.error("Por favor preencha todos os campos");
     } else {
       setSignInForm({
         ...signInForm,
         ...localForm,
       });
     }
+
+    login();
   };
 
   function handleSignUpRedirect() {
-    navigate('/cadastro')
+    navigate("/cadastro");
   }
+
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      navigate("/home");
+    }
+  }, []);
 
   return (
     <div className="sign-in">
       <h1 className="tittle-form">Faça Seu Login</h1>
+
       <form className="sign-in-form">
         <div className="container-email-sign-in-form container-input">
           <span className="sign-in-form-email span-forms">E-mail</span>
@@ -59,27 +93,43 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
               </a>{" "}
             </span>
           </div>
+
           <input
-            className="sign-in-form-input input-forms input-password-confirm"
+            className="sign-in-form-input input-forms input-password"
             type={showPassword ? "text" : "password"}
-            name="confirmPassword"
-            value={localForm.confirmPassword}
+            name="password"
+            value={localForm.password}
             onChange={handleChangeSignIn}
             placeholder="Digite sua senha"
           />
+          <div
+            className="sign-in-form-toggle-password-visibility"
+            onClick={() =>
+              setShowPassword((prevShowPassword) => !prevShowPassword)
+            }
+            style={{
+              backgroundImage: `url(${showPassword ? openEye : closedEye})`,
+            }}
+          />
         </div>
       </form>
+
       <div className="container-sign-in-form-button">
         <button className="sign-in-button" onClick={handleSubmitSignIn}>
           Entrar
         </button>
       </div>
+
       <div className="container-sign-in-form-subtitle">
         <span className="sign-in-form-subtitle">
           Ainda não possui uma conta?{" "}
-          <a className="sign-in-form-link" href="#" onClick={handleSignUpRedirect}>
+          <a
+            className="sign-in-form-link"
+            href="#"
+            onClick={handleSignUpRedirect}
+          >
             Cadastre-se
-          </a>{" "}
+          </a>
         </span>
       </div>
     </div>
