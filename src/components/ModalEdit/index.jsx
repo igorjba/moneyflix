@@ -7,21 +7,19 @@ import { getItem } from '../../utils/storage';
 import toastError from '../../assets/toastError.svg'
 import './style.css';
 
-export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit }) {
-
-    const [userPerfil, setUserPerfil] = useState([]);
+export default function ModalEdit({ SetOpenModalEditPerfil, openModalEditPerfil, SetOpenModalEdit }) {
+    const [userData, setUserData] = useState([]);
     const token = getItem('token');
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
-    const [errorPasswordEdit, setPasswordEdit] = useState('');
+    const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
     const [form, setForm] = useState({
-        nome: 'teste',
+        name: 'teste',
         email: 'teste@email.com',
         cpf: '123456789',
-        telefone: '123456789',
-        senha: '',
-        senhaigual: ''
+        phone: '123456789',
+        password: '',
+        confirmPassword: ''
     });
-
 
     function onclickCloseModal() {
         SetOpenModalEditPerfil(!openModalEditPerfil)
@@ -35,7 +33,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                     Authorization: token
                 }
             });
-            setUserPerfil(response.data)
+            setUserData(response.data)
             console.log(response)
         } catch (error) {
             toast.error(error.response.data.message, {
@@ -46,13 +44,13 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         }
     }
 
-    function handleSubmitEdit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
-        setPasswordEdit('')
+        setErrorPasswordEdit('')
         setErrorEmailEdit('')
 
-        if (form.senha !== form.senhaigual) {
-            return setPasswordEdit('As senhas não coincidem')
+        if (form.password !== form.confirmPassword) {
+            return setErrorPasswordEdit('As senhas não coincidem')
         }
 
         toast.success(
@@ -75,35 +73,83 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
 
     return (
         <div className="ModalEdit-Main">
-            <div className='header-ModalEdit initial'>
+            <div className="header-ModalEdit initial">
                 <h2>Edite seu cadastro</h2>
-                <img className='closedEdit' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
+                <img className="closedEdit" src={closed} alt="Fechar" onClick={onclickCloseModal} />
             </div>
-            <div className='main-ModalEdit'>
-                <form onSubmit={handleSubmitEdit}>
-                    <label htmlFor=""><h1>Nome*</h1></label>
-                    <input type="text" placeholder='Digite seu nome' name='nome' defaultValue={form.nome} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-                    <label htmlFor=""><h1>E-mail*</h1></label>
-                    <input className={`${errorEmailEdit ? 'errorLine' : ''}`} type="text" placeholder='Digite seu e-mail' name='email' defaultValue={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-                    {errorEmailEdit && <span className='error'>{errorEmailEdit}</span>}
-                    <div className='information-ModalEdit'>
-                        <div>
-                            <label htmlFor=""><h1>CPF</h1></label>
-                            <input type="text" placeholder='Digite seu CPF' name='cpf' defaultValue={form.cpf} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-                        </div>
-                        <div>
-                            <label htmlFor=""><h1>Telefone</h1></label>
-                            <input type="text" placeholder='Digite seu telefone' name='telefone' defaultValue={form.telefone} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-                        </div>
+            <form className="edit-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="name">Nome*</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChangeForm}
+                        placeholder="Digite seu nome"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">E-mail*</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChangeForm}
+                        placeholder="Digite seu e-mail"
+                    />
+                </div>
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="cpf">CPF</label>
+                        <input
+                            type="text"
+                            id="cpf"
+                            name="cpf"
+                            value={form.cpf}
+                            onChange={handleChangeForm}
+                            placeholder="Digite seu CPF"
+                        />
                     </div>
-                    <label htmlFor=""><h1>Nova Senha</h1></label>
-                    <input type="password" name='senha' value={form.senha} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-                    <label htmlFor=""><h1>Confirmar a Senha*</h1></label>
-                    <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" name='senhaigual' value={form.senhaigual} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-                    {errorPasswordEdit && <span className='error'>{errorPasswordEdit}</span>}
-                    <button className='ModalEdit-Button' onClick={handleSubmitEdit}>Continuar</button>
-                </form>
-            </div>
+                    <div className="form-group">
+                        <label htmlFor="phone">Telefone</label>
+                        <input
+                            type="text"
+                            id="phone"
+                            name="phone"
+                            value={form.phone}
+                            onChange={handleChangeForm}
+                            placeholder="Digite seu Telefone"
+                        />
+                    </div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Nova Senha*</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={form.password}
+                        onChange={handleChangeForm}
+                        placeholder="********"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirmar Senha*</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={form.confirmPassword}
+                        onChange={handleChangeForm}
+                        placeholder="********"
+                    />
+                </div>
+                <div className="submit-div">
+                    <button className="submit-button">Aplicar</button>
+                </div>
+            </form>
         </div>
-    )
+    );
 }
