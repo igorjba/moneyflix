@@ -8,8 +8,8 @@ export default function CardResume({ IconCard, backgroundColor }) {
     >
       <img src={IconCard} alt="cobranças pagas" />
       <div className="initial">
-        <h3 className="fontStyleMontserrat">Cobraças Pagas</h3>
-        <h3 className="fontStyleMontserrat value">R$ 30.000</h3>
+        <h3 className="">Cobraças Pagas</h3>
+        <h3 className="value">R$ 30.000</h3>
       </div>
     </div>
   );

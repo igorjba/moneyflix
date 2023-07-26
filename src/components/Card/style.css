@@ -6,12 +6,12 @@
   gap: 8px;
   flex-grow: 1;
 
-  min-width: 360px;
-  max-width: 556px;
+  /* min-width: 360px;
+  max-width: 556px; */
 
   border-radius: 2.4rem;
   background: #fff;
-  filter: drop-shadow(0px 4px 4px rgba(172, 217, 197, 0.25));
+  /* filter: drop-shadow(0px 4px 4px rgba(172, 217, 197, 0.25)); */
 }
 
 .headerCard {

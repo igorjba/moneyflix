@@ -48,101 +48,65 @@ function Main() {
   });
 
   return (
-    <div className="initial mainBody">
-      <nav className="initial navegation">
-        <div
-          className="initial nav-icons atived"
-          onClick={(event) => {
-            onClickNavLeft(event),
-              setimageNavClient(true),
-              setimageNavHome(false),
-              setimageNavCharge(true);
-          }}
-        >
+    <div className='initial mainBody'>
+      <nav className='initial navegation' >
+        <div className='initial nav-icons atived' onClick={((event) => { onClickNavLeft(event), setimageNavClient(true), setimageNavHome(false), setimageNavCharge(true) })}>
           <img src={imageNavHome ? home : homePink} alt="Inicio" />
         </div>
-        <div
-          className="initial nav-icons"
-          onClick={(event) => {
-            onClickNavLeft(event),
-              setimageNavClient(false),
-              setimageNavHome(true),
-              setimageNavCharge(true);
-          }}
-        >
+        <div className='initial nav-icons' onClick={((event) => { onClickNavLeft(event), setimageNavClient(false), setimageNavHome(true), setimageNavCharge(true) })}>
           <img src={imageNavClient ? client : clientePink} alt="Cliente" />
         </div>
-        <div
-          className="initial nav-icons"
-          onClick={(event) => {
-            onClickNavLeft(event),
-              setimageNavClient(true),
-              setimageNavHome(true),
-              setimageNavCharge(false);
-          }}
-        >
+        <div className='initial nav-icons' onClick={((event) => { onClickNavLeft(event), setimageNavClient(true), setimageNavHome(true), setimageNavCharge(false) })}>
           <img src={imageNavCharge ? charge : chargePink} alt="Cobranças" />
         </div>
-      </nav>
-      <div className="center">
+      </nav >
+      <div className='center'>
+        {openModalRegister && <div className='backgroundModal'></div>}
+        {openModalEdit && <div className='backgroundModal'></div>}
         <header>
-          {openModalRegister && <div className="backgroundModal"></div>}
-          <h2
-            className={`initial ${
-              title == "Resumo de Cobranças" ? "" : "titleSecond"
-            }`}
-          >
+          <h2 className={`initial ${title == 'Resumo de Cobranças' ? '' : 'titleSecond'}`}>
             {title}
           </h2>
-          <div className="initial">
-            <div className="title">
+          <div className='initial'>
+            <div className='title'>
               <h1>LR</h1>
             </div>
             <div className="profile initial">
               <h1>Lorena</h1>
-              <img
-                src={setBottom}
-                alt="seta"
-                onClick={() => setModalExit(!modalExit)}
-              />
+              <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
           </div>
         </header>
-        <div className="main">
-          {!imageNavClient && (
-            <PageClient
-              setOpenModalRegister={setOpenModalRegister}
-              openModalRegister={openModalRegister}
-              setTitle={setTitle}
-            />
-          )}
+        <div className='main'>
+          {!imageNavClient && <PageClient
+            setOpenModalRegister={setOpenModalRegister}
+            openModalRegister={openModalRegister}
+            setTitle={setTitle}
+          />}
           {!imageNavHome && <PageHome />}
         </div>
       </div>
 
-      {modalExit && (
-        <ModalSet
-          SetOpenModalEditPerfil={SetOpenModalEditPerfil}
-          openModalEditPerfil={openModalEditPerfil}
-          setModalExit={setModalExit}
-          modalExit={modalExit}
-        />
-      )}
+      {modalExit && <ModalSet
+        SetOpenModalEditPerfil={SetOpenModalEditPerfil}
+        openModalEditPerfil={openModalEditPerfil}
+        setModalExit={setModalExit}
+        modalExit={modalExit}
+        SetOpenModalEdit={SetOpenModalEdit}
+      />}
 
-      {openModalRegister && (
+      {openModalRegister &&
         <ModalRegister
           setOpenModalRegister={setOpenModalRegister}
           openModalRegister={openModalRegister}
-        />
-      )}
+        />}
 
-      {openModalEditPerfil && (
-        <ModalEdit
-          SetOpenModalEdit={setOpenModalRegister}
-          openModalEditPerfil={openModalEditPerfil}
-          SetOpenModalEditPerfil={SetOpenModalEditPerfil}
-        />
-      )}
+      {openModalEditPerfil && <ModalEdit
+        openModalEditPerfil={openModalEditPerfil}
+        SetOpenModalEditPerfil={SetOpenModalEditPerfil}
+        SetOpenModalEdit={SetOpenModalEdit}
+      />}
+
     </div>
   );
 }

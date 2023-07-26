@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
+import toastError from '../../assets/toastError.svg'
 import "./style.css";
 
 const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
@@ -28,9 +29,16 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
 
   const handleSubmitStepOne = async () => {
     if (!localForm.password || !localForm.confirmPassword) {
-      toast.error("Por favor preencha todos os campos");
-    } else if (localForm.password !== localForm.confirmPassword) {
-      toast.error("As senhas não coincidem");
+      return toast.error("Por favor preencha todos os campos", {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
+    }
+    else if (localForm.password !== localForm.confirmPassword) {
+      return toast.error("As senhas não coincidem", {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
     } else {
       setSignUpForm({
         ...signUpForm,
@@ -49,12 +57,18 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
 
         if (!response.ok) {
           const errorData = await response.json();
-          toast.error(errorData.message);
+          toast.error(errorData.message, {
+            className: 'customToastify-error',
+            icon: ({ theme, type }) => <img src={toastError} alt="" />
+          });;
         } else {
           setCurrentStep(2);
         }
       } catch (error) {
-        toast.error("Erro ao tentar se inscrever");
+        toast.error("Erro ao tentar se inscrever", {
+          className: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={toastError} alt="" />
+        });;
       }
     }
   };

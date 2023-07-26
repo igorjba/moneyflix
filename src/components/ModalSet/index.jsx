@@ -5,11 +5,13 @@ import set from '../../assets/set.svg';
 import './style.css';
 
 
-export default function ModalSet({ SetOpenModalEditPerfil, openModalEditPerfil }) {
+export default function ModalSet({ SetOpenModalEditPerfil, setModalExit, SetOpenModalEdit }) {
     const navigate = useNavigate();
 
     function openModal() {
-        SetOpenModalEditPerfil(!openModalEditPerfil)
+        SetOpenModalEditPerfil(true)
+        setModalExit(false)
+        SetOpenModalEdit(true)
     }
 
     function onClickExit() {
