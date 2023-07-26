@@ -83,8 +83,11 @@
     font-family: var(--ff-inter);
     font-weight: var(--fw-regular);
     font-size: 1.6rem;
-
     color: var(--font-clr-gray-input)
+}
+
+.step-two-form-input::placeholder input::placeholder {
+    font-size: 50rem;
 }
 
 .step-two-form-toggle-confirm-password-visibility,

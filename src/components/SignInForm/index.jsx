@@ -110,7 +110,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
             name="password"
             value={localForm.password}
             onChange={handleChangeSignIn}
-            placeholder="Digite sua senha"
+            placeholder="●●●●●●●●"
           />
           <div
             className="sign-in-form-toggle-password-visibility"
