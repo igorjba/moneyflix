@@ -76,6 +76,14 @@ function Main() {
               <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
           </div>
+          {modalExit && (
+            <ModalSet
+              SetOpenModalEditPerfil={SetOpenModalEditPerfil}
+              openModalEditPerfil={openModalEditPerfil}
+              setModalExit={setModalExit}
+              modalExit={modalExit}
+            />
+          )}
         </header>
         <div className='main'>
           {!imageNavClient && <PageClient
@@ -86,7 +94,6 @@ function Main() {
           {!imageNavHome && <PageHome />}
         </div>
       </div>
-
       {modalExit && <ModalSet
         SetOpenModalEditPerfil={SetOpenModalEditPerfil}
         openModalEditPerfil={openModalEditPerfil}
@@ -95,8 +102,7 @@ function Main() {
         SetOpenModalEdit={SetOpenModalEdit}
       />}
 
-      {openModalRegister &&
-        <ModalRegister
+      {openModalRegister && <ModalRegister
           setOpenModalRegister={setOpenModalRegister}
           openModalRegister={openModalRegister}
         />}

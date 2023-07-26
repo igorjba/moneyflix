@@ -1,15 +1,29 @@
 import "./style.css";
 
-export default function Card({ iconCard }) {
+export default function Card({
+  iconCard,
+  titleCard,
+  totalClient,
+  chargeListing,
+  backgroundColorTotalClient,
+}) {
   return (
     <div className="card">
       <div className="headerCard initial">
+        <div className="initial">
+          <div
+            className="iconCard"
+            style={{ backgroundImage: `url(${iconCard})` }}
+          ></div>
+          <h3 className="title-card">{titleCard}</h3>
+        </div>
+
         <div
-          className="iconCard"
-          style={{ backgroundImage: `url(${iconCard})` }}
-        ></div>
-        <h3 className="title-card">Cobranças Vencidas</h3>
-        <div className="numberClient initial">08</div>
+          className="numberClient initial"
+          style={backgroundColorTotalClient}
+        >
+          {totalClient}
+        </div>
       </div>
       <table className="table-main-card">
         <thead className="titlesTable">
@@ -20,29 +34,22 @@ export default function Card({ iconCard }) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Sara Silva</td>
-            <td>223456787</td>
-            <td>R$ 1000,00</td>
-          </tr>
-          <tr>
-            <td>Sara Silva</td>
-            <td>223456787</td>
-            <td>R$ 1000,00</td>
-          </tr>
-          <tr>
-            <td>Sara Silva</td>
-            <td>223456787</td>
-            <td>R$ 1000,00</td>
-          </tr>
-          <tr>
-            <td>Sara Silva</td>
-            <td>223456787</td>
-            <td>R$ 1000,00</td>
-          </tr>
+          <tr></tr>
+          {chargeListing &&
+            chargeListing.map((client) => {
+              return (
+                <tr key={client.id_cobranca}>
+                  <td>{client.cliente}</td>
+                  <td>{client.id_cobranca}</td>
+                  <td>R$ {client.valor}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
-      <div className="footerTable initial">Ver todos</div>
+      <div className="footerTable initial">
+        <span>Ver todos</span>
+      </div>
     </div>
   );
 }

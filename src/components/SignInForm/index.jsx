@@ -32,6 +32,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       });
       setNamePerfil(response.data.userLogged.nome_usuario)
       /* console.log(response.data.userLogged.nome_usuario); */
+      console.log(response);
+
       localStorage.setItem("token", `Bearer ${response.data.token}`);
       localStorage.setItem("id", response.data.userLogged.id_usuario);
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SignInForm from "../../components/SignInForm";
 import "./style.css";
 
@@ -16,6 +18,7 @@ export default function SignIn() {
         </h2>
       </div>
       <div className="container-sign-in-form">
+        <ToastContainer autoClose={3000} />
         <SignInForm signInForm={signInForm} setSignInForm={setSignInForm} />
       </div>
     </div>
