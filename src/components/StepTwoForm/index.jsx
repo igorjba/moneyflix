@@ -76,7 +76,7 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               name="password"
               value={localForm.password}
               onChange={handleChangeStepTwo}
-              placeholder="········"
+              placeholder="●●●●●●●●"
             />
             <div
               className="step-two-form-toggle-password-visibility"
@@ -97,7 +97,7 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               name="confirmPassword"
               value={localForm.confirmPassword}
               onChange={handleChangeStepTwo}
-              placeholder="········"
+              placeholder="●●●●●●●●"
             />
             <div
               className="step-two-form-toggle-confirm-password-visibility"
