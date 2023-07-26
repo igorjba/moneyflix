@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <>
     <AppRoutes
     />
     <ToastContainer
@@ -24,5 +24,5 @@ root.render(
       delay={1000}
       limit={1}
     />
-  </React.StrictMode>
+  </>
 );

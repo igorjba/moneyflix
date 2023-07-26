@@ -92,6 +92,8 @@ export default function ModalRegister({ setOpenModalRegister }) {
     }
   }
 
+
+
   function handleChangeForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }

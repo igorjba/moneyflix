@@ -11,16 +11,17 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
 
     const [userPerfil, setUserPerfil] = useState([]);
     const token = getItem('token');
+    const id = getItem('id')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setPasswordEdit] = useState('');
     const [form, setForm] = useState({
-        nome: 'teste',
-        email: 'teste@email.com',
-        cpf: '123456789',
-        telefone: '123456789',
-        senha: '',
-        senhaigual: ''
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        senha: ''
     });
+    const [senhaigual, SetSenhaIgual] = useState('')
 
 
     function onclickCloseModal() {
@@ -29,14 +30,26 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
     }
 
     async function UserLogged() {
+        console.log('entrou aqui')
         try {
             const response = await api.get('usuario/listar', {
                 headers: {
-                    Authorization: token
+                    'authorization': token,
+                    'id': id
                 }
             });
+            setForm(
+                {
+                    nome: response.data.nome_usuario,
+                    email: response.data.email,
+                    telefone: response.data.telefone,
+                    cpf: response.data.cpf
+                }
+            )
+
+
             setUserPerfil(response.data)
-            console.log(response)
+            console.log(userPerfil)
         } catch (error) {
             toast.error(error.response.data.message, {
                 className: 'customToastify-error',
@@ -46,23 +59,42 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         }
     }
 
-    function handleSubmitEdit(event) {
+    async function handleSubmitEdit(event) {
         event.preventDefault();
         setPasswordEdit('')
         setErrorEmailEdit('')
+        console.log(form)
 
-        if (form.senha !== form.senhaigual) {
+        /* if (form.senha !== form.senhaigual) {
             return setPasswordEdit('As senhas não coincidem')
+        } */
+
+        try {
+            const response = await api.put('usuario/atualizar', {
+                headers: {
+                    authorization: token,
+                    'id': id
+                }
+            }, {
+                body: {
+                    form
+                }
+            });
+
+            toast.success(
+                'Cliente Cadastro com Sucesso!', {
+                className: 'customToastify-success',
+                icon: ({ theme, type }) => <img src={success} alt="" />
+            })
+
+        } catch (error) {
+            console.log(error)
         }
 
-        toast.success(
-            'Cliente Cadastro com Sucesso!', {
-            className: 'customToastify-success',
-            icon: ({ theme, type }) => <img src={success} alt="" />
-        })
+
         SetOpenModalEditPerfil(false)
         SetOpenModalEdit(false)
-        console.log(form)
+
     }
 
     useEffect(() => {
@@ -99,7 +131,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                     <label htmlFor=""><h1>Nova Senha</h1></label>
                     <input type="password" name='senha' value={form.senha} maxLength={200} onChange={(event) => handleChangeForm(event)} />
                     <label htmlFor=""><h1>Confirmar a Senha*</h1></label>
-                    <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" name='senhaigual' value={form.senhaigual} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                    <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" name='senhaigual' /* value={form.senhaigual} */ maxLength={200} onChange={(event) => SetSenhaIgual(event.target.value)} />
                     {errorPasswordEdit && <span className='error'>{errorPasswordEdit}</span>}
                     <button className='ModalEdit-Button' onClick={handleSubmitEdit}>Continuar</button>
                 </form>
