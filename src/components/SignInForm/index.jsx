@@ -4,12 +4,12 @@ import { toast } from "react-toastify";
 import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
 import api from "../../api/api.jsx";
-import toastError from '../../assets/toastError.svg';
+import toastError from "../../assets/toastError.svg";
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [namePerfil, setNamePerfil] = useState('')
+  const [namePerfil, setNamePerfil] = useState("");
   const navigate = useNavigate();
 
   const [localForm, setLocalForm] = useState({
@@ -25,13 +25,13 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
   };
 
   async function login() {
-    console.log('entro aqui')
+    console.log("entro aqui");
     try {
       const response = await api.post("/login", {
         email: localForm.email,
         senha: localForm.password,
       });
-      setNamePerfil(response.data.userLogged.nome_usuario)
+      setNamePerfil(response.data.userLogged.nome_usuario);
       /* console.log(response.data.userLogged.nome_usuario); */
       console.log(response);
 
@@ -41,10 +41,10 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       toast.error(response.data.message);
       navigate("/home");
     } catch (error) {
-      console.log(error.response.data.message)
+      console.log(error.response.data.message);
       toast.error(error.response.data.message, {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     }
   }
@@ -54,8 +54,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
     if (!localForm.password || !localForm.email) {
       return toast.error("Por favor preencha todos os campos", {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     } else {
       setSignInForm({
@@ -111,7 +111,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
             name="password"
             value={localForm.password}
             onChange={handleChangeSignIn}
-            placeholder="●●●●●●●●"
+            placeholder="Digite sua senha"
           />
           <div
             className="sign-in-form-toggle-password-visibility"
