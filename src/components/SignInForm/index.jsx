@@ -25,6 +25,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
   };
 
   async function login() {
+    console.log('entro aqui')
     try {
       const response = await api.post("/login", {
         email: localForm.email,

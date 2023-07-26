@@ -55,12 +55,12 @@ export default function PageHome() {
     }
   }
 
-  useEffect(() => {
-    showDataTotalChages();
-    showDataExpiredCharges();
-    showDataPaidCharges();
-    showDataPendingCharges();
-  }, []);
+  /*  useEffect(() => {
+     showDataTotalChages();
+     showDataExpiredCharges();
+     showDataPaidCharges();
+     showDataPendingCharges();
+   }, []); */
 
   return (
     <>
