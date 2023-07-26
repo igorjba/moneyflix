@@ -14,7 +14,7 @@ export default function PageClient({ setOpenModalRegister }) {
     const [countOrder, setCountOrder] = useState(0)
     async function ClientCadaster() {
         try {
-            const response = await api.get('client', {
+            const response = await api.get('cliente', {
             });
             setClientRegisters(response.data)
         } catch (error) {
@@ -92,12 +92,12 @@ export default function PageClient({ setOpenModalRegister }) {
                         <tr >
                             <th className='ClientOrder'>
                                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => orderName()}>
-                                    <g id="Frame" clip-path="url(#clip0_84440_3278)">
+                                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
                                         <g id="Group">
-                                            <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         </g>
                                     </g>
                                     <defs>

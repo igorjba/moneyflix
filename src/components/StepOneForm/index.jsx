@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import toastError from '../../assets/toastError.svg'
 import './style.css';
 
 const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
@@ -24,7 +25,10 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
 
     const handleSubmitStepOne = () => {
         if (!localForm.username || !localForm.email) {
-            toast.error('Por favor preencha todos os campos');
+            toast.error("Por favor preencha todos os campos", {
+                className: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            })
         } else {
             setSignUpForm({
                 ...signUpForm,

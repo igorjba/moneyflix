@@ -3,7 +3,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import clientSFont from '../../assets/Client(2).svg';
 import closed from '../../assets/close.svg';
-import success from '../../assets/Success-Toast.svg'
+import success from '../../assets/Success-Toast.svg';
+import toastError from '../../assets/toastError.svg'
 import './style.css';
 
 export default function ModalRegister({ setOpenModalRegister }) {
@@ -30,11 +31,6 @@ export default function ModalRegister({ setOpenModalRegister }) {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorCPF, setErrorCPF] = useState('');
   const [errorPhone, setErrorPhone] = useState('');
-
-  const customToastify = {
-    background: '#C3D4FE',
-    color: '#243F80',
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,15 +59,7 @@ export default function ModalRegister({ setOpenModalRegister }) {
     if (validate === 0) {
       toast.success(
         'Cliente Cadastro com Sucesso!', {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        delay: 1000,
-        style: customToastify,
+        className: 'customToastify-success',
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
       setOpenModalRegister(false)
@@ -97,7 +85,10 @@ export default function ModalRegister({ setOpenModalRegister }) {
         estado: response.data.uf
       })
     } catch (error) {
-      console.log(error)
+      toast.error("Erro ao tentar se inscrever", {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
     }
   }
 

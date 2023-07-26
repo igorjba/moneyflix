@@ -1,6 +1,6 @@
 .mainModalRegister {
     position: absolute;
-    width: 30vw;
+    width: 35vw;
     height: 80vh;
     background-color: var(--bg-modal);
     border-radius: 3rem;
@@ -111,40 +111,4 @@
 .errorLine {
     border: 1px solid var(--font-clr-text-error) !important;
     margin: 0 !important
-}
-
-.text-toast {
-    color: var(--font-clr-toast);
-
-    font-size: var(--fz-14);
-    font-weight: var(--fw-regular);
-    line-height: normal;
-}
-
-/* .customToastify {
-    background: var(--bg-toast-blue);
-    color: var(--font-clr-toast)
-} */
-
-/* .customToastify {
-    background-color: var(--bg-toast-blue);
-    color: var(--font-clr-toast);
-} */
-
-.Toastify__progress-bar--success {
-    background-color: var(--font-clr-toast);
-}
-
-.Toastify__close-button--light {
-    align-self: center;
-    opacity: 1;
-    color: var(--font-clr-toast);
-}
-
-.seuToast {
-    color: var(--font-clr-toast);
-}
-
-.Toastify__toast-icon {
-    fill: var(--font-clr-toast) !important;
 }

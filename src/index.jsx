@@ -4,6 +4,7 @@ import './index.css';
 import AppRoutes from './routes/routes';
 import { ToastContainer } from 'react-toastify';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -20,7 +21,8 @@ root.render(
       pauseOnFocusLoss={false}
       draggable={false}
       pauseOnHover
+      delay={1000}
+      limit={1}
     />
   </React.StrictMode>
-
 );
