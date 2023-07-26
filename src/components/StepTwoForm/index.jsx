@@ -1,23 +1,20 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import openEye from "../../assets/OpenEye.svg";
+import instance from "../../api/api.jsx";
 import closedEye from "../../assets/ClosedEye.svg";
+import openEye from "../../assets/OpenEye.svg";
 import "./style.css";
 
 const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errorPassword, setErrorPassword] = useState('');
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
   const [localForm, setLocalForm] = useState({
     password: "",
     confirmPassword: "",
   });
-  const navigate = useNavigate();
-
-  function handleSignInRedirect() {
-    navigate('/login')
-  }
-
 
   const handleChangeStepTwo = (event) => {
     setLocalForm({
@@ -26,35 +23,42 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
     });
   };
 
-  const handleSubmitStepOne = async () => {
-    if (!localForm.password || !localForm.confirmPassword) {
-      toast.error("Por favor preencha todos os campos");
+  const handleSubmitStepTwo = async () => {
+    setErrorPassword('');
+    setErrorConfirmPassword('');
+
+    if (!localForm.password) {
+      setErrorPassword('A senha é obrigatória');
+    }
+    if (!localForm.confirmPassword) {
+      setErrorConfirmPassword('A confirmação da senha é obrigatória');
     } else if (localForm.password !== localForm.confirmPassword) {
-      toast.error("As senhas não coincidem");
-    } else {
+      setErrorConfirmPassword('As senhas não coincidem');
+    }
+
+    if (localForm.password && localForm.confirmPassword && localForm.password === localForm.confirmPassword) {
       setSignUpForm({
         ...signUpForm,
         password: localForm.password,
       });
-      setCurrentStep(2);
+
+      const user = {
+        nome: signUpForm.username,
+        email: signUpForm.email,
+        senha: localForm.password
+      }
 
       try {
-        const response = await fetch("/api/signup", {
-          method: "POST",
-          body: JSON.stringify(signUpForm),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await instance.post("/usuario", user);
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          toast.error(errorData.message);
+        if (response.status !== 201) {
+          toast.error(response.data.message);
         } else {
+          toast.success('Cadastro realizado com sucesso');
           setCurrentStep(2);
         }
       } catch (error) {
-        toast.error("Erro ao tentar se inscrever");
+        toast.error('Erro ao tentar se inscrever');
       }
     }
   };
@@ -67,11 +71,12 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
           <span className="step-two-form-name span-forms">Senha*</span>
           <div className="container-input-password">
             <input
-              className="step-two-form-input input-forms step-two-input-password"
+              className={`step-two-form-input input-forms step-two-input-password ${errorPassword ? 'errorLine' : ''}`}
               type={showPassword ? "text" : "password"}
               name="password"
               value={localForm.password}
               onChange={handleChangeStepTwo}
+              placeholder="········"
             />
             <div
               className="step-two-form-toggle-password-visibility"
@@ -79,6 +84,7 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               style={{ backgroundImage: `url(${showPassword ? openEye : closedEye})` }}
             />
           </div>
+          {errorPassword && <span className='error'>{errorPassword}</span>}
         </div>
         <div className="container-email-step-two-form container-input">
           <span className="step-two-form-email span-forms">
@@ -86,11 +92,12 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
           </span>
           <div className="container-input-password-confirm">
             <input
-              className="step-two-form-input input-forms step-two-input-password-confirm"
+              className={`step-two-form-input input-forms step-two-input-password-confirm ${errorConfirmPassword ? 'errorLine' : ''}`}
               type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
               value={localForm.confirmPassword}
               onChange={handleChangeStepTwo}
+              placeholder="········"
             />
             <div
               className="step-two-form-toggle-confirm-password-visibility"
@@ -98,22 +105,23 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})` }}
             />
           </div>
+          {errorConfirmPassword && <span className='error'>{errorConfirmPassword}</span>}
         </div>
       </form >
       <div className="container-step-two-form-button">
         <button
           className="step-two-next-page-button"
-          onClick={handleSubmitStepOne}
+          onClick={handleSubmitStepTwo}
         >
           Finalizar cadastro
         </button>
       </div>
       <div className="container-step-two-form-subtitle">
         <span className="step-two-form-subtitle">
-          Já tem uma conta? Faça seu <a href="#" onClick={handleSignInRedirect}>Login</a>{" "}
+          Já tem uma conta? Faça seu <Link to="/login">Login</Link>
         </span>
       </div>
-    </div>
+    </div >
   );
 };
 
