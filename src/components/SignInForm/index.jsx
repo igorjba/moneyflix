@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
+import api from "../../api/api.jsx";
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
@@ -28,12 +29,14 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         senha: localForm.password,
       });
 
+      console.log(response);
       localStorage.setItem("token", `Bearer ${response.data.token}`);
-      localStorage.setItem("id", response.data.usuario.id);
+      localStorage.setItem("id", response.data.user2.id_usuario);
 
       toast.error(response.data.message);
       navigate("/home");
     } catch (error) {
+      console.log(error);
       toast.error("Não foi possível realizar o Login!");
     }
   }
@@ -57,13 +60,12 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
     navigate("/cadastro");
   }
 
-  // Descomentar quando tiver o token
-  //  const token = localStorage.getItem("token");
-  //  useEffect(() => {
-  //    if (token) {
-  //      navigate("/home");
-  //    }
-  //  }, []);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      navigate("/home");
+    }
+  }, []);
 
   return (
     <div className="sign-in">
