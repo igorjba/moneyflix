@@ -71,7 +71,6 @@ const SignUp = () => {
             </div>
 
             <div className='container-sign-up-forms'>
-                <ToastContainer autoClose={3000} />
                 {currentStep === 0 &&
                     <StepOneForm
                         setCurrentStep={setCurrentStep}

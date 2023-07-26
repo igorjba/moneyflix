@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
 import api from "../../api/api.jsx";
+import toastError from '../../assets/toastError.svg';
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [namePerfil, setNamePerfil] = useState('')
   const navigate = useNavigate();
 
   const [localForm, setLocalForm] = useState({
@@ -28,16 +30,21 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         email: localForm.email,
         senha: localForm.password,
       });
-
+      setNamePerfil(response.data.userLogged.nome_usuario)
+      /* console.log(response.data.userLogged.nome_usuario); */
       console.log(response);
+
       localStorage.setItem("token", `Bearer ${response.data.token}`);
       localStorage.setItem("id", response.data.userLogged.id_usuario);
 
       toast.error(response.data.message);
       navigate("/home");
     } catch (error) {
-      console.log(error);
-      toast.error("Não foi possível realizar o Login!");
+      console.log(error.response.data.message)
+      toast.error(error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
     }
   }
 
@@ -45,7 +52,10 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
     event.preventDefault();
 
     if (!localForm.password || !localForm.email) {
-      return toast.error("Por favor preencha todos os campos");
+      return toast.error("Por favor preencha todos os campos", {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
     } else {
       setSignInForm({
         ...signInForm,

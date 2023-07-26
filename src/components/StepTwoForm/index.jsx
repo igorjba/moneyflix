@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import instance from "../../api/api.jsx";
 import closedEye from "../../assets/ClosedEye.svg";
 import openEye from "../../assets/OpenEye.svg";
+import toastError from '../../assets/toastError.svg'
 import "./style.css";
 
 const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
@@ -28,7 +29,10 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
     setErrorConfirmPassword('');
 
     if (!localForm.password) {
-      setErrorPassword('A senha é obrigatória');
+      return toast.error("Por favor preencha todos os campos", {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
     }
     if (!localForm.confirmPassword) {
       setErrorConfirmPassword('A confirmação da senha é obrigatória');
@@ -52,13 +56,19 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
         const response = await instance.post("/usuario", user);
 
         if (response.status !== 201) {
-          toast.error(response.data.message);
+          toast.error(response.data.message, {
+            className: 'customToastify-error',
+            icon: ({ theme, type }) => <img src={toastError} alt="" />
+          });;
         } else {
           toast.success('Cadastro realizado com sucesso');
           setCurrentStep(2);
         }
       } catch (error) {
-        toast.error('Erro ao tentar se inscrever');
+        toast.error("Erro ao tentar se inscrever", {
+          className: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={toastError} alt="" />
+        });;
       }
     }
   };
