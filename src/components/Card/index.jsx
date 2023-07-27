@@ -4,7 +4,7 @@ export default function Card({
   iconCard,
   titleCard,
   totalClient,
-  chargeListing,
+  cardL,
   backgroundColorTotalClient,
 }) {
   return (
@@ -33,19 +33,33 @@ export default function Card({
             <th>Valor</th>
           </tr>
         </thead>
-        <tbody>
-          <tr></tr>
-          {chargeListing &&
-            chargeListing.map((client, index) => {
-              return (
-                <tr key={index}>
-                  <td>{client.cliente}</td>
-                  <td>{client.id_cobranca}</td>
-                  <td>R$ {client.valor}</td>
-                </tr>
-              );
-            })}
-        </tbody>
+// <<<<<<< feature/devChai
+        {<tbody>
+          {cardL.map((client) => {
+            return (
+              <tr key={client.id_cobranca}>
+                <td>{client.cliente}</td>
+                <td>{client.id_cobranca}</td>
+                <td>R$ {client.valor}</td>
+              </tr>
+            );
+          })}
+        </tbody>}
+// =======
+//         <tbody>
+//           <tr></tr>
+//           {chargeListing &&
+//             chargeListing.map((client, index) => {
+//               return (
+//                 <tr key={index}>
+//                   <td>{client.cliente}</td>
+//                   <td>{client.id_cobranca}</td>
+//                   <td>R$ {client.valor}</td>
+//                 </tr>
+//               );
+//             })}
+//         </tbody>
+// >>>>>>> hml
       </table>
       <div className="footerTable initial">
         <span>Ver todos</span>

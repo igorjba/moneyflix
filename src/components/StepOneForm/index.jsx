@@ -31,10 +31,10 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
             setErrorEmail('O Email é obrigatório');
         }
         if (!localForm.username && !localForm.email) {
-            toast.error("Por favor preencha todos os campos", {
-                className: 'customToastify-error',
+            return toast.error("Por favor preencha todos os campos", {
+                toastClassName: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
-            })
+            });
         } else {
 
             setSignUpForm({

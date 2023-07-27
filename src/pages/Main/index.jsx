@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+import api from '../../api/api';
 import chargePink from "../../assets/Charge-Pink.svg";
 import charge from "../../assets/Charge.svg";
 import clientePink from "../../assets/Client-Pink.svg";
@@ -6,11 +8,13 @@ import client from "../../assets/Client.svg";
 import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
+import toastError from '../../assets/toastError.svg';
+import ModalEdit from "../../components/ModalEdit";
 import ModalRegister from "../../components/ModalRegister";
 import ModalSet from "../../components/ModalSet";
 import PageClient from "../../components/PageClient";
 import PageHome from "../../components/PageHome";
-import ModalEdit from "../../components/ModalEdit";
+import { getItem } from '../../utils/storage';
 import "./style.css";
 
 function Main() {
@@ -22,6 +26,14 @@ function Main() {
   const [title, setTitle] = useState("Resumo de Cobranças");
   const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false);
   const [openModalEdit, SetOpenModalEdit] = useState(false);
+  const [formUser, setFormUser] = useState({
+    nome: '',
+    email: '',
+    cpf: '',
+    telefone: '',
+  });
+  const [resumeName, setResumeName] = useState('');
+  const token = getItem('token');
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -29,6 +41,36 @@ function Main() {
       element.classList.remove("atived");
     });
     event.currentTarget.classList.add("atived");
+  }
+
+  async function UserLogged() {
+    try {
+      const response = await api.get('usuario', {
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+      });
+      setFormUser(
+        {
+          nome: response.data.nome_usuario,
+          email: response.data.email,
+          cpf: response.data.cpf,
+          telefone: response.data.telefone,
+        }
+      )
+      setUserPerfil(response.data)
+      nickName()
+    } catch (error) {
+      console.log(error)
+      toast.error(/* error.response.data.message */'error', {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      })
+    }
+  }
+
+  function nickName() {
+    setResumeName(formUser.name[0])
   }
 
   function titleAtived() {
@@ -45,6 +87,7 @@ function Main() {
 
   useEffect(() => {
     titleAtived();
+    UserLogged();
   });
 
   return (
@@ -69,10 +112,10 @@ function Main() {
           </h2>
           <div className='initial'>
             <div className='title'>
-              <h1>LR</h1>
+              <h1>{resumeName}</h1>
             </div>
             <div className="profile initial">
-              <h1>Lorena</h1>
+              <h1>{formUser.name}</h1>
               <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
           </div>
@@ -103,14 +146,15 @@ function Main() {
       />}
 
       {openModalRegister && <ModalRegister
-          setOpenModalRegister={setOpenModalRegister}
-          openModalRegister={openModalRegister}
-        />}
+        setOpenModalRegister={setOpenModalRegister}
+        openModalRegister={openModalRegister}
+      />}
 
       {openModalEditPerfil && <ModalEdit
         openModalEditPerfil={openModalEditPerfil}
         SetOpenModalEditPerfil={SetOpenModalEditPerfil}
         SetOpenModalEdit={SetOpenModalEdit}
+        formUser={formUser}
       />}
 
     </div>

@@ -6,15 +6,20 @@ import filter from '../../assets/filter.svg';
 import lupa from '../../assets/lupa.svg';
 import api from '../../api/api.jsx'
 import './style.css';
+import { getItem } from '../../utils/storage';
 
 export default function PageClient({ setOpenModalRegister }) {
     const [clientRegisters, setClientRegisters] = useState([])
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [countOrder, setCountOrder] = useState(0)
+    const token = getItem('token')
     async function ClientCadaster() {
         try {
             const response = await api.get('cliente', {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
             });
             setClientRegisters(response.data)
         } catch (error) {
