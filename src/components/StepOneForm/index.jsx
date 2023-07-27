@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useNavigate, Link } from 'react-router-dom';
-import toastError from '../../assets/toastError.svg'
+import toastError from '../../assets/toastError.svg';
 import './style.css';
 
 const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
