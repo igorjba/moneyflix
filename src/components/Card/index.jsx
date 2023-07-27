@@ -33,6 +33,7 @@ export default function Card({
             <th>Valor</th>
           </tr>
         </thead>
+// <<<<<<< feature/devChai
         {<tbody>
           {cardL.map((client) => {
             return (
@@ -44,6 +45,21 @@ export default function Card({
             );
           })}
         </tbody>}
+// =======
+//         <tbody>
+//           <tr></tr>
+//           {chargeListing &&
+//             chargeListing.map((client, index) => {
+//               return (
+//                 <tr key={index}>
+//                   <td>{client.cliente}</td>
+//                   <td>{client.id_cobranca}</td>
+//                   <td>R$ {client.valor}</td>
+//                 </tr>
+//               );
+//             })}
+//         </tbody>
+// >>>>>>> hml
       </table>
       <div className="footerTable initial">
         <span>Ver todos</span>
