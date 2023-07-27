@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
@@ -9,7 +9,7 @@ import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [namePerfil, setNamePerfil] = useState("");
+  // const [namePerfil, setNamePerfil] = useState("");
   const navigate = useNavigate();
 
   const [localForm, setLocalForm] = useState({
@@ -25,24 +25,25 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
   };
 
   async function login() {
-    console.log("entro aqui");
     try {
       const response = await api.post("/login", {
         email: localForm.email,
         senha: localForm.password,
       });
-      setNamePerfil(response.data.userLogged.nome_usuario);
-      /* console.log(response.data.userLogged.nome_usuario); */
-      console.log(response);
 
-      localStorage.setItem("token", `Bearer ${response.data.token}`);
-      localStorage.setItem("id", response.data.userLogged.id_usuario);
+      if (response && response.data.user) {
+        localStorage.setItem("token", `Bearer ${response.data.token}`);
+        localStorage.setItem("id", response.data.user.id_usuario);
 
-      toast.error(response.data.message);
-      navigate("/home");
+        toast.success('Login bem sucedido'); // Alterado para exibir mensagem de sucesso.
+        navigate("/home");
+      } else {
+        console.log('Response or user is undefined');
+        console.log(response);
+      }
     } catch (error) {
-      console.log(error.response.data.message);
-      toast.error(error.response.data.message, {
+      console.log(error);
+      toast.error(error.message, {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
@@ -99,9 +100,9 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           <div className="sign-in-form-spans-password">
             <span className="sign-in-form-password span-forms">Senha</span>
             <span className="sign-in-form-subtitle">
-              <a className="sign-in-form-link" href="#">
+              <Link className="sign-in-form-link" to="/esqueci-senha">
                 Esqueceu a senha?
-              </a>{" "}
+              </Link>
             </span>
           </div>
 
@@ -134,13 +135,9 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       <div className="container-sign-in-form-subtitle">
         <span className="sign-in-form-subtitle">
           Ainda não possui uma conta?{" "}
-          <a
-            className="sign-in-form-link"
-            href="#"
-            onClick={handleSignUpRedirect}
-          >
+          <Link className="sign-in-form-link" to="/cadastro">
             Cadastre-se
-          </a>
+          </Link>
         </span>
       </div>
     </div>
