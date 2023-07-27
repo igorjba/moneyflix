@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import api from '../../api/api';
 import clientSFont from '../../assets/Client(2).svg';
-import closed from '../../assets/close.svg';
 import success from '../../assets/Success-Toast.svg';
-import toastError from '../../assets/toastError.svg'
+import closed from '../../assets/close.svg';
+import toastError from '../../assets/toastError.svg';
+import { getItem } from '../../utils/storage';
 import './style.css';
 
 export default function ModalRegister({ setOpenModalRegister }) {
-
   const [form, setForm] = useState({
     nome: '',
     email: '',
     cpf: '',
     telefone: '',
   });
-
+  const token = getItem('token');
   const [formAdress, setFormAdress] = useState({
     logradouro: '',
     complemento: '',
@@ -24,17 +25,13 @@ export default function ModalRegister({ setOpenModalRegister }) {
     cidade: '',
     estado: ''
   })
-
   let validate = 0
-
   const [errorName, setErrorName] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [errorCPF, setErrorCPF] = useState('');
   const [errorPhone, setErrorPhone] = useState('');
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     setErrorName('')
     setErrorEmail('')
     setErrorCPF('')
@@ -55,49 +52,58 @@ export default function ModalRegister({ setOpenModalRegister }) {
       setErrorPhone('O Telefone é obrigatório');
       validate = +1
     }
-
     if (validate === 0) {
+      sendInformation()
+      setOpenModalRegister(false)
+    }
+  }
+
+  async function sendInformation() {
+    console.log('entro enviar para api')
+    let enviarParaAPI = { ...form, ...formAdress }
+    try {
+      const response = await api.post("cliente", {
+        enviarParaAPI
+        //...form
+      }, {
+        headers: {
+          authorization: token,
+        }
+      });
       toast.success(
         'Cliente Cadastro com Sucesso!', {
         className: 'customToastify-success',
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
-      setOpenModalRegister(false)
-      sendInformation()
-
+    } catch (error) {
+      console.log(error)
+      /* toast.error(
+        error.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={error} alt="" />
+      }); */
     }
   }
-
-  function sendInformation() {
-    console.log(Object.assign(form, formAdress)) //enviar isso para api
-
-    let enviarParaAPI = { ...form, ...formAdress } //da na mesma
-  }
-
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${event.target.value}/json/`)
       setFormAdress({
         logradouro: response.data.logradouro,
-        cep: response.data.cep,
         bairro: response.data.bairro,
+        cep: event.target.value,
         cidade: response.data.localidade,
         estado: response.data.uf
       })
     } catch (error) {
-      toast.error("Erro ao tentar se inscrever", {
+      toast.error("CEP não encontrado", {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
       });
     }
   }
-
-
-
   function handleChangeForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
-
   function handleChangeFormAdress(event) {
     setFormAdress({ ...formAdress, [event.target.name]: event.target.value })
   }
@@ -138,7 +144,7 @@ export default function ModalRegister({ setOpenModalRegister }) {
           <div className='formInformation'>
             <div>
               <label htmlFor=""><h1>CEP</h1></label>
-              <input type="text" placeholder='Digite o CEP' name='cep' value={formAdress.cep} onChange={(event) => handleChangeFormAdress(event)} onBlur={(event) => searchCep(event)} />
+              <input type="text" placeholder='Digite o CEP' name='cep' /* value={formAdress.cep} onChange={(event) => handleChangeFormAdress(event)} */ onBlur={(event) => searchCep(event)} />
             </div>
             <div>
               <label htmlFor=""><h1>Bairro</h1></label>
@@ -161,7 +167,6 @@ export default function ModalRegister({ setOpenModalRegister }) {
           <button type='submit'>Aplicar</button>
         </div>
       </form>
-
     </div>
   )
 }

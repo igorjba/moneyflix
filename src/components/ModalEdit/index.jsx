@@ -1,57 +1,33 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../api/api';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import { getItem } from '../../utils/storage';
 import toastError from '../../assets/toastError.svg'
+/* import $ from 'jquery'; */
+/* import 'jquery-mask-plugin/dist/jquery.mask.min'; */
 import './style.css';
 
-export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit }) {
-
+export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
     const [userPerfil, setUserPerfil] = useState([]);
     const token = getItem('token');
-    const id = getItem('id')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setPasswordEdit] = useState('');
     const [form, setForm] = useState({
-        nome: '',
-        email: '',
-        cpf: '',
-        telefone: '',
-        senha: ''
+        nome: formUser.nome,
+        email: formUser.email,
+        cpf: formUser.cpf,
+        telefone: formUser.telefone,
+        senha: '',
+        confirmeSenha: ''
     });
-    const [senhaigual, SetSenhaIgual] = useState('')
 
+    /* $('.cpf').mask('000.000.000-00', { reverse: true }) */
 
     function onclickCloseModal() {
         SetOpenModalEditPerfil(!openModalEditPerfil)
         SetOpenModalEdit(false)
-    }
-
-    async function UserLogged() {
-        try {
-            const response = await api.get('usuario', {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                }
-            });
-            setForm(
-                {
-                    nome: response.data.nome_usuario,
-                    email: response.data.email,
-                    telefone: response.data.telefone,
-                    cpf: response.data.cpf
-                }
-            )
-            setUserPerfil(response.data)
-        } catch (error) {
-            toast.error(error.response.data.message, {
-                className: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            })
-            console.log(error)
-        }
     }
 
     async function handleSubmitEdit(event) {
@@ -59,42 +35,32 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         setPasswordEdit('')
         setErrorEmailEdit('')
         console.log(form)
-
-        /* if (form.senha !== form.senhaigual) {
+        if (form.senha !== form.confirmeSenha) {
             return setPasswordEdit('As senhas não coincidem')
-        } */
-
+        }
         try {
             const response = await api.put('usuario/atualizar', {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    id
-                }
-            }, {
                 ...form
+            }, {
+                headers: {
+                    authorization: token,
+                }
             });
-
-            console.log(response)
-
             toast.success(
-                'Cliente Cadastro com Sucesso!', {
+                'Cliente Atualizado com Sucesso!', {
                 className: 'customToastify-success',
                 icon: ({ theme, type }) => <img src={success} alt="" />
             })
-
+            SetOpenModalEditPerfil(false)
+            SetOpenModalEdit(false)
         } catch (error) {
-            console.log(error)
+            toast.error(error/* .response.data.error */, {
+                className: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            })
         }
-
-
-        SetOpenModalEditPerfil(false)
-        SetOpenModalEdit(false)
-
     }
 
-    useEffect(() => {
-        UserLogged()
-    }, [])
 
     function handleChangeForm(e) {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -109,24 +75,24 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             <div className='main-ModalEdit'>
                 <form onSubmit={handleSubmitEdit}>
                     <label htmlFor=""><h1>Nome*</h1></label>
-                    <input type="text" placeholder='Digite seu nome' name='nome' defaultValue={form.nome} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                    <input type="text" placeholder='Digite seu nome' name='nome' value={form.nome} defaultValue={form.nome} maxLength={200} onChange={(event) => handleChangeForm(event)} />
                     <label htmlFor=""><h1>E-mail*</h1></label>
-                    <input className={`${errorEmailEdit ? 'errorLine' : ''}`} type="text" placeholder='Digite seu e-mail' name='email' defaultValue={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                    <input className={`${errorEmailEdit ? 'errorLine' : ''}`} type="text" placeholder='Digite seu e-mail' name='email' value={form.email} defaultValue={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
                     {errorEmailEdit && <span className='error'>{errorEmailEdit}</span>}
                     <div className='information-ModalEdit'>
                         <div>
                             <label htmlFor=""><h1>CPF</h1></label>
-                            <input type="text" placeholder='Digite seu CPF' name='cpf' defaultValue={form.cpf} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                            <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={form.cpf} maxLength={200} onChange={(event) => handleChangeForm(event)} />
                         </div>
                         <div>
                             <label htmlFor=""><h1>Telefone</h1></label>
-                            <input type="text" placeholder='Digite seu telefone' name='telefone' defaultValue={form.telefone} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                            <input type="text" placeholder='Digite seu telefone' name='telefone' value={form.telefone} maxLength={200} onChange={(event) => handleChangeForm(event)} />
                         </div>
                     </div>
                     <label htmlFor=""><h1>Nova Senha</h1></label>
                     <input type="password" name='senha' value={form.senha} maxLength={200} onChange={(event) => handleChangeForm(event)} />
                     <label htmlFor=""><h1>Confirmar a Senha*</h1></label>
-                    <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" name='senhaigual' /* value={form.senhaigual} */ maxLength={200} onChange={(event) => SetSenhaIgual(event.target.value)} />
+                    <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" name='confirmeSenha' value={form.confirmeSenha} maxLength={200} onChange={(event) => handleChangeForm(event)} />
                     {errorPasswordEdit && <span className='error'>{errorPasswordEdit}</span>}
                     <button className='ModalEdit-Button' onClick={handleSubmitEdit}>Continuar</button>
                 </form>

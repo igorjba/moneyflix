@@ -31,7 +31,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         senha: localForm.password,
       });
       if (response && response.data.user) {
-        localStorage.setItem("token", `Bearer ${response.data.token}`);
+        localStorage.setItem("token", `${response.data.token}`);
         localStorage.setItem("id", response.data.user.id_usuario);
 
         toast.success('Login bem sucedido'); // Alterado para exibir mensagem de sucesso.
