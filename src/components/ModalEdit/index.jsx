@@ -30,12 +30,10 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
     }
 
     async function UserLogged() {
-        console.log('entrou aqui')
         try {
-            const response = await api.get('usuario/listar', {
+            const response = await api.get('usuario', {
                 headers: {
-                    'authorization': token,
-                    'id': id
+                    authorization: `Bearer ${token}`,
                 }
             });
             setForm(
@@ -46,10 +44,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                     cpf: response.data.cpf
                 }
             )
-
-
             setUserPerfil(response.data)
-            console.log(userPerfil)
         } catch (error) {
             toast.error(error.response.data.message, {
                 className: 'customToastify-error',
@@ -72,14 +67,14 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         try {
             const response = await api.put('usuario/atualizar', {
                 headers: {
-                    authorization: token,
-                    'id': id
+                    authorization: `Bearer ${token}`,
+                    id
                 }
             }, {
-                body: {
-                    form
-                }
+                ...form
             });
+
+            console.log(response)
 
             toast.success(
                 'Cliente Cadastro com Sucesso!', {

@@ -31,18 +31,20 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         email: localForm.email,
         senha: localForm.password,
       });
-      setNamePerfil(response.data.userLogged.nome_usuario)
+      setNamePerfil(response.data)
       /* console.log(response.data.userLogged.nome_usuario); */
       console.log(response);
+      console.log('entro aqui login')
 
-      localStorage.setItem("token", `Bearer ${response.data.token}`);
-      localStorage.setItem("id", response.data.userLogged.id_usuario);
 
-      toast.error(response.data.message);
+      localStorage.setItem("token", `${response.data.token}`);
+      localStorage.setItem("id", response.data.user.id_usuario);
+
+      /* toast.error(response.data.message); */
       navigate("/home");
     } catch (error) {
-      console.log(error.response.data.message)
-      toast.error(error.response.data.message, {
+      console.log(error)
+      toast.error(error, {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
       });
