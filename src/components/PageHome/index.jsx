@@ -8,59 +8,121 @@ import CardResume from "../CardResume/index";
 import "./style.css";
 import api from "../../api/api.jsx";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { getItem } from "../../utils/storage";
 
 export default function PageHome() {
-  const [totalChargesData, setTotalChargesData] = useState({});
+  const [totalChargesData, setTotalChargesData] = useState({
+    Pagas: "-",
+    Vencidas: "-",
+    Pendentes: "-",
+  });
   const [expiredChargesData, setExpiredChargesData] = useState({});
   const [paidChargesData, setPaidChargesData] = useState({});
   const [pendingChargesData, setPendingChargesData] = useState({});
+  const [overdueClientData, setOverdueClientData] = useState({});
+  const [inDayClientData, setInDayClientData] = useState({});
+
+  const token = getItem("token").split(" ")[1];
 
   async function showDataTotalChages() {
     try {
-      const response = await api.get("/cobranca/total", {});
+      const response = await api.get("cobranca/total", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
 
-      setTotalChargesData(response.data);
+      const valueInReal = {
+        Pagas: response.data.Pagas / 100,
+        Vencidas: response.data.Vencidas / 100,
+        Pendentes: response.data.Pendentes / 100,
+      };
+
+      setTotalChargesData(valueInReal);
     } catch (error) {
-      toast.error("Falha ao carregar valores");
+      toast.error("Falha ao carregar Valores Totais");
     }
   }
 
   async function showDataExpiredCharges() {
     try {
-      const response = await api.get("/cobranca/vencidas", {});
+      const response = await api.get("cobranca/vencidas", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       setExpiredChargesData(response.data);
     } catch (error) {
-      toast.error("Falha ao carregar valores");
+      toast.error("Falha ao carregar Cobranças Vencidas");
     }
   }
 
   async function showDataPaidCharges() {
     try {
-      const response = await api.get("/cobranca/pagas", {});
+      const response = await api.get("cobranca/pagas", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       setPaidChargesData(response.data);
     } catch (error) {
-      toast.error("Falha ao carregar valores");
+      toast.error("Falha ao carregar Cobranças Pagas");
     }
   }
 
   async function showDataPendingCharges() {
     try {
-      const response = await api.get("/cobranca/pendentes", {});
+      const response = await api.get("cobranca/pendentes", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       setPendingChargesData(response.data);
     } catch (error) {
-      toast.error("Falha ao carregar valores");
+      toast.error("Falha ao carregar Cobranças Pendentes");
     }
   }
 
-  /*  useEffect(() => {
-     showDataTotalChages();
-     showDataExpiredCharges();
-     showDataPaidCharges();
-     showDataPendingCharges();
-   }, []); */
+  async function showDataOverdueClient() {
+    try {
+      const response = await api.get("cobranca/inadimplentes", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      setOverdueClientData(response.data);
+    } catch (error) {
+      toast.error("Falha ao carregar Clientes Inadimplentes");
+    }
+  }
+
+  async function showDataInDayClient() {
+    try {
+      const response = await api.get("cobranca/emdia", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      setInDayClientData(response.data);
+    } catch (error) {
+      toast.error("Falha ao carregar Clientes em Dia");
+    }
+  }
+
+  useEffect(() => {
+    showDataTotalChages();
+    showDataExpiredCharges();
+    showDataPaidCharges();
+    showDataPendingCharges();
+    showDataOverdueClient();
+    showDataInDayClient();
+  }, []);
 
   return (
     <>
@@ -69,19 +131,34 @@ export default function PageHome() {
           IconCard={Paid}
           BackgroundColor="#eef6f6"
           TitleCard="Cobranças Pagas"
-          ValueCard={totalChargesData.Pagas}
+          ValueCard={totalChargesData.Pagas?.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          })}
         />
         <CardResume
           IconCard={Expired}
           BackgroundColor="#ffefef"
           TitleCard="Cobranças Vencidas"
-          ValueCard={totalChargesData.Pendentes}
+          ValueCard={totalChargesData.Vencidas?.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          })}
         />
         <CardResume
           IconCard={Pending}
           BackgroundColor="#fcf6dc"
           TitleCard="Cobranças Previstas"
-          ValueCard={totalChargesData.Vencidas}
+          ValueCard={totalChargesData.Pendentes?.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          })}
         />
       </div>
 
@@ -101,7 +178,7 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-yellow)",
             color: "var(--font-clr-yellow-number)",
           }}
-          totalClient={expiredChargesData.total}
+          totalClient={pendingChargesData.total}
           chargeListing={pendingChargesData.chargePending}
         />
         <Card
@@ -110,7 +187,7 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-          totalClient={expiredChargesData.total}
+          totalClient={paidChargesData.total}
           chargeListing={paidChargesData.chargePaid}
         />
 
@@ -120,8 +197,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-red)",
             color: "var(--font-clr-red-number)",
           }}
-          totalClient={expiredChargesData.total}
-          chargeListing=""
+          totalClient={overdueClientData.total}
+          chargeListing={overdueClientData.clientDefaulters}
           iconCard={ClienteOverdue}
         />
         <Card
@@ -130,8 +207,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-          totalClient={expiredChargesData.total}
-          chargeListing=""
+          totalClient={inDayClientData.total}
+          chargeListing={inDayClientData.clientInDay}
           iconCard={ClienteOK}
         />
       </div>

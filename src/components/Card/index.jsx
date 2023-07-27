@@ -36,9 +36,9 @@ export default function Card({
         <tbody>
           <tr></tr>
           {chargeListing &&
-            chargeListing.map((client) => {
+            chargeListing.map((client, index) => {
               return (
-                <tr key={client.id_cobranca}>
+                <tr key={index}>
                   <td>{client.cliente}</td>
                   <td>{client.id_cobranca}</td>
                   <td>R$ {client.valor}</td>
