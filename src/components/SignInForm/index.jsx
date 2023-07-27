@@ -30,7 +30,6 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         email: localForm.email,
         senha: localForm.password,
       });
-
       if (response && response.data.user) {
         localStorage.setItem("token", `Bearer ${response.data.token}`);
         localStorage.setItem("id", response.data.user.id_usuario);
