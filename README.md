@@ -16,8 +16,7 @@ No fork de vocês, favor alterar este README para adicionar os links corresponde
 
 **Repositório de Frontend**: https://github.com/igorjba/front-integral-m05-t10
 
-**URL da aplicação funcionando**: https://marvelous-buttercream-3ee9a9.netlify.app/,
-https://404notfound.cyclic.app/,
+**URL da aplicação funcionando**: https://front-integral-m05-t10-fawn.vercel.app/,
 
 ---
 
