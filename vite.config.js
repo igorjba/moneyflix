@@ -6,3 +6,5 @@ export default defineConfig({
   plugins: [react()],
   base: "/front-integral-m05-t10/"
 })
+
+
