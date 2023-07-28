@@ -3,8 +3,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import api from '../../api/api.jsx';
 import clientSFont from '../../assets/Client(2).svg';
 import defaulter from '../../assets/defaulter.svg';
-import filter from '../../assets/filter.svg';
-import lupa from '../../assets/lupa.svg';
+import filter from '../../assets/Filter.svg';
+import lupa from '../../assets/Lupa.svg';
 import { getItem } from '../../utils/storage';
 import './style.css';
 
