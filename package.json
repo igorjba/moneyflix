@@ -3,14 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "vite ./src/index.jsx",
+  "main": "vite ./src/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
 
     "preview": "vite preview",
-    "start": "vite /src/index.jsx ",
+    "start": "vite ./src/index.jsx",
     "pre-deploy": "npm run build"
   },
   "dependencies": {
