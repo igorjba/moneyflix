@@ -1,20 +1,18 @@
 .modalExit {
     position: absolute;
-    background-color: var(--background-modal);
-
-    justify-content: space-evenly !important;
+    background-color: var(--bg-modal);
+    justify-content: space-evenly;
     border-radius: 0.8rem;
-
     width: 9.2rem;
     height: 5.9rem;
-
     top: 7rem;
-    right: 10.5rem;
+    right: 5rem;
+    filter: drop-shadow(0px 4px 42px rgba(0, 0, 0, 0.20));
+    z-index: 2;
 }
 
 .set {
     position: absolute;
-
     top: -0.8rem;
     left: 0.9rem;
 }

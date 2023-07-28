@@ -1,0 +1,101 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  height: max-content;
+  gap: 8px;
+  flex-grow: 1;
+
+  /* min-width: 360px;
+  max-width: 556px; */
+
+  border-radius: 2.4rem;
+  background: #fff;
+  /* filter: drop-shadow(0px 4px 4px rgba(172, 217, 197, 0.25)); */
+}
+
+.headerCard {
+  justify-content: space-between;
+
+  height: 5.8rem;
+  padding: 2.4rem 3.2rem;
+
+  border-bottom: 2px solid #eff0f6;
+}
+
+.iconCard h3 {
+  width: 100%;
+}
+
+.title-card {
+  width: auto;
+  text-align: center;
+}
+
+.numberClient {
+  padding: 0px 15px;
+  border-radius: 8px;
+  background: #ffefef;
+
+  font-family: var(--ff-montserrat);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.table-main-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-main-card td,
+.table-main-card th {
+
+  font-family: Nunito;
+  font-style: normal;
+  text-align: left;
+
+  border-bottom: 1px solid #eff0f6;
+
+  line-height: var(--lineh-40);
+  letter-spacing: 0.007rem;
+}
+
+.table-main-card th {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.table-main-card td {
+  font-size: 14px;
+  font-weight: 400;
+
+  color: var(--font-table);
+}
+
+.table-main-card thead :first-child {
+  padding-left: 3.2rem;
+}
+
+.table-main-card tr :first-child {
+  padding-left: 3.2rem;
+}
+
+.footerTable {
+  justify-content: center;
+
+  padding-bottom: 1.2rem;
+
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  text-decoration-line: underline;
+
+  color: var(--bg-pink);
+}
+
+.footerTable span {
+  cursor: pointer;
+}

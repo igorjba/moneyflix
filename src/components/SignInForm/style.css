@@ -1,0 +1,170 @@
+.sign-in {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    max-width: 38rem;
+    width: 100%;
+    max-height: 34rem;
+    height: 100%;
+}
+
+.sign-in-form {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    max-width: 36.8rem;
+    width: 100%;
+    max-height: 16rem;
+    height: 100%;
+}
+
+.tittle-form {
+    margin-bottom: 3.2rem;
+
+    font-family: var(--ff-montserrat);
+    font-weight: var(--fw-bold);
+    font-size: 2.4rem;
+
+    color: #343447;
+}
+
+.container-email-sign-in-form {
+    margin-bottom: 2.0rem;
+}
+
+.container-input {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+
+    max-width: 36.8rem;
+    width: 100%;
+    max-height: 7rem;
+    height: 100%;
+    position: relative;
+}
+
+
+.container-name-sign-in-form {
+    margin-bottom: 2rem;
+}
+
+.span-forms {
+    margin-bottom: 0.6rem;
+
+    font-family: var(--ff-nunito);
+    font-weight: var(--fw-medium);
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    color: #344054;
+}
+
+.input-forms {
+    max-width: 36.8rem;
+    width: 100%;
+    max-height: 4.4rem;
+    height: 100%;
+    padding: 1rem 1.4rem;
+    border: 0.1rem solid #D0D5DD;
+    border-radius: 0.8rem;
+
+    background-color: #fff;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.input-forms::placeholder {
+    font-family: var(--ff-inter);
+    font-weight: var(--fw-regular);
+    font-size: 1.6rem;
+
+    color: #667085
+}
+
+.sign-in-form-spans-password {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sign-in-form-toggle-password-visibility {
+    position: absolute;
+
+    width: 2.4rem;
+    height: 2.4rem;
+    right: 1.4rem;
+    bottom: 0;
+    transform: translateY(-50%);
+
+    cursor: pointer;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container-sign-in-form-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 36.8rem;
+    max-height: 4.4rem;
+    width: 100%;
+    max-height: 4.6rem;
+    height: 100%;
+    margin-top: 4rem;
+}
+
+.sign-in-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 16rem;
+    width: 100%;
+    max-height: 3.3rem;
+    height: 100%;
+    border-radius: 1rem;
+    border: none;
+    scale: 1;
+
+    text-align: center;
+    font-family: var(--ff-nunito);
+    font-size: 1.8rem;
+    font-weight: var(--fw-regular);
+    color: #F8F8F9;
+
+    cursor: pointer;
+
+    background-color: var(--bg-pink);
+}
+
+.sign-in-button:active {
+    scale: 0.98;
+}
+
+.container-sign-in-form-subtitle {
+    margin-top: 1.5rem;
+}
+
+.sign-in-form-subtitle {
+    font-family: var(--ff-nunito);
+    font-weight: var(--fw-medium);
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    color: #344054;
+}
+
+.sign-in-form-subtitle a {
+    font-family: var(--ff-nunito);
+    font-weight: var(--fw-medium);
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    color: var(--bg-pink);
+}
