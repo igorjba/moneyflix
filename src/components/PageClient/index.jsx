@@ -127,9 +127,9 @@ export default function PageClient({ setOpenModalRegister, openModalRegister, se
                         {clientRegisters.map((client) => {
                             return (
                                 <tr key={client.id_cliente}>
-                                    <td><h1>{client.nome_cliente}</h1></td>
+                                    <td className='table-Register-Line'><h1>{client.nome_cliente}</h1></td>
                                     <td><h1>{client.cpf}</h1></td>
-                                    <td><h1>{client.email}</h1></td>
+                                    <td className='table-Register-Line'><h1>{client.email}</h1></td>
                                     <td><h1>{client.telefone}</h1></td>
                                     <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                                     <td>

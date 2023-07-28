@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./style.css";
 
 export default function Card({
@@ -8,6 +9,21 @@ export default function Card({
   backgroundColorTotalClient,
   isClientData = false,
 }) {
+
+  function maskCPF(e) {
+    const inputNumberCPF = e.replace(/\D/g, '')
+    let formattedValue = e
+    if (e.length > 3) {
+      formattedValue = `${e.slice(0, 3)}.${e.slice(3)}`;
+    }
+    if (e.length > 6) {
+      formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
+    }
+    if (inputNumberCPF.length > 9) {
+      formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
+    }
+    return formattedValue
+  }
 
   return (
     <div className="card">
@@ -40,7 +56,7 @@ export default function Card({
               <tr key={client.id_cobranca || client.id_cliente}>
                 <td>{client.cliente || client.id_cliente}</td>
                 <td>{isClientData ? client.id_cliente : client.id_cobranca || '-'}</td>
-                <td>{isClientData ? client.cpf : 'R$ ' + (client.valor || '-')}</td>
+                <td>{isClientData ? maskCPF(client.cpf) : 'R$ ' + (client.valor || '-')}</td>
               </tr>
             );
           })}
