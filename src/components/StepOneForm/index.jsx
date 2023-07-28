@@ -23,12 +23,19 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
 
         setErrorName('');
         setErrorEmail('');
-
         if (!localForm.username) {
             setErrorName('O Nome é obrigatório');
+            return toast.error("Por favor preencha todos os campos", {
+                toastClassName: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            });
         }
-        if (!localForm.email) {
+        if (!localForm.email || localForm.email == "") {
             setErrorEmail('O Email é obrigatório');
+            return toast.error("Por favor preencha todos os campos", {
+                toastClassName: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            });
         }
         if (!localForm.username && !localForm.email) {
             return toast.error("Por favor preencha todos os campos", {
@@ -59,7 +66,6 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
                         onChange={handleChangeStepOne}
                         placeholder='Digite seu nome'
                     />
-                    {errorName && <span className='error'>{errorName}</span>}
                 </div>
                 <div className='container-email-step-one-form container-input'>
                     <span className='step-one-form-email span-forms'>E-mail*</span>
@@ -71,7 +77,6 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
                         onChange={handleChangeStepOne}
                         placeholder='Digite seu e-mail'
                     />
-                    {errorEmail && <span className='error'>{errorEmail}</span>}
                 </div>
             </form>
             <div className='container-step-one-form-button'>

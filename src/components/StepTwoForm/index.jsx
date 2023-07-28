@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import instance from "../../api/api.jsx";
+import axios from "../../api/api.jsx";
 import closedEye from "../../assets/ClosedEye.svg";
 import openEye from "../../assets/OpenEye.svg";
-import axios from "../../api/api.jsx";
+import toastError from '../../assets/toastError.svg';
 import "./style.css";
-import toastError from '../../assets/toastError.svg'
 
 const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,41 +29,51 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
     setErrorConfirmPassword("");
 
     if (!localForm.password) {
+      toast(
+        'A senha é obrigatória', {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
       setErrorPassword("A senha é obrigatória");
     } else if (localForm.password !== localForm.confirmPassword) {
+      toast(
+        'As senhas não coincidem', {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
+      setErrorPassword("A senha é obrigatória");
       setErrorConfirmPassword("As senhas não coincidem");
     }
 
     if (localForm.password && localForm.confirmPassword && localForm.password === localForm.confirmPassword) {
       try {
-
         const response = await axios.post("https://404notfound.cyclic.app/usuario", {
           nome: signUpForm.username,
           email: signUpForm.email,
           senha: localForm.password
         });
+        setCurrentStep(2);
 
-        if (response.status === 201) {
-          toast.success("Cadastro realizado com sucesso");
-          setCurrentStep(2);
-        } else {
-          toast.error(response.data.message);
-          if (response.data.message === 'Email já cadastrado') {  // Substitua pela mensagem de erro correta
-            setCurrentStep(1);  // Voltar para o passo 1
-          }
-        }
       } catch (error) {
-        toast.error(error/* .response.data.error */, {
-          className: 'customToastify-error',
-          icon: ({ theme, type }) => <img src={toastError} alt="" />
-        })
-        if (error.response && error.response.status === 400) {  // Substitua pelo código de erro correto
-          setCurrentStep(1);  // Voltar para o passo 1
+        if (error.response.data.message.includes('email') || error.response.data.message.includes('E-mail') || error.response.data.message.includes('nome')) {
+          setCurrentStep(1);
+          toast.error(
+            error.response.data.message, {
+            className: 'customToastify-error',
+            icon: ({ theme, type }) => <img src={error} alt="" />
+          });
+        } else {
+          toast.error(
+            error.response.data.message, {
+            className: 'customToastify-error',
+            icon: ({ theme, type }) => <img src={error} alt="" />
+          });
         }
-
       }
     }
+
   };
+
 
   return (
     <div className="sign-up-form">
@@ -87,7 +96,6 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               style={{ backgroundImage: `url(${showPassword ? openEye : closedEye})` }}
             />
           </div>
-          {errorPassword && <span className='error'>{errorPassword}</span>}
         </div>
         <div className="container-email-step-two-form container-input">
           <span className="step-two-form-email span-forms">
@@ -108,7 +116,6 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})` }}
             />
           </div>
-          {errorConfirmPassword && <span className='error'>{errorConfirmPassword}</span>}
         </div>
       </form >
       <div className="container-step-two-form-button">

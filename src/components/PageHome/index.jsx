@@ -1,19 +1,19 @@
+import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+import api from "../../api/api.jsx";
 import ClienteOK from "../../assets/ClienteOK.svg";
 import ClienteOverdue from "../../assets/ClienteOverdue.svg";
 import Expired from "../../assets/Expired.svg";
 import Paid from "../../assets/Paid.svg";
 import Pending from "../../assets/Pending.svg";
+import toastError from '../../assets/toastError.svg';
+import { getItem } from '../../utils/storage';
 import Card from "../Card/index";
 import CardResume from "../CardResume/index";
 import "./style.css";
-import api from "../../api/api.jsx";
-import { useState, useEffect } from "react";
-import { getItem } from '../../utils/storage'
-import toastError from '../../assets/toastError.svg';
-import { toast } from 'react-toastify';
 
 export default function PageHome({ setTitle }) {
-  const [token, setToken] = useState(getItem('token')); // assuming the token is stored in localStorage
+  const [token, setToken] = useState(getItem('token'));
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
 
@@ -37,6 +37,7 @@ export default function PageHome({ setTitle }) {
   useEffect(() => {
     fetchData();
     setTitle("Resumo de Cobranças")
+    console.log('aqui')
   }, []);
 
   return (

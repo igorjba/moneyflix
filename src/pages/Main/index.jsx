@@ -59,9 +59,9 @@ function Main() {
 
       let resumeName;
       if (userNameWords.length === 1) {
-              resumeName = userNameWords[0].substring(0, 2).toUpperCase();
+        resumeName = userNameWords[0].substring(0, 2).toUpperCase();
       } else {
-            const lastWord = userNameWords[userNameWords.length - 1];
+        const lastWord = userNameWords[userNameWords.length - 1];
         resumeName = userNameWords[0].charAt(0).toUpperCase() + lastWord.charAt(0).toUpperCase();
       }
 

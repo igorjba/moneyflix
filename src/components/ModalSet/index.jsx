@@ -14,7 +14,7 @@ export default function ModalSet({ SetOpenModalEditPerfil, setModalExit, SetOpen
     }
 
     function onClickExit() {
-      localStorage.clear();
+        localStorage.clear();
         navigate('/Login')
     }
     return (

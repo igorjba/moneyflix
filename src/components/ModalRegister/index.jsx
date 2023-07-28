@@ -145,7 +145,6 @@ export default function ModalRegister({ setOpenModalRegister, setClientRegisters
         }
       });
       setClientRegisters((response.data).slice(0, 10));
-      console.log("chamou o get cliente")
     } catch (error) {
       toast.error(
         error.response.data.message, {
