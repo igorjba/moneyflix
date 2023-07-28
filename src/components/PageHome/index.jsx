@@ -14,7 +14,9 @@ import { toast } from "react-toastify";
 
 export default function PageHome({ setTitle }) {
   const token = getItem("token");
+
   const [data, setData] = useState({});
+  const [errorValue, setErrorValue] = useState(0);
 
   async function fetchData() {
     try {
@@ -38,6 +40,7 @@ export default function PageHome({ setTitle }) {
       });
     }
   }
+
   useEffect(() => {
     fetchData();
     setTitle("Resumo de Cobranças");
