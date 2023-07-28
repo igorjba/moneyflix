@@ -13,8 +13,9 @@ import toastError from '../../assets/toastError.svg';
 import { toast } from 'react-toastify';
 
 export default function PageHome({ setTitle }) {
-  const token = getItem('token');
+  const [token, setToken] = useState(getItem('token')); // assuming the token is stored in localStorage
   const [data, setData] = useState({});
+  const [errorValue, setErrorValue] = useState(0);
 
   async function fetchData() {
     try {
@@ -25,21 +26,17 @@ export default function PageHome({ setTitle }) {
       });
       setData(response.data);
     } catch (error) {
+      setErrorValue(prevErrorValue => prevErrorValue + 1);
       toast.error('Falha ao carregar valores', {
-      errorValue += 1
-    }
-  }
-  function errorAtived() {
-    if (errorValue > 1) {
-      return (toast.error('Falha ao carregar valores', {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
-      })
+      });
     }
   }
+
   useEffect(() => {
     fetchData();
-      setTitle("Resumo de Cobranças")
+    setTitle("Resumo de Cobranças")
   }, []);
 
   return (
