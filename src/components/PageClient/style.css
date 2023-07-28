@@ -93,6 +93,8 @@
 .tableClient td {
     width: 20%;
     display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .extract-table-client h1 {
@@ -101,6 +103,13 @@
     font-weight: var(--fw-regular);
     line-height: var(--lineh-40);
     letter-spacing: 0.007rem;
+}
+
+.table-Register-Line h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90%;
 }
 
 .div-status {

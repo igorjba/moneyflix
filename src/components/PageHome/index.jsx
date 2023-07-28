@@ -22,14 +22,20 @@ export default function PageHome({ setTitle }) {
       const response = await api.get("/usuario/painel", {
         headers: {
           authorization: `Bearer ${token}`,
-        }
+        },
       });
       setData(response.data);
     } catch (error) {
-      setErrorValue(prevErrorValue => prevErrorValue + 1);
-      toast.error('Falha ao carregar valores', {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      toast.error("Falha ao carregar valores", {
+        errorValue: 1,
+      });
+    }
+  }
+  function errorAtived() {
+    if (errorValue > 1) {
+      return toast.error("Falha ao carregar valores", {
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     }
   }
@@ -37,7 +43,6 @@ export default function PageHome({ setTitle }) {
   useEffect(() => {
     fetchData();
     setTitle("Resumo de Cobranças")
-    console.log('aqui')
   }, []);
 
   return (

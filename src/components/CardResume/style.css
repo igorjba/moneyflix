@@ -16,8 +16,8 @@ h3 {
 }
 
 .resumeCharge {
-  width: 36rem;
-  height: 11rem;
+  max-width: 36rem;
+  max-height: 11rem;
   padding: 2.3rem 4rem;
 
   border-radius: 30px;
