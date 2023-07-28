@@ -1,5 +1,5 @@
-import imageSuccess from '../../assets/success.svg';
 import { useNavigate } from 'react-router-dom';
+import imageSuccess from '../../assets/success.svg';
 import './style.css';
 
 export default function StepThreeForm() {

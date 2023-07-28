@@ -10,7 +10,6 @@ import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
   const [showPassword, setShowPassword] = useState(false);
-  // const [namePerfil, setNamePerfil] = useState("");
   const navigate = useNavigate();
 
   const [localForm, setLocalForm] = useState({
@@ -38,14 +37,11 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         toast.success('Login bem sucedido', {
           className: 'customToastify-success',
           icon: ({ theme, type }) => <img src={success} alt="" />
-        }); // Alterado para exibir mensagem de sucesso.
+        });
         navigate("/home");
-      } else {
-        console.log('Response or user is undefined');
-        console.log(response);
       }
+
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message, {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
@@ -70,10 +66,6 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
     login();
   };
-
-  function handleSignUpRedirect() {
-    navigate("/cadastro");
-  }
 
   const token = localStorage.getItem("token");
   useEffect(() => {

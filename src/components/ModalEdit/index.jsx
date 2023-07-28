@@ -3,10 +3,9 @@ import { toast } from 'react-toastify';
 import api from '../../api/api';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
+import toastError from '../../assets/toastError.svg';
 import { getItem } from '../../utils/storage';
-import toastError from '../../assets/toastError.svg'
 import './style.css';
-import { func } from 'prop-types';
 
 export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
     const [userPerfil, setUserPerfil] = useState([]);
@@ -33,7 +32,6 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         event.preventDefault();
         setPasswordEdit('')
         setErrorEmailEdit('')
-        console.log(form)
         if (form.senha !== form.confirmeSenha) {
             return setPasswordEdit('As senhas não coincidem')
         }

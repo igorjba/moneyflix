@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import api from '../../api/api.jsx';
 import clientSFont from '../../assets/Client(2).svg';
 import defaulter from '../../assets/defaulter.svg';
 import filter from '../../assets/filter.svg';
 import lupa from '../../assets/lupa.svg';
-import api from '../../api/api.jsx'
-import './style.css';
 import { getItem } from '../../utils/storage';
+import './style.css';
 
 export default function PageClient({ setOpenModalRegister, openModalRegister, setClientRegisters, clientRegisters, setTitle }) {
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
@@ -21,9 +21,8 @@ export default function PageClient({ setOpenModalRegister, openModalRegister, se
                 }
             });
             setClientRegisters((response.data).slice(0, 10));
-            console.log("chamou o get cliente")
         } catch (error) {
-            console.log(error)
+
         }
     }
     function backgroundSituation() {
@@ -71,7 +70,6 @@ export default function PageClient({ setOpenModalRegister, openModalRegister, se
         ClientCadaster()
         backgroundSituation()
         setTitle("Clientes")
-        console.log('chamou o cliente')
     }, [])
     useEffect(() => {
         backgroundSituation()
