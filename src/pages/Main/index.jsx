@@ -26,15 +26,10 @@ function Main() {
   const [title, setTitle] = useState("Resumo de Cobranças");
   const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false);
   const [openModalEdit, SetOpenModalEdit] = useState(false);
-  const [formUser, setFormUser] = useState({
-    nome: '',
-    email: '',
-    cpf: '',
-    telefone: '',
-  });
   const [resumeName, setResumeName] = useState('');
   const token = getItem('token');
-
+  const [name, setName] = useState('')
+  const [clientRegisters, setClientRegisters] = useState([])
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
     divs.forEach((element) => {
@@ -42,54 +37,13 @@ function Main() {
     });
     event.currentTarget.classList.add("atived");
   }
-
-  async function UserLogged() {
-    try {
-      const response = await api.get('usuario', {
-        headers: {
-          authorization: `Bearer ${token}`,
-        }
-      });
-      setFormUser(
-        {
-          nome: response.data.nome_usuario,
-          email: response.data.email,
-          cpf: response.data.cpf,
-          telefone: response.data.telefone,
-        }
-      )
-      setUserPerfil(response.data)
-      nickName()
-    } catch (error) {
-      console.log(error)
-      toast.error(/* error.response.data.message */'error', {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      })
-    }
-  }
-
   function nickName() {
-    setResumeName(formUser.name[0])
-  }
-
-  function titleAtived() {
-    if (!imageNavHome) {
-      setTitle("Resumo de Cobranças");
-    }
-    if (!imageNavClient) {
-      setTitle("Clientes");
-    }
-    if (!imageNavCharge) {
-      setTitle("Cobranças");
+    if (name.length > name.indexOf(" ")) {
+      return setResumeName((name.slice(0, 1).concat(name.slice(((name.indexOf(" ")) + 1), ((name.indexOf(" ")) + 2)))).toUpperCase())
+    } else {
+      return setResumeName((name.slice(0, 1)).toUpperCase())
     }
   }
-
-  useEffect(() => {
-    titleAtived();
-    UserLogged();
-  });
-
   return (
     <div className='initial mainBody'>
       <nav className='initial navegation' >
@@ -115,7 +69,7 @@ function Main() {
               <h1>{resumeName}</h1>
             </div>
             <div className="profile initial">
-              <h1>{formUser.name}</h1>
+              <h1>{name}</h1>
               <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
           </div>
@@ -132,9 +86,13 @@ function Main() {
           {!imageNavClient && <PageClient
             setOpenModalRegister={setOpenModalRegister}
             openModalRegister={openModalRegister}
+            setClientRegisters={setClientRegisters}
+            clientRegisters={clientRegisters}
             setTitle={setTitle}
           />}
-          {!imageNavHome && <PageHome />}
+          {!imageNavHome && <PageHome
+            setTitle={setTitle}
+          />}
         </div>
       </div>
       {modalExit && <ModalSet
@@ -148,13 +106,14 @@ function Main() {
       {openModalRegister && <ModalRegister
         setOpenModalRegister={setOpenModalRegister}
         openModalRegister={openModalRegister}
+        setClientRegisters={setClientRegisters}
+        clientRegisters={clientRegisters}
       />}
 
       {openModalEditPerfil && <ModalEdit
         openModalEditPerfil={openModalEditPerfil}
         SetOpenModalEditPerfil={SetOpenModalEditPerfil}
         SetOpenModalEdit={SetOpenModalEdit}
-        formUser={formUser}
       />}
 
     </div>

@@ -9,7 +9,7 @@ import toastError from '../../assets/toastError.svg';
 import { getItem } from '../../utils/storage';
 import './style.css';
 
-export default function ModalRegister({ setOpenModalRegister }) {
+export default function ModalRegister({ setOpenModalRegister, setClientRegisters, clientRegisters }) {
   const [form, setForm] = useState({
     nome: '',
     email: '',
@@ -30,6 +30,8 @@ export default function ModalRegister({ setOpenModalRegister }) {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorCPF, setErrorCPF] = useState('');
   const [errorPhone, setErrorPhone] = useState('');
+  const [numberCPF, setNumberCPF] = useState('');
+  const [numberTel, setNumberTel] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorName('')
@@ -44,11 +46,11 @@ export default function ModalRegister({ setOpenModalRegister }) {
       setErrorEmail('O Email é obrigatório');
       validate = +1
     }
-    if (!form.cpf) {
+    if (!numberCPF) {
       setErrorCPF('O CPF é obrigatório');
       validate = +1
     }
-    if (!form.telefone) {
+    if (!numberTel) {
       setErrorPhone('O Telefone é obrigatório');
       validate = +1
     }
@@ -57,31 +59,31 @@ export default function ModalRegister({ setOpenModalRegister }) {
       setOpenModalRegister(false)
     }
   }
-
   async function sendInformation() {
-    console.log('entro enviar para api')
-    let enviarParaAPI = { ...form, ...formAdress }
     try {
       const response = await api.post("cliente", {
-        enviarParaAPI
-        //...form
+        nome: form.nome,
+        cpf: numberCPF.replace(/[.-]/g, ''),
+        email: form.email,
+        telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
+        ...formAdress
       }, {
         headers: {
           authorization: token,
         }
       });
+      ClientCadaster()
       toast.success(
         'Cliente Cadastro com Sucesso!', {
         className: 'customToastify-success',
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
     } catch (error) {
-      console.log(error)
-      /* toast.error(
-        error.message, {
+      toast.error(
+        error.response.data.message, {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={error} alt="" />
-      }); */
+      });
     }
   }
   async function searchCep(event) {
@@ -104,10 +106,54 @@ export default function ModalRegister({ setOpenModalRegister }) {
   function handleChangeForm(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
+  function handleChangeFormTel(e) {
+    const inputNumberTel = e.target.value.replace(/\D/g, '')
+    let formattedValue = inputNumberTel
+    if (inputNumberTel.length > 2) {
+      formattedValue = `(${inputNumberTel.slice(0, 2)})${inputNumberTel.slice(2)}`;
+    }
+    if (inputNumberTel.length > 7) {
+      formattedValue = `${formattedValue.slice(0, 9)}-${formattedValue.slice(9, 13)}`;
+    }
+    setNumberTel(formattedValue);
+
+  }
+  function handleChangeFormCPF(e) {
+    const inputNumberCPF = e.target.value.replace(/\D/g, '')
+    let formattedValue = inputNumberCPF
+
+    if (inputNumberCPF.length > 3) {
+      formattedValue = `${inputNumberCPF.slice(0, 3)}.${inputNumberCPF.slice(3)}`;
+    }
+    if (inputNumberCPF.length > 6) {
+      formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
+    }
+    if (inputNumberCPF.length > 9) {
+      formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
+    }
+
+    setNumberCPF(formattedValue);
+  }
   function handleChangeFormAdress(event) {
     setFormAdress({ ...formAdress, [event.target.name]: event.target.value })
   }
-
+  async function ClientCadaster() {
+    try {
+      const response = await api.get('cliente', {
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+      });
+      setClientRegisters((response.data).slice(0, 10));
+      console.log("chamou o get cliente")
+    } catch (error) {
+      toast.error(
+        error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={error} alt="" />
+      });
+    }
+  }
   return (
     <div className='mainModalRegister'>
       <div className='headerModal initial'>
@@ -128,12 +174,12 @@ export default function ModalRegister({ setOpenModalRegister }) {
           <div className='formInformation'>
             <div>
               <label htmlFor=""><h1>CPF*</h1></label>
-              <input className={`${errorCPF ? 'errorLine' : ''}`} type="number" placeholder='Digite o CPF' name='cpf' value={form.cpf} maxLength={11} onChange={(event) => handleChangeForm(event)} />
+              <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" placeholder='Digite o CPF' name='cpf' maxLength={14} value={numberCPF} onChange={(event) => handleChangeFormCPF(event)} />
               {errorCPF && <span className='error'>{errorCPF}</span>}
             </div>
             <div>
               <label htmlFor=""><h1>Telefone*</h1></label>
-              <input className={`${errorPhone ? 'errorLine' : ''}`} type="number" placeholder='Digite o telefone' name='telefone' value={form.telefone} maxLength={11} onChange={(event) => handleChangeForm(event)} />
+              <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" placeholder='Digite o telefone' name='telefone' value={numberTel} maxLength={20} onChange={(event) => handleChangeFormTel(event)} />
               {errorPhone && <span className='error'>{errorPhone}</span>}
             </div>
           </div>
@@ -144,7 +190,7 @@ export default function ModalRegister({ setOpenModalRegister }) {
           <div className='formInformation'>
             <div>
               <label htmlFor=""><h1>CEP</h1></label>
-              <input type="text" placeholder='Digite o CEP' name='cep' /* value={formAdress.cep} onChange={(event) => handleChangeFormAdress(event)} */ onBlur={(event) => searchCep(event)} />
+              <input type="text" maxLength={8} placeholder='Digite o CEP' name='cep' /* value={formAdress.cep} onChange={(event) => handleChangeFormAdress(event)} */ onBlur={(event) => searchCep(event)} />
             </div>
             <div>
               <label htmlFor=""><h1>Bairro</h1></label>

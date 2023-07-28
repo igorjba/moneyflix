@@ -8,12 +8,11 @@ import CardResume from "../CardResume/index";
 import "./style.css";
 import api from "../../api/api.jsx";
 import { useState, useEffect } from "react";
-// <<<<<<< feature/devChai
 import { getItem } from '../../utils/storage'
 import toastError from '../../assets/toastError.svg';
 import { toast } from 'react-toastify';
 
-export default function PageHome() {
+export default function PageHome({ setTitle }) {
   const token = getItem('token');
   const [expiredChargesData, setExpiredChargesData] = useState([]);
   const [totalExpiredChargesData, setTotalExpiredChargesData] = useState('');
@@ -33,47 +32,10 @@ export default function PageHome() {
       setTotalChargesData(response.data);
     } catch (error) {
       errorValue += 1
-// =======
-// import { toast } from "react-toastify";
-// import { getItem } from "../../utils/storage";
-
-// export default function PageHome() {
-//   const [totalChargesData, setTotalChargesData] = useState({
-//     Pagas: "-",
-//     Vencidas: "-",
-//     Pendentes: "-",
-//   });
-//   const [expiredChargesData, setExpiredChargesData] = useState({});
-//   const [paidChargesData, setPaidChargesData] = useState({});
-//   const [pendingChargesData, setPendingChargesData] = useState({});
-//   const [overdueClientData, setOverdueClientData] = useState({});
-//   const [inDayClientData, setInDayClientData] = useState({});
-
-//   const token = getItem("token").split(" ")[1];
-
-//   async function showDataTotalChages() {
-//     try {
-//       const response = await api.get("cobranca/total", {
-//         headers: {
-//           authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       const valueInReal = {
-//         Pagas: response.data.Pagas / 100,
-//         Vencidas: response.data.Vencidas / 100,
-//         Pendentes: response.data.Pendentes / 100,
-//       };
-
-//       setTotalChargesData(valueInReal);
-//     } catch (error) {
-//       toast.error("Falha ao carregar Valores Totais");
-// >>>>>>> hml
     }
   }
   async function showDataExpiredCharges() {
     try {
-// <<<<<<< feature/devChai
       const response = await api.get("/cobranca/vencidas", {
         headers: {
           authorization: `Bearer ${token}`,
@@ -83,22 +45,10 @@ export default function PageHome() {
       setTotalExpiredChargesData(response.data.total)
     } catch (error) {
       errorValue += 1
-// =======
-//       const response = await api.get("cobranca/vencidas", {
-//         headers: {
-//           authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setExpiredChargesData(response.data);
-//     } catch (error) {
-//       toast.error("Falha ao carregar Cobranças Vencidas");
-// >>>>>>> hml
     }
   }
   async function showDataPaidCharges() {
     try {
-// <<<<<<< feature/devChai
       const response = await api.get("/cobranca/pagas", {
         headers: {
           authorization: `Bearer ${token}`,
@@ -108,22 +58,10 @@ export default function PageHome() {
       setTotalPaidChargesData(response.data.total)
     } catch (error) {
       errorValue += 1
-// =======
-//       const response = await api.get("cobranca/pagas", {
-//         headers: {
-//           authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setPaidChargesData(response.data);
-//     } catch (error) {
-//       toast.error("Falha ao carregar Cobranças Pagas");
-// >>>>>>> hml
     }
   }
   async function showDataPendingCharges() {
     try {
-// <<<<<<< feature/devChai
       const response = await api.get("/cobranca/pendentes", {
         headers: {
           authorization: `Bearer ${token}`,
@@ -135,9 +73,7 @@ export default function PageHome() {
       errorValue += 1
     }
   }
-
   function errorAtived() {
-    console.log(errorValue)
     if (errorValue > 1) {
       return (toast.error('Falha ao carregar valores', {
         className: 'customToastify-error',
@@ -148,63 +84,13 @@ export default function PageHome() {
     }
   }
   useEffect(() => {
-    showDataExpiredCharges()
+    /* showDataExpiredCharges()
     showDataPaidCharges()
     showDataTotalChages()
-    showDataPendingCharges()
+    showDataPendingCharges() */
     errorAtived()
+    setTitle("Resumo de Cobranças")
   }, [])
-// =======
-//       const response = await api.get("cobranca/pendentes", {
-//         headers: {
-//           authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setPendingChargesData(response.data);
-//     } catch (error) {
-//       toast.error("Falha ao carregar Cobranças Pendentes");
-//     }
-//   }
-
-//   async function showDataOverdueClient() {
-//     try {
-//       const response = await api.get("cobranca/inadimplentes", {
-//         headers: {
-//           authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setOverdueClientData(response.data);
-//     } catch (error) {
-//       toast.error("Falha ao carregar Clientes Inadimplentes");
-//     }
-//   }
-
-//   async function showDataInDayClient() {
-//     try {
-//       const response = await api.get("cobranca/emdia", {
-//         headers: {
-//           authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       setInDayClientData(response.data);
-//     } catch (error) {
-//       toast.error("Falha ao carregar Clientes em Dia");
-//     }
-//   }
-
-//   useEffect(() => {
-//     showDataTotalChages();
-//     showDataExpiredCharges();
-//     showDataPaidCharges();
-//     showDataPendingCharges();
-//     showDataOverdueClient();
-//     showDataInDayClient();
-//   }, []);
-
-// >>>>>>> hml
   return (
     <>
       <div className="contentResume initial">
@@ -258,13 +144,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-yellow)",
             color: "var(--font-clr-yellow-number)",
           }}
-//<<<<<<< feature/devChai
           totalClient={totalpendingChargesData}
           cardL={pendingChargesData}
-//=======
-//           totalClient={pendingChargesData.total}
-//           chargeListing={pendingChargesData.chargePending}
-//>>>>>>> hml
         />
         <Card
           titleCard="Cobranças Pagas"
@@ -272,13 +153,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-//<<<<<<< feature/devChai
           totalClient={totalPaidChargesData}
           cardL={paidChargesData}
-//=======
-//           totalClient={paidChargesData.total}
-//           chargeListing={paidChargesData.chargePaid}
-//>>>>>>> hml
         />
         <Card
           titleCard="Clientes Inadimplentes"
@@ -286,13 +162,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-red)",
             color: "var(--font-clr-red-number)",
           }}
-//<<<<<<< feature/devChai
           totalClient={expiredChargesData.total}
           cardL={[]}
-//=======
-//           totalClient={overdueClientData.total}
-//           chargeListing={overdueClientData.clientDefaulters}
-//>>>>>>> hml
           iconCard={ClienteOverdue}
         />
         <Card
@@ -301,13 +172,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-//<<<<<<< feature/devChai
           totalClient={expiredChargesData.total}
           cardL={[]}
-//=======
-//           totalClient={inDayClientData.total}
-//           chargeListing={inDayClientData.clientInDay}
-//>>>>>>> hml
           iconCard={ClienteOK}
         />
       </div>

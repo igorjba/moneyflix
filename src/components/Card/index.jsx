@@ -17,7 +17,6 @@ export default function Card({
           ></div>
           <h3 className="title-card">{titleCard}</h3>
         </div>
-
         <div
           className="numberClient initial"
           style={backgroundColorTotalClient}
@@ -33,7 +32,7 @@ export default function Card({
             <th>Valor</th>
           </tr>
         </thead>
-// <<<<<<< feature/devChai
+        {/* <<<<<<< feature/devChai */}
         {<tbody>
           {cardL.map((client) => {
             return (
@@ -45,10 +44,10 @@ export default function Card({
             );
           })}
         </tbody>}
-// =======
-//         <tbody>
-//           <tr></tr>
-//           {chargeListing &&
+        {/*  =======
+         <tbody>
+          <tr></tr>
+           {chargeListing &&
 //             chargeListing.map((client, index) => {
 //               return (
 //                 <tr key={index}>
@@ -59,7 +58,7 @@ export default function Card({
 //               );
 //             })}
 //         </tbody>
-// >>>>>>> hml
+// >>>>>>> hml */}
       </table>
       <div className="footerTable initial">
         <span>Ver todos</span>
