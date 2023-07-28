@@ -8,8 +8,7 @@ import api from '../../api/api.jsx'
 import './style.css';
 import { getItem } from '../../utils/storage';
 
-export default function PageClient({ setOpenModalRegister }) {
-    const [clientRegisters, setClientRegisters] = useState([])
+export default function PageClient({ setOpenModalRegister, openModalRegister, setClientRegisters, clientRegisters, setTitle }) {
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [countOrder, setCountOrder] = useState(0)
@@ -21,7 +20,8 @@ export default function PageClient({ setOpenModalRegister }) {
                     authorization: `Bearer ${token}`,
                 }
             });
-            setClientRegisters(response.data)
+            setClientRegisters((response.data).slice(0, 10));
+            console.log("chamou o get cliente")
         } catch (error) {
             console.log(error)
         }
@@ -68,11 +68,14 @@ export default function PageClient({ setOpenModalRegister }) {
 
     }
     useEffect(() => {
-        backgroundSituation()
-    })
-    useEffect(() => {
         ClientCadaster()
+        backgroundSituation()
+        setTitle("Clientes")
+        console.log('chamou o cliente')
     }, [])
+    useEffect(() => {
+        backgroundSituation()
+    }, [clientRegisters])
     return (
         <>
             <div className='initial header'>

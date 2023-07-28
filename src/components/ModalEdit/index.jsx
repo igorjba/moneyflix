@@ -5,9 +5,8 @@ import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import { getItem } from '../../utils/storage';
 import toastError from '../../assets/toastError.svg'
-/* import $ from 'jquery'; */
-/* import 'jquery-mask-plugin/dist/jquery.mask.min'; */
 import './style.css';
+import { func } from 'prop-types';
 
 export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
     const [userPerfil, setUserPerfil] = useState([]);
@@ -15,21 +14,21 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setPasswordEdit] = useState('');
     const [form, setForm] = useState({
-        nome: formUser.nome,
-        email: formUser.email,
-        cpf: formUser.cpf,
-        telefone: formUser.telefone,
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
         senha: '',
         confirmeSenha: ''
     });
-
-    /* $('.cpf').mask('000.000.000-00', { reverse: true }) */
-
+    const [numberCPF, setNumberCPF] = useState(form.cpf);
+    const [numberTel, setNumberTel] = useState(form.telefone);
+    let cpfInitial = '';
+    let telefoneInitial
     function onclickCloseModal() {
         SetOpenModalEditPerfil(!openModalEditPerfil)
         SetOpenModalEdit(false)
     }
-
     async function handleSubmitEdit(event) {
         event.preventDefault();
         setPasswordEdit('')
@@ -40,7 +39,12 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         }
         try {
             const response = await api.put('usuario/atualizar', {
-                ...form
+                nome: form.nome,
+                cpf: numberCPF.replace(/[.-]/g, ''),
+                email: form.email,
+                telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
+                senha: form.senha,
+                confirmeSenha: form.confirmeSenha
             }, {
                 headers: {
                     authorization: token,
@@ -54,18 +58,98 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             SetOpenModalEditPerfil(false)
             SetOpenModalEdit(false)
         } catch (error) {
-            toast.error(error/* .response.data.error */, {
+            toast.error(error.response.data.error, {
                 className: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
             })
         }
     }
-
-
     function handleChangeForm(e) {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
+    async function UserLogged() {
+        try {
+            const response = await api.get('usuario', {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
+            });
+            cpfInitial = response.data.cpf
+            telefoneInitial = response.data.telefone
+            setForm(
+                {
+                    nome: response.data.nome_usuario,
+                    email: response.data.email,
+                    cpf: response.data.cpf,
+                    telefone: response.data.telefone,
+                }
+            )
+            CPFormated(cpfInitial)
+            TelFormated(telefoneInitial)
+        } catch (error) {
+            toast.error(error.response.data.message, {
+                className: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            })
+        }
+    }
+    function CPFormated() {
+        const inputNumberCPF = cpfInitial.replace(/\D/g, '')
+        let formattedValue = inputNumberCPF;
+        if (inputNumberCPF.length > 3) {
+            formattedValue = `${inputNumberCPF.slice(0, 3)}.${inputNumberCPF.slice(3)}`;
+        }
+        if (inputNumberCPF.length > 6) {
+            formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
+        }
+        if (inputNumberCPF.length > 9) {
+            formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
+        }
+        setNumberCPF(formattedValue);
+    }
+    function TelFormated() {
+        const inputNumberTel = telefoneInitial.replace(/\D/g, '')
+        let formattedValue = inputNumberTel
+        if (inputNumberTel.length > 2) {
+            formattedValue = `(${inputNumberTel.slice(0, 2)})${inputNumberTel.slice(2)}`;
+        }
+        if (inputNumberTel.length > 7) {
+            formattedValue = `${formattedValue.slice(0, 9)}-${formattedValue.slice(9, 13)}`;
+        }
+        setNumberTel(formattedValue);
 
+    }
+    function handleChangeFormTel(e) {
+        const inputNumberTel = e.target.value.replace(/\D/g, '')
+        let formattedValue = inputNumberTel
+        if (inputNumberTel.length > 2) {
+            formattedValue = `(${inputNumberTel.slice(0, 2)})${inputNumberTel.slice(2)}`;
+        }
+        if (inputNumberTel.length > 7) {
+            formattedValue = `${formattedValue.slice(0, 9)}-${formattedValue.slice(9, 13)}`;
+        }
+        setNumberTel(formattedValue);
+
+    }
+    function handleChangeFormCPF(e) {
+        const inputNumberCPF = e.target.value.replace(/\D/g, '')
+        let formattedValue = inputNumberCPF
+
+        if (inputNumberCPF.length > 3) {
+            formattedValue = `${inputNumberCPF.slice(0, 3)}.${inputNumberCPF.slice(3)}`;
+        }
+        if (inputNumberCPF.length > 6) {
+            formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
+        }
+        if (inputNumberCPF.length > 9) {
+            formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
+        }
+
+        setNumberCPF(formattedValue);
+    }
+    useEffect(() => {
+        UserLogged()
+    }, [])
     return (
         <div className="ModalEdit-Main">
             <div className='header-ModalEdit initial'>
@@ -82,11 +166,11 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                     <div className='information-ModalEdit'>
                         <div>
                             <label htmlFor=""><h1>CPF</h1></label>
-                            <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={form.cpf} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                            <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} defaultValue={numberCPF} maxLength={14} onChange={(event) => handleChangeFormCPF(event)} />
                         </div>
                         <div>
                             <label htmlFor=""><h1>Telefone</h1></label>
-                            <input type="text" placeholder='Digite seu telefone' name='telefone' value={form.telefone} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                            <input type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} defaultValue={numberTel} maxLength={15} onChange={(event) => handleChangeFormTel(event)} />
                         </div>
                     </div>
                     <label htmlFor=""><h1>Nova Senha</h1></label>

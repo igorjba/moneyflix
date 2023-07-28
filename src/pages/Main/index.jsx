@@ -37,7 +37,8 @@ function Main() {
     telefone: '',
   });
   const token = getItem('token');
-
+  const [name, setName] = useState('')
+  const [clientRegisters, setClientRegisters] = useState([])
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
     divs.forEach((element) => {
@@ -45,7 +46,6 @@ function Main() {
     });
     event.currentTarget.classList.add("atived");
   }
-
   async function fetchUserPerfil() {
     try {
       const response = await api.get("/usuario/painel", {
@@ -53,17 +53,15 @@ function Main() {
           authorization: `Bearer ${token}`,
         }
       });
-      setUserPerfil(response.data); // atualize o estado aqui
+      setUserPerfil(response.data);
       const userNameWords = response.data.nome_usuario.split(' ');
       const capitalizedUserName = userNameWords[0].charAt(0).toUpperCase() + userNameWords[0].slice(1);
 
       let resumeName;
       if (userNameWords.length === 1) {
-        // Se o nome consiste em uma única palavra, pegue as duas primeiras letras
-        resumeName = userNameWords[0].substring(0, 2).toUpperCase();
+              resumeName = userNameWords[0].substring(0, 2).toUpperCase();
       } else {
-        // Se o nome consiste em mais de uma palavra, pegue a primeira letra da primeira e última palavras
-        const lastWord = userNameWords[userNameWords.length - 1];
+            const lastWord = userNameWords[userNameWords.length - 1];
         resumeName = userNameWords[0].charAt(0).toUpperCase() + lastWord.charAt(0).toUpperCase();
       }
 
@@ -136,9 +134,13 @@ function Main() {
           {!imageNavClient && <PageClient
             setOpenModalRegister={setOpenModalRegister}
             openModalRegister={openModalRegister}
+            setClientRegisters={setClientRegisters}
+            clientRegisters={clientRegisters}
             setTitle={setTitle}
           />}
-          {!imageNavHome && <PageHome />}
+          {!imageNavHome && <PageHome
+            setTitle={setTitle}
+          />}
         </div>
       </div>
       {modalExit && <ModalSet
@@ -152,13 +154,14 @@ function Main() {
       {openModalRegister && <ModalRegister
         setOpenModalRegister={setOpenModalRegister}
         openModalRegister={openModalRegister}
+        setClientRegisters={setClientRegisters}
+        clientRegisters={clientRegisters}
       />}
 
       {openModalEditPerfil && <ModalEdit
         openModalEditPerfil={openModalEditPerfil}
         SetOpenModalEditPerfil={SetOpenModalEditPerfil}
         SetOpenModalEdit={SetOpenModalEdit}
-        formUser={formUser}
       />}
 
     </div>

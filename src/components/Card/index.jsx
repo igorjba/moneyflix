@@ -19,7 +19,6 @@ export default function Card({
           ></div>
           <h3 className="title-card">{titleCard}</h3>
         </div>
-
         <div
           className="numberClient initial"
           style={backgroundColorTotalClient}
