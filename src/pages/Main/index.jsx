@@ -26,13 +26,16 @@ function Main() {
   const [title, setTitle] = useState("Resumo de Cobranças");
   const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false);
   const [openModalEdit, SetOpenModalEdit] = useState(false);
+  const [userPerfil, setUserPerfil] = useState({});
+  const [userName, setUserName] = useState('');
+  const [resumeName, setResumeName] = useState('');
+
   const [formUser, setFormUser] = useState({
     nome: '',
     email: '',
     cpf: '',
     telefone: '',
   });
-  const [resumeName, setResumeName] = useState('');
   const token = getItem('token');
 
   function onClickNavLeft(event) {
@@ -43,34 +46,35 @@ function Main() {
     event.currentTarget.classList.add("atived");
   }
 
-  async function UserLogged() {
+  async function fetchUserPerfil() {
     try {
-      const response = await api.get('usuario', {
+      const response = await api.get("/usuario/painel", {
         headers: {
           authorization: `Bearer ${token}`,
         }
       });
-      setFormUser(
-        {
-          nome: response.data.nome_usuario,
-          email: response.data.email,
-          cpf: response.data.cpf,
-          telefone: response.data.telefone,
-        }
-      )
-      setUserPerfil(response.data)
-      nickName()
+      setUserPerfil(response.data); // atualize o estado aqui
+      const userNameWords = response.data.nome_usuario.split(' ');
+      const capitalizedUserName = userNameWords[0].charAt(0).toUpperCase() + userNameWords[0].slice(1);
+
+      let resumeName;
+      if (userNameWords.length === 1) {
+        // Se o nome consiste em uma única palavra, pegue as duas primeiras letras
+        resumeName = userNameWords[0].substring(0, 2).toUpperCase();
+      } else {
+        // Se o nome consiste em mais de uma palavra, pegue a primeira letra da primeira e última palavras
+        const lastWord = userNameWords[userNameWords.length - 1];
+        resumeName = userNameWords[0].charAt(0).toUpperCase() + lastWord.charAt(0).toUpperCase();
+      }
+
+      setUserName(capitalizedUserName);
+      setResumeName(resumeName);
     } catch (error) {
-      console.log(error)
-      toast.error(/* error.response.data.message */'error', {
+      toast.error('Falha ao carregar valores', {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
       })
     }
-  }
-
-  function nickName() {
-    setResumeName(formUser.name[0])
   }
 
   function titleAtived() {
@@ -87,8 +91,8 @@ function Main() {
 
   useEffect(() => {
     titleAtived();
-    UserLogged();
-  });
+    fetchUserPerfil();
+  }, []);
 
   return (
     <div className='initial mainBody'>
@@ -111,11 +115,11 @@ function Main() {
             {title}
           </h2>
           <div className='initial'>
-            <div className='title'>
+            <div className='title header-circle'>
               <h1>{resumeName}</h1>
             </div>
             <div className="profile initial">
-              <h1>{formUser.name}</h1>
+              <h1>{userName}</h1>
               <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
           </div>
