@@ -5,6 +5,7 @@ import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
 import api from "../../api/api.jsx";
 import toastError from "../../assets/toastError.svg";
+import success from '../../assets/Success-Toast.svg';
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
@@ -34,7 +35,10 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         localStorage.setItem("token", `${response.data.token}`);
         localStorage.setItem("id", response.data.user.id_usuario);
 
-        toast.success('Login bem sucedido'); // Alterado para exibir mensagem de sucesso.
+        toast.success('Login bem sucedido', {
+          className: 'customToastify-success',
+          icon: ({ theme, type }) => <img src={success} alt="" />
+        }); // Alterado para exibir mensagem de sucesso.
         navigate("/home");
       } else {
         console.log('Response or user is undefined');
@@ -42,7 +46,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.message, {
+      toast.error(error.response.data.message, {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
