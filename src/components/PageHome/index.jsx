@@ -14,62 +14,18 @@ import { toast } from 'react-toastify';
 
 export default function PageHome({ setTitle }) {
   const token = getItem('token');
-  const [expiredChargesData, setExpiredChargesData] = useState([]);
-  const [totalExpiredChargesData, setTotalExpiredChargesData] = useState('');
-  const [paidChargesData, setPaidChargesData] = useState([]);
-  const [totalPaidChargesData, setTotalPaidChargesData] = useState('');
-  const [totalChargesData, setTotalChargesData] = useState([]);
-  const [pendingChargesData, setPendingChargesData] = useState([]);
-  const [totalpendingChargesData, setTotalPendingChargesData] = useState('');
-  let errorValue = 0
-  async function showDataTotalChages() {
+  const [data, setData] = useState({});
+
+  async function fetchData() {
     try {
-      const response = await api.get("/cobranca/total", {
+      const response = await api.get("/usuario/painel", {
         headers: {
           authorization: `Bearer ${token}`,
         }
       });
-      setTotalChargesData(response.data);
+      setData(response.data);
     } catch (error) {
-      errorValue += 1
-    }
-  }
-  async function showDataExpiredCharges() {
-    try {
-      const response = await api.get("/cobranca/vencidas", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        }
-      });
-      setExpiredChargesData(response.data.chargeOverdue);
-      setTotalExpiredChargesData(response.data.total)
-    } catch (error) {
-      errorValue += 1
-    }
-  }
-  async function showDataPaidCharges() {
-    try {
-      const response = await api.get("/cobranca/pagas", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        }
-      });
-      setPaidChargesData(response.data.chargePaid)
-      setTotalPaidChargesData(response.data.total)
-    } catch (error) {
-      errorValue += 1
-    }
-  }
-  async function showDataPendingCharges() {
-    try {
-      const response = await api.get("/cobranca/pendentes", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        }
-      });
-      setPendingChargesData(response.data.chargePending);
-      setTotalPendingChargesData(response.data.total)
-    } catch (error) {
+      toast.error('Falha ao carregar valores', {
       errorValue += 1
     }
   }
@@ -78,19 +34,14 @@ export default function PageHome({ setTitle }) {
       return (toast.error('Falha ao carregar valores', {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
-      }),
-        errorValue = 0
-      )
+      })
     }
   }
   useEffect(() => {
-    /* showDataExpiredCharges()
-    showDataPaidCharges()
-    showDataTotalChages()
-    showDataPendingCharges() */
-    errorAtived()
-    setTitle("Resumo de Cobranças")
-  }, [])
+    fetchData();
+      setTitle("Resumo de Cobranças")
+  }, []);
+
   return (
     <>
       <div className="contentResume initial">
@@ -98,34 +49,19 @@ export default function PageHome({ setTitle }) {
           IconCard={Paid}
           BackgroundColor="#eef6f6"
           TitleCard="Cobranças Pagas"
-          ValueCard={totalChargesData.Pagas?.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })}
+          ValueCard={data.totalValorPagas?.[0]?.sum}
         />
         <CardResume
           IconCard={Expired}
           BackgroundColor="#ffefef"
           TitleCard="Cobranças Vencidas"
-          ValueCard={totalChargesData.Vencidas?.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })}
+          ValueCard={data.totalValorVencidas?.[0]?.sum}
         />
         <CardResume
           IconCard={Pending}
           BackgroundColor="#fcf6dc"
           TitleCard="Cobranças Previstas"
-          ValueCard={totalChargesData.Pendentes?.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })}
+          ValueCard={data.totalValorPendentes?.[0]?.sum}
         />
       </div>
       <div className="contentCards">
@@ -135,8 +71,8 @@ export default function PageHome({ setTitle }) {
             backgroundColor: "var(--bg-card-red)",
             color: "var(--font-clr-red-number)",
           }}
-          totalClient={totalExpiredChargesData}
-          cardL={expiredChargesData}
+          totalClient={data.qtdRegistroVencidas?.[0]?.count}
+          cardL={data.Vencidas}
         />
         <Card
           titleCard="Cobranças Previstas"
@@ -144,8 +80,8 @@ export default function PageHome({ setTitle }) {
             backgroundColor: "var(--bg-card-yellow)",
             color: "var(--font-clr-yellow-number)",
           }}
-          totalClient={totalpendingChargesData}
-          cardL={pendingChargesData}
+          totalClient={data.qtdRegistroPendentes?.[0]?.count}
+          cardL={data.Pendentes}
         />
         <Card
           titleCard="Cobranças Pagas"
@@ -153,8 +89,8 @@ export default function PageHome({ setTitle }) {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-          totalClient={totalPaidChargesData}
-          cardL={paidChargesData}
+          totalClient={data.qtdRegistroPagas?.[0]?.count}
+          cardL={data.Pagas}
         />
         <Card
           titleCard="Clientes Inadimplentes"
@@ -162,9 +98,10 @@ export default function PageHome({ setTitle }) {
             backgroundColor: "var(--bg-card-red)",
             color: "var(--font-clr-red-number)",
           }}
-          totalClient={expiredChargesData.total}
-          cardL={[]}
+          totalClient={data.totalInadimplentes?.total}
+          cardL={data.totalInadimplentes?.clientDefaulters}
           iconCard={ClienteOverdue}
+          isClientData={true}
         />
         <Card
           titleCard="Clientes em dia"
@@ -172,9 +109,10 @@ export default function PageHome({ setTitle }) {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-          totalClient={expiredChargesData.total}
-          cardL={[]}
+          totalClient={data.totalEmdias?.total}
+          cardL={data.totalEmdias?.clientInDay}
           iconCard={ClienteOK}
+          isClientData={true}
         />
       </div>
     </>

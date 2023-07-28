@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import instance from "../../api/api.jsx";
 import closedEye from "../../assets/ClosedEye.svg";
 import openEye from "../../assets/OpenEye.svg";
-import toastError from '../../assets/toastError.svg'
 import axios from "../../api/api.jsx";
 import "./style.css";
+import toastError from '../../assets/toastError.svg'
 
 const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -49,9 +49,19 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
           setCurrentStep(2);
         } else {
           toast.error(response.data.message);
+          if (response.data.message === 'Email já cadastrado') {  // Substitua pela mensagem de erro correta
+            setCurrentStep(1);  // Voltar para o passo 1
+          }
         }
       } catch (error) {
-        toast.error("Erro ao tentar se inscrever");
+        toast.error(error/* .response.data.error */, {
+          className: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={toastError} alt="" />
+        })
+        if (error.response && error.response.status === 400) {  // Substitua pelo código de erro correto
+          setCurrentStep(1);  // Voltar para o passo 1
+        }
+
       }
     }
   };

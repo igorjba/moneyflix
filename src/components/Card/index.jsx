@@ -6,7 +6,9 @@ export default function Card({
   totalClient,
   cardL,
   backgroundColorTotalClient,
+  isClientData = false,
 }) {
+
   return (
     <div className="card">
       <div className="headerCard initial">
@@ -27,38 +29,22 @@ export default function Card({
       <table className="table-main-card">
         <thead className="titlesTable">
           <tr>
-            <th>Clintes</th>
-            <th>ID da cob.</th>
-            <th>Valor</th>
+            <th>Clientes</th>
+            <th>{isClientData ? "ID do Cliente" : "ID da cob."}</th>
+            <th>{isClientData ? "CPF" : "Valor"}</th>
           </tr>
         </thead>
-        {/* <<<<<<< feature/devChai */}
         {<tbody>
-          {cardL.map((client) => {
+          {cardL && cardL.map((client) => {
             return (
-              <tr key={client.id_cobranca}>
-                <td>{client.cliente}</td>
-                <td>{client.id_cobranca}</td>
-                <td>R$ {client.valor}</td>
+              <tr key={client.id_cobranca || client.id_cliente}>
+                <td>{client.cliente || client.id_cliente}</td>
+                <td>{isClientData ? client.id_cliente : client.id_cobranca || '-'}</td>
+                <td>{isClientData ? client.cpf : 'R$ ' + (client.valor || '-')}</td>
               </tr>
             );
           })}
         </tbody>}
-        {/*  =======
-         <tbody>
-          <tr></tr>
-           {chargeListing &&
-//             chargeListing.map((client, index) => {
-//               return (
-//                 <tr key={index}>
-//                   <td>{client.cliente}</td>
-//                   <td>{client.id_cobranca}</td>
-//                   <td>R$ {client.valor}</td>
-//                 </tr>
-//               );
-//             })}
-//         </tbody>
-// >>>>>>> hml */}
       </table>
       <div className="footerTable initial">
         <span>Ver todos</span>

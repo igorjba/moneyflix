@@ -26,7 +26,16 @@ function Main() {
   const [title, setTitle] = useState("Resumo de Cobranças");
   const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false);
   const [openModalEdit, SetOpenModalEdit] = useState(false);
+  const [userPerfil, setUserPerfil] = useState({});
+  const [userName, setUserName] = useState('');
   const [resumeName, setResumeName] = useState('');
+
+  const [formUser, setFormUser] = useState({
+    nome: '',
+    email: '',
+    cpf: '',
+    telefone: '',
+  });
   const token = getItem('token');
   const [name, setName] = useState('')
   const [clientRegisters, setClientRegisters] = useState([])
@@ -37,13 +46,52 @@ function Main() {
     });
     event.currentTarget.classList.add("atived");
   }
-  function nickName() {
-    if (name.length > name.indexOf(" ")) {
-      return setResumeName((name.slice(0, 1).concat(name.slice(((name.indexOf(" ")) + 1), ((name.indexOf(" ")) + 2)))).toUpperCase())
-    } else {
-      return setResumeName((name.slice(0, 1)).toUpperCase())
+  async function fetchUserPerfil() {
+    try {
+      const response = await api.get("/usuario/painel", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+      });
+      setUserPerfil(response.data);
+      const userNameWords = response.data.nome_usuario.split(' ');
+      const capitalizedUserName = userNameWords[0].charAt(0).toUpperCase() + userNameWords[0].slice(1);
+
+      let resumeName;
+      if (userNameWords.length === 1) {
+              resumeName = userNameWords[0].substring(0, 2).toUpperCase();
+      } else {
+            const lastWord = userNameWords[userNameWords.length - 1];
+        resumeName = userNameWords[0].charAt(0).toUpperCase() + lastWord.charAt(0).toUpperCase();
+      }
+
+      setUserName(capitalizedUserName);
+      setResumeName(resumeName);
+    } catch (error) {
+      toast.error('Falha ao carregar valores', {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      })
     }
   }
+
+  function titleAtived() {
+    if (!imageNavHome) {
+      setTitle("Resumo de Cobranças");
+    }
+    if (!imageNavClient) {
+      setTitle("Clientes");
+    }
+    if (!imageNavCharge) {
+      setTitle("Cobranças");
+    }
+  }
+
+  useEffect(() => {
+    titleAtived();
+    fetchUserPerfil();
+  }, []);
+
   return (
     <div className='initial mainBody'>
       <nav className='initial navegation' >
@@ -65,11 +113,11 @@ function Main() {
             {title}
           </h2>
           <div className='initial'>
-            <div className='title'>
+            <div className='title header-circle'>
               <h1>{resumeName}</h1>
             </div>
             <div className="profile initial">
-              <h1>{name}</h1>
+              <h1>{userName}</h1>
               <img src={setBottom} alt="seta" onClick={() => setModalExit(!modalExit)} />
             </div>
           </div>
