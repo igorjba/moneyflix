@@ -1,5 +1,5 @@
 import './style.css';
-import iconCharge from '../../assets/iconCharge.svg'
+import iconCharge from '../../assets/IconCharge.svg'
 import lupa from '../../assets/Lupa.svg';
 import filter from '../../assets/Filter.svg'
 import deleteCharge from '../../assets/DeleteCharge.svg'
