@@ -3,3 +3,5 @@ const apiCep = axios.create({
     timeout: 10000,
     headers: { 'Content-Type': 'Application/json' }
 });
+
+export default apiCep

@@ -14,6 +14,7 @@ import ModalRegister from "../../components/ModalRegister";
 import ModalSet from "../../components/ModalSet";
 import PageClient from "../../components/PageClient";
 import PageHome from "../../components/PageHome";
+import Pagecharges from "../../components/PageCharges";
 import { getItem } from "../../utils/storage";
 import "./style.css";
 
@@ -137,9 +138,8 @@ function Main() {
         {openModalEdit && <div className="backgroundModal"></div>}
         <header>
           <h2
-            className={`initial ${
-              title == "Resumo de Cobranças" ? "" : "titleSecond"
-            }`}
+            className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"
+              }`}
           >
             {title}
           </h2>
@@ -173,9 +173,10 @@ function Main() {
               setClientRegisters={setClientRegisters}
               clientRegisters={clientRegisters}
               setTitle={setTitle}
-            />
-          )}
+            />)}
           {!imageNavHome && <PageHome setTitle={setTitle} />}
+
+          {!imageNavCharge && <Pagecharges setTitle={setTitle} />}
         </div>
       </div>
       {modalExit && (
@@ -204,6 +205,11 @@ function Main() {
           SetOpenModalEdit={SetOpenModalEdit}
         />
       )}
+
+
+
+
+
     </div>
   );
 }
