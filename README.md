@@ -12,11 +12,12 @@ A versão final do código de cada sprint deverá estar na branch principal do r
 
 No fork de vocês, favor alterar este README para adicionar os links correspondentes para os seguintes itens:
 
-**Repositório de Backend**: https://github.com/igorjba/back-integral-m05-t10
+**Repositório de Backend: https://github.com/igorjba/back-integral-m05-t10**
 
-**Repositório de Frontend**: https://github.com/igorjba/front-integral-m05-t10
+**Repositório de Frontend: https://github.com/igorjba/front-integral-m05-t10**
 
-**URL da aplicação funcionando**: https://front-integral-m05-t10-fawn.vercel.app/,
+**URL da aplicação funcionando: https://front-integral-m05-t10-fawn.vercel.app/**
+
 
 ---
 
