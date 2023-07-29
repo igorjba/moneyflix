@@ -144,6 +144,7 @@ export default function Pagecharges({ setTitle }) {
                                 <img src={deleteCharge} alt="Deletar" />
                             </td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
