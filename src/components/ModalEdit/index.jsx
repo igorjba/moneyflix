@@ -64,7 +64,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             }, {
                 headers: {
                     authorization: token,
-                } //teste
+                }
             });
             toast.success(
                 'Cliente Atualizado com Sucesso!', {
