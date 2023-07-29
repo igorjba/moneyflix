@@ -206,16 +206,16 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                         </div>
                     </div>
                     <div className='box-info'>
-                        <label htmlFor=""><h1>Nova Senha</h1></label>
-                        <input type="password" name='senha' value={form.senha} maxLength={200} onChange={handleChangeForm} />
+                        <label htmlFor=""><h1>Nova Senha*</h1></label>
+                        <input type="password" placeholder='Digite sua Senha' name='senha' value={form.senha} maxLength={200} onChange={handleChangeForm} />
                     </div>
                     <div className='box-info'>
                         <label htmlFor=""><h1>Confirmar a Senha*</h1></label>
-                        <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" name='confirmeSenha' value={form.confirmeSenha} maxLength={200} onChange={handleChangeForm} />
+                        <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" placeholder='Confirme sua senha' name='confirmeSenha' value={form.confirmeSenha} maxLength={200} onChange={handleChangeForm} />
                         {errorPasswordEdit && <span className='error'>{errorPasswordEdit}</span>}
                     </div>
 
-                    <button className='ModalEdit-Button' onClick={handleSubmitEdit}>Continuar</button>
+                    <button className='ModalEdit-Button' >Continuar</button>
                 </form>
             </div>
         </div>
