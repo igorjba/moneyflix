@@ -7,7 +7,7 @@ import clientSFont from '../../assets/Client(2).svg';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import toastError from '../../assets/toastError.svg';
-import { getItem } from '../../utils/storage';
+import { getItem } from '../../utils/localStorage';
 import './style.css';
 
 export default function ModalRegister({ setOpenModalRegister, setClientRegisters, clientRegisters }) {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { getItem } from "../../utils/storage";
+import { getItem } from "../../utils/localStorage";
 
 const Authenticated = () => {
     const token = getItem("token");
