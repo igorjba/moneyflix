@@ -13,13 +13,16 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
     const [errorName, setErrorName] = useState('');
+    const [senhaAtual, setSenhaAtual] = useState('');
+    const [errorSenhaAtual, setErrorSenhaAtual] = useState('');
     const [form, setForm] = useState({
         nome: '',
         email: '',
         cpf: '',
         telefone: '',
         senha: '',
-        confirmeSenha: ''
+        confirmeSenha: '',
+        senhaAtual: ''
     });
 
     const [numberCPF, setNumberCPF] = useState(form.cpf);
@@ -30,12 +33,16 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         SetOpenModalEditPerfil(!openModalEditPerfil);
         SetOpenModalEdit(false);
     }
+    function handleChangeFormSenhaAtual(e) {
+        setSenhaAtual(e.target.value);
+    }
 
     async function handleSubmitEdit(event) {
         event.preventDefault();
         setErrorPasswordEdit('');
         setErrorEmailEdit('');
         setErrorName('');
+        setErrorSenhaAtual(''); // Reset do erro do campo "Senha atual"
 
         if (!form.nome.trim()) {
             setErrorName('Este campo deve ser preenchido');
@@ -48,8 +55,12 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         if (form.senha !== form.confirmeSenha) {
             return setErrorPasswordEdit('As senhas não coincidem');
         }
+        if (!senhaAtual.trim()) {
+            setErrorSenhaAtual('Este campo deve ser preenchido');
+            return;
+        }
 
-        if (!form.nome.trim() || !form.email.trim() || !form.cpf.trim() || !form.telefone.trim() || !form.senha.trim() || !form.confirmeSenha.trim()) {
+        if (!form.nome.trim() || !form.email.trim() || !form.cpf.trim() || !form.telefone.trim()) {
             return;
         }
 
@@ -60,11 +71,12 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                 email: form.email,
                 telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
                 senha: form.senha,
-                confirmeSenha: form.confirmeSenha
+                confirmeSenha: form.confirmeSenha,
+                senhaAtual: senhaAtual // Enviando a senha atual para a API
             }, {
                 headers: {
                     authorization: token,
-                } //teste
+                }
             });
             toast.success(
                 'Cliente Atualizado com Sucesso!', {
@@ -74,13 +86,25 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             SetOpenModalEditPerfil(false)
             SetOpenModalEdit(false)
         } catch (error) {
-            toast.error(error.response.data.error, {
-                className: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            });
+            if (error.response && error.response.data && error.response.data.message) {
+                if (error.response.data.message === 'Senha incorreta') {
+                    setErrorSenhaAtual('Senha Incorreta');
+                } else {
+                    // Trate outros erros da API aqui, se necessário
+                    toast.error(error.response.data.message, {
+                        className: 'customToastify-error',
+                        icon: ({ theme, type }) => <img src={toastError} alt="" />
+                    });
+                }
+            } else {
+                // Trate outros erros aqui, se necessário
+                toast.error('Erro ao atualizar cliente', {
+                    className: 'customToastify-error',
+                    icon: ({ theme, type }) => <img src={toastError} alt="" />
+                });
+            }
         }
     }
-
     function handleChangeForm(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
@@ -197,20 +221,25 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
 
                     <div className='information-ModalEdit'>
                         <div>
-                            <label htmlFor=""><h1>CPF</h1></label>
+                            <label htmlFor=""><h1>CPF*</h1></label>
                             <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={handleChangeFormCPF} />
                         </div>
                         <div>
-                            <label htmlFor=""><h1>Telefone</h1></label>
+                            <label htmlFor=""><h1>Telefone*</h1></label>
                             <input type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={15} onChange={handleChangeFormTel} />
                         </div>
                     </div>
                     <div className='box-info'>
-                        <label htmlFor=""><h1>Nova Senha*</h1></label>
+                        <label htmlFor=""><h1>Senha Atual*</h1></label>
+                        <input type="password" placeholder='Digite sua senha atual' name='senhaAtual' value={form.senhaAtual} maxLength={200} onChange={handleChangeForm} />
+                        {errorSenhaAtual && <span className='error'>{errorSenhaAtual}</span>}
+                    </div>
+                    <div className='box-info'>
+                        <label htmlFor=""><h1>Nova Senha</h1></label>
                         <input type="password" placeholder='Digite sua Senha' name='senha' value={form.senha} maxLength={200} onChange={handleChangeForm} />
                     </div>
                     <div className='box-info'>
-                        <label htmlFor=""><h1>Confirmar a Senha*</h1></label>
+                        <label htmlFor=""><h1>Confirmar a Senha</h1></label>
                         <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" placeholder='Confirme sua senha' name='confirmeSenha' value={form.confirmeSenha} maxLength={200} onChange={handleChangeForm} />
                         {errorPasswordEdit && <span className='error'>{errorPasswordEdit}</span>}
                     </div>
