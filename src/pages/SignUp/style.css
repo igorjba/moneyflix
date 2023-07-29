@@ -1,6 +1,7 @@
 .container-sign-up {
   display: flex;
   align-items: center;
+  justify-content: center;
 
   width: 100vw;
   height: 100vh;
@@ -12,8 +13,7 @@
   display: flex;
   justify-content: center;
 
-  max-width: 50rem;
-  width: 100%;
+  width: 34.72%;
   height: 100%;
 
   background-color: var(--bg-nav);
@@ -79,12 +79,11 @@
 
 .container-sign-up-forms {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
   align-items: center;
 
-  max-width: 94rem;
-  width: 100%;
+  width: 65.28%;
   height: 100%;
 }
 
@@ -250,10 +249,10 @@
 
   max-width: 36.8rem;
   width: 100%;
-  max-height: 0.3rem;
+  max-height: 0.6rem;
   height: 100%;
-  margin-top: auto;
-  margin-bottom: 6.4rem;
+  /* margin-top: 27.85%; */
+  margin-bottom: 7.16%;
 }
 
 .steps-bar {
@@ -261,6 +260,7 @@
   width: 100%;
   max-height: 0.6rem;
   height: 100%;
+  border-radius: 0.3rem;
 }
 
 .sign-up-indicator-forms-one {

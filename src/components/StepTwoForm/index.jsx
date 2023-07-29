@@ -76,8 +76,8 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
 
 
   return (
-    <div className="sign-up-form">
-      <h1 className="step-two-tittle">Adicione seus dados</h1>
+    <div className="sign-up-form-step-two">
+      <h1 className="step-two-tittle">Escolha uma senha</h1>
       <form className="step-two-form">
         <div className="container-name-step-two-form container-input">
           <span className="step-two-form-name span-forms">Senha*</span>

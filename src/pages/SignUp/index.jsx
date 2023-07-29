@@ -42,10 +42,8 @@ const SignUp = () => {
                             style={{
                                 backgroundImage: `url(${currentStep === 0 ? StepUndoneImg :
                                     currentStep === 1 ? StepInProgressImg :
-                                        StepDoneImg})`,
-                                cursor: currentStep === 2 ? 'default' : 'pointer'
+                                        StepDoneImg})`
                             }}
-                            onClick={currentStep !== 2 ? () => setCurrentStep(1) : null}
                         />
                         <h1 className='sign-up-step-one-title'>Escolha uma senha</h1>
                     </div>
@@ -94,16 +92,12 @@ const SignUp = () => {
                     <div className='sign-up-indicator-forms-one steps-bar'
                         style={{
                             backgroundColor: '#0E8750',
-                            cursor: currentStep === 2 ? 'default' : 'pointer'
                         }}
-                        onClick={currentStep !== 2 ? () => setCurrentStep(0) : null}
                     />
                     <div className='sign-up-indicator-forms-two steps-bar'
                         style={{
                             backgroundColor: `${currentStep > 0 ? '#0E8750' : '#DEDEE9'}`,
-                            cursor: currentStep === 2 ? 'default' : 'pointer'
                         }}
-                        onClick={currentStep !== 2 ? () => setCurrentStep(1) : null}
                     />
                     <div className='sign-up-indicator-forms-three steps-bar'
                         style={{ backgroundColor: `${currentStep === 2 ? '#0E8750' : '#DEDEE9'}` }}
