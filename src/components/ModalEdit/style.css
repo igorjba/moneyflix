@@ -26,10 +26,12 @@
 }
 
 .main-ModalEdit form h1 {
-    color: var(--font-clr-gray-text);
-    font-size: var(--fz-14);
-    font-weight: var(--fw-medium);
-    line-height: var(--lineh-20);
+    color: var(--gray-700, #344054);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
 }
 
 .main-ModalEdit form input {
@@ -43,6 +45,13 @@
     background-color: var(--bg-modal);
     box-shadow: 0 0.1rem 0.2rem 0px rgba(16, 24, 40, 0.05);
     margin-bottom: 0.6rem;
+    color: var(--gray-700, #344054);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+
 }
 
 .main-ModalEdit .box-info,
