@@ -4,7 +4,7 @@ import api from '../../api/api';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import toastError from '../../assets/toastError.svg';
-import { getItem } from '../../utils/storage';
+import { getItem } from '../../utils/localStorage';
 import './style.css';
 
 export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
