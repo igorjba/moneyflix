@@ -15,7 +15,7 @@ import ModalSet from "../../components/ModalSet";
 import PageClient from "../../components/PageClient";
 import PageHome from "../../components/PageHome";
 import Pagecharges from "../../components/PageCharges";
-import { getItem } from "../../utils/storage";
+import { getItem } from "../../utils/localStorage";
 import "./style.css";
 
 function Main() {

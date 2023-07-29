@@ -7,7 +7,7 @@ import Expired from "../../assets/Expired.svg";
 import Paid from "../../assets/Paid.svg";
 import Pending from "../../assets/Pending.svg";
 import toastError from '../../assets/toastError.svg';
-import { getItem } from '../../utils/storage';
+import { getItem } from '../../utils/localStorage';
 import Card from "../Card/index";
 import CardResume from "../CardResume/index";
 import "./style.css";

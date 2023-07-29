@@ -5,7 +5,7 @@ import clientSFont from '../../assets/Client(2).svg';
 import defaulter from '../../assets/defaulter.svg';
 import filter from '../../assets/Filter.svg';
 import lupa from '../../assets/Lupa.svg';
-import { getItem } from '../../utils/storage';
+import { getItem } from '../../utils/localStorage';
 import './style.css';
 
 export default function PageClient({ setOpenModalRegister, openModalRegister, setClientRegisters, clientRegisters, setTitle }) {
