@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useNavigate, Link } from 'react-router-dom';
-import toastError from '../../assets/toastError.svg'
+import toastError from '../../assets/toastError.svg';
 import './style.css';
 
 const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
@@ -23,18 +23,25 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
 
         setErrorName('');
         setErrorEmail('');
-
         if (!localForm.username) {
             setErrorName('O Nome é obrigatório');
+            return toast.error("Por favor preencha todos os campos", {
+                toastClassName: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            });
         }
-        if (!localForm.email) {
+        if (!localForm.email || localForm.email == "") {
             setErrorEmail('O Email é obrigatório');
+            return toast.error("Por favor preencha todos os campos", {
+                toastClassName: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            });
         }
         if (!localForm.username && !localForm.email) {
-            toast.error("Por favor preencha todos os campos", {
-                className: 'customToastify-error',
+            return toast.error("Por favor preencha todos os campos", {
+                toastClassName: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
-            })
+            });
         } else {
 
             setSignUpForm({
@@ -59,7 +66,6 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
                         onChange={handleChangeStepOne}
                         placeholder='Digite seu nome'
                     />
-                    {errorName && <span className='error'>{errorName}</span>}
                 </div>
                 <div className='container-email-step-one-form container-input'>
                     <span className='step-one-form-email span-forms'>E-mail*</span>
@@ -71,7 +77,6 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
                         onChange={handleChangeStepOne}
                         placeholder='Digite seu e-mail'
                     />
-                    {errorEmail && <span className='error'>{errorEmail}</span>}
                 </div>
             </form>
             <div className='container-step-one-form-button'>

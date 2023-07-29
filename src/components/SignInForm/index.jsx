@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
 import api from "../../api/api.jsx";
-import toastError from '../../assets/toastError.svg';
+import toastError from "../../assets/toastError.svg";
+import success from '../../assets/Success-Toast.svg';
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [namePerfil, setNamePerfil] = useState('')
   const navigate = useNavigate();
 
   const [localForm, setLocalForm] = useState({
@@ -30,20 +30,21 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         email: localForm.email,
         senha: localForm.password,
       });
-      setNamePerfil(response.data.userLogged.nome_usuario)
-      /* console.log(response.data.userLogged.nome_usuario); */
-      console.log(response);
+      if (response && response.data.user) {
+        localStorage.setItem("token", `${response.data.token}`);
+        localStorage.setItem("id", response.data.user.id_usuario);
 
-      localStorage.setItem("token", `Bearer ${response.data.token}`);
-      localStorage.setItem("id", response.data.userLogged.id_usuario);
+        toast.success('Login bem sucedido', {
+          className: 'customToastify-success',
+          icon: ({ theme, type }) => <img src={success} alt="" />
+        });
+        navigate("/home");
+      }
 
-      toast.error(response.data.message);
-      navigate("/home");
     } catch (error) {
-      console.log(error.response.data.message)
       toast.error(error.response.data.message, {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     }
   }
@@ -53,8 +54,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
     if (!localForm.password || !localForm.email) {
       return toast.error("Por favor preencha todos os campos", {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     } else {
       setSignInForm({
@@ -65,10 +66,6 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
     login();
   };
-
-  function handleSignUpRedirect() {
-    navigate("/cadastro");
-  }
 
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -98,9 +95,9 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           <div className="sign-in-form-spans-password">
             <span className="sign-in-form-password span-forms">Senha</span>
             <span className="sign-in-form-subtitle">
-              <a className="sign-in-form-link" href="#">
+              <Link className="sign-in-form-link" to="/esqueci-senha">
                 Esqueceu a senha?
-              </a>{" "}
+              </Link>
             </span>
           </div>
 
@@ -110,7 +107,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
             name="password"
             value={localForm.password}
             onChange={handleChangeSignIn}
-            placeholder="●●●●●●●●"
+            placeholder="Digite sua senha"
           />
           <div
             className="sign-in-form-toggle-password-visibility"
@@ -133,13 +130,9 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       <div className="container-sign-in-form-subtitle">
         <span className="sign-in-form-subtitle">
           Ainda não possui uma conta?{" "}
-          <a
-            className="sign-in-form-link"
-            href="#"
-            onClick={handleSignUpRedirect}
-          >
+          <Link className="sign-in-form-link" to="/cadastro">
             Cadastre-se
-          </a>
+          </Link>
         </span>
       </div>
     </div>

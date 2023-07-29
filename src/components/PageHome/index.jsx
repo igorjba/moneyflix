@@ -1,65 +1,48 @@
+import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+import api from "../../api/api.jsx";
 import ClienteOK from "../../assets/ClienteOK.svg";
 import ClienteOverdue from "../../assets/ClienteOverdue.svg";
 import Expired from "../../assets/Expired.svg";
 import Paid from "../../assets/Paid.svg";
 import Pending from "../../assets/Pending.svg";
+import toastError from '../../assets/toastError.svg';
+import { getItem } from '../../utils/storage';
 import Card from "../Card/index";
 import CardResume from "../CardResume/index";
 import "./style.css";
-import api from "../../api/api.jsx";
-import { useState, useEffect } from "react";
 
-export default function PageHome() {
-  const [totalChargesData, setTotalChargesData] = useState({});
-  const [expiredChargesData, setExpiredChargesData] = useState({});
-  const [paidChargesData, setPaidChargesData] = useState({});
-  const [pendingChargesData, setPendingChargesData] = useState({});
+export default function PageHome({ setTitle }) {
+  const [token, setToken] = useState(getItem('token'));
+  const [data, setData] = useState({});
+  const [errorValue, setErrorValue] = useState(0);
 
-  async function showDataTotalChages() {
+  async function fetchData() {
     try {
-      const response = await api.get("/cobranca/total", {});
-
-      setTotalChargesData(response.data);
+      const response = await api.get("/usuario/painel", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setData(response.data);
     } catch (error) {
-      toast.error("Falha ao carregar valores");
+      toast.error("Falha ao carregar valores", {
+        errorValue: 1,
+      });
     }
   }
-
-  async function showDataExpiredCharges() {
-    try {
-      const response = await api.get("/cobranca/vencidas", {});
-
-      setExpiredChargesData(response.data);
-    } catch (error) {
-      toast.error("Falha ao carregar valores");
-    }
-  }
-
-  async function showDataPaidCharges() {
-    try {
-      const response = await api.get("/cobranca/pagas", {});
-
-      setPaidChargesData(response.data);
-    } catch (error) {
-      toast.error("Falha ao carregar valores");
-    }
-  }
-
-  async function showDataPendingCharges() {
-    try {
-      const response = await api.get("/cobranca/pendentes", {});
-
-      setPendingChargesData(response.data);
-    } catch (error) {
-      toast.error("Falha ao carregar valores");
+  function errorAtived() {
+    if (errorValue > 1) {
+      return toast.error("Falha ao carregar valores", {
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
+      });
     }
   }
 
   useEffect(() => {
-    showDataTotalChages();
-    showDataExpiredCharges();
-    showDataPaidCharges();
-    showDataPendingCharges();
+    fetchData();
+    setTitle("Resumo de Cobranças")
   }, []);
 
   return (
@@ -69,22 +52,21 @@ export default function PageHome() {
           IconCard={Paid}
           BackgroundColor="#eef6f6"
           TitleCard="Cobranças Pagas"
-          ValueCard={totalChargesData.Pagas}
+          ValueCard={data.totalValorPagas?.[0]?.sum}
         />
         <CardResume
           IconCard={Expired}
           BackgroundColor="#ffefef"
           TitleCard="Cobranças Vencidas"
-          ValueCard={totalChargesData.Pendentes}
+          ValueCard={data.totalValorVencidas?.[0]?.sum}
         />
         <CardResume
           IconCard={Pending}
           BackgroundColor="#fcf6dc"
           TitleCard="Cobranças Previstas"
-          ValueCard={totalChargesData.Vencidas}
+          ValueCard={data.totalValorPendentes?.[0]?.sum}
         />
       </div>
-
       <div className="contentCards">
         <Card
           titleCard="Cobranças Vencidas"
@@ -92,8 +74,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-red)",
             color: "var(--font-clr-red-number)",
           }}
-          totalClient={expiredChargesData.total}
-          chargeListing={expiredChargesData.chargeOverdue}
+          totalClient={data.qtdRegistroVencidas?.[0]?.count}
+          cardL={data.Vencidas}
         />
         <Card
           titleCard="Cobranças Previstas"
@@ -101,8 +83,8 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-yellow)",
             color: "var(--font-clr-yellow-number)",
           }}
-          totalClient={expiredChargesData.total}
-          chargeListing={pendingChargesData.chargePending}
+          totalClient={data.qtdRegistroPendentes?.[0]?.count}
+          cardL={data.Pendentes}
         />
         <Card
           titleCard="Cobranças Pagas"
@@ -110,19 +92,19 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-          totalClient={expiredChargesData.total}
-          chargeListing={paidChargesData.chargePaid}
+          totalClient={data.qtdRegistroPagas?.[0]?.count}
+          cardL={data.Pagas}
         />
-
         <Card
           titleCard="Clientes Inadimplentes"
           backgroundColorTotalClient={{
             backgroundColor: "var(--bg-card-red)",
             color: "var(--font-clr-red-number)",
           }}
-          totalClient={expiredChargesData.total}
-          chargeListing=""
+          totalClient={data.totalInadimplentes?.total}
+          cardL={data.totalInadimplentes?.clientDefaulters}
           iconCard={ClienteOverdue}
+          isClientData={true}
         />
         <Card
           titleCard="Clientes em dia"
@@ -130,9 +112,10 @@ export default function PageHome() {
             backgroundColor: "var(--bg-card-gray)",
             color: "var(--font-clr-blue-number)",
           }}
-          totalClient={expiredChargesData.total}
-          chargeListing=""
+          totalClient={data.totalEmdias?.total}
+          cardL={data.totalEmdias?.clientInDay}
           iconCard={ClienteOK}
+          isClientData={true}
         />
       </div>
     </>

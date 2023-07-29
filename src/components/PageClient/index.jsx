@@ -1,24 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import api from '../../api/api.jsx';
 import clientSFont from '../../assets/Client(2).svg';
 import defaulter from '../../assets/defaulter.svg';
-import filter from '../../assets/filter.svg';
-import lupa from '../../assets/lupa.svg';
-import api from '../../api/api.jsx'
+import filter from '../../assets/Filter.svg';
+import lupa from '../../assets/Lupa.svg';
+import { getItem } from '../../utils/storage';
 import './style.css';
 
-export default function PageClient({ setOpenModalRegister }) {
-    const [clientRegisters, setClientRegisters] = useState([])
+export default function PageClient({ setOpenModalRegister, openModalRegister, setClientRegisters, clientRegisters, setTitle }) {
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [countOrder, setCountOrder] = useState(0)
+    const token = getItem('token')
     async function ClientCadaster() {
         try {
             const response = await api.get('cliente', {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
             });
-            setClientRegisters(response.data)
+            setClientRegisters((response.data).slice(0, 10));
         } catch (error) {
-            console.log(error)
+
         }
     }
     function backgroundSituation() {
@@ -63,11 +67,13 @@ export default function PageClient({ setOpenModalRegister }) {
 
     }
     useEffect(() => {
-        backgroundSituation()
-    })
-    useEffect(() => {
         ClientCadaster()
+        backgroundSituation()
+        setTitle("Clientes")
     }, [])
+    useEffect(() => {
+        backgroundSituation()
+    }, [clientRegisters])
     return (
         <>
             <div className='initial header'>
@@ -119,9 +125,9 @@ export default function PageClient({ setOpenModalRegister }) {
                         {clientRegisters.map((client) => {
                             return (
                                 <tr key={client.id_cliente}>
-                                    <td><h1>{client.nome_cliente}</h1></td>
+                                    <td className='table-Register-Line'><h1>{client.nome_cliente}</h1></td>
                                     <td><h1>{client.cpf}</h1></td>
-                                    <td><h1>{client.email}</h1></td>
+                                    <td className='table-Register-Line'><h1>{client.email}</h1></td>
                                     <td><h1>{client.telefone}</h1></td>
                                     <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                                     <td>

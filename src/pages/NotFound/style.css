@@ -1,0 +1,18 @@
+.container-not-found {
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--bg-white-gray);
+}
+
+.img-not-found {
+    width: 40rem;
+    margin-bottom: -5rem;
+}
+
+.text-not-found {
+    color: var(--font-clr-gray-title);
+}

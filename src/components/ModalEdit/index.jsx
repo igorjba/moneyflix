@@ -1,155 +1,184 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../api/api';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
+import toastError from '../../assets/toastError.svg';
 import { getItem } from '../../utils/storage';
-import toastError from '../../assets/toastError.svg'
 import './style.css';
 
-export default function ModalEdit({ SetOpenModalEditPerfil, openModalEditPerfil, SetOpenModalEdit }) {
-    const [userData, setUserData] = useState([]);
+export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
+    const [userPerfil, setUserPerfil] = useState([]);
     const token = getItem('token');
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
     const [form, setForm] = useState({
-        name: 'teste',
-        email: 'teste@email.com',
-        cpf: '123456789',
-        phone: '123456789',
-        password: '',
-        confirmPassword: ''
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        senha: '',
+        confirmeSenha: ''
     });
-
+    const [numberCPF, setNumberCPF] = useState(form.cpf);
+    const [numberTel, setNumberTel] = useState(form.telefone);
+    let cpfInitial = '';
+    let telefoneInitial
     function onclickCloseModal() {
         SetOpenModalEditPerfil(!openModalEditPerfil)
         SetOpenModalEdit(false)
     }
-
-    async function UserLogged() {
+    async function handleSubmitEdit(event) {
+        event.preventDefault();
+        setPasswordEdit('')
+        setErrorEmailEdit('')
+        if (form.senha !== form.confirmeSenha) {
+            return setPasswordEdit('As senhas não coincidem')
+        }
         try {
-            const response = await api.get('usuario/listar', {
+            const response = await api.put('usuario/atualizar', {
+                nome: form.nome,
+                cpf: numberCPF.replace(/[.-]/g, ''),
+                email: form.email,
+                telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
+                senha: form.senha,
+                confirmeSenha: form.confirmeSenha
+            }, {
                 headers: {
-                    Authorization: token
+                    authorization: token,
                 }
             });
-            setUserData(response.data)
-            console.log(response)
+            toast.success(
+                'Cliente Atualizado com Sucesso!', {
+                className: 'customToastify-success',
+                icon: ({ theme, type }) => <img src={success} alt="" />
+            })
+            SetOpenModalEditPerfil(false)
+            SetOpenModalEdit(false)
+        } catch (error) {
+            toast.error(error.response.data.error, {
+                className: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            })
+        }
+    }
+    function handleChangeForm(e) {
+        setForm({ ...form, [e.target.name]: e.target.value })
+    }
+    async function UserLogged() {
+        try {
+            const response = await api.get('usuario', {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                }
+            });
+            cpfInitial = response.data.cpf
+            telefoneInitial = response.data.telefone
+            setForm(
+                {
+                    nome: response.data.nome_usuario,
+                    email: response.data.email,
+                    cpf: response.data.cpf,
+                    telefone: response.data.telefone,
+                }
+            )
+            CPFormated(cpfInitial)
+            TelFormated(telefoneInitial)
         } catch (error) {
             toast.error(error.response.data.message, {
                 className: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
             })
-            console.log(error)
         }
     }
+    function CPFormated() {
+        const inputNumberCPF = cpfInitial.replace(/\D/g, '')
+        let formattedValue = inputNumberCPF;
+        if (inputNumberCPF.length > 3) {
+            formattedValue = `${inputNumberCPF.slice(0, 3)}.${inputNumberCPF.slice(3)}`;
+        }
+        if (inputNumberCPF.length > 6) {
+            formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
+        }
+        if (inputNumberCPF.length > 9) {
+            formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
+        }
+        setNumberCPF(formattedValue);
+    }
+    function TelFormated() {
+        const inputNumberTel = telefoneInitial.replace(/\D/g, '')
+        let formattedValue = inputNumberTel
+        if (inputNumberTel.length > 2) {
+            formattedValue = `(${inputNumberTel.slice(0, 2)})${inputNumberTel.slice(2)}`;
+        }
+        if (inputNumberTel.length > 7) {
+            formattedValue = `${formattedValue.slice(0, 9)}-${formattedValue.slice(9, 13)}`;
+        }
+        setNumberTel(formattedValue);
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        setErrorPasswordEdit('')
-        setErrorEmailEdit('')
+    }
+    function handleChangeFormTel(e) {
+        const inputNumberTel = e.target.value.replace(/\D/g, '')
+        let formattedValue = inputNumberTel
+        if (inputNumberTel.length > 2) {
+            formattedValue = `(${inputNumberTel.slice(0, 2)})${inputNumberTel.slice(2)}`;
+        }
+        if (inputNumberTel.length > 7) {
+            formattedValue = `${formattedValue.slice(0, 9)}-${formattedValue.slice(9, 13)}`;
+        }
+        setNumberTel(formattedValue);
 
-        if (form.password !== form.confirmPassword) {
-            return setErrorPasswordEdit('As senhas não coincidem')
+    }
+    function handleChangeFormCPF(e) {
+        const inputNumberCPF = e.target.value.replace(/\D/g, '')
+        let formattedValue = inputNumberCPF
+
+        if (inputNumberCPF.length > 3) {
+            formattedValue = `${inputNumberCPF.slice(0, 3)}.${inputNumberCPF.slice(3)}`;
+        }
+        if (inputNumberCPF.length > 6) {
+            formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
+        }
+        if (inputNumberCPF.length > 9) {
+            formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
         }
 
-        toast.success(
-            'Cliente Cadastro com Sucesso!', {
-            className: 'customToastify-success',
-            icon: ({ theme, type }) => <img src={success} alt="" />
-        })
-        SetOpenModalEditPerfil(false)
-        SetOpenModalEdit(false)
-        console.log(form)
+        setNumberCPF(formattedValue);
     }
-
     useEffect(() => {
         UserLogged()
     }, [])
-
-    function handleChangeForm(e) {
-        setForm({ ...form, [e.target.name]: e.target.value })
-    }
-
     return (
         <div className="ModalEdit-Main">
             <div className="header-ModalEdit initial">
                 <h2>Edite seu cadastro</h2>
                 <img className="closedEdit" src={closed} alt="Fechar" onClick={onclickCloseModal} />
             </div>
-            <form className="edit-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Nome*</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChangeForm}
-                        placeholder="Digite seu nome"
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">E-mail*</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChangeForm}
-                        placeholder="Digite seu e-mail"
-                    />
-                </div>
-                <div className="form-row">
-                    <div className="form-group">
-                        <label htmlFor="cpf">CPF</label>
-                        <input
-                            type="text"
-                            id="cpf"
-                            name="cpf"
-                            value={form.cpf}
-                            onChange={handleChangeForm}
-                            placeholder="Digite seu CPF"
-                        />
+            <div className='main-ModalEdit'>
+                <form onSubmit={handleSubmitEdit}>
+                    <label htmlFor=""><h1>Nome*</h1></label>
+                    <input type="text" placeholder='Digite seu nome' name='nome' value={form.nome} defaultValue={form.nome} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                    <label htmlFor=""><h1>E-mail*</h1></label>
+                    <input className={`${errorEmailEdit ? 'errorLine' : ''}`} type="text" placeholder='Digite seu e-mail' name='email' value={form.email} defaultValue={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                    {errorEmailEdit && <span className='error'>{errorEmailEdit}</span>}
+                    <div className='information-ModalEdit'>
+                        <div>
+                            <label htmlFor=""><h1>CPF</h1></label>
+                            <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} defaultValue={numberCPF} maxLength={14} onChange={(event) => handleChangeFormCPF(event)} />
+                        </div>
+                        <div>
+                            <label htmlFor=""><h1>Telefone</h1></label>
+                            <input type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} defaultValue={numberTel} maxLength={15} onChange={(event) => handleChangeFormTel(event)} />
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="phone">Telefone</label>
-                        <input
-                            type="text"
-                            id="phone"
-                            name="phone"
-                            value={form.phone}
-                            onChange={handleChangeForm}
-                            placeholder="Digite seu Telefone"
-                        />
-                    </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Nova Senha*</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChangeForm}
-                        placeholder="********"
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirmar Senha*</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value={form.confirmPassword}
-                        onChange={handleChangeForm}
-                        placeholder="********"
-                    />
-                </div>
-                <div className="submit-div">
-                    <button className="submit-button">Aplicar</button>
-                </div>
-            </form>
+                    <label htmlFor=""><h1>Nova Senha</h1></label>
+                    <input type="password" name='senha' value={form.senha} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                    <label htmlFor=""><h1>Confirmar a Senha*</h1></label>
+                    <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" name='confirmeSenha' value={form.confirmeSenha} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+                    {errorPasswordEdit && <span className='error'>{errorPasswordEdit}</span>}
+                    <button className='ModalEdit-Button' onClick={handleSubmitEdit}>Continuar</button>
+                </form>
+            </div>
         </div>
     );
 }
