@@ -18,6 +18,7 @@ No fork de vocês, favor alterar este README para adicionar os links corresponde
 
 **URL da aplicação funcionando: https://front-integral-m05-t10-fawn.vercel.app/**
 
+
 ---
 
 E os itens abaixo, que deverão ser preenchidos apenas após a finalização de todas as sprints do projeto:
