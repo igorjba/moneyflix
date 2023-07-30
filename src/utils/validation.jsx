@@ -61,8 +61,8 @@ function validatePassword(password) {
         return { isValid: false, message: 'Este campo deve ser preenchido' };
     }
 
-    if (password.length < 8) {
-        return { isValid: false, message: 'Senha deve ter pelo menos 8 caracteres.' };
+    if (password.length < 6) {
+        return { isValid: false, message: 'Senha deve ter pelo menos 6 caracteres.' };
     }
 
     return { isValid: true };
