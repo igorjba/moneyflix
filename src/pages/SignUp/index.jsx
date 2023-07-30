@@ -25,10 +25,8 @@ const SignUp = () => {
                         <div
                             className='sign-up-step-one-circle sign-up-circle'
                             style={{
-                                backgroundImage: `url(${currentStep === 0 ? StepInProgressImg : StepDoneImg})`,
-                                cursor: currentStep === 2 ? 'default' : 'pointer'
+                                backgroundImage: `url(${currentStep === 0 ? StepInProgressImg : StepDoneImg})`
                             }}
-                            onClick={currentStep !== 2 ? () => setCurrentStep(0) : null}
                         />
                         <h1 className='sign-up-step-one-title'>Cadastre-se</h1>
                     </div>

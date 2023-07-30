@@ -20,6 +20,7 @@
     width: 100%;
     max-height: 16rem;
     height: 100%;
+    margin-bottom: 4.6rem;
 }
 
 .step-one-tittle {
@@ -87,11 +88,10 @@
     justify-content: center;
 
     max-width: 36.8rem;
-    max-height: 4.4rem;
     width: 100%;
-    max-height: 4.6rem;
+    max-height: 4.4rem;
     height: 100%;
-    margin-top: 4rem;
+
 }
 
 .step-one-next-page-button {
