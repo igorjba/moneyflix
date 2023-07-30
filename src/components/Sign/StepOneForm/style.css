@@ -85,6 +85,10 @@
     margin-top: 0.6rem;
 }
 
+.container-input {
+    margin-top: 0.6rem;
+}
+
 .container-step-one-form-button {
     display: flex;
     align-items: center;
