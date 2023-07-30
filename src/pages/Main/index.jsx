@@ -38,6 +38,7 @@ function Main() {
     });
     event.currentTarget.classList.add("atived");
   }
+
   async function fetchUserPerfil() {
     try {
       const response = await api.get("/usuario/painel", {

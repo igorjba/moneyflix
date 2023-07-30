@@ -53,7 +53,7 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
     };
 
     return (
-        <div className='sign-up-form'>
+        <div className='sign-up-form-step-one'>
             <h1 className='step-one-tittle'>Adicione seus dados</h1>
             <form className='step-one-form'>
                 <div className='container-name-step-one-form container-input'>
