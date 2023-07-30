@@ -4,9 +4,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import StepDoneImg from '../../assets/StepDone.svg'
 import StepInProgressImg from '../../assets/StepInProgress.svg'
 import StepUndoneImg from '../../assets/StepUndone.svg'
-import StepOneForm from '../../components/StepOneForm'
-import StepThreeForm from '../../components/StepThreeForm'
-import StepTwoForm from '../../components/StepTwoForm'
+import StepOneForm from '../../components/Sign/StepOneForm'
+import StepThreeForm from '../../components/Sign/StepThreeForm'
+import StepTwoForm from '../../components/Sign/StepTwoForm'
 import './style.css'
 
 const SignUp = () => {

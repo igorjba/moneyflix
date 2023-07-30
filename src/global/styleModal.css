@@ -1,0 +1,25 @@
+.main-Modal {
+    width: 35vw;
+    height: 80vh;
+    padding: 4rem 5.7rem 0;
+    border-radius: 3rem;
+    position: absolute;
+
+    background-color: var(--bg-modal);
+}
+
+.main-Modal form {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    padding-top: 3.2rem;
+}
+
+.main-Modal form h1 {
+    font-size: var(--fz-14);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-20);
+
+    color: var(--font-clr-gray-text);
+}
