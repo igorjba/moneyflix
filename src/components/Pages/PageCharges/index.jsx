@@ -10,7 +10,6 @@ import './style.css';
 export default function Pagecharges() {
     const { setTitle } = useUser();
     setTitle('Cobranças')
-
     function backgroundSituation() {
         const status = document.querySelectorAll('.status-text');
         status.forEach(element => {
