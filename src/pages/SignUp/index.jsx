@@ -10,7 +10,7 @@ import StepTwoForm from '../../components/Sign/StepTwoForm'
 import './style.css'
 
 const SignUp = () => {
-    const [currentStep, setCurrentStep] = useState(2)
+    const [currentStep, setCurrentStep] = useState(0)
     const [signUpForm, setSignUpForm] = useState({
         username: '',
         email: '',
