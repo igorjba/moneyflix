@@ -15,7 +15,6 @@ export default function CardResume({
     });
   }
   const valueCardFormated = formatValue(parseInt(ValueCard));
-
   return (
     <div
       className="resumeCharge initial"
@@ -23,8 +22,8 @@ export default function CardResume({
     >
       <img src={IconCard} alt="cobranças pagas" />
       <div className="initial">
-        <h3 className="">{TitleCard}</h3>
-        <h3 className="value">{valueCardFormated}</h3>
+        <h2 className="title-card">{TitleCard}</h2>
+        <h2 className="value">{valueCardFormated}</h2>
       </div>
     </div>
   );

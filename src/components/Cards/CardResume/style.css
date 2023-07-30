@@ -1,10 +1,3 @@
-h3 {
-  font-family: Montserrat;
-  font-style: normal;
-  font-size: 1.8rem !important;
-  color: var(--font);
-}
-
 .iconCard {
   width: 2.4rem;
   height: 2.4rem;
@@ -12,14 +5,25 @@ h3 {
 }
 
 .value {
-  font-size: 2.4rem !important;
+  font-size: 2.4rem;
+  font-weight: var(--fw-bold);
+  line-height: var(--lineh-130);
+
+  color: var(--font);
+}
+
+.title-card {
+  font-size: 1.8rem;
+  font-weight: var(--fw-bold);
+  line-height: var(--lineh-130);
+
+  color: var(--font);
 }
 
 .resumeCharge {
   max-width: 36rem;
   max-height: 11rem;
   padding: 2.3rem 4rem;
-
   border-radius: 30px;
 }
 

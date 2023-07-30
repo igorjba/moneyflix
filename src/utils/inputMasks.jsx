@@ -1,5 +1,5 @@
 function cpfMask(value) {
-    value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    value = value.replace(/\D/g, '');
     if (value.length > 11) {
         value = value.slice(0, 11);
     }
@@ -18,11 +18,11 @@ function cpfMask(value) {
 }
 
 function cpfUnmask(value) {
-    return value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    return value.replace(/\D/g, '');
 }
 
 function cellPhoneMask(value) {
-    value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    value = value.replace(/\D/g, '');
     if (value.length > 11) {
         value = value.slice(0, 11);
     }
@@ -38,17 +38,17 @@ function cellPhoneMask(value) {
 }
 
 function cellPhoneUnmask(value) {
-    return value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    return value.replace(/\D/g, '');
 }
 
 function moneyMask(value) {
-    value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    value = value.replace(/\D/g, '');
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100);
 }
 
 function moneyUnmask(value) {
     let number = Number(value.replace(/[^0-9,-]+/g, "").replace(',', '.'));
-    return Math.round(number * 100); // retorna o valor em centavos
+    return Math.round(number * 100);
 }
 
 export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask };

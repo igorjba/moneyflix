@@ -1,5 +1,9 @@
 .header {
     justify-content: space-between;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
     margin: 3.0rem 0;
 }
 
@@ -8,16 +12,25 @@
 }
 
 .client-header h2 {
+<<<<<<< HEAD
     color: var(--font);
     font-size: var(--fz-26);
     font-weight: var(--fw-medium);
     line-height: var(--lineh-130);
+=======
+    font-size: var(--fz-26);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-130);
+
+    color: var(--font);
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 }
 
 .ClientOrder svg {
     align-self: center;
 }
 
+<<<<<<< HEAD
 .search-filter-client button {
     margin-right: 1.6rem;
 }
@@ -27,11 +40,17 @@
     border-radius: 1rem;
 }
 
+=======
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 .addClient {
     width: 26.4rem;
     height: 4.6rem;
     border-radius: 1rem;
     gap: 4rem;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
     background-color: var(--bg-pink);
     color: var(--font-clr-white);
 }
@@ -42,6 +61,7 @@
     line-height: normal;
 }
 
+<<<<<<< HEAD
 .search-filter-client input {
     padding-left: 0.8rem;
     gap: 50px;
@@ -73,10 +93,14 @@
 
 .header-table-client h1 {
     color: var(--font-clr-gray-text-modal);
+=======
+.header-table-client h1 {
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
     font-size: var(--fz-16);
     font-weight: var(--fw-bold);
     line-height: var(--lineh-50);
     letter-spacing: 0.008rem;
+<<<<<<< HEAD
 }
 
 .tableClient table {
@@ -110,6 +134,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 90%;
+=======
+
+    color: var(--font-clr-gray-text-modal);
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 }
 
 .div-status {

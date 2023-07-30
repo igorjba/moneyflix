@@ -1,6 +1,6 @@
 function validateName(name) {
     if (!name) {
-        return { isValid: false, message: "Este campo deve ser preenchido" };
+        return { isValid: false, message: "Nome válido" };
     }
 
     if (name[0] === " ") {
@@ -12,39 +12,11 @@ function validateName(name) {
     const containsSpecialCharacter = nameArray.some(character => specialCharacters.includes(character));
 
     if (containsSpecialCharacter) {
-        return { isValid: false, message: "O nome não pode conter caracteres especiais" };
+        return { isValid: false, message: "Nome válido" };
     }
 
     return { isValid: true, message: "Nome válido" };
 }
-
-// //=== usando a resposta da função validateName ===
-
-// import React, { useState } from 'react';
-// import { validateName } from './validation';
-
-// function NameInput() {
-//     const [name, setName] = useState('');
-//     const [error, setError] = useState('');
-
-//     const handleBlur = () => {
-//         const validation = validateName(name);
-//         if (!validation.isValid) {
-//             setError(validation.message);
-//         } else {
-//             setError('');
-//         }
-//     };
-//         <div>
-//             <input
-//                 type="text"
-//                 value={name}
-//                 onBlur={handleBlur}
-//                 onChange={e => setName(e.target.value)}
-//             />
-//             {error && <div style={{ color: 'red' }}>{error}</div>}
-//         </div>
-
 
 function validateEmail(email) {
     if (!email || email.trim() === '') {
@@ -56,43 +28,33 @@ function validateEmail(email) {
     }
 
     if (!email.includes('@') || !email.includes('.')) {
-        return { isValid: false, message: 'Email deve incluir um "@" e um ".".' };
+        return { isValid: false, message: 'E-mail inválido' };
+    }
+
+    if (email[0] === '.' || email[email.length - 1] === '.') {
+        return { isValid: false, message: 'E-mail inválido' };
+    }
+
+    const atIndex = email.indexOf('@');
+    const dotIndex = email.indexOf('.', atIndex);
+
+    if (dotIndex === 0 || dotIndex === email.length - 1) {
+        return { isValid: false, message: 'E-mail inválido' };
+    }
+
+    for (let i = 1; i < email.length - 1; i++) {
+        if (email[i] === '.' && email[i - 1] === '.') {
+            return { isValid: false, message: 'E-mail inválido' };
+        }
+        if (email[i] === '.' || email[i] === '@') {
+            if (email[i - 1] === '.' || email[i - 1] === '@' || email[i + 1] === '.' || email[i + 1] === '@') {
+                return { isValid: false, message: 'E-mail inválido' };
+            }
+        }
     }
 
     return { isValid: true };
 }
-
-// //=== usando a resposta da função validateEmail ===
-
-// import React, { useState } from 'react';
-// import { validateEmail } from './validation';
-
-// function EmailInput() {
-//     const [email, setEmail] = useState('');
-//     const [error, setError] = useState('');
-
-//     const handleBlur = () => {
-//         const validation = validateEmail(email);
-//         if (!validation.isValid) {
-//             setError(validation.message);
-//         } else {
-//             setError('');
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <input
-//                 type="email"
-//                 value={email}
-//                 onBlur={handleBlur}
-//                 onChange={e => setEmail(e.target.value)}
-//             />
-//             {error && <div style={{ color: 'red' }}>{error}</div>}
-//         </div>
-//     );
-// }
-
 
 function validatePassword(password) {
     if (!password || password === '') {
@@ -105,39 +67,5 @@ function validatePassword(password) {
 
     return { isValid: true };
 }
-
-// //=== usando a resposta da função validatePassword ===
-
-// import React, { useState } from 'react';
-// import { validatePassword } from './validation';
-
-// function PasswordInput() {
-//     const [password, setPassword] = useState('');
-//     const [error, setError] = useState('');
-
-//     const handleBlur = () => {
-//         const validation = validatePassword(password);
-//         if (!validation.isValid) {
-//             setError(validation.message);
-//         } else {
-//             setError('');
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <input
-//                 type="password"
-//                 value={password}
-//                 onBlur={handleBlur}
-//                 onChange={e => setPassword(e.target.value)}
-//             />
-//             {error && <div style={{ color: 'red' }}>{error}</div>}
-//         </div>
-//     );
-// }
-
-
-
 
 export { validateName, validateEmail, validatePassword };

@@ -2,9 +2,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../../../api/api.jsx";
+<<<<<<< HEAD
 import closedEye from "../../assets/ClosedEye.svg";
 import openEye from "../../assets/OpenEye.svg";
 import toastError from '../../assets/toastError.svg';
+=======
+import closedEye from "../../../assets/ClosedEye.svg";
+import openEye from "../../../assets/OpenEye.svg";
+import toastError from '../../../assets/toastError.svg';
+import { validatePassword } from "../../../utils/validation";
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 import "./style.css";
 
 const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
@@ -35,43 +42,53 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
         icon: ({ theme, type }) => <img src={toastError} alt="" />
       });
       setErrorPassword("A senha é obrigatória");
-    } else if (localForm.password !== localForm.confirmPassword) {
+      return;
+    } else {
+      const validationPassword = validatePassword(localForm.password);
+      if (!validationPassword.isValid) {
+        setErrorPassword(validationPassword.message);
+        toast.error(validationPassword.message, {
+          toastClassName: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={toastError} alt="" />
+        });
+        return;
+      }
+    }
+
+    if (localForm.password !== localForm.confirmPassword) {
       toast(
         'As senhas não coincidem', {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
       });
-      setErrorPassword("A senha é obrigatória");
       setErrorConfirmPassword("As senhas não coincidem");
+      return;
     }
 
-    if (localForm.password && localForm.confirmPassword && localForm.password === localForm.confirmPassword) {
-      try {
-        const response = await axios.post("https://404notfound.cyclic.app/usuario", {
-          nome: signUpForm.username,
-          email: signUpForm.email,
-          senha: localForm.password
-        });
-        setCurrentStep(2);
+    try {
+      const response = await axios.post("https://404notfound.cyclic.app/usuario", {
+        nome: signUpForm.username,
+        email: signUpForm.email,
+        senha: localForm.password
+      });
+      setCurrentStep(2);
 
-      } catch (error) {
-        if (error.response.data.message.includes('email') || error.response.data.message.includes('E-mail') || error.response.data.message.includes('nome')) {
-          setCurrentStep(1);
-          toast.error(
-            error.response.data.message, {
-            className: 'customToastify-error',
-            icon: ({ theme, type }) => <img src={error} alt="" />
-          });
-        } else {
-          toast.error(
-            error.response.data.message, {
-            className: 'customToastify-error',
-            icon: ({ theme, type }) => <img src={error} alt="" />
-          });
-        }
+    } catch (error) {
+      if (error.response.data.message.includes('email') || error.response.data.message.includes('E-mail') || error.response.data.message.includes('nome')) {
+        setCurrentStep(0);
+        toast.error(
+          error.response.data.message, {
+          className: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={error} alt="" />
+        });
+      } else {
+        toast.error(
+          error.response.data.message, {
+          className: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={error} alt="" />
+        });
       }
     }
-
   };
 
 
@@ -96,6 +113,7 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               style={{ backgroundImage: `url(${showPassword ? openEye : closedEye})` }}
             />
           </div>
+          {errorPassword && <span className="error error-step-two">{errorPassword}</span>}
         </div>
         <div className="container-email-step-two-form container-input">
           <span className="step-two-form-email span-forms">
@@ -116,6 +134,7 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
               style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})` }}
             />
           </div>
+          {errorConfirmPassword && <span className="error error-step-two">{errorConfirmPassword}</span>}
         </div>
       </form >
       <div className="container-step-two-form-button">

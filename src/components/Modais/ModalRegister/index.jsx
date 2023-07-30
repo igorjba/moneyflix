@@ -2,24 +2,34 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api';
+<<<<<<< HEAD
 import apiCep from '../../../api/apiCep'
 import clientSFont from '../../assets/Client(2).svg';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import toastError from '../../assets/toastError.svg';
 import { getItem } from '../../../utils/localStorage';
+=======
+import apiCep from '../../../api/apiCep';
+import clientSFont from '../../../assets/Client(2).svg';
+import success from '../../../assets/Success-Toast.svg';
+import closed from '../../../assets/close.svg';
+import toastError from '../../../assets/toastError.svg';
+import useUser from '../../../hooks/useUser';
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 import './style.css';
 
-export default function ModalRegister({ setOpenModalRegister, setClientRegisters, clientRegisters }) {
+export default function ModalRegister() {
+  const { setOpenModalRegister, setClientRegisters, token, setCorArrowBottom, setCorArrowTop } = useUser();
   const [form, setForm] = useState({
     nome: '',
     email: '',
     cpf: '',
     telefone: '',
   });
-  const token = getItem('token');
   const [formAdress, setFormAdress] = useState({
     logradouro: '',
+    numero: '',
     complemento: '',
     cep: '',
     bairro: '',
@@ -33,6 +43,7 @@ export default function ModalRegister({ setOpenModalRegister, setClientRegisters
   const [errorPhone, setErrorPhone] = useState('');
   const [numberCPF, setNumberCPF] = useState('');
   const [numberTel, setNumberTel] = useState('');
+  const [numberCEP, setNumberCEP] = useState('')
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorName('')
@@ -59,6 +70,8 @@ export default function ModalRegister({ setOpenModalRegister, setClientRegisters
       sendInformation()
       setOpenModalRegister(false)
     }
+    setCorArrowBottom('#3F3F55')
+    setCorArrowTop('#3F3F55')
   }
   async function sendInformation() {
     try {
@@ -104,9 +117,6 @@ export default function ModalRegister({ setOpenModalRegister, setClientRegisters
       });
     }
   }
-  function handleChangeForm(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
   function handleChangeFormTel(e) {
     const inputNumberTel = e.target.value.replace(/\D/g, '')
     let formattedValue = inputNumberTel
@@ -135,8 +145,35 @@ export default function ModalRegister({ setOpenModalRegister, setClientRegisters
 
     setNumberCPF(formattedValue);
   }
+  function handleChangeFormCEP(e) {
+    const inputNumberCEP = e.target.value.replace(/\D/g, '')
+    let formattedValue = inputNumberCEP
+
+    if (inputNumberCEP.length > 5) {
+      formattedValue = `${inputNumberCEP.slice(0, 5)}-${inputNumberCEP.slice(5, 8)}`;
+    }
+
+    setNumberCEP(formattedValue);
+
+    searchCep(numberCEP.replace(/\D/g, ''))
+    console.log(numberCEP.replace(/\D/g, ''))
+  }
+  /* function handleChangeFormNumber(e) {
+    const inputNumberCPF = e.target.value.replace(/\D/g, '')
+
+    setFormAdress([...formAdress], numero: inputNumberCPF)
+  } */
   function handleChangeFormAdress(event) {
+    if (event.target.name === 'numero') {
+      const inputNumberHouse = event.target.value.replace(/\D/g, '')
+      console.log('entrou aqui')
+      setFormAdress({ ...formAdress, numero: inputNumberHouse })
+    }
+
     setFormAdress({ ...formAdress, [event.target.name]: event.target.value })
+  }
+  function handleChangeForm(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
   async function ClientCadaster() {
     try {
@@ -155,7 +192,7 @@ export default function ModalRegister({ setOpenModalRegister, setClientRegisters
     }
   }
   return (
-    <div className='mainModalRegister'>
+    <div className='main-Modal Modal-Register'>
       <div className='headerModal initial'>
         <div className='initial'>
           <img src={clientSFont} alt="" />
@@ -183,14 +220,23 @@ export default function ModalRegister({ setOpenModalRegister, setClientRegisters
               {errorPhone && <span className='error'>{errorPhone}</span>}
             </div>
           </div>
-          <label htmlFor=""><h1>Endereço</h1></label>
-          <input type="text" placeholder='Digite o endereço' name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeFormAdress(event)} />
-          <label htmlFor=""><h1>Complemento</h1></label>
-          <input type="text" placeholder='Digite o complemento' name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeFormAdress(event)} />
-          <div className='formInformation'>
+
+          <div className='formAndress'>
             <div>
               <label htmlFor=""><h1>CEP</h1></label>
-              <input type="text" maxLength={8} placeholder='Digite o CEP' name='cep' /* value={formAdress.cep} onChange={(event) => handleChangeFormAdress(event)} */ onBlur={(event) => searchCep(event)} />
+              <input type="text" maxLength={8} placeholder='Digite o CEP' name='cep' onBlur={(event) => handleChangeFormCEP(event)} />
+            </div>
+            <div>
+              <label htmlFor=""><h1>Número da Residência</h1></label>
+              <input type="text" maxLength={4} placeholder='Digite número da residência' name='numero' value={formAdress.numero} onChange={(event) => handleChangeFormAdress(event)} />
+            </div>
+          </div>
+          <label htmlFor=""><h1>Endereço</h1></label>
+          <input type="text" placeholder='Digite o endereço' name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeFormAdress(event)} />
+          <div className='formInformation'>
+            <div>
+              <label htmlFor=""><h1>Complemento</h1></label>
+              <input type="text" placeholder='Digite o complemento' name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeFormAdress(event)} />
             </div>
             <div>
               <label htmlFor=""><h1>Bairro</h1></label>

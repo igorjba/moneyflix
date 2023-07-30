@@ -1,14 +1,15 @@
-import './style.css';
-import iconCharge from '../../assets/IconCharge.svg'
-import lupa from '../../assets/Lupa.svg';
-import filter from '../../assets/Filter.svg'
-import deleteCharge from '../../assets/DeleteCharge.svg'
-import editCharge from '../../assets/Edit.svg'
 import { useEffect } from 'react';
+import deleteCharge from '../../../assets/DeleteCharge.svg';
+import editCharge from '../../../assets/Edit.svg';
+import filter from '../../../assets/Filter.svg';
+import lupa from '../../../assets/Lupa.svg';
+import iconCharge from '../../../assets/IconCharge.svg';
+import useUser from '../../../hooks/useUser';
+import './style.css';
 
-export default function Pagecharges({ setTitle }) {
+export default function Pagecharges() {
+    const { setTitle } = useUser();
     setTitle('Cobranças')
-
     function backgroundSituation() {
         const status = document.querySelectorAll('.status-text');
         status.forEach(element => {
@@ -45,7 +46,7 @@ export default function Pagecharges({ setTitle }) {
                     </div>
                 </div>
             </div>
-            <div className='tableCharges'>
+            <div className='tableAll'>
                 <table>
                     <thead className='header-table-client'>
                         <tr >
@@ -91,60 +92,43 @@ export default function Pagecharges({ setTitle }) {
                             <th className='imagem-table-header'></th> {/* Juntar as imagem com a descrição ou fazer um a parte porém retornando vazio */}
                         </tr>
                     </thead>
-                    {/* <tbody className='extract-table-client'>
-                        {clientRegisters.map((client) => {
-                            return (
-                        <tr key={client.id_cliente}>
-                            <td className='table-Register-Line'><h1>{client.nome_cliente}</h1></td>
-                            <td><h1>{client.cpf}</h1></td>
-                            <td className='table-Register-Line'><h1>{client.email}</h1></td>
-                            <td><h1>{client.telefone}</h1></td>
-                            <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
-                            <td>
-                                <img src={defaulter} alt="inadimplente" />
-                            </td>
-                        </tr>
-                          )
-                        })} 
-                    </tbody> */}
                     <tbody>
-                        <tr className='extract-table-charge'>
+                        <tr className='extract-table'>
                             <td><h1>Sara Silva</h1></td>
                             <td><h1>248563147</h1></td>
                             <td><h1>R$ 500,00</h1></td>
                             <td><h1>26/01/2021</h1></td>
                             <td><div className='div-status-charge'><h1 className='status-text'>Vencida</h1></div></td>
-                            <td className='description-table-charge'><h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, earum.</h1></td>
+                            <td className='description-table description-table-charge'><h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, earum.</h1></td>
                             <td className='imagem-table-charge'>
                                 <img src={editCharge} alt="Editar" />
                                 <img src={deleteCharge} alt="Deletar" />
                             </td>
                         </tr>
-                        <tr className='extract-table-charge'>
+                        <tr className='extract-table'>
                             <td><h1>Sara Silva</h1></td>
                             <td><h1>248563147</h1></td>
                             <td><h1>R$ 500,00</h1></td>
                             <td><h1>26/01/2021</h1></td>
                             <td><div className='div-status-charge'><h1 className='status-text'>Paga</h1></div></td>
-                            <td className='description-table-charge'><h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, earum.</h1></td>
+                            <td className='description-table description-table-charge'><h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, earum.</h1></td>
                             <td className='imagem-table-charge'>
                                 <img src={editCharge} alt="Editar" />
                                 <img src={deleteCharge} alt="Deletar" />
                             </td>
                         </tr>
-                        <tr className='extract-table-charge'>
+                        <tr className='extract-table'>
                             <td><h1>Sara Silva</h1></td>
                             <td><h1>248563147</h1></td>
                             <td><h1>R$ 500,00</h1></td>
                             <td><h1>26/01/2021</h1></td>
                             <td><div className='div-status-charge'><h1 className='status-text'>Pendente</h1></div></td>
-                            <td className='description-table-charge'><h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, earum.</h1></td>
+                            <td className='description-table description-table-charge'><h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, earum.</h1></td>
                             <td className='imagem-table-charge'>
                                 <img src={editCharge} alt="Editar" />
                                 <img src={deleteCharge} alt="Deletar" />
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>

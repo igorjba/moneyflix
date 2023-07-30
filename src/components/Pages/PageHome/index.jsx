@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import api from "../../../api/api.jsx";
+<<<<<<< HEAD
 import ClienteOK from "../../assets/ClienteOK.svg";
 import ClienteOverdue from "../../assets/ClienteOverdue.svg";
 import Expired from "../../assets/Expired.svg";
@@ -10,10 +11,21 @@ import toastError from '../../assets/toastError.svg';
 import { getItem } from '../../../utils/localStorage.jsx';
 import Card from "../../Cards/Card/index";
 import CardResume from "../../Cards/CardResume/index";
+=======
+import ClienteOK from "../../../assets/ClienteOK.svg";
+import ClienteOverdue from "../../../assets/ClienteOverdue.svg";
+import Expired from "../../../assets/Expired.svg";
+import Paid from "../../../assets/Paid.svg";
+import Pending from "../../../assets/Pending.svg";
+import toastError from '../../../assets/toastError.svg';
+import useUser from "../../../hooks/useUser.jsx";
+import Card from "../../Cards/Card/index.jsx";
+import CardResume from "../../Cards/CardResume/index.jsx";
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 import "./style.css";
 
-export default function PageHome({ setTitle }) {
-  const [token, setToken] = useState(getItem('token'));
+export default function PageHome() {
+  const { setTitle, token } = useUser();
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
 

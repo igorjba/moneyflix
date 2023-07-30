@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import edit from "../../assets/Edit.svg";
-import exit from "../../assets/Exit.svg";
-import set from "../../assets/Set.svg";
+import edit from "../../../assets/Edit.svg";
+import exit from "../../../assets/Exit.svg";
+import set from "../../../assets/Set.svg";
+import useUser from "../../../hooks/useUser";
 import "./style.css";
 
-export default function ModalSet({ SetOpenModalEditPerfil, setModalExit, SetOpenModalEdit }) {
-    const navigate = useNavigate();
+export default function ModalSet({ setModalExit, SetOpenModalEdit }) {
+    const navigate = useNavigate()
+    const { SetOpenModalEditPerfil } = useUser();
 
     function openModal() {
         SetOpenModalEditPerfil(true)

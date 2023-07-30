@@ -1,0 +1,125 @@
+.customToastify-success {
+    background-color: #C3D4FE !important;
+    color: #243F80 !important;
+}
+
+.customToastify-error {
+    background-color: var(--bg-toastfy-error) !important;
+    color: var(--font-clr-toast-error) !important;
+}
+
+.Toastify__toast-error {
+    background-color: var(--bg-toastfy-error) !important;
+}
+
+.Toastify__close-button {
+    align-self: center !important;
+}
+
+.text-toast {
+    font-size: var(--fz-14);
+    font-weight: var(--fw-regular);
+    line-height: normal;
+
+    color: var(--font-clr-toast);
+}
+
+.Toastify__progress-bar--success {
+    background-color: var(--font-clr-toast) !important;
+}
+
+.seuToast {
+    color: var(--font-clr-toast);
+}
+
+.search-filter-client button {
+    margin-right: 1.6rem;
+}
+
+.button-filter {
+    border-radius: 1rem;
+
+    background-color: var(--bg-modal);
+}
+
+.search-filter-client input {
+    min-width: 32.2rem;
+    height: 4.57rem;
+    padding-left: 0.8rem;
+    border: none;
+    border-radius: 1rem;
+    gap: 50px;
+
+    font-family: var(--ff-nunito);
+    font-size: var(--fz-18);
+    font-style: var(--fstyle-normal);
+    font-weight: var(--fw-regular);
+    line-height: normal;
+
+    box-shadow: 0.4rem 0.4rem rgba(0, 0, 0, 0.04);
+}
+
+.search {
+    position: absolute;
+    top: 14rem;
+    right: 11rem;
+
+    cursor: pointer;
+}
+
+.tableAll {
+    margin-top: 2.576rem;
+    border-radius: 3rem;
+    padding: 0 2.2rem;
+
+    background-color: var(--bg-modal);
+}
+
+.tableAll table {
+    width: 100%;
+}
+
+.tableAll tr {
+    display: flex;
+    align-items: center;
+
+    height: 6.6rem;
+
+    border-bottom: 0.1rem solid var(--bg-card-gray);
+}
+
+.tableAll th,
+.tableAll td {
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.extract-table h1 {
+    font-size: var(--fz-14);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-40);
+    letter-spacing: 0.007rem;
+
+    color: var(--font-clr-text-card);
+}
+
+.description-table h1 {
+    width: 90%;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.error {
+    font-family: var(--ff-inter);
+    font-size: var(--fz-14);
+    font-weight: var(--fw-regular);
+    color: var(--font-clr-text-error);
+}
+
+.errorLine {
+    border: 1px solid var(--font-clr-text-error) !important;
+    margin: 0 !important
+}

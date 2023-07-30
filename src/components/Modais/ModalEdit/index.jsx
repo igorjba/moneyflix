@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import api from '../../../api/api';
+import api from '../../api/api';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import toastError from '../../assets/toastError.svg';
-import { getItem } from '../../../utils/localStorage';
-import { validatePassword } from '../../../utils/validation';
+import { getItem } from '../../utils/localStorage';
 import './style.css';
 
-export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
-    const [userPerfil, setUserPerfil] = useState([]);
-    const token = getItem('token');
+export default function ModalEdit({ SetOpenModalEdit }) {
+    const { SetOpenModalEditPerfil, openModalEditPerfil, token } = useUser();
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
     const [errorName, setErrorName] = useState('');
-    const [errorCurrentPassword, setErrorCurrentPassword] = useState('');
     const [form, setForm] = useState({
         nome: '',
         email: '',
@@ -24,25 +21,21 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         senha: '',
         confirmeSenha: ''
     });
-
     const [numberCPF, setNumberCPF] = useState(form.cpf);
     const [numberTel, setNumberTel] = useState(form.telefone);
     const [currentPassword, setCurrentPassword] = useState('');
 
     let cpfInitial = '';
     let telefoneInitial = '';
-
     function onclickCloseModal() {
-        SetOpenModalEditPerfil(!openModalEditPerfil);
-        SetOpenModalEdit(false);
+        SetOpenModalEditPerfil(!openModalEditPerfil)
+        SetOpenModalEdit(false)
     }
-
     async function handleSubmitEdit(event) {
         event.preventDefault();
         setErrorPasswordEdit('');
         setErrorEmailEdit('');
         setErrorName('');
-        setErrorCurrentPassword('');
 
         if (!form.nome.trim()) {
             setErrorName('Este campo deve ser preenchido');
@@ -71,7 +64,6 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         ) {
             return;
         }
-
         try {
             const response = await api.put(
                 'usuario/atualizar',
@@ -99,24 +91,16 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             SetOpenModalEditPerfil(false);
             SetOpenModalEdit(false);
         } catch (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-                toast.error(error.response.data.message, {
-                    className: 'customToastify-error',
-                    icon: ({ theme, type }) => <img src={toastError} alt="" />
-                });
-            } else {
-                toast.error('Erro ao atualizar cadastro', {
-                    className: 'customToastify-error',
-                    icon: ({ theme, type }) => <img src={toastError} alt="" />
-                });
-            }
+            toast.error(error.response.data.error, {
+                className: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            });
         }
     }
 
     function handleChangeForm(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({ ...form, [e.target.name]: e.target.value })
     }
-
     async function UserLogged() {
         try {
             const response = await api.get('usuario', {
@@ -124,7 +108,6 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                     authorization: `Bearer ${token}`,
                 }
             });
-
             if (response && response.data) {
                 cpfInitial = response.data.cpf;
                 telefoneInitial = response.data.telefone;
@@ -145,13 +128,12 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                 });
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Erro ao obter dados do usuário', {
+            toast.error(error.response.data.message, {
                 className: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
-            });
+            })
         }
-    }
-    function CPFormated() {
+    } function CPFormated() {
         const inputNumberCPF = cpfInitial.replace(/\D/g, '')
         let formattedValue = inputNumberCPF;
         if (inputNumberCPF.length > 3) {
@@ -216,11 +198,10 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
     }
 
     useEffect(() => {
-        UserLogged();
-    }, []);
-
+        UserLogged()
+    }, [])
     return (
-        <div className="ModalEdit-Main">
+        <div className="main-Modal Modal-Edit">
             <div className='header-ModalEdit initial'>
                 <h2>Edite seu cadastro</h2>
                 <img className='closedEdit' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
@@ -237,7 +218,6 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                         <input className={`${errorEmailEdit ? 'errorLine' : ''}`} type="text" placeholder='Digite seu e-mail' name='email' value={form.email} maxLength={200} onChange={handleChangeForm} />
                         {errorEmailEdit && <span className='error'>{errorEmailEdit}</span>}
                     </div>
-
                     <div className='information-ModalEdit'>
                         <div>
                             <label htmlFor=""><h1>CPF*</h1></label>
@@ -271,7 +251,6 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                         <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" placeholder='Confirme sua senha' name='confirmeSenha' value={form.confirmeSenha} maxLength={200} onChange={handleChangeForm} />
                         {errorPasswordEdit && <span className='error'>{errorPasswordEdit}</span>}
                     </div>
-
                     <button className='ModalEdit-Button' >Continuar</button>
                 </form>
             </div>

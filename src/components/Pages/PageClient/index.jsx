@@ -1,18 +1,26 @@
 import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api.jsx';
+<<<<<<< HEAD
 import clientSFont from '../../assets/Client(2).svg';
 import defaulter from '../../assets/defaulter.svg';
 import filter from '../../assets/Filter.svg';
 import lupa from '../../assets/Lupa.svg';
 import { getItem } from '../../../utils/localStorage.jsx';
+=======
+import clientSFont from '../../../assets/Client(2).svg';
+import filter from '../../../assets/Filter.svg';
+import lupa from '../../../assets/Lupa.svg';
+import defaulter from '../../../assets/defaulter.svg';
+import useUser from '../../../hooks/useUser.jsx';
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 import './style.css';
 
-export default function PageClient({ setOpenModalRegister, openModalRegister, setClientRegisters, clientRegisters, setTitle }) {
-    const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
-    const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
+export default function PageClient() {
+    const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token, corarrowTop,
+        setCorArrowTop, corarrowBottom, setCorArrowBottom } = useUser();
+
     const [countOrder, setCountOrder] = useState(0)
-    const token = getItem('token')
     async function ClientCadaster() {
         try {
             const response = await api.get('cliente', {
@@ -63,8 +71,6 @@ export default function PageClient({ setOpenModalRegister, openModalRegister, se
             setCorArrowTop('#3F3F55')
             setCountOrder(0);
         }
-
-
     }
     useEffect(() => {
         ClientCadaster()
@@ -92,12 +98,12 @@ export default function PageClient({ setOpenModalRegister, openModalRegister, se
                     </div>
                 </div>
             </div>
-            <div className='tableClient'>
+            <div className='tableAll'>
                 <table>
                     <thead className='header-table-client'>
                         <tr >
-                            <th className='ClientOrder'>
-                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => orderName()}>
+                            <th className='ClientOrder' onClick={() => orderName()}>
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                     <g id="Frame" clipPath="url(#clip0_84440_3278)">
                                         <g id="Group">
                                             <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -121,13 +127,13 @@ export default function PageClient({ setOpenModalRegister, openModalRegister, se
                             <th><h1>Criar Cobrança</h1></th>
                         </tr>
                     </thead>
-                    <tbody className='extract-table-client'>
+                    <tbody className='extract-table'>
                         {clientRegisters.map((client) => {
                             return (
                                 <tr key={client.id_cliente}>
-                                    <td className='table-Register-Line'><h1>{client.nome_cliente}</h1></td>
+                                    <td className='description-table'><h1>{client.nome_cliente}</h1></td>
                                     <td><h1>{client.cpf}</h1></td>
-                                    <td className='table-Register-Line'><h1>{client.email}</h1></td>
+                                    <td className='description-table'><h1>{client.email}</h1></td>
                                     <td><h1>{client.telefone}</h1></td>
                                     <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                                     <td>
