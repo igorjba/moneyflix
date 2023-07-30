@@ -5,7 +5,7 @@ import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import toastError from '../../assets/toastError.svg';
 import { getItem } from '../../utils/localStorage';
-import { validatePassword } from '../../utils/validation'; // Import the validatePassword function
+import { validatePassword } from '../../utils/validation'; 
 import './style.css';
 
 export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
@@ -14,7 +14,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
     const [errorName, setErrorName] = useState('');
-    const [errorCurrentPassword, setErrorCurrentPassword] = useState(''); // New state for current password
+    const [errorCurrentPassword, setErrorCurrentPassword] = useState('');
     const [form, setForm] = useState({
         nome: '',
         email: '',
@@ -26,7 +26,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
 
     const [numberCPF, setNumberCPF] = useState(form.cpf);
     const [numberTel, setNumberTel] = useState(form.telefone);
-    const [currentPassword, setCurrentPassword] = useState(''); // New state for current password
+    const [currentPassword, setCurrentPassword] = useState(''); 
 
     let cpfInitial = '';
     let telefoneInitial = '';
@@ -55,7 +55,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             setErrorCurrentPassword('Este campo deve ser preenchido');
         }
 
-        const passwordValidation = validatePassword(form.senha); // Chama a validação para a nova senha
+        const passwordValidation = validatePassword(form.senha); 
         if (!passwordValidation.isValid) {
             setErrorPasswordEdit(passwordValidation.message);
             return;
@@ -78,7 +78,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                 telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
                 senha: form.senha,
                 confirmeSenha: form.confirmeSenha,
-                currentPassword: currentPassword // Include the current password in the request
+                currentPassword: currentPassword 
             }, {
                 headers: {
                     authorization: token,
