@@ -1,5 +1,6 @@
 .mainBody {
   justify-content: center;
+  align-items: flex-start;
 
   margin-left: 10.8rem;
   width: calc(100% - 10.8rem);
@@ -38,17 +39,27 @@
 
   width: calc(100% - 10.80rem);
   min-height: 100%;
-  padding: 0 3.2rem;
+  padding: 0 3.2rem 3.7rem 3.2rem;
+  margin-top: 10rem;
 }
 
 header {
+  position: fixed;
+  top: 0;
+  right: 3.2rem;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   padding: 0 8rem;
-  width: 100%;
+  width: calc(100% - 10.8rem - 2*3.2rem);
   height: 10rem;
+
   border-bottom: 0.2rem solid var(--bg-line-green);
+  background-color: var(--font-clr-white);
+
+  z-index: 2;
 }
 
 header h2 {
@@ -116,4 +127,5 @@ header h2 {
   background-color: rgba(145, 154, 150, 0.30);
   backdrop-filter: blur(2px);
 
+  z-index: 3;
 }
