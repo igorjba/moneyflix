@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { toast } from "react-toastify";
 import api from "../../api/api";
 import chargePink from "../../assets/Charge-Pink.svg";
@@ -9,37 +9,28 @@ import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
 import toastError from "../../assets/toastError.svg";
-import ModalEdit from "../../components/ModalEdit";
-import ModalRegister from "../../components/ModalRegister";
-import ModalSet from "../../components/ModalSet";
-import PageClient from "../../components/PageClient";
-import PageHome from "../../components/PageHome";
-import Pagecharges from "../../components/PageCharges";
-import { getItem } from "../../utils/storage";
+import ModalEdit from "../../components/Modais/ModalEdit";
+import ModalRegister from "../../components/Modais/ModalRegister";
+import ModalSet from "../../components/Modais/ModalSet";
+import PageClient from "../../components/Pages/PageClient";
+import PageHome from "../../components/Pages/PageHome";
+import Pagecharges from "../../components/Pages/PageCharges";
+import useUser from '../../hooks/useUser';
 import "./style.css";
+import "../../global/styleModal.css"
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
-  const [openModalRegister, setOpenModalRegister] = useState(false);
   const [imageNavHome, setimageNavHome] = useState(false);
   const [imageNavClient, setimageNavClient] = useState(true);
   const [imageNavCharge, setimageNavCharge] = useState(true);
-  const [title, setTitle] = useState("Resumo de Cobranças");
-  const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [resumeName, setResumeName] = useState("");
   const [openModalEdit, SetOpenModalEdit] = useState(false);
   const [userPerfil, setUserPerfil] = useState({});
-  const [userName, setUserName] = useState("Geazi");
-  const [resumeName, setResumeName] = useState("GA");
+  const { openModalRegister, openModalEditPerfil, title, setTitle } = useUser();
 
-  const [formUser, setFormUser] = useState({
-    nome: "",
-    email: "",
-    cpf: "",
-    telefone: "",
-  });
-  const token = getItem("token");
-  const [name, setName] = useState("");
-  const [clientRegisters, setClientRegisters] = useState([]);
+
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
     divs.forEach((element) => {
@@ -47,6 +38,7 @@ function Main() {
     });
     event.currentTarget.classList.add("atived");
   }
+
   async function fetchUserPerfil() {
     try {
       const response = await api.get("/usuario/painel", {
@@ -137,10 +129,7 @@ function Main() {
         {openModalRegister && <div className="backgroundModal"></div>}
         {openModalEdit && <div className="backgroundModal"></div>}
         <header>
-          <h2
-            className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"
-              }`}
-          >
+          <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
             {title}
           </h2>
           <div className="initial header-perfil">
@@ -158,58 +147,28 @@ function Main() {
           </div>
           {modalExit && (
             <ModalSet
-              SetOpenModalEditPerfil={SetOpenModalEditPerfil}
-              openModalEditPerfil={openModalEditPerfil}
               setModalExit={setModalExit}
-              modalExit={modalExit}
+              SetOpenModalEdit={SetOpenModalEdit}
             />
           )}
         </header>
         <div className="main">
           {!imageNavClient && (
             <PageClient
-              setOpenModalRegister={setOpenModalRegister}
-              openModalRegister={openModalRegister}
-              setClientRegisters={setClientRegisters}
-              clientRegisters={clientRegisters}
-              setTitle={setTitle}
             />)}
-          {!imageNavHome && <PageHome setTitle={setTitle} />}
-
-          {!imageNavCharge && <Pagecharges setTitle={setTitle} />}
+          {!imageNavHome && <PageHome />}
+          {!imageNavCharge && <Pagecharges />}
         </div>
       </div>
-      {modalExit && (
-        <ModalSet
-          SetOpenModalEditPerfil={SetOpenModalEditPerfil}
-          openModalEditPerfil={openModalEditPerfil}
-          setModalExit={setModalExit}
-          modalExit={modalExit}
-          SetOpenModalEdit={SetOpenModalEdit}
-        />
-      )}
-
       {openModalRegister && (
         <ModalRegister
-          setOpenModalRegister={setOpenModalRegister}
-          openModalRegister={openModalRegister}
-          setClientRegisters={setClientRegisters}
-          clientRegisters={clientRegisters}
         />
       )}
-
       {openModalEditPerfil && (
         <ModalEdit
-          openModalEditPerfil={openModalEditPerfil}
-          SetOpenModalEditPerfil={SetOpenModalEditPerfil}
           SetOpenModalEdit={SetOpenModalEdit}
         />
       )}
-
-
-
-
-
     </div>
   );
 }

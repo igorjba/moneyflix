@@ -100,10 +100,8 @@ header h2 {
   position: absolute;
   top: 0;
   left: 10.80rem;
-
   width: calc(100% - 10.80rem);
   height: 100%;
-
   background-color: rgba(145, 154, 150, 0.30);
   backdrop-filter: blur(2px);
 
