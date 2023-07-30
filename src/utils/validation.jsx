@@ -12,7 +12,7 @@ function validateName(name) {
     const containsSpecialCharacter = nameArray.some(character => specialCharacters.includes(character));
 
     if (containsSpecialCharacter) {
-        return { isValid: false, message: "Nome válido" };
+        return { isValid: false, message: "Nome inválido" };
     }
 
     return { isValid: true, message: "Nome válido" };
