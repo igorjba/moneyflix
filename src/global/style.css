@@ -83,7 +83,7 @@
     display: flex;
     align-items: center;
 
-    height: 6.6rem;
+    height: 5.6rem;
 
     border-bottom: 0.1rem solid var(--bg-card-gray);
 }
@@ -112,11 +112,7 @@
     white-space: nowrap;
 }
 
-.error {
-    color: var(--font-clr-text-error);
-}
-
 .errorLine {
-    border: 1px solid var(--font-clr-text-error) !important;
-    margin: 0 !important
+    border: 0.1rem solid var(--font-clr-text-error) !important;
+    margin-bottom: 0.4rem !important;
 }
