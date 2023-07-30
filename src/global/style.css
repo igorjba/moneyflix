@@ -113,6 +113,9 @@
 }
 
 .error {
+    font-family: var(--ff-inter);
+    font-size: var(--fz-14);
+    font-weight: var(--fw-regular);
     color: var(--font-clr-text-error);
 }
 
