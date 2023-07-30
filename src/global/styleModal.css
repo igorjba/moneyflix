@@ -1,7 +1,8 @@
 .main-Modal {
     width: 35vw;
-    height: 80vh;
-    padding: 4rem 5.7rem 0;
+    height: 85vh;
+    max-height: 85vh;
+    padding: 4rem 5.7rem;
     border-radius: 3rem;
     position: absolute;
 
@@ -13,7 +14,6 @@
     flex-direction: column;
 
     width: 100%;
-    padding-top: 3.2rem;
 }
 
 .main-Modal form h1 {
@@ -22,4 +22,14 @@
     line-height: var(--lineh-20);
 
     color: var(--font-clr-gray-text);
+}
+
+.divs-inputs-form span h1 {
+    font-size: 1.2rem;
+    font-weight: var(--fw-regular);
+    line-height: normal;
+
+    color: var(--font-clr-text-error);
+
+    /* margin-bottom: 0.8rem */
 }

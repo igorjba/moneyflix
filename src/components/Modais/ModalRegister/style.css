@@ -22,7 +22,7 @@
 .headerModal {
     justify-content: space-between;
 
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.6rem;
 }
 
 .headerModal h2 {
@@ -31,6 +31,10 @@
     font-size: var(--fz-26);
     font-weight: var(--fw-medium);
     line-height: var(--lineh-130);
+}
+
+.mainModalRegister span {
+    padding-bottom: 0.8rem;
 }
 
 .formInformation,
@@ -57,6 +61,7 @@
 }
 
 .formButton button {
+    margin-top: 5rem;
     width: 50%;
     height: 3.4rem;
     border-radius: 1rem;
@@ -73,8 +78,4 @@
 .formButton button:last-child {
     color: var(--font-clr-white);
     background-color: var(--bg-pink);
-}
-
-.mainModalRegister span {
-    margin-bottom: 0.8rem;
 }
