@@ -1,0 +1,40 @@
+.iconCard {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-right: 0.8rem;
+}
+
+.value {
+  font-size: 2.4rem;
+  font-weight: var(--fw-bold);
+  line-height: var(--lineh-130);
+
+  color: var(--font);
+}
+
+.title-card {
+  font-size: 1.8rem;
+  font-weight: var(--fw-bold);
+  line-height: var(--lineh-130);
+
+  color: var(--font);
+}
+
+.resumeCharge {
+  max-width: 36rem;
+  max-height: 11rem;
+  padding: 2.3rem 4rem;
+  border-radius: 30px;
+}
+
+.resumeCharge img {
+  margin-right: 5.4rem;
+}
+
+.resumeCharge div {
+  flex-direction: column;
+}
+
+.resumeCharge div :first-child {
+  margin-bottom: 1.1rem;
+}

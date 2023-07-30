@@ -1,0 +1,73 @@
+/* .ModalEdit-Main {
+    width: 35%;
+    height: 75%;
+    padding: 4rem 5rem 0;
+    border-radius: 3rem;
+    position: absolute;
+
+    background-color: var(--bg-modal);
+} */
+
+.header-ModalEdit {
+    justify-content: center;
+}
+
+.closedEdit {
+    position: absolute;
+    right: 5rem;
+}
+
+/* .main-ModalEdit form {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    padding-top: 3.2rem;
+}
+
+.main-ModalEdit form h1 {
+    font-size: var(--fz-14);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-20);
+
+    color: var(--font-clr-gray-text);
+} */
+
+.Modal-Edit form input {
+    gap: 0.6rem;
+
+    width: 100%;
+    height: 4.4rem;
+    margin-bottom: 2rem;
+    padding: 0 1.4rem;
+    border: 1px solid var(--border-input);
+    border-radius: 0.8rem;
+
+    background-color: var(--bg-modal);
+    box-shadow: 0 0.1rem 0.2rem 0px rgba(16, 24, 40, 0.05);
+}
+
+.information-ModalEdit {
+    display: flex;
+}
+
+.information-ModalEdit div:first-child {
+    width: 50%;
+    margin-right: 2.4rem;
+}
+
+.information-ModalEdit div:last-child {
+    width: 50%;
+}
+
+.ModalEdit-Button {
+    align-self: center;
+
+    width: 16rem;
+    height: 3.3rem;
+    margin-top: 3rem;
+    border-radius: 1rem;
+
+    background-color: var(--bg-pink);
+    color: var(--font-clr-white);
+}

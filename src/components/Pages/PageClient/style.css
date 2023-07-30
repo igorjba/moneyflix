@@ -1,0 +1,71 @@
+.header {
+    justify-content: space-between;
+
+    margin: 3.0rem 0;
+}
+
+.client-header img {
+    padding-right: 1.6rem;
+}
+
+.client-header h2 {
+    font-size: var(--fz-26);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-130);
+
+    color: var(--font);
+}
+
+.ClientOrder svg {
+    align-self: center;
+}
+
+.addClient {
+    width: 26.4rem;
+    height: 4.6rem;
+    border-radius: 1rem;
+    gap: 4rem;
+
+    background-color: var(--bg-pink);
+    color: var(--font-clr-white);
+}
+
+.addClient h1 {
+    font-size: var(--fz-18);
+    font-weight: var(--fw-regular);
+    line-height: normal;
+}
+
+.header-table-client h1 {
+    font-size: var(--fz-16);
+    font-weight: var(--fw-bold);
+    line-height: var(--lineh-50);
+    letter-spacing: 0.008rem;
+
+    color: var(--font-clr-gray-text-modal);
+}
+
+.div-status {
+    width: 60%;
+}
+
+.situation {
+    text-align: center;
+
+    padding: 0 0.8rem;
+    border-radius: 0.8rem;
+    gap: 0.4rem;
+
+    font-weight: var(--fw-medium) !important;
+    line-height: 2rem !important;
+}
+
+.situationDefaulter {
+    background-color: var(--bg-card-red);
+    color: var(--font-clr-red-number) !important;
+}
+
+.situationOk {
+    background-color: var(--bg-card-gray);
+    color: var(--font-clr-blue-number) !important;
+}

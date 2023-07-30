@@ -1,21 +1,27 @@
 .container-sign-up {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
+=======
   justify-content: center;
 
+>>>>>>> a35aa61b3cf6bf7c744e6eb1c8a024d601eba5b2
   width: 100vw;
   height: 100vh;
-
   background-color: var(--font-clr-white);
 }
 
 .sign-up-steps {
   display: flex;
   justify-content: center;
+<<<<<<< HEAD
+  max-width: 50rem;
+  width: 100%;
+=======
 
   width: 34.72%;
+>>>>>>> a35aa61b3cf6bf7c744e6eb1c8a024d601eba5b2
   height: 100%;
-
   background-color: var(--bg-nav);
 }
 
@@ -23,12 +29,10 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-
   max-width: 38.9rem;
   width: 100%;
   max-height: 21.4rem;
   height: 100%;
-
   margin-top: 17.4rem;
 }
 
@@ -42,7 +46,6 @@
   width: 3.2rem;
   height: 3.2rem;
   margin: 0 2.4rem 0.4rem 0;
-
   background-repeat: no-repeat;
   background-size: cover;
   background-size: contain;
@@ -52,7 +55,6 @@
   font-family: var(--ff-montserrat);
   font-weight: var(--fw-bold);
   font-size: 1.8rem;
-
   color: var(--font-clr-green);
 }
 
@@ -60,7 +62,6 @@
   width: 0.3rem;
   height: 3.3rem;
   margin: 0 3.9rem 0.4rem 1.4rem;
-
   background-color: var(--font-clr-green);
 }
 
@@ -69,7 +70,6 @@
   font-weight: var(--fw-medium);
   font-size: 1.8rem;
   font-weight: var(--fw-regular);
-
   color: var(--font-clr-gray-text-modal);
 }
 
@@ -82,8 +82,13 @@
   /* justify-content: center; */
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
+  max-width: 94rem;
+  width: 100%;
+=======
 
   width: 65.28%;
+>>>>>>> a35aa61b3cf6bf7c744e6eb1c8a024d601eba5b2
   height: 100%;
 }
 
@@ -91,7 +96,6 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-
   max-width: 38rem;
   width: 100%;
   max-height: 34rem;
@@ -103,7 +107,6 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-
   max-width: 36.8rem;
   width: 100%;
   max-height: 16rem;
@@ -112,11 +115,9 @@
 
 .step-one-tittle {
   margin-bottom: 3.2rem;
-
   font-family: var(--ff-montserrat);
   font-weight: var(--fw-bold);
   font-size: 2.4rem;
-
   color: var(--font-clr-gray-title);
 }
 
@@ -125,7 +126,6 @@
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
-
   max-width: 36.8rem;
   width: 100%;
   max-height: 7rem;
@@ -138,12 +138,10 @@
 
 .span-forms {
   margin-bottom: 0.6rem;
-
   font-family: var(--ff-nunito);
   font-weight: var(--fw-medium);
   font-size: 1.4rem;
   line-height: 2rem;
-
   color: var(--font-clr-gray-text);
 }
 
@@ -155,10 +153,8 @@
   padding: 1rem 1.4rem;
   border: 0.1rem solid var(--border-input);
   border-radius: 0.8rem;
-
   background-color: var(--bg-modal);
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-
   color: var(--font-clr-gray-text-modal);
   font-family: var(--ff-inter);
   font-weight: var(--fw-regular);
@@ -170,7 +166,6 @@
   font-family: var(--ff-inter);
   font-weight: var(--fw-regular);
   font-size: 1.6rem;
-
   color: var(--font-clr-gray-input);
 }
 
@@ -178,11 +173,26 @@
   outline-color: var(--bg-pink)
 }
 
-/* .step-one-next-page-button {
+<<<<<<< HEAD
+.container-step-one-form-button {
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 36.8rem;
+  max-height: 4.4rem;
+  width: 100%;
+  max-height: 4.6rem;
+  height: 100%;
+  margin-top: 4rem;
+}
 
+.step-one-next-page-button {
+=======
+/* .step-one-next-page-button {
+>>>>>>> a35aa61b3cf6bf7c744e6eb1c8a024d601eba5b2
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 16rem;
   width: 100%;
   max-height: 3.3rem;
@@ -190,15 +200,12 @@
   border-radius: 1rem;
   border: none;
   scale: 1;
-
   text-align: center;
   font-family: var(--ff-nunito);
   font-size: 1.8rem;
   font-weight: var(--fw-regular);
   color: var(--font-clr-white);
-
   cursor: pointer;
-
   background-color: var(--bg-pink);
 } */
 
@@ -215,7 +222,6 @@
   font-weight: var(--fw-medium);
   font-size: 1.8rem;
   line-height: 2rem;
-
   color: var(--font-clr-gray-text);
 } */
 
@@ -224,7 +230,6 @@
   font-weight: var(--fw-medium);
   font-size: 1.8rem;
   line-height: 2rem;
-
   color: var(--bg-pink);
 } */
 
@@ -233,7 +238,6 @@
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-
   max-width: 36.8rem;
   width: 100%;
   max-height: 0.6rem;
