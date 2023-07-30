@@ -130,3 +130,9 @@ export default function Pagecharges() {
                                 <img src={deleteCharge} alt="Deletar" />
                             </td>
                         </tr>
+                   </tbody>
+                </table>
+            </div>
+        </>
+    )
+}
