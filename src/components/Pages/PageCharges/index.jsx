@@ -3,7 +3,7 @@ import deleteCharge from '../../../assets/DeleteCharge.svg';
 import editCharge from '../../../assets/Edit.svg';
 import filter from '../../../assets/Filter.svg';
 import lupa from '../../../assets/Lupa.svg';
-import iconCharge from '../../../assets/iconCharge.svg';
+import iconCharge from '../../../assets/IconCharge.svg';
 import useUser from '../../../hooks/useUser';
 import './style.css';
 
@@ -130,3 +130,9 @@ export default function Pagecharges() {
                                 <img src={deleteCharge} alt="Deletar" />
                             </td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+        </>
+    )
+}
