@@ -195,23 +195,22 @@ export default function ModalRegister() {
         <div className='divs-inputs-form'>
           <label htmlFor=""><h1>Nome*</h1></label>
           <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite o nome' name='nome' value={form.name} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-          {errorName && <span className='error'>{errorName}</span>}
+          {errorName && <span className='mainModalRegister error'><h1>{errorName}</h1></span>}
           <label htmlFor=""><h1>E-mail*</h1></label>
           <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" placeholder='Digite o e-mail' name='email' value={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
-          {errorEmail && <span className='error'>{errorEmail}</span>}
+          {errorEmail && <span className='error'><h1>{errorEmail}</h1></span>}
           <div className='formInformation'>
             <div>
               <label htmlFor=""><h1>CPF*</h1></label>
               <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" placeholder='Digite o CPF' name='cpf' maxLength={14} value={numberCPF} onChange={(event) => handleChangeFormCPF(event)} />
-              {errorCPF && <span className='error'>{errorCPF}</span>}
+              {errorCPF && <span className='error'><h1>{errorCPF}</h1></span>}
             </div>
             <div>
               <label htmlFor=""><h1>Telefone*</h1></label>
               <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" placeholder='Digite o telefone' name='telefone' value={numberTel} maxLength={20} onChange={(event) => handleChangeFormTel(event)} />
-              {errorPhone && <span className='error'>{errorPhone}</span>}
+              {errorPhone && <span className='error'><h1>{errorPhone}</h1></span>}
             </div>
           </div>
-
           <div className='formAndress'>
             <div>
               <label htmlFor=""><h1>CEP</h1></label>
@@ -222,12 +221,12 @@ export default function ModalRegister() {
               <input type="text" maxLength={4} placeholder='Digite número da residência' name='numero' value={formAdress.numero} onChange={(event) => handleChangeFormAdress(event)} />
             </div>
           </div>
-          <label htmlFor=""><h1>Endereço</h1></label>
-          <input type="text" placeholder='Digite o endereço' name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeFormAdress(event)} />
+          <label htmlFor=""><h1>Complemento</h1></label>
+          <input type="text" placeholder='Digite o complemento' name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeFormAdress(event)} />
           <div className='formInformation'>
             <div>
-              <label htmlFor=""><h1>Complemento</h1></label>
-              <input type="text" placeholder='Digite o complemento' name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeFormAdress(event)} />
+              <label htmlFor=""><h1>Endereço</h1></label>
+              <input type="text" placeholder='Digite o endereço' name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeFormAdress(event)} />
             </div>
             <div>
               <label htmlFor=""><h1>Bairro</h1></label>
@@ -246,7 +245,7 @@ export default function ModalRegister() {
           </div>
         </div>
         <div className='formButton initial'>
-          <button onClick={() => setOpenModalRegister(false)}>Cancelar</button>
+          <button type='button' onClick={() => setOpenModalRegister(false)}>Cancelar</button>
           <button type='submit'>Aplicar</button>
         </div>
       </form>
