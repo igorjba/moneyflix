@@ -28,20 +28,20 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
         const validationName = validateName(localForm.username);
         if (!validationName.isValid) {
             setErrorName(validationName.message);
-            toast.error(validationName.message, {
-                toastClassName: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            });
+            // toast.error(validationName.message, {
+            //     toastClassName: 'customToastify-error',
+            //     icon: ({ theme, type }) => <img src={toastError} alt="" />
+            // });
             return;
         }
 
         const validationEmail = validateEmail(localForm.email);
         if (!validationEmail.isValid) {
             setErrorEmail(validationEmail.message);
-            toast.error(validationEmail.message, {
-                toastClassName: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            });
+            // toast.error(validationEmail.message, {
+            //     toastClassName: 'customToastify-error',
+            //     icon: ({ theme, type }) => <img src={toastError} alt="" />
+            // });
             return;
         }
 

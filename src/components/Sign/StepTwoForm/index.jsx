@@ -30,32 +30,39 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
     setErrorConfirmPassword("");
 
     if (!localForm.password) {
-      toast(
-        'A senha é obrigatória', {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      });
+      // toast(
+      //   'A senha é obrigatória', {
+      //   className: 'customToastify-error',
+      //   icon: ({ theme, type }) => <img src={toastError} alt="" />
+      // });
       setErrorPassword("A senha é obrigatória");
       return;
     } else {
       const validationPassword = validatePassword(localForm.password);
       if (!validationPassword.isValid) {
+        if (error.response.data.message.includes('8')) {
+          toast.error(validationPassword.message, {
+            toastClassName: 'customToastify-error',
+            icon: ({ theme, type }) => <img src={toastError} alt="" />
+          });
+          return
+        }
         setErrorPassword(validationPassword.message);
-        toast.error(validationPassword.message, {
-          toastClassName: 'customToastify-error',
-          icon: ({ theme, type }) => <img src={toastError} alt="" />
-        });
+        // toast.error(validationPassword.message, {
+        //   toastClassName: 'customToastify-error',
+        //   icon: ({ theme, type }) => <img src={toastError} alt="" />
+        // });
         return;
       }
     }
-
+    //se for menor que 8 sair no toast e não no span
     if (localForm.password !== localForm.confirmPassword) {
-      toast(
-        'As senhas não coincidem', {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      });
       setErrorConfirmPassword("As senhas não coincidem");
+      // toast(
+      //   'As senhas não coincidem', {
+      //   className: 'customToastify-error',
+      //   icon: ({ theme, type }) => <img src={toastError} alt="" />
+      // });
       return;
     }
 

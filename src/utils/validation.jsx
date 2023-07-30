@@ -1,6 +1,6 @@
 function validateName(name) {
     if (!name) {
-        return { isValid: false, message: "Nome válido" };
+        return { isValid: false, message: "Este campo deve ser preenchido" };
     }
 
     if (name[0] === " ") {
