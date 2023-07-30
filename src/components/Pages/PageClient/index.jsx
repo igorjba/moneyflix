@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import api from '../../api/api.jsx';
+import api from '../../../api/api.jsx';
 import clientSFont from '../../assets/Client(2).svg';
 import defaulter from '../../assets/defaulter.svg';
 import filter from '../../assets/Filter.svg';
 import lupa from '../../assets/Lupa.svg';
-import { getItem } from '../../utils/localStorage';
+import { getItem } from '../../../utils/localStorage.jsx';
 import './style.css';
 
 export default function PageClient({ setOpenModalRegister, openModalRegister, setClientRegisters, clientRegisters, setTitle }) {

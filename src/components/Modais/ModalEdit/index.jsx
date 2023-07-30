@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import api from '../../api/api';
+import api from '../../../api/api';
 import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import toastError from '../../assets/toastError.svg';
-import { getItem } from '../../utils/localStorage';
-import { validatePassword } from '../../utils/validation';
+import { getItem } from '../../../utils/localStorage';
+import { validatePassword } from '../../../utils/validation';
 import './style.css';
 
 export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
@@ -20,6 +20,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         email: '',
         cpf: '',
         telefone: '',
+        senhaAtual: '',
         senha: '',
         confirmeSenha: ''
     });
@@ -48,7 +49,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         }
 
         if (!form.email.trim()) {
-            setErrorEmailEdit('Este campo deve ser preenchido')
+            setErrorEmailEdit('Este campo deve ser preenchido');
         }
 
         if (!currentPassword.trim()) {
@@ -70,41 +71,48 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         ) {
             return;
         }
+
         try {
-            const response = await api.put('usuario/atualizar', {
-                nome: form.nome,
-                cpf: numberCPF.replace(/[.-]/g, ''),
-                email: form.email,
-                telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
-                senha: form.senha,
-                confirmeSenha: form.confirmeSenha,
-                currentPassword: currentPassword
-            }, {
-                headers: {
-                    authorization: token,
+            const response = await api.put(
+                'usuario/atualizar',
+                {
+                    nome: form.nome,
+                    cpf: numberCPF.replace(/[.-]/g, ''),
+                    email: form.email,
+                    telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
+                    senha: form.senha,
+                    confirmeSenha: form.confirmeSenha,
+                    senhaAtual: currentPassword
+                },
+                {
+                    headers: {
+                        authorization: token,
+                    }
                 }
-            });
-            toast.success(
-                'Cliente Atualizado com Sucesso!', {
+            );
+
+            toast.success('Cadastro Atualizado com Sucesso!', {
                 className: 'customToastify-success',
                 icon: ({ theme, type }) => <img src={success} alt="" />
-            })
-            SetOpenModalEditPerfil(false)
-            SetOpenModalEdit(false)
+            });
+
+            SetOpenModalEditPerfil(false);
+            SetOpenModalEdit(false);
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
                 toast.error(error.response.data.message, {
                     className: 'customToastify-error',
                     icon: ({ theme, type }) => <img src={toastError} alt="" />
-                })
+                });
             } else {
-                toast.error('Erro ao atualizar cliente', {
+                toast.error('Erro ao atualizar cadastro', {
                     className: 'customToastify-error',
                     icon: ({ theme, type }) => <img src={toastError} alt="" />
                 });
             }
         }
     }
+
     function handleChangeForm(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
     }

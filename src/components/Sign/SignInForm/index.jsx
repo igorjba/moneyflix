@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import openEye from "../../assets/OpenEye.svg";
 import closedEye from "../../assets/ClosedEye.svg";
-import api from "../../api/api.jsx";
+import api from "../../../api/api.jsx";
 import toastError from "../../assets/toastError.svg";
 import success from '../../assets/Success-Toast.svg';
 import "./style.css";
