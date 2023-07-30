@@ -42,6 +42,10 @@
     background-color: var(--bg-modal);
 }
 
+.search-filter-client {
+    position: relative;
+}
+
 .search-filter-client input {
     min-width: 32.2rem;
     height: 4.57rem;
@@ -61,8 +65,8 @@
 
 .search {
     position: absolute;
-    top: 14rem;
-    right: 11rem;
+    top: 1rem;
+    right: 0.8rem;
 
     cursor: pointer;
 }
