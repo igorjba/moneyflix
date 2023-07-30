@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getItem } from "../utils/storage";
+import { getItem } from "../utils/localStorage";
 
 function useUserProvider() {
     const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false);
