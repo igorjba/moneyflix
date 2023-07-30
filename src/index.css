@@ -130,3 +130,12 @@ button {
 .seuToast {
   color: var(--font-clr-toast);
 }
+
+.error {
+  color: var(--font-clr-text-error);
+}
+
+.errorLine {
+  border: 1px solid var(--font-clr-text-error) !important;
+  margin: 0 !important
+}

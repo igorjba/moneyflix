@@ -1,0 +1,129 @@
+.container-page-charges {
+    width: 100%;
+    background-color: var(--font-clr-white);
+    justify-content: space-between;
+    padding-top: 2.837rem;
+}
+
+.search-filter-client button {
+    /*Ta chamando na pagina cliente, parece ser as mesma coisa, deixa apenas um código arrumar isso*/
+    margin-right: 1.6rem;
+}
+
+.button-filter {
+    /*Ta chamando na pagina cliente, parece ser as mesma coisa, deixa apenas um código arrumar isso*/
+    background-color: var(--bg-modal);
+    border-radius: 1rem;
+}
+
+.search-filter-client input {
+    /*Ta chamando na pagina cliente, parece ser as mesma coisa, deixa apenas um código arrumar isso*/
+    padding-left: 0.8rem;
+    gap: 50px;
+    border-radius: 1rem;
+    border: none;
+    height: 4.57rem;
+    min-width: 32.2rem;
+    box-shadow: 0.4rem 0.4rem rgba(0, 0, 0, 0.04);
+    font-family: var(--ff-nunito);
+    font-size: var(--fz-18);
+    font-style: var(--fstyle-normal);
+    font-weight: var(--fw-regular);
+    line-height: normal;
+}
+
+.search {
+    position: absolute;
+    right: 12rem;
+    top: 14rem;
+    cursor: pointer;
+}
+
+.tableCharges {
+    background-color: var(--bg-modal);
+    border-radius: 3rem;
+    padding: 0 2.2rem;
+    margin-top: 2.576rem;
+}
+
+.tableCharges table {
+    width: 100%;
+}
+
+.tableCharges tr {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1rem solid var(--bg-card-gray);
+    height: 6.6rem;
+}
+
+.tableCharges th,
+.tableCharges td {
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.description-table-header {
+    width: 40% !important;
+}
+
+.imagem-table-header {
+    width: 15% !important;
+}
+
+.extract-table-charge h1 {
+    color: var(--font-clr-text-card);
+    font-size: var(--fz-14);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-40);
+    letter-spacing: 0.007rem;
+}
+
+.description-table-charge {
+    overflow: hidden;
+    width: 40% !important;
+
+}
+
+.description-table-charge h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90%;
+}
+
+.imagem-table-charge {
+    display: flex;
+    justify-content: space-around;
+    width: 15% !important;
+}
+
+.statusDefeated {
+    background-color: var(--bg-card-red);
+    color: var(--font-clr-red-number) !important;
+}
+
+.statusPending {
+    background-color: var(--bg-card-yellow);
+    color: var(--font-clr-yellow-number) !important;
+}
+
+.statusPay {
+    background-color: var(--bg-card-gray);
+    color: var(--font-clr-blue-number) !important;
+}
+
+.status-text {
+    text-align: center;
+    padding: 0 0.8rem;
+    border-radius: 0.8rem;
+    gap: 0.4rem;
+
+    font-weight: var(--fw-medium) !important;
+    line-height: 2rem !important;
+}
+
+.div-status-charge {
+    width: 60%;
+}

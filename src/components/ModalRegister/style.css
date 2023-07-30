@@ -102,9 +102,14 @@
 
 .error {
     color: var(--font-clr-text-error);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
 }
 
 .errorLine {
     border: 1px solid var(--font-clr-text-error) !important;
-    margin: 0 !important
+
 }
