@@ -211,7 +211,6 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         UserLogged();
     }, []);
 
-    //teste
     return (
         <div className="ModalEdit-Main">
             <div className='header-ModalEdit initial'>
