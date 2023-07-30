@@ -5,6 +5,7 @@ import success from '../../assets/Success-Toast.svg';
 import closed from '../../assets/close.svg';
 import toastError from '../../assets/toastError.svg';
 import { getItem } from '../../utils/localStorage';
+import { validatePassword } from '../../utils/validation'; // Import the validatePassword function
 import './style.css';
 
 export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil, SetOpenModalEdit, formUser }) {
@@ -13,28 +14,26 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
     const [errorName, setErrorName] = useState('');
-    const [senhaAtual, setSenhaAtual] = useState('');
-    const [errorSenhaAtual, setErrorSenhaAtual] = useState('');
+    const [errorCurrentPassword, setErrorCurrentPassword] = useState(''); // New state for current password
     const [form, setForm] = useState({
         nome: '',
         email: '',
         cpf: '',
         telefone: '',
         senha: '',
-        confirmeSenha: '',
-        senhaAtual: ''
+        confirmeSenha: ''
     });
 
     const [numberCPF, setNumberCPF] = useState(form.cpf);
     const [numberTel, setNumberTel] = useState(form.telefone);
+    const [currentPassword, setCurrentPassword] = useState(''); // New state for current password
+
     let cpfInitial = '';
     let telefoneInitial = '';
+
     function onclickCloseModal() {
         SetOpenModalEditPerfil(!openModalEditPerfil);
         SetOpenModalEdit(false);
-    }
-    function handleChangeFormSenhaAtual(e) {
-        setSenhaAtual(e.target.value);
     }
 
     async function handleSubmitEdit(event) {
@@ -42,7 +41,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         setErrorPasswordEdit('');
         setErrorEmailEdit('');
         setErrorName('');
-        setErrorSenhaAtual(''); // Reset do erro do campo "Senha atual"
+        setErrorCurrentPassword('');
 
         if (!form.nome.trim()) {
             setErrorName('Este campo deve ser preenchido');
@@ -52,18 +51,25 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             setErrorEmailEdit('Este campo deve ser preenchido')
         }
 
-        if (form.senha !== form.confirmeSenha) {
-            return setErrorPasswordEdit('As senhas não coincidem');
+        if (!currentPassword.trim()) {
+            setErrorCurrentPassword('Este campo deve ser preenchido');
         }
-        if (!senhaAtual.trim()) {
-            setErrorSenhaAtual('Este campo deve ser preenchido');
+
+        const passwordValidation = validatePassword(form.senha); // Chama a validação para a nova senha
+        if (!passwordValidation.isValid) {
+            setErrorPasswordEdit(passwordValidation.message);
             return;
         }
 
-        if (!form.nome.trim() || !form.email.trim() || !form.cpf.trim() || !form.telefone.trim()) {
+        if (
+            !form.nome.trim() ||
+            !form.email.trim() ||
+            !form.cpf.trim() ||
+            !form.telefone.trim() ||
+            !currentPassword.trim()
+        ) {
             return;
         }
-
         try {
             const response = await api.put('usuario/atualizar', {
                 nome: form.nome,
@@ -72,7 +78,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                 telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
                 senha: form.senha,
                 confirmeSenha: form.confirmeSenha,
-                senhaAtual: senhaAtual // Enviando a senha atual para a API
+                currentPassword: currentPassword // Include the current password in the request
             }, {
                 headers: {
                     authorization: token,
@@ -87,17 +93,11 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
             SetOpenModalEdit(false)
         } catch (error) {
             if (error.response && error.response.data && error.response.data.message) {
-                if (error.response.data.message === 'Senha incorreta') {
-                    setErrorSenhaAtual('Senha Incorreta');
-                } else {
-                    // Trate outros erros da API aqui, se necessário
-                    toast.error(error.response.data.message, {
-                        className: 'customToastify-error',
-                        icon: ({ theme, type }) => <img src={toastError} alt="" />
-                    });
-                }
+                toast.error(error.response.data.message, {
+                    className: 'customToastify-error',
+                    icon: ({ theme, type }) => <img src={toastError} alt="" />
+                })
             } else {
-                // Trate outros erros aqui, se necessário
                 toast.error('Erro ao atualizar cliente', {
                     className: 'customToastify-error',
                     icon: ({ theme, type }) => <img src={toastError} alt="" />
@@ -123,8 +123,8 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                 setForm({
                     nome: response.data.nome_usuario,
                     email: response.data.email,
-                    cpf: response.data.cpf,
-                    telefone: response.data.telefone,
+                    cpf: cpfInitial,
+                    telefone: telefoneInitial,
                     senha: '',
                     confirmeSenha: ''
                 });
@@ -154,6 +154,7 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
         if (inputNumberCPF.length > 9) {
             formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
         }
+
         setNumberCPF(formattedValue);
     }
     function TelFormated() {
@@ -196,9 +197,19 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
 
         setNumberCPF(formattedValue);
     }
+    function handleCurrentPasswordBlur() {
+        const validation = validatePassword(currentPassword);
+        if (!validation.isValid) {
+            setErrorCurrentPassword(validation.message);
+        } else {
+            setErrorCurrentPassword('');
+        }
+    }
+
     useEffect(() => {
         UserLogged();
     }, []);
+
 
     return (
         <div className="ModalEdit-Main">
@@ -231,8 +242,16 @@ export default function ModalEdit({ openModalEditPerfil, SetOpenModalEditPerfil,
                     </div>
                     <div className='box-info'>
                         <label htmlFor=""><h1>Senha Atual*</h1></label>
-                        <input type="password" placeholder='Digite sua senha atual' name='senhaAtual' value={form.senhaAtual} maxLength={200} onChange={handleChangeForm} />
-                        {errorSenhaAtual && <span className='error'>{errorSenhaAtual}</span>}
+                        <input
+                            type="password"
+                            placeholder='Digite sua senha atual'
+                            name='currentPassword'
+                            value={currentPassword}
+                            maxLength={200}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
+                            onBlur={handleCurrentPasswordBlur}
+                        />
+                        {errorCurrentPassword && <span className='error'>{errorCurrentPassword}</span>}
                     </div>
                     <div className='box-info'>
                         <label htmlFor=""><h1>Nova Senha</h1></label>
