@@ -21,6 +21,20 @@ function cpfUnmask(value) {
     return value.replace(/\D/g, '');
 }
 
+function cepMask(value){
+    value = value.replace(/\D/g, '')
+
+    let cep = ''
+
+    if (value.length > 5) {
+      cep = `${value.slice(0, 5)}-${value.slice(5, 8)}`;
+    }
+}
+
+function cepUnmask(value) {
+    return value.replace(/\D/g, '');
+}
+
 function cellPhoneMask(value) {
     value = value.replace(/\D/g, '');
     if (value.length > 11) {
@@ -51,4 +65,4 @@ function moneyUnmask(value) {
     return Math.round(number * 100);
 }
 
-export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask };
+export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask };

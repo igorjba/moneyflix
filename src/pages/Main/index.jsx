@@ -158,10 +158,7 @@ function Main() {
           {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
-      {openModalRegister && (
-        <RegisterClientModal
-        />
-      )}
+      {openModalRegister && (<RegisterClientModal/>)}
       {openModalEditPerfil && (
         <EditUserModal
           SetOpenModalEdit={SetOpenModalEdit}
