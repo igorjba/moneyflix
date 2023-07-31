@@ -9,6 +9,7 @@ import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
 import './style.css';
+import { validateEmail, validateName } from '../../../utils/validation';
 
 export default function ModalRegister() {
   const { setOpenModalRegister, setClientRegisters, token, setCorArrowBottom, setCorArrowTop } = useUser();
@@ -41,14 +42,19 @@ export default function ModalRegister() {
     setErrorEmail('')
     setErrorCPF('')
     setErrorPhone('')
-    if (!form.nome) {
-      setErrorName('O Nome é obrigatório');
+
+    const validationName = validateName(form.nome)
+    if (!validationName.isValid) {
+      setErrorName(`${validationName.message}`)
       validate = +1
     }
-    if (!form.email) {
-      setErrorEmail('O Email é obrigatório');
+
+    const validationEmail = validateEmail(form.email)
+    if (!validationEmail.isValid) {
+      setErrorEmail(`${validationName.message}`)
       validate = +1
     }
+
     if (!numberCPF) {
       setErrorCPF('O CPF é obrigatório');
       validate = +1
@@ -64,19 +70,23 @@ export default function ModalRegister() {
     setCorArrowBottom('#3F3F55')
     setCorArrowTop('#3F3F55')
   }
+
+
+  /* numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)) */
   async function sendInformation() {
     try {
       const response = await api.post("cliente", {
         nome: form.nome,
-        cpf: numberCPF.replace(/[.-]/g, ''),
+        cpf: cpfUnmask(formEdit.cpf),
         email: form.email,
-        telefone: numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)),
+        telefone: cellPhoneUnmask(formEdit.telefone),
         ...formAdress
       }, {
         headers: {
           authorization: token,
         }
       });
+      console.log(response)
       ClientCadaster()
       toast.success(
         'Cliente Cadastro com Sucesso!', {
@@ -92,16 +102,20 @@ export default function ModalRegister() {
     }
   }
   async function searchCep(event) {
+    const cepSearch = event.target.value.replace(/\D/g, '')
+    console.log(cepSearch)
     try {
-      const response = await apiCep.get(`${event.target.value}/json/`)
+      const response = await apiCep.get(`${cepSearch}/json/`)
+      console.log(response)
       setFormAdress({
         logradouro: response.data.logradouro,
         bairro: response.data.bairro,
-        cep: event.target.value,
+        cep: response.data.cep,
         cidade: response.data.localidade,
         estado: response.data.uf
       })
     } catch (error) {
+      console.log(error)
       toast.error("CEP não encontrado", {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
@@ -136,28 +150,19 @@ export default function ModalRegister() {
 
     setNumberCPF(formattedValue);
   }
-  function handleChangeFormCEP(e) {
+  async function handleChangeFormCEP(e) {
     const inputNumberCEP = e.target.value.replace(/\D/g, '')
     let formattedValue = inputNumberCEP
 
     if (inputNumberCEP.length > 5) {
       formattedValue = `${inputNumberCEP.slice(0, 5)}-${inputNumberCEP.slice(5, 8)}`;
     }
-
     setNumberCEP(formattedValue);
-
-    searchCep(numberCEP.replace(/\D/g, ''))
-    console.log(numberCEP.replace(/\D/g, ''))
   }
-  /* function handleChangeFormNumber(e) {
-    const inputNumberCPF = e.target.value.replace(/\D/g, '')
 
-    setFormAdress([...formAdress], numero: inputNumberCPF)
-  } */
   function handleChangeFormAdress(event) {
     if (event.target.name === 'numero') {
       const inputNumberHouse = event.target.value.replace(/\D/g, '')
-      console.log('entrou aqui')
       setFormAdress({ ...formAdress, numero: inputNumberHouse })
     }
 
@@ -214,7 +219,7 @@ export default function ModalRegister() {
           <div className='formAndress'>
             <div>
               <label htmlFor=""><h1>CEP</h1></label>
-              <input type="text" maxLength={8} placeholder='Digite o CEP' name='cep' onBlur={(event) => handleChangeFormCEP(event)} />
+              <input type="text" maxLength={9} placeholder='Digite o CEP' name='cep' value={numberCEP} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeFormCEP(event)} />
             </div>
             <div>
               <label htmlFor=""><h1>Número da Residência</h1></label>
