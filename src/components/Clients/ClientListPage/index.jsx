@@ -11,8 +11,7 @@ import './style.css';
 export default function ClientListPage() {
     const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token, corarrowTop,
         setCorArrowTop, corarrowBottom, setCorArrowBottom } = useUser();
-
-    const [countOrder, setCountOrder] = useState(0)
+    const [countOrder, setCountOrder] = useState(1)
     async function ClientCadaster() {
         try {
             const response = await api.get('cliente', {
@@ -61,7 +60,7 @@ export default function ClientListPage() {
             ClientCadaster()
             setCorArrowBottom('#3F3F55')
             setCorArrowTop('#3F3F55')
-            setCountOrder(0);
+            setCountOrder(1);
         }
     }
     useEffect(() => {
@@ -94,7 +93,7 @@ export default function ClientListPage() {
                 <table>
                     <thead className='header-table-client'>
                         <tr >
-                            <th className='ClientOrder' onClick={() => orderName()}>
+                            <th className='ClientOrder mousePointer' onClick={() => orderName()}>
                                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                     <g id="Frame" clipPath="url(#clip0_84440_3278)">
                                         <g id="Group">
