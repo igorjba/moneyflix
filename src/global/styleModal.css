@@ -1,10 +1,12 @@
 .main-Modal {
-    width: 35vw;
-    height: 85vh;
-    max-height: 85vh;
+    width: 40vw;
+    /* height: 85vh; */
+    max-height: 95vh;
     padding: 4rem 5.7rem;
     border-radius: 3rem;
+
     position: absolute;
+    top: 7%;
 
     background-color: var(--bg-modal);
     z-index: 4;
