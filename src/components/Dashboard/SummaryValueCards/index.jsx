@@ -1,6 +1,6 @@
 import "./style.css";
 
-export default function CardResume({
+export default function SummaryValueCards({
   IconCard,
   BackgroundColor,
   TitleCard,

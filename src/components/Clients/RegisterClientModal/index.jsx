@@ -11,7 +11,7 @@ import useUser from '../../../hooks/useUser';
 import './style.css';
 import { validateEmail, validateName } from '../../../utils/validation';
 
-export default function ModalRegister() {
+export default function RegisterClientModal() {
   const { setOpenModalRegister, setClientRegisters, token, setCorArrowBottom, setCorArrowTop } = useUser();
   const [form, setForm] = useState({
     nome: '',

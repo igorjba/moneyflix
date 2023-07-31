@@ -1,6 +1,4 @@
-import { useEffect, useState, useContext } from "react";
-import { toast } from "react-toastify";
-import api from "../../api/api";
+import { useEffect, useState } from "react";
 import chargePink from "../../assets/Charge-Pink.svg";
 import charge from "../../assets/Charge.svg";
 import clientePink from "../../assets/Client-Pink.svg";
@@ -8,16 +6,15 @@ import client from "../../assets/Client.svg";
 import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
-import toastError from "../../assets/toastError.svg";
-import ModalEdit from "../../components/Modais/ModalEdit";
-import ModalRegister from "../../components/Modais/ModalRegister";
-import ModalSet from "../../components/Modais/ModalSet";
-import PageClient from "../../components/Pages/PageClient";
-import PageHome from "../../components/Pages/PageHome";
-import Pagecharges from "../../components/Pages/PageCharges";
+import ChargesListPage from "../../components/Charges/ChargesListPage";
+import ClientListPage from "../../components/Clients/ClientListPage";
+import RegisterClientModal from "../../components/Clients/RegisterClientModal";
+import HomePage from "../../components/Dashboard/HomePage";
+import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
+import EditUserModal from "../../components/Users/EditUserModal";
+import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
-import "../../global/styleModal.css"
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -149,26 +146,24 @@ function Main() {
             </div>
           </div>
           {modalExit && (
-            <ModalSet
+            <LogoutEditUserModal
               setModalExit={setModalExit}
               SetOpenModalEdit={SetOpenModalEdit}
             />
           )}
         </header>
         <div className="main">
-          {!imageNavClient && (
-            <PageClient
-            />)}
-          {!imageNavHome && <PageHome />}
-          {!imageNavCharge && <Pagecharges />}
+          {!imageNavClient && (<ClientListPage />)}
+          {!imageNavHome && <HomePage />}
+          {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
       {openModalRegister && (
-        <ModalRegister
+        <RegisterClientModal
         />
       )}
       {openModalEditPerfil && (
-        <ModalEdit
+        <EditUserModal
           SetOpenModalEdit={SetOpenModalEdit}
         />
       )}

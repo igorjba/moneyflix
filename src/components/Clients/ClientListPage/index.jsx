@@ -8,7 +8,7 @@ import defaulter from '../../../assets/defaulter.svg';
 import useUser from '../../../hooks/useUser.jsx';
 import './style.css';
 
-export default function PageClient() {
+export default function ClientListPage() {
     const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token, corarrowTop,
         setCorArrowTop, corarrowBottom, setCorArrowBottom } = useUser();
 
