@@ -71,6 +71,7 @@ export default function ModalRegister() {
     setCorArrowTop('#3F3F55')
   }
 
+
   /* numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)) */
   async function sendInformation() {
     try {
