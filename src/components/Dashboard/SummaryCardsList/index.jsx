@@ -8,6 +8,7 @@ export default function SummaryCardsList({
   cardL,
   backgroundColorTotalClient,
   isClientData = false,
+  isLastCard,
 }) {
 
   function maskCPF(e) {
@@ -26,7 +27,7 @@ export default function SummaryCardsList({
   }
 
   return (
-    <div className="card">
+    <div className={`card ${isLastCard ? 'last-card' : 'initial-card'}`}>
       <div className="headerCard initial">
         <div className="initial">
           <div
