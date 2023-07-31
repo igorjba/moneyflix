@@ -125,3 +125,7 @@
     border: 0.1rem solid var(--font-clr-text-error) !important;
     margin-bottom: 0.4rem !important;
 }
+
+.mousePointer{
+    cursor: pointer;
+}
