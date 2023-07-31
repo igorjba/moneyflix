@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api';
@@ -8,8 +8,9 @@ import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
+import { cellPhoneMask, cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
+import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
-import { validateEmail, validateName } from '../../../utils/validation';
 
 export default function RegisterClientModal() {
   const { setOpenModalRegister, setClientRegisters, token, setCorArrowBottom, setCorArrowTop } = useUser();
@@ -19,9 +20,9 @@ export default function RegisterClientModal() {
     cpf: '',
     telefone: '',
   });
+  const [numberHouse, setNumberHouse] = useState('')
   const [formAdress, setFormAdress] = useState({
-    logradouro: '',
-    numero: '',
+    logradouro: ''.concat(numberHouse),
     complemento: '',
     cep: '',
     bairro: '',
@@ -29,38 +30,82 @@ export default function RegisterClientModal() {
     estado: ''
   })
   let validate = 0
+  const inputRef = useRef(null)
   const [errorName, setErrorName] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [errorCPF, setErrorCPF] = useState('');
   const [errorPhone, setErrorPhone] = useState('');
-  const [numberCPF, setNumberCPF] = useState('');
-  const [numberTel, setNumberTel] = useState('');
-  const [numberCEP, setNumberCEP] = useState('')
-  const handleSubmit = (event) => {
+  const [validationInputDisabled, setValidationInputDisabled] = useState(false)
+  function handleChangeForm(event){
+    if(event.target.name === 'nome' || event.target.name === 'email'){
+      return setForm({ ...form, [event.target.name]: event.target.value });
+    }
+    if(event.target.name === 'logradouro' || event.target.name === 'complemento' || event.target.name === 'bairro' ||  event.target.name === 'cidade' || event.target.name === 'estado'){
+      return setFormAdress({ ...formAdress, [event.target.name]: event.target.value })
+    }
+    if(event.target.name === 'cpf'){
+      return setForm({ ...form, [event.target.name]: cpfMask(event.target.value) });
+    }
+    if(event.target.name === 'telefone'){
+      return setForm({...form, [event.target.name]: cellPhoneMask(event.target.value)})
+    }
+    if(event.target.name === 'cep'){
+      return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value)});
+    }
+    if(event.target.name === 'numero'){
+      const inputNumberTel = event.target.value.replace(/\D/g, '')
+    setNumberHouse(inputNumberTel)
+    }
+  }
+  async function searchCep(event) {
+    try {
+      const response = await apiCep.get(`${cepUnmask(event.target.value)}/json/`)
+      setFormAdress({
+        logradouro: (response.data.logradouro).concat(),
+        bairro: response.data.bairro,
+        cep: cepUnmask(response.data.cep),
+        cidade: response.data.localidade,
+        estado: response.data.uf
+      })
+      setValidationInputDisabled(true)
+      if(response.data.erro){
+        toast.error("CEP não encontrado", {
+          className: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={toastError} alt="" />
+        });
+        setValidationInputDisabled(false)
+      }
+    } catch (error) {
+      toast.error("CEP inválido", {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
+      setValidationInputDisabled(false)
+    }
+  }
+  function handleSubmit(event){
     event.preventDefault();
     setErrorName('')
     setErrorEmail('')
     setErrorCPF('')
     setErrorPhone('')
-
     const validationName = validateName(form.nome)
     if (!validationName.isValid) {
-      setErrorName(`${validationName.message}`)
+      setErrorName(validationName.message)
       validate = +1
     }
-
     const validationEmail = validateEmail(form.email)
     if (!validationEmail.isValid) {
-      setErrorEmail(`${validationName.message}`)
+      setErrorEmail(validationEmail.message)
       validate = +1
     }
-
-    if (!numberCPF) {
-      setErrorCPF('O CPF é obrigatório');
+    const validationCPF = validateCPF(cpfUnmask(form.cpf))
+    if (!validationCPF.isValid) {
+      setErrorCPF(validationCPF.message);
       validate = +1
     }
-    if (!numberTel) {
-      setErrorPhone('O Telefone é obrigatório');
+    if (!form.telefone) {
+      setErrorPhone('Este campo deve ser preenchido');
       validate = +1
     }
     if (validate === 0) {
@@ -70,23 +115,19 @@ export default function RegisterClientModal() {
     setCorArrowBottom('#3F3F55')
     setCorArrowTop('#3F3F55')
   }
-
-
-  /* numberTel.replace(/[.-]/g, '').slice(1, 3).concat(numberTel.replace(/[.-]/g, '').slice(4, 15)) */
   async function sendInformation() {
     try {
       const response = await api.post("cliente", {
         nome: form.nome,
-        cpf: cpfUnmask(formEdit.cpf),
+        cpf: cpfUnmask(form.cpf),
         email: form.email,
-        telefone: cellPhoneUnmask(formEdit.telefone),
+        telefone: cellPhoneUnmask(form.telefone),
         ...formAdress
       }, {
         headers: {
           authorization: token,
         }
       });
-      console.log(response)
       ClientCadaster()
       toast.success(
         'Cliente Cadastro com Sucesso!', {
@@ -100,76 +141,6 @@ export default function RegisterClientModal() {
         icon: ({ theme, type }) => <img src={error} alt="" />
       });
     }
-  }
-  async function searchCep(event) {
-    const cepSearch = event.target.value.replace(/\D/g, '')
-    console.log(cepSearch)
-    try {
-      const response = await apiCep.get(`${cepSearch}/json/`)
-      console.log(response)
-      setFormAdress({
-        logradouro: response.data.logradouro,
-        bairro: response.data.bairro,
-        cep: response.data.cep,
-        cidade: response.data.localidade,
-        estado: response.data.uf
-      })
-    } catch (error) {
-      console.log(error)
-      toast.error("CEP não encontrado", {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      });
-    }
-  }
-  function handleChangeFormTel(e) {
-    const inputNumberTel = e.target.value.replace(/\D/g, '')
-    let formattedValue = inputNumberTel
-    if (inputNumberTel.length > 2) {
-      formattedValue = `(${inputNumberTel.slice(0, 2)})${inputNumberTel.slice(2)}`;
-    }
-    if (inputNumberTel.length > 7) {
-      formattedValue = `${formattedValue.slice(0, 9)}-${formattedValue.slice(9, 13)}`;
-    }
-    setNumberTel(formattedValue);
-
-  }
-  function handleChangeFormCPF(e) {
-    const inputNumberCPF = e.target.value.replace(/\D/g, '')
-    let formattedValue = inputNumberCPF
-
-    if (inputNumberCPF.length > 3) {
-      formattedValue = `${inputNumberCPF.slice(0, 3)}.${inputNumberCPF.slice(3)}`;
-    }
-    if (inputNumberCPF.length > 6) {
-      formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
-    }
-    if (inputNumberCPF.length > 9) {
-      formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
-    }
-
-    setNumberCPF(formattedValue);
-  }
-  async function handleChangeFormCEP(e) {
-    const inputNumberCEP = e.target.value.replace(/\D/g, '')
-    let formattedValue = inputNumberCEP
-
-    if (inputNumberCEP.length > 5) {
-      formattedValue = `${inputNumberCEP.slice(0, 5)}-${inputNumberCEP.slice(5, 8)}`;
-    }
-    setNumberCEP(formattedValue);
-  }
-
-  function handleChangeFormAdress(event) {
-    if (event.target.name === 'numero') {
-      const inputNumberHouse = event.target.value.replace(/\D/g, '')
-      setFormAdress({ ...formAdress, numero: inputNumberHouse })
-    }
-
-    setFormAdress({ ...formAdress, [event.target.name]: event.target.value })
-  }
-  function handleChangeForm(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
   }
   async function ClientCadaster() {
     try {
@@ -187,6 +158,11 @@ export default function RegisterClientModal() {
       });
     }
   }
+  function handleClick(){
+    console.log()
+    inputRef.current.focus();
+  }
+
   return (
     <div className='main-Modal Modal-Register'>
       <div className='headerModal initial'>
@@ -194,58 +170,58 @@ export default function RegisterClientModal() {
           <img src={clientSFont} alt="" />
           <h2>Cadastro do Cliente</h2>
         </div>
-        <img src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
+        <img className='mousePointer' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
       </div>
       <form onSubmit={handleSubmit}>
         <div className='divs-inputs-form'>
-          <label htmlFor=""><h1>Nome*</h1></label>
-          <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite o nome' name='nome' value={form.name} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+          <label htmlFor="inputName"><h1>Nome*</h1></label>
+          <input className={`${errorName ? 'errorLine' : ''}`} type="text" id='inputName' ref={inputRef} placeholder='Digite o nome' name='nome' value={form.name} maxLength={200} onChange={(event) => handleChangeForm(event)} />
           {errorName && <span className='mainModalRegister error'><h1>{errorName}</h1></span>}
-          <label htmlFor=""><h1>E-mail*</h1></label>
-          <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" placeholder='Digite o e-mail' name='email' value={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+          <label htmlFor="inputEmail"><h1>E-mail*</h1></label>
+          <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" id='inputEmail' ref={inputRef} placeholder='Digite o e-mail' name='email' value={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
           {errorEmail && <span className='error'><h1>{errorEmail}</h1></span>}
           <div className='formInformation'>
             <div>
-              <label htmlFor=""><h1>CPF*</h1></label>
-              <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" placeholder='Digite o CPF' name='cpf' maxLength={14} value={numberCPF} onChange={(event) => handleChangeFormCPF(event)} />
+              <label htmlFor="inputCPF"><h1>CPF*</h1></label>
+              <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" id='inputCPF' ref={inputRef} placeholder='Digite o CPF' name='cpf' maxLength={14} value={form.cpf} onChange={(event) => handleChangeForm(event)} />
               {errorCPF && <span className='error'><h1>{errorCPF}</h1></span>}
             </div>
             <div>
-              <label htmlFor=""><h1>Telefone*</h1></label>
-              <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" placeholder='Digite o telefone' name='telefone' value={numberTel} maxLength={20} onChange={(event) => handleChangeFormTel(event)} />
+              <label htmlFor="inputPhone"><h1>Telefone*</h1></label>
+              <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" id='inputPhone' ref={inputRef} placeholder='Digite o telefone' name='telefone' value={form.telefone} maxLength={20} onChange={(event) => handleChangeForm(event)} />
               {errorPhone && <span className='error'><h1>{errorPhone}</h1></span>}
             </div>
           </div>
           <div className='formAndress'>
             <div>
-              <label htmlFor=""><h1>CEP</h1></label>
-              <input type="text" maxLength={9} placeholder='Digite o CEP' name='cep' value={numberCEP} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeFormCEP(event)} />
+              <label htmlFor="inputCEP"><h1>CEP</h1></label>
+              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={formAdress.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              <label htmlFor=""><h1>Número da Residência</h1></label>
-              <input type="text" maxLength={4} placeholder='Digite número da residência' name='numero' value={formAdress.numero} onChange={(event) => handleChangeFormAdress(event)} />
+              <label htmlFor="inputNumber"><h1>Número da Residência</h1></label>
+              <input type="text" maxLength={4} placeholder='Digite número da residência' id='inputNumber' ref={inputRef} name='numero' value={numberHouse} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
-          <label htmlFor=""><h1>Complemento</h1></label>
-          <input type="text" placeholder='Digite o complemento' name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeFormAdress(event)} />
+          <label htmlFor="inputCompl"><h1>Complemento</h1></label>
+          <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
           <div className='formInformation'>
             <div>
-              <label htmlFor=""><h1>Endereço</h1></label>
-              <input type="text" placeholder='Digite o endereço' name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeFormAdress(event)} />
+              <label htmlFor="inputAdress"><h1>Endereço</h1></label>
+              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' disabled={validationInputDisabled} value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              <label htmlFor=""><h1>Bairro</h1></label>
-              <input type="text" placeholder='Digite o Bairro' name='bairro' value={formAdress.bairro} onChange={(event) => handleChangeFormAdress(event)} />
+              <label htmlFor="inputNeighborhood"><h1>Bairro</h1></label>
+              <input type="text" placeholder='Digite o Bairro' name='bairro' id='inputNeighborhood' ref={inputRef} value={formAdress.bairro} disabled={validationInputDisabled} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
           <div className='formAndress'>
             <div>
-              <label htmlFor=""><h1>Cidade</h1></label>
-              <input type="text" placeholder='Digite o Cidade' name='cidade' value={formAdress.cidade} onChange={(event) => handleChangeFormAdress(event)} />
+              <label htmlFor="inputCity"><h1>Cidade</h1></label>
+              <input type="text" placeholder='Digite o Cidade' name='cidade' id='inputCity' ref={inputRef} disabled={validationInputDisabled} value={formAdress.cidade} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              <label htmlFor=""><h1>UF</h1></label>
-              <input type="text" placeholder='Digite o UF' name='estado' value={formAdress.estado} onChange={(event) => handleChangeFormAdress(event)} />
+              <label htmlFor="inputUF"><h1>UF</h1></label>
+              <input type="text" placeholder='Digite o UF' name='estado' id='inputUF' ref={inputRef} disabled={validationInputDisabled } value={formAdress.estado} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
         </div>

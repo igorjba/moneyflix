@@ -68,4 +68,41 @@ function validatePassword(password) {
     return { isValid: true };
 }
 
-export { validateName, validateEmail, validatePassword };
+function validateCPF(cpf){
+    if (!cpf || cpf === '') {
+        return { isValid: false, message: 'Este campo deve ser preenchido' };
+    }
+    if (cpf) {
+        let result = 0;
+        let countCPF = 0;
+        for (let index = 10; index > 1; index--) {
+            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (Consultarcpf * index) + result;
+            countCPF++;
+        }
+        result = (result % 11)
+        result = (11 - result)
+        if(result === 11 || result === 10){
+            result = 0
+        }
+        if (result !== Number(cpf.slice(9, 10))) {
+            return { isValid: false, message: "Entre com CPF válido 1" }
+        }
+        result = 0;
+        countCPF = 0;
+        for (let index = 11; index > 1; index--) {
+            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (Consultarcpf * index) + result;
+            countCPF++;
+        }
+        result = (result  % 11)
+        result = (11 - result)
+         if (result !== Number(cpf.slice(10, 11))) {
+            return { isValid: false, message: "Entre com CPF válido" }
+        } 
+
+        return { isValid: true };
+}
+}
+
+export { validateName, validateEmail, validatePassword, validateCPF };

@@ -22,6 +22,20 @@ function cpfUnmask(value) {
     return value.replace(/\D/g, '');
 }
 
+function cepMask(value){
+    value = value.replace(/\D/g, '')
+
+    let cep = ''
+
+    if (value.length > 5) {
+      cep = `${value.slice(0, 5)}-${value.slice(5, 8)}`;
+    }
+}
+
+function cepUnmask(value) {
+    return value.replace(/\D/g, '');
+}
+
 function cellPhoneMask(value) {
     if (!value) return
     value = value.replace(/\D/g, '');
@@ -31,7 +45,7 @@ function cellPhoneMask(value) {
     let phone = '';
     phone += '(' + value.slice(0, 2) + ')';
     if (value.length > 2) {
-        phone += ' ' + value.slice(2, 7);
+        phone += ' ' + value.slice(2,3) + ' ' + value.slice(3, 7);
     }
     if (value.length > 7) {
         phone += '-' + value.slice(7, 11);
@@ -53,4 +67,4 @@ function moneyUnmask(value) {
     return Math.round(number * 100);
 }
 
-export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask };
+export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask };
