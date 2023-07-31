@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api';
@@ -30,7 +30,7 @@ export default function RegisterClientModal() {
     estado: ''
   })
   let validate = 0
-  
+  const inputRef = useRef(null)
   const [errorName, setErrorName] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [errorCPF, setErrorCPF] = useState('');
@@ -158,6 +158,10 @@ export default function RegisterClientModal() {
       });
     }
   }
+  function handleClick(){
+    console.log()
+    inputRef.current.focus();
+  }
 
   return (
     <div className='main-Modal Modal-Register'>
@@ -170,54 +174,54 @@ export default function RegisterClientModal() {
       </div>
       <form onSubmit={handleSubmit}>
         <div className='divs-inputs-form'>
-          <label htmlFor=""><h1>Nome*</h1></label>
-          <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite o nome' name='nome' value={form.name} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+          <label htmlFor="inputName"><h1>Nome*</h1></label>
+          <input className={`${errorName ? 'errorLine' : ''}`} type="text" id='inputName' ref={inputRef} placeholder='Digite o nome' name='nome' value={form.name} maxLength={200} onChange={(event) => handleChangeForm(event)} />
           {errorName && <span className='mainModalRegister error'><h1>{errorName}</h1></span>}
-          <label htmlFor=""><h1>E-mail*</h1></label>
-          <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" placeholder='Digite o e-mail' name='email' value={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+          <label htmlFor="inputEmail"><h1>E-mail*</h1></label>
+          <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" id='inputEmail' ref={inputRef} placeholder='Digite o e-mail' name='email' value={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
           {errorEmail && <span className='error'><h1>{errorEmail}</h1></span>}
           <div className='formInformation'>
             <div>
-              <label htmlFor=""><h1>CPF*</h1></label>
-              <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" placeholder='Digite o CPF' name='cpf' maxLength={14} value={form.cpf} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputCPF"><h1>CPF*</h1></label>
+              <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" id='inputCPF' ref={inputRef} placeholder='Digite o CPF' name='cpf' maxLength={14} value={form.cpf} onChange={(event) => handleChangeForm(event)} />
               {errorCPF && <span className='error'><h1>{errorCPF}</h1></span>}
             </div>
             <div>
-              <label htmlFor=""><h1>Telefone*</h1></label>
-              <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" placeholder='Digite o telefone' name='telefone' value={form.telefone} maxLength={20} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputPhone"><h1>Telefone*</h1></label>
+              <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" id='inputPhone' ref={inputRef} placeholder='Digite o telefone' name='telefone' value={form.telefone} maxLength={20} onChange={(event) => handleChangeForm(event)} />
               {errorPhone && <span className='error'><h1>{errorPhone}</h1></span>}
             </div>
           </div>
           <div className='formAndress'>
             <div>
-              <label htmlFor=""><h1>CEP</h1></label>
-              <input type="text" maxLength={9} placeholder='Digite o CEP' name='cep' value={formAdress.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputCEP"><h1>CEP</h1></label>
+              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={formAdress.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              <label htmlFor=""><h1>Número da Residência</h1></label>
-              <input type="text" maxLength={4} placeholder='Digite número da residência' name='numero' value={numberHouse} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputNumber"><h1>Número da Residência</h1></label>
+              <input type="text" maxLength={4} placeholder='Digite número da residência' id='inputNumber' ref={inputRef} name='numero' value={numberHouse} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
-          <label htmlFor=""><h1>Complemento</h1></label>
-          <input type="text" placeholder='Digite o complemento' name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
+          <label htmlFor="inputCompl"><h1>Complemento</h1></label>
+          <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
           <div className='formInformation'>
             <div>
-              <label htmlFor=""><h1>Endereço</h1></label>
-              <input type="text" placeholder='Digite o endereço' name='logradouro' disabled={validationInputDisabled} value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputAdress"><h1>Endereço</h1></label>
+              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' disabled={validationInputDisabled} value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              <label htmlFor=""><h1>Bairro</h1></label>
-              <input type="text" placeholder='Digite o Bairro' name='bairro' value={formAdress.bairro} disabled={validationInputDisabled} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputNeighborhood"><h1>Bairro</h1></label>
+              <input type="text" placeholder='Digite o Bairro' name='bairro' id='inputNeighborhood' ref={inputRef} value={formAdress.bairro} disabled={validationInputDisabled} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
           <div className='formAndress'>
             <div>
-              <label htmlFor=""><h1>Cidade</h1></label>
-              <input type="text" placeholder='Digite o Cidade' name='cidade' disabled={validationInputDisabled} value={formAdress.cidade} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputCity"><h1>Cidade</h1></label>
+              <input type="text" placeholder='Digite o Cidade' name='cidade' id='inputCity' ref={inputRef} disabled={validationInputDisabled} value={formAdress.cidade} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              <label htmlFor=""><h1>UF</h1></label>
-              <input type="text" placeholder='Digite o UF' name='estado' disabled={validationInputDisabled } value={formAdress.estado} onChange={(event) => handleChangeForm(event)} />
+              <label htmlFor="inputUF"><h1>UF</h1></label>
+              <input type="text" placeholder='Digite o UF' name='estado' id='inputUF' ref={inputRef} disabled={validationInputDisabled } value={formAdress.estado} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
         </div>
