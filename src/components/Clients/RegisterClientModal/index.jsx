@@ -158,11 +158,6 @@ export default function RegisterClientModal() {
       });
     }
   }
-  function handleClick(){
-    console.log()
-    inputRef.current.focus();
-  }
-
   return (
     <div className='main-Modal Modal-Register'>
       <div className='headerModal initial'>

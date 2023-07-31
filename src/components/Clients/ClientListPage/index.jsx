@@ -9,9 +9,10 @@ import useUser from '../../../hooks/useUser.jsx';
 import './style.css';
 
 export default function ClientListPage() {
-    const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token, corarrowTop,
-        setCorArrowTop, corarrowBottom, setCorArrowBottom } = useUser();
+    const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token} = useUser();
     const [countOrder, setCountOrder] = useState(1)
+    const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
+    const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     async function ClientCadaster() {
         try {
             const response = await api.get('cliente', {
@@ -37,8 +38,8 @@ export default function ClientListPage() {
         setCountOrder(countOrder + 1)
         if (countOrder === 1) {
             const order = clientRegisters.slice().sort(function (a, b) {
-                let x = a.nome_cliente
-                let y = b.nome_cliente
+                let x = a.nome_cliente.toUpperCase()
+                let y = b.nome_cliente.toUpperCase()
 
                 return x == y ? 0 : x > y ? 1 : - 1
             })
@@ -48,8 +49,8 @@ export default function ClientListPage() {
         }
         if (countOrder === 2) {
             const order = clientRegisters.slice().sort(function (a, b) {
-                let x = a.nome_cliente
-                let y = b.nome_cliente
+                let x = a.nome_cliente.toUpperCase()
+                let y = b.nome_cliente.toUpperCase()
                 return x == y ? 0 : x < y ? 1 : - 1
             })
             setCorArrowBottom('#3F3F55')
