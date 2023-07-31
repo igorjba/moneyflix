@@ -1,17 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import api from "../../../api/api.jsx";
-<<<<<<< HEAD
-import ClienteOK from "../../assets/ClienteOK.svg";
-import ClienteOverdue from "../../assets/ClienteOverdue.svg";
-import Expired from "../../assets/Expired.svg";
-import Paid from "../../assets/Paid.svg";
-import Pending from "../../assets/Pending.svg";
-import toastError from '../../assets/toastError.svg';
-import { getItem } from '../../../utils/localStorage.jsx';
-import Card from "../../Cards/Card/index";
-import CardResume from "../../Cards/CardResume/index";
-=======
 import ClienteOK from "../../../assets/ClienteOK.svg";
 import ClienteOverdue from "../../../assets/ClienteOverdue.svg";
 import Expired from "../../../assets/Expired.svg";
@@ -19,12 +8,11 @@ import Paid from "../../../assets/Paid.svg";
 import Pending from "../../../assets/Pending.svg";
 import toastError from '../../../assets/toastError.svg';
 import useUser from "../../../hooks/useUser.jsx";
-import Card from "../../Cards/Card/index.jsx";
-import CardResume from "../../Cards/CardResume/index.jsx";
->>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
+import SummaryCardsList from "../../Dashboard/SummaryCardsList";
+import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
 
-export default function PageHome() {
+export default function HomePage() {
   const { setTitle, token } = useUser();
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
@@ -60,19 +48,19 @@ export default function PageHome() {
   return (
     <>
       <div className="contentResume initial">
-        <CardResume
+        <SummaryValueCards
           IconCard={Paid}
           BackgroundColor="#eef6f6"
           TitleCard="Cobranças Pagas"
           ValueCard={data.totalValorPagas?.[0]?.sum}
         />
-        <CardResume
+        <SummaryValueCards
           IconCard={Expired}
           BackgroundColor="#ffefef"
           TitleCard="Cobranças Vencidas"
           ValueCard={data.totalValorVencidas?.[0]?.sum}
         />
-        <CardResume
+        <SummaryValueCards
           IconCard={Pending}
           BackgroundColor="#fcf6dc"
           TitleCard="Cobranças Previstas"
@@ -80,7 +68,7 @@ export default function PageHome() {
         />
       </div>
       <div className="contentCards">
-        <Card
+        <SummaryCardsList
           titleCard="Cobranças Vencidas"
           backgroundColorTotalClient={{
             backgroundColor: "var(--bg-card-red)",
@@ -89,7 +77,7 @@ export default function PageHome() {
           totalClient={data.qtdRegistroVencidas?.[0]?.count}
           cardL={data.Vencidas}
         />
-        <Card
+        <SummaryCardsList
           titleCard="Cobranças Previstas"
           backgroundColorTotalClient={{
             backgroundColor: "var(--bg-card-yellow)",
@@ -98,7 +86,7 @@ export default function PageHome() {
           totalClient={data.qtdRegistroPendentes?.[0]?.count}
           cardL={data.Pendentes}
         />
-        <Card
+        <SummaryCardsList
           titleCard="Cobranças Pagas"
           backgroundColorTotalClient={{
             backgroundColor: "var(--bg-card-gray)",
@@ -107,7 +95,7 @@ export default function PageHome() {
           totalClient={data.qtdRegistroPagas?.[0]?.count}
           cardL={data.Pagas}
         />
-        <Card
+        <SummaryCardsList
           titleCard="Clientes Inadimplentes"
           backgroundColorTotalClient={{
             backgroundColor: "var(--bg-card-red)",
@@ -118,7 +106,7 @@ export default function PageHome() {
           iconCard={ClienteOverdue}
           isClientData={true}
         />
-        <Card
+        <SummaryCardsList
           titleCard="Clientes em dia"
           backgroundColorTotalClient={{
             backgroundColor: "var(--bg-card-gray)",

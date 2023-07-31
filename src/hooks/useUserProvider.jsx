@@ -9,6 +9,16 @@ function useUserProvider() {
     const token = getItem("token");
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
+    const [nameUser, setNameUser] = useState('');
+    const [formEdit, setFormEdit] = useState({
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        senhaAtual: '',
+        senha: '',
+        confirmeSenha: ''
+    });
 
     return (
         {
@@ -24,7 +34,11 @@ function useUserProvider() {
             corarrowTop,
             setCorArrowTop,
             corarrowBottom,
-            setCorArrowBottom
+            setCorArrowBottom,
+            nameUser,
+            setNameUser,
+            formEdit,
+            setFormEdit
         }
     )
 }

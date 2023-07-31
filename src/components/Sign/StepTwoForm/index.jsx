@@ -2,16 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../../../api/api.jsx";
-<<<<<<< HEAD
-import closedEye from "../../assets/ClosedEye.svg";
-import openEye from "../../assets/OpenEye.svg";
-import toastError from '../../assets/toastError.svg';
-=======
 import closedEye from "../../../assets/ClosedEye.svg";
 import openEye from "../../../assets/OpenEye.svg";
 import toastError from '../../../assets/toastError.svg';
 import { validatePassword } from "../../../utils/validation";
->>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 import "./style.css";
 
 const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
@@ -36,31 +30,23 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
     setErrorConfirmPassword("");
 
     if (!localForm.password) {
-      toast(
-        'A senha é obrigatória', {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      });
       setErrorPassword("A senha é obrigatória");
       return;
     } else {
       const validationPassword = validatePassword(localForm.password);
       if (!validationPassword.isValid) {
+        if (validationPassword.message.includes('6')) {
+          toast.error(validationPassword.message, {
+            toastClassName: 'customToastify-error',
+            icon: ({ theme, type }) => <img src={toastError} alt="" />
+          });
+          return
+        }
         setErrorPassword(validationPassword.message);
-        toast.error(validationPassword.message, {
-          toastClassName: 'customToastify-error',
-          icon: ({ theme, type }) => <img src={toastError} alt="" />
-        });
         return;
       }
     }
-
     if (localForm.password !== localForm.confirmPassword) {
-      toast(
-        'As senhas não coincidem', {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      });
       setErrorConfirmPassword("As senhas não coincidem");
       return;
     }

@@ -42,6 +42,10 @@
     background-color: var(--bg-modal);
 }
 
+.search-filter-client {
+    position: relative;
+}
+
 .search-filter-client input {
     min-width: 32.2rem;
     height: 4.57rem;
@@ -61,8 +65,8 @@
 
 .search {
     position: absolute;
-    top: 14rem;
-    right: 11rem;
+    top: 1rem;
+    right: 0.8rem;
 
     cursor: pointer;
 }
@@ -83,7 +87,7 @@
     display: flex;
     align-items: center;
 
-    height: 6.6rem;
+    height: 5.6rem;
 
     border-bottom: 0.1rem solid var(--bg-card-gray);
 }
@@ -111,15 +115,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .error {
     font-family: var(--ff-inter);
     font-size: var(--fz-14);
     font-weight: var(--fw-regular);
     color: var(--font-clr-text-error);
 }
-
 .errorLine {
-    border: 1px solid var(--font-clr-text-error) !important;
-    margin: 0 !important
+    border: 0.1rem solid var(--font-clr-text-error) !important;
+    margin-bottom: 0.4rem !important;
 }

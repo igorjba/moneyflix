@@ -1,22 +1,14 @@
 import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api.jsx';
-<<<<<<< HEAD
-import clientSFont from '../../assets/Client(2).svg';
-import defaulter from '../../assets/defaulter.svg';
-import filter from '../../assets/Filter.svg';
-import lupa from '../../assets/Lupa.svg';
-import { getItem } from '../../../utils/localStorage.jsx';
-=======
 import clientSFont from '../../../assets/Client(2).svg';
 import filter from '../../../assets/Filter.svg';
 import lupa from '../../../assets/Lupa.svg';
 import defaulter from '../../../assets/defaulter.svg';
 import useUser from '../../../hooks/useUser.jsx';
->>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 import './style.css';
 
-export default function PageClient() {
+export default function ClientListPage() {
     const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token, corarrowTop,
         setCorArrowTop, corarrowBottom, setCorArrowBottom } = useUser();
 

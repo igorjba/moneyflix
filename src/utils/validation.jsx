@@ -1,6 +1,6 @@
 function validateName(name) {
     if (!name) {
-        return { isValid: false, message: "Nome válido" };
+        return { isValid: false, message: "Este campo deve ser preenchido" };
     }
 
     if (name[0] === " ") {
@@ -12,7 +12,7 @@ function validateName(name) {
     const containsSpecialCharacter = nameArray.some(character => specialCharacters.includes(character));
 
     if (containsSpecialCharacter) {
-        return { isValid: false, message: "Nome válido" };
+        return { isValid: false, message: "Nome inválido" };
     }
 
     return { isValid: true, message: "Nome válido" };
@@ -61,8 +61,8 @@ function validatePassword(password) {
         return { isValid: false, message: 'Este campo deve ser preenchido' };
     }
 
-    if (password.length < 8) {
-        return { isValid: false, message: 'Senha deve ter pelo menos 8 caracteres.' };
+    if (password.length < 6) {
+        return { isValid: false, message: 'Senha deve ter pelo menos 6 caracteres.' };
     }
 
     return { isValid: true };

@@ -1,23 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-<<<<<<< HEAD
-import openEye from "../../assets/OpenEye.svg";
-import closedEye from "../../assets/ClosedEye.svg";
-import api from "../../../api/api.jsx";
-import toastError from "../../assets/toastError.svg";
-import success from '../../assets/Success-Toast.svg';
-=======
 import openEye from "../../../assets/OpenEye.svg";
 import closedEye from "../../../assets/ClosedEye.svg";
 import api from "../../../api/api.jsx";
 import toastError from "../../../assets/toastError.svg";
 import success from '../../../assets/Success-Toast.svg';
 import useUser from '../../../hooks/useUser'
->>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
+  const { setNameUser, setFormEdit, formEdit } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -42,14 +35,19 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       if (response && response.data.user) {
         localStorage.setItem("token", `${response.data.token}`);
         localStorage.setItem("id", response.data.user.id_usuario);
-
+        setNameUser(response.data.user.nome_usuario)
+        setFormEdit({
+          nome: response.data.user.nome_usuario,
+          email: response.data.user.email,
+          cpf: response.data.user.cpf,
+          telefone: response.data.user.telefone
+        })
         toast.success('Login bem sucedido', {
           className: 'customToastify-success',
           icon: ({ theme, type }) => <img src={success} alt="" />
         });
         navigate("/home");
       }
-
     } catch (error) {
       toast.error(error.response.data.message, {
         className: "customToastify-error",

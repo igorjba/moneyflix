@@ -7,7 +7,7 @@ import iconCharge from '../../../assets/IconCharge.svg';
 import useUser from '../../../hooks/useUser';
 import './style.css';
 
-export default function Pagecharges() {
+export default function ChargesListPage() {
     const { setTitle } = useUser();
     setTitle('Cobranças')
     function backgroundSituation() {

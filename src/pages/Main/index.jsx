@@ -1,6 +1,4 @@
-import { useEffect, useState, useContext } from "react";
-import { toast } from "react-toastify";
-import api from "../../api/api";
+import { useEffect, useState } from "react";
 import chargePink from "../../assets/Charge-Pink.svg";
 import charge from "../../assets/Charge.svg";
 import clientePink from "../../assets/Client-Pink.svg";
@@ -8,27 +6,26 @@ import client from "../../assets/Client.svg";
 import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
-import toastError from "../../assets/toastError.svg";
-import ModalEdit from "../../components/Modais/ModalEdit";
-import ModalRegister from "../../components/Modais/ModalRegister";
-import ModalSet from "../../components/Modais/ModalSet";
-import PageClient from "../../components/Pages/PageClient";
-import PageHome from "../../components/Pages/PageHome";
-import Pagecharges from "../../components/Pages/PageCharges";
+import ChargesListPage from "../../components/Charges/ChargesListPage";
+import ClientListPage from "../../components/Clients/ClientListPage";
+import RegisterClientModal from "../../components/Clients/RegisterClientModal";
+import HomePage from "../../components/Dashboard/HomePage";
+import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
+import EditUserModal from "../../components/Users/EditUserModal";
+import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
-import "../../global/styleModal.css"
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
   const [imageNavHome, setimageNavHome] = useState(false);
   const [imageNavClient, setimageNavClient] = useState(true);
   const [imageNavCharge, setimageNavCharge] = useState(true);
-  const [userName, setUserName] = useState("");
+  /* const [userName, setUserName] = useState(""); */
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, SetOpenModalEdit] = useState(false);
-  const [userPerfil, setUserPerfil] = useState({});
-  const { openModalRegister, openModalEditPerfil, title, setTitle } = useUser();
+  /*   const [userPerfil, setUserPerfil] = useState({}); */
+  const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser } = useUser();
 
 
   function onClickNavLeft(event) {
@@ -40,36 +37,35 @@ function Main() {
   }
 
   async function fetchUserPerfil() {
-    try {
-      const response = await api.get("/usuario/painel", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      setUserPerfil(response.data);
-      const userNameWords = response.data.nome_usuario.split(" ");
-      const capitalizedUserName =
-        userNameWords[0].charAt(0).toUpperCase() + userNameWords[0].slice(1);
-
-      let resumeName;
-      if (userNameWords.length === 1) {
-        resumeName = userNameWords[0].substring(0, 2).toUpperCase();
-      } else {
-        const lastWord = userNameWords[userNameWords.length - 1];
-        resumeName =
-          userNameWords[0].charAt(0).toUpperCase() +
-          lastWord.charAt(0).toUpperCase();
-      }
-
-      setUserName(capitalizedUserName);
-      setResumeName(resumeName);
-    } catch (error) {
-      toast.error("Falha ao carregar valores", {
+    /* try { */
+    /* const response = await api.get("usuario/painel", {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }); */
+    /* console.log(response.data); */
+    /* const userNameWords = response.data.nome_usuario.split(" "); */
+    //const userNameWords = nameUser.split(" ");
+    const userNameWords = nameUser
+    //setNameUser(userNameWords[0].charAt(0).toUpperCase() + userNameWords[0].slice(1)); //deixar assim ou fazer aparecer nome completo ????
+    /* let resumeName; */
+    if (userNameWords.length === 1) {
+      return setResumeName(userNameWords[0].substring(0, 2).toUpperCase());
+    } else {
+      const lastWord = userNameWords[userNameWords.length - 1];
+      return setResumeName(userNameWords[0].charAt(0).toUpperCase() +
+        lastWord.charAt(0).toUpperCase());
+    }
+    /* setUserName(capitalizedUserName); */
+    /* setResumeName(resumeName); */
+    /* }  *//* catch (error) {
+      console.log(error)
+      toast.error("Falha ao nome e apelido", {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
-      });
-    }
+      }); */
   }
+  /* } */
 
   function titleAtived() {
     if (!imageNavHome) {
@@ -87,6 +83,10 @@ function Main() {
     titleAtived();
     fetchUserPerfil();
   }, []);
+
+  useEffect(() => {
+    fetchUserPerfil();
+  }, [nameUser])
 
   return (
     <div className="initial mainBody">
@@ -137,7 +137,7 @@ function Main() {
               <h1>{resumeName}</h1>
             </div>
             <div className="profile initial">
-              <h1>{userName}</h1>
+              <h1>{nameUser}</h1>
               <img
                 src={setBottom}
                 alt="seta"
@@ -146,26 +146,24 @@ function Main() {
             </div>
           </div>
           {modalExit && (
-            <ModalSet
+            <LogoutEditUserModal
               setModalExit={setModalExit}
               SetOpenModalEdit={SetOpenModalEdit}
             />
           )}
         </header>
         <div className="main">
-          {!imageNavClient && (
-            <PageClient
-            />)}
-          {!imageNavHome && <PageHome />}
-          {!imageNavCharge && <Pagecharges />}
+          {!imageNavClient && (<ClientListPage />)}
+          {!imageNavHome && <HomePage />}
+          {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
       {openModalRegister && (
-        <ModalRegister
+        <RegisterClientModal
         />
       )}
       {openModalEditPerfil && (
-        <ModalEdit
+        <EditUserModal
           SetOpenModalEdit={SetOpenModalEdit}
         />
       )}
