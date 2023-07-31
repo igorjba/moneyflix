@@ -9,7 +9,7 @@ import './style.css';
 import { cellPhoneMask, cellPhoneUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
 
-export default function ModalEdit({ SetOpenModalEdit }) {
+export default function EditUserModal({ SetOpenModalEdit }) {
     const { SetOpenModalEditPerfil, openModalEditPerfil, token, formEdit, setFormEdit } = useUser();
 
     const [errorName, setErrorName] = useState('')

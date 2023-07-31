@@ -5,7 +5,7 @@ import set from "../../../assets/Set.svg";
 import useUser from "../../../hooks/useUser";
 import "./style.css";
 
-export default function ModalSet({ setModalExit, SetOpenModalEdit }) {
+export default function LogoutEditUserModal({ setModalExit, SetOpenModalEdit }) {
     const navigate = useNavigate()
     const { SetOpenModalEditPerfil } = useUser();
 
