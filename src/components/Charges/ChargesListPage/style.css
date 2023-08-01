@@ -1,10 +1,76 @@
 .container-page-charges {
+<<<<<<< HEAD
+    width: 100%;
+    background-color: var(--font-clr-white);
+    justify-content: space-between;
+    padding-top: 2.837rem;
+}
+
+.search-filter-client button {
+    /*Ta chamando na pagina cliente, parece ser as mesma coisa, deixa apenas um código arrumar isso*/
+    margin-right: 1.6rem;
+}
+
+.button-filter {
+    /*Ta chamando na pagina cliente, parece ser as mesma coisa, deixa apenas um código arrumar isso*/
+    background-color: var(--bg-modal);
+    border-radius: 1rem;
+}
+
+.search-filter-client input {
+    /*Ta chamando na pagina cliente, parece ser as mesma coisa, deixa apenas um código arrumar isso*/
+    padding-left: 0.8rem;
+    gap: 50px;
+    border-radius: 1rem;
+    border: none;
+    height: 4.57rem;
+    min-width: 32.2rem;
+    box-shadow: 0.4rem 0.4rem rgba(0, 0, 0, 0.04);
+    font-family: var(--ff-nunito);
+    font-size: var(--fz-18);
+    font-style: var(--fstyle-normal);
+    font-weight: var(--fw-regular);
+    line-height: normal;
+}
+
+.search {
+    position: absolute;
+    right: 12rem;
+    top: 14rem;
+    cursor: pointer;
+}
+
+.tableCharges {
+    background-color: var(--bg-modal);
+    border-radius: 3rem;
+    padding: 0 2.2rem;
+    margin-top: 2.576rem;
+}
+
+.tableCharges table {
+    width: 100%;
+}
+
+.tableCharges tr {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1rem solid var(--bg-card-gray);
+    height: 6.6rem;
+}
+
+.tableCharges th,
+.tableCharges td {
+    width: 20%;
+    display: flex;
+    align-items: center;
+=======
     justify-content: space-between;
 
     width: 100%;
     margin-top: 2.4rem;
 
     background-color: var(--font-clr-white);
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 }
 
 .description-table-header {
@@ -15,16 +81,43 @@
     width: 15% !important;
 }
 
+<<<<<<< HEAD
+.extract-table-charge h1 {
+    color: var(--font-clr-text-card);
+    font-size: var(--fz-14);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-40);
+    letter-spacing: 0.007rem;
+}
+
+.description-table-charge {
+    overflow: hidden;
+    width: 40% !important;
+
+}
+
+.description-table-charge h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90%;
+=======
 .description-table-charge {
     width: 40% !important;
 
     overflow: hidden;
 
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 }
 
 .imagem-table-charge {
     display: flex;
     justify-content: space-around;
+<<<<<<< HEAD
+    width: 15% !important;
+}
+
+=======
 
     width: 15% !important;
 }
@@ -40,6 +133,7 @@
     line-height: 2rem !important;
 }
 
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 .statusDefeated {
     background-color: var(--bg-card-red);
     color: var(--font-clr-red-number) !important;
@@ -55,6 +149,19 @@
     color: var(--font-clr-blue-number) !important;
 }
 
+<<<<<<< HEAD
+.status-text {
+    text-align: center;
+    padding: 0 0.8rem;
+    border-radius: 0.8rem;
+    gap: 0.4rem;
+
+    font-weight: var(--fw-medium) !important;
+    line-height: 2rem !important;
+}
+
+=======
+>>>>>>> d0043d54050eb124ad8505073768d0d00d310c8d
 .div-status-charge {
     width: 60%;
 }

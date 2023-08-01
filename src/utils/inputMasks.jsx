@@ -1,4 +1,5 @@
 function cpfMask(value) {
+    if (!value) return ''; // Adicione esta verificação para evitar erros
     value = value.replace(/\D/g, '');
     if (value.length > 11) {
         value = value.slice(0, 11);
@@ -36,6 +37,7 @@ function cepUnmask(value) {
 }
 
 function cellPhoneMask(value) {
+    if (!value) return
     value = value.replace(/\D/g, '');
     if (value.length > 11) {
         value = value.slice(0, 11);
