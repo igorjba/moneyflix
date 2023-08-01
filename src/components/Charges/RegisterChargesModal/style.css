@@ -100,20 +100,23 @@
     flex-direction: row;
 }
 
-.container-input-status-pending {
+/* .container-input-status-pending {
     position: relative;
-    margin-bottom: 3.2rem;
+    margin: 0.8rem 0 3.2rem;
+    padding: 1.2rem 1.6rem;
+
+    border-radius: 1rem;
+    background-color: var(--bg-nav);
 }
 
 .container-input-status-pending label {
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: #C8C8D7;
     border-radius: 50%;
     cursor: pointer;
     height: 28px;
-    left: 0;
+    left: 1.6rem;
     position: absolute;
-    top: 0;
+    top: 25%;
     width: 28px;
 }
 
@@ -148,20 +151,32 @@
 
 
 /* ==================================================================================== */
-.container-input-status-paid {
+/* .container-input-status-paid {
     position: relative;
+    margin-top: 0.8rem;
+    padding: 1.2rem 1.6rem;
+
+
+    border-radius: 1rem;
+    background-color: var(--bg-nav);
 }
 
 .container-input-status-paid label {
-    background-color: #fff;
+    background-color: #C8C8D7;
     border: 1px solid #ccc;
     border-radius: 50%;
     cursor: pointer;
     height: 28px;
-    left: 0;
+    left: 1.6rem;
     position: absolute;
-    top: 0;
+    top: 25%;
     width: 28px;
+
+}
+
+.container-input-status-paid label h1{
+    margin-left: 4rem;
+    width: 1000%;
 }
 
 .container-input-status-paid label:after {
@@ -189,8 +204,8 @@
 
 .container-input-status-paid input[type="checkbox"]:checked+label:after {
     opacity: 1;
-}
 
+} */
 /* ==================================================================================== */
 .formButton button {
     margin-top: 5rem;
@@ -211,3 +226,36 @@
     color: var(--font-clr-white);
     background-color: var(--bg-pink);
 }
+
+/* Style do checkbox */
+.testeInput{
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 4.8rem;
+    padding-left: 1.6rem;
+    margin-top: 8px;
+
+    border-radius: 1rem;
+    background-color: var(--bg-nav);
+}
+
+.inputParaCheck{
+    background-color: #C8C8D7;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+
+.testeInput h1{
+    margin-left: 8px;
+}
+
+.inputParaCheck input[type='checkbox']{
+   display: none;
+}
+
+/* Fim dos Style do checkbox */
+

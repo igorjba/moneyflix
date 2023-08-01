@@ -69,10 +69,8 @@
     color: var(--font-clr-gray-text);
 }
 
-
-
 .main-Modal {
-    width: 40vw;
+    width: 30vw;
     /* height: 85vh; */
     max-height: 95vh;
     padding: 4rem 5.7rem;

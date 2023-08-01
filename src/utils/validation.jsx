@@ -88,8 +88,11 @@ function validateCPF(cpf){
             result = (Consultarcpf * index) + result;
             countCPF++;
         }
-        result = (result % 11) 
+        result = (result % 11)
         result = (11 - result)
+        if(result === 11 || result === 10){
+            result = 0
+        }
         if (result !== Number(cpf.slice(9, 10))) {
             return { isValid: false, message: "Entre com CPF válido 1" }
         }

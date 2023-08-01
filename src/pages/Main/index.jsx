@@ -12,6 +12,8 @@ import RegisterClientModal from "../../components/Clients/RegisterClientModal";
 import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
+import EditClientModal from '../../components/Clients/EditClientModal';
+import RegisterChargesModal from '../../components/Charges/RegisterChargesModal'
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
@@ -24,7 +26,7 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, SetOpenModalEdit] = useState(false);
-  const { openModalRegisterCharges, openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser} = useUser();
+  const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser, openModalEditClient, openModalRegisterCharges } = useUser();
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -109,6 +111,7 @@ function Main() {
         </div>
       </nav>
       <div className="center">
+
         {openModalRegister && <div className="backgroundModal initial">
           {openModalRegister && (<RegisterClientModal />)}
         </div>}
@@ -116,6 +119,12 @@ function Main() {
           {openModalRegisterCharges && (<RegisterChargesModal />)}
         </div>}
         {openModalEdit && <div className="backgroundModal"></div>}
+        {openModalEditClient && <div className="backgroundModal"></div>}
+
+        {openModalRegisterCharges.status && 
+        <div className="background-modal initial">
+        {openModalRegisterCharges.status && <RegisterChargesModal />}
+          </div>}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
             {title}
@@ -146,13 +155,12 @@ function Main() {
           {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
-
-
       {openModalEditPerfil && (
         <EditUserModal
           SetOpenModalEdit={SetOpenModalEdit}
         />
       )}
+      {openModalEditClient && (<EditClientModal />)}
     </div>
   );
 }
