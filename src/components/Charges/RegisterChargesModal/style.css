@@ -1,0 +1,261 @@
+.main-modal-flex form label {
+    font-size: var(--fz-14);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-20);
+    font-family: var(--ff-nunito);
+
+    color: var(--font-clr-gray-text-modal);
+}
+
+.main-modal-flex form input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    max-width: 48.5rem;
+    width: 100%;
+    max-height: 4.4rem;
+    height: 100%;
+    margin-bottom: 1.6rem;
+    padding: 1rem 1.6rem;
+
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--border-input);
+
+    font-size: var(--fz-18);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-20);
+    font-family: var(--ff-nunito);
+
+    background-color: var(--bg-modal);
+    color: var(--font-clr-gray-text-modal);
+}
+
+.container-input-name::placeholder,
+.main-modal-flex form textarea::placeholder {
+    font-size: var(--fz-18);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-24);
+    font-family: var(--ff-nunito);
+
+    color: var(--font-clr-gray-extract-client);
+}
+
+.container-input-name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    margin-bottom: 1.6rem;
+}
+
+.container-input-name input.charges-input-name {
+    background-color: var(--bg-nav);
+}
+
+.main-modal-flex form textarea {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    max-width: 48.5rem;
+    width: 100%;
+    max-height: 8.8rem;
+    height: 100%;
+    margin-bottom: 1.6rem;
+    padding: 1rem 1.6rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--border-input);
+
+    font-size: var(--fz-16);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-24);
+    font-family: var(--ff-nunito);
+
+    background-color: var(--bg-modal);
+    outline-color: var(--bg-pink);
+
+    color: var(--font-clr-gray-text-modal);
+}
+
+.container-inputs-value-date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.4rem;
+}
+
+.container-input-value {
+    max-width: 23.2rem;
+    width: 100%;
+}
+
+.container-input-date {
+    max-width: 23.2rem;
+    width: 100%;
+}
+
+.container-inputs-value-date input.charges-input-date {
+    display: flex;
+    flex-direction: row;
+}
+
+/* .container-input-status-pending {
+    position: relative;
+    margin: 0.8rem 0 3.2rem;
+    padding: 1.2rem 1.6rem;
+
+    border-radius: 1rem;
+    background-color: var(--bg-nav);
+}
+
+.container-input-status-pending label {
+    background-color: #C8C8D7;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    left: 1.6rem;
+    position: absolute;
+    top: 25%;
+    width: 28px;
+}
+
+.container-input-status-pending label:after {
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 6px;
+    left: 7px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    transform: rotate(-45deg);
+    width: 12px;
+}
+
+.container-input-status-pending input[type="checkbox"] {
+    visibility: hidden;
+}
+
+.container-input-status-pending input[type="checkbox"]:checked+label {
+    background-color: var(--font-clr-green);
+    border-color: var(--font-clr-green);
+}
+
+.container-input-status-pending input[type="checkbox"]:checked+label:after {
+    opacity: 1;
+}
+
+
+
+
+/* ==================================================================================== */
+/* .container-input-status-paid {
+    position: relative;
+    margin-top: 0.8rem;
+    padding: 1.2rem 1.6rem;
+
+
+    border-radius: 1rem;
+    background-color: var(--bg-nav);
+}
+
+.container-input-status-paid label {
+    background-color: #C8C8D7;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    left: 1.6rem;
+    position: absolute;
+    top: 25%;
+    width: 28px;
+
+}
+
+.container-input-status-paid label h1{
+    margin-left: 4rem;
+    width: 1000%;
+}
+
+.container-input-status-paid label:after {
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 6px;
+    left: 7px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    transform: rotate(-45deg);
+    width: 12px;
+}
+
+.container-input-status-paid input[type="checkbox"] {
+    visibility: hidden;
+}
+
+.container-input-status-paid input[type="checkbox"]:checked+label {
+    background-color: var(--font-clr-green);
+    border-color: var(--font-clr-green);
+}
+
+.container-input-status-paid input[type="checkbox"]:checked+label:after {
+    opacity: 1;
+} */
+/* ==================================================================================== */
+.formButton button {
+    margin-top: 5rem;
+    width: 50%;
+    height: 3.4rem;
+    border-radius: 1rem;
+}
+
+.formButton button:first-child {
+    margin-right: 2.4rem;
+    border: 1px solid var(--bg-white-gray);
+
+    background-color: var(--font-clr-white);
+    color: var(--font-clr-green);
+}
+
+.formButton button:last-child {
+    color: var(--font-clr-white);
+    background-color: var(--bg-pink);
+}
+
+
+/* Style do checkbox */
+.testeInput{
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 4.8rem;
+    padding-left: 1.6rem;
+    margin-top: 8px;
+
+    border-radius: 1rem;
+    background-color: var(--bg-nav);
+}
+
+.inputParaCheck{
+    background-color: #C8C8D7;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+
+.testeInput h1{
+    margin-left: 8px;
+}
+
+.inputParaCheck input[type='checkbox']{
+   display: none;
+}
+
+/* Fim dos Style do checkbox */
+
