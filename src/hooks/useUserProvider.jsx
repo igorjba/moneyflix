@@ -7,7 +7,9 @@ function useUserProvider() {
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [clientRegisters, setClientRegisters] = useState([]);
     const token = getItem("token");
-    const [nameUser, setNameUser] = useState('');
+    const [nameUser, setNameUser] = useState(getItem("name"));
+    const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
+    const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [idListChargesClick, setIdListChargesClick] = useState([]);
     const [openModalEditClient, setOpenModalEditClient] = useState(false)
     const [openModalRegisterCharges, setOpenModalRegistercharges] = useState({
@@ -15,7 +17,7 @@ function useUserProvider() {
         id_user: '',
         nome_user: ''
     })
-    const [formEdit, setFormEdit] = useState({
+  const [formEdit, setFormEdit] = useState({
         nome: '',
         email: '',
         cpf: '',
@@ -24,9 +26,21 @@ function useUserProvider() {
         senha: '',
         confirmeSenha: ''
     });
-
+    const [GetProfile, setGetProfile] = useState({
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        senhaAtual: '',
+        senha: '',
+        confirmeSenha: ''
+    });
+  
     return (
-        {
+        {GetProfile,
+            setGetProfile,
+            setOpenModalRegisterCharges,
+            openModalRegisterCharges,
             openModalEditPerfil,
             SetOpenModalEditPerfil,
             title,

@@ -13,7 +13,6 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
   const { setNameUser, setFormEdit, formEdit } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
   const [localForm, setLocalForm] = useState({
     email: signInForm.email,
     password: signInForm.password,
@@ -35,6 +34,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       if (response && response.data.user) {
         localStorage.setItem("token", `${response.data.token}`);
         localStorage.setItem("id", response.data.user.id_usuario);
+        localStorage.setItem("name", response.data.user.nome_usuario);
         setNameUser(response.data.user.nome_usuario)
         setFormEdit({
           nome: response.data.user.nome_usuario,
@@ -70,7 +70,6 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         ...localForm,
       });
     }
-
     login();
   };
 
