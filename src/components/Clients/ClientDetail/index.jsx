@@ -4,16 +4,135 @@ import clientSFont from "../../../assets/Client(2).svg";
 import EditGreen from "../../../assets/Edit-green.svg";
 import deleteCharge from "../../../assets/DeleteCharge.svg";
 import editCharge from "../../../assets/Edit.svg";
+import api from "../../../api/api.jsx";
+import { useEffect, useState } from "react";
+import { dateDDMMYYYYMask, moneyMask } from "../../../utils/inputMasks";
 
 export default function ClientDetail() {
-  const { setTitle, setOpenModalRegisterCharges } = useUser();
-  setTitle("Clientes    >    Detalhes do cliente");
+  const {
+    setTitle,
+    setOpenModalRegister,
+    token,
+    idClientDetail,
+    setIdListChargesClick,
+    setOpenModalEditClient,
+  } = useUser();
+
+  const [detailsData, setDetailsData] = useState({});
+  const [infoClientCharges, setInfoClientCharges] = useState([]);
+  const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
+  const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
+  const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
+
+  async function DetailCustomerData() {
+    try {
+      const response = await api.get(`cliente/${idClientDetail}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const fullName = response.data.client[0].nome_cliente;
+      const partsName = fullName.split(" ");
+      const nameClientCapitalized = partsName
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ");
+
+      const replaceNullWithDefault = (obj, defaultValue = "--") => {
+        return Object.fromEntries(
+          Object.entries(obj).map(([key, value]) => [
+            key,
+            value ?? defaultValue,
+          ])
+        );
+      };
+
+      const formattedData = replaceNullWithDefault(response.data.client[0]);
+
+      setDetailsData({
+        ...formattedData,
+        nome_cliente: nameClientCapitalized,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function ListCharges() {
+    try {
+      const response = await api.get(`cliente/${idClientDetail}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setInfoClientCharges(response.data.billing);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function backgroundSituation() {
+    const status = document.querySelectorAll(".status-text");
+    status.forEach((element) => {
+      if (element.textContent === "Vencida") {
+        return element.classList.add("statusDefeated");
+      } else if (element.textContent === "Pendente") {
+        return element.classList.add("statusPending");
+      } else if (element.textContent === "Paga") {
+        return element.classList.add("statusPay");
+      }
+    });
+  }
+
+  async function handleClickIDUser(event) {
+    try {
+      const response = await api.get(`cliente/${event}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setIdListChargesClick(response.data);
+      setOpenModalEditClient(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function orderIdCharges() {
+    setcountOrderIdCharges(countOrderIdCharges + 1);
+    if (countOrderIdCharges === 1) {
+      const orderId = infoClientCharges.slice().sort(function (a, b) {
+        return a.id_cobranca - b.id_cobranca;
+      });
+      setCorArrowTopId("#3F3F55");
+      setCorArrowBottomId("#DA0175");
+      setInfoClientCharges(orderId);
+    }
+    if (countOrderIdCharges === 2) {
+      ListCharges();
+      setCorArrowBottomId("#3F3F55");
+      setCorArrowTopId("#3F3F55");
+      setcountOrderIdCharges(1);
+    }
+  }
+
+  useEffect(() => {
+    backgroundSituation();
+  }, [infoClientCharges]);
+
+  useEffect(() => {
+    DetailCustomerData();
+    ListCharges();
+    backgroundSituation();
+    setTitle("Clientes    >    Detalhes do cliente");
+  }, []);
+
   return (
     <>
       <div className="initial header">
         <div className="initial client-header">
           <img src={clientSFont} alt="Client" />
-          <h2>Sara Lage Silva</h2>
+          <h2>{detailsData.nome_cliente}</h2>
         </div>
       </div>
       <div className="tables">
@@ -44,13 +163,13 @@ export default function ClientDetail() {
               </tr>
               <tr className="extract-table">
                 <td>
-                  <h1>sarasilva@gmail.com</h1>
+                  <h1>{detailsData.email}</h1>
                 </td>
                 <td>
-                  <h1>71 9 9462 8654</h1>
+                  <h1>{detailsData.telefone}</h1>
                 </td>
                 <td>
-                  <h1>054 365 255 87</h1>
+                  <h1>{detailsData.cpf}</h1>
                 </td>
               </tr>
               <tr className="header-table-client subtitle-bottom">
@@ -75,22 +194,22 @@ export default function ClientDetail() {
               </tr>
               <tr className="extract-table">
                 <td>
-                  <h1>Rua das Cornélias; nº 512</h1>
+                  <h1>{detailsData.endereco}</h1>
                 </td>
                 <td>
-                  <h1>Oliveiras</h1>
+                  <h1>{detailsData.bairro}</h1>
                 </td>
                 <td>
-                  <h1>Ap: 502</h1>
+                  <h1>{detailsData.complemento}</h1>
                 </td>
                 <td>
-                  <h1>031 654 524 04</h1>
+                  <h1>{detailsData.cep}</h1>
                 </td>
                 <td>
-                  <h1>Salvador</h1>
+                  <h1>{detailsData.cidade}</h1>
                 </td>
                 <td className="td-uf">
-                  <h1>BA</h1>
+                  <h1>{detailsData.estado}</h1>
                 </td>
               </tr>
             </tbody>
@@ -101,7 +220,7 @@ export default function ClientDetail() {
           <table>
             <thead>
               <tr className="table-first-title">
-                <th className="table-title">Dados do Cliente</th>
+                <th className="table-title">Cobranças do Cliente</th>
                 <th>
                   <button
                     className="addClient"
@@ -114,7 +233,10 @@ export default function ClientDetail() {
             </thead>
             <thead className="header-table-client">
               <tr>
-                <th className="PageOrderClient">
+                <th
+                  className="PageOrderID mousePointer"
+                  onClick={() => orderIdCharges()}
+                >
                   <svg
                     width="25"
                     height="24"
@@ -122,96 +244,39 @@ export default function ClientDetail() {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <g id="Frame" clip-path="url(#clip0_84440_3278)">
+                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
                       <g id="Group">
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          stroke={corarrowBottomId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          stroke={corarrowBottomId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          stroke={corarrowTopId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_84440_3278">
-                        <rect
-                          width="24"
-                          height="24"
-                          fill="white"
-                          transform="translate(24.5) rotate(90)"
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                  <h1>Cliente</h1>
-                </th>
-                <th className="PageOrderID">
-                  <svg
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="Frame" clip-path="url(#clip0_84440_3278)">
-                      <g id="Group">
-                        <path
-                          id="Vector"
-                          d="M9.5 10.5L9.5 23.25"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          id="Vector_2"
-                          d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          id="Vector_3"
-                          d="M15.5 13.5L15.5 0.75"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          id="Vector_4"
-                          d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke="#3F3F55"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          stroke={corarrowTopId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </g>
                     </g>
@@ -228,11 +293,65 @@ export default function ClientDetail() {
                   </svg>
                   <h1>ID Cob.</h1>
                 </th>
-                <th>
-                  <h1>Valor</h1>
+                <th className="PageOrderDate mousePointer">
+                  <svg
+                    width="25"
+                    height="24"
+                    viewBox="0 0 25 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
+                      <g id="Group">
+                        <path
+                          id="Vector"
+                          d="M9.5 10.5L9.5 23.25"
+                          stroke={corarrowBottomId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          id="Vector_2"
+                          d="M12.5 20.25L9.5 23.25L6.5 20.25"
+                          stroke={corarrowBottomId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          id="Vector_3"
+                          d="M15.5 13.5L15.5 0.75"
+                          stroke={corarrowTopId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          id="Vector_4"
+                          d="M12.5 3.75L15.5 0.75L18.5 3.75"
+                          stroke={corarrowTopId}
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </g>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_84440_3278">
+                        <rect
+                          width="24"
+                          height="24"
+                          fill="white"
+                          transform="translate(24.5) rotate(90)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <h1>Data de venc.</h1>
                 </th>
                 <th>
-                  <h1>Data de venc.</h1>
+                  <h1>Valor</h1>
                 </th>
                 <th>
                   <h1>Status</h1>
@@ -244,93 +363,38 @@ export default function ClientDetail() {
               </tr>
             </thead>
             <tbody>
-              <tr className="extract-table">
-                <td>
-                  <h1>Sara Silva</h1>
-                </td>
-                <td>
-                  <h1>248563147</h1>
-                </td>
-                <td>
-                  <h1>R$ 500,00</h1>
-                </td>
-                <td>
-                  <h1>26/01/2021</h1>
-                </td>
-                <td>
-                  <div className="div-status-charge">
-                    <h1 className="status-text">Vencida</h1>
-                  </div>
-                </td>
-                <td className="description-table description-table-charge">
-                  <h1>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Vero, earum.
-                  </h1>
-                </td>
-                <td className="imagem-table-charge">
-                  <img src={editCharge} alt="Editar" />
-                  <img src={deleteCharge} alt="Deletar" />
-                </td>
-              </tr>
-              <tr className="extract-table">
-                <td>
-                  <h1>Sara Silva</h1>
-                </td>
-                <td>
-                  <h1>248563147</h1>
-                </td>
-                <td>
-                  <h1>R$ 500,00</h1>
-                </td>
-                <td>
-                  <h1>26/01/2021</h1>
-                </td>
-                <td>
-                  <div className="div-status-charge">
-                    <h1 className="status-text">Paga</h1>
-                  </div>
-                </td>
-                <td className="description-table description-table-charge">
-                  <h1>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Vero, earum.
-                  </h1>
-                </td>
-                <td className="imagem-table-charge">
-                  <img src={editCharge} alt="Editar" />
-                  <img src={deleteCharge} alt="Deletar" />
-                </td>
-              </tr>
-              <tr className="extract-table">
-                <td>
-                  <h1>Sara Silva</h1>
-                </td>
-                <td>
-                  <h1>248563147</h1>
-                </td>
-                <td>
-                  <h1>R$ 500,00</h1>
-                </td>
-                <td>
-                  <h1>26/01/2021</h1>
-                </td>
-                <td>
-                  <div className="div-status-charge">
-                    <h1 className="status-text">Pendente</h1>
-                  </div>
-                </td>
-                <td className="description-table description-table-charge">
-                  <h1>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Vero, earum.
-                  </h1>
-                </td>
-                <td className="imagem-table-charge">
-                  <img src={editCharge} alt="Editar" />
-                  <img src={deleteCharge} alt="Deletar" />
-                </td>
-              </tr>
+              {infoClientCharges.map((charges) => {
+                return (
+                  <tr className="extract-table" key={charges.id_cobranca}>
+                    <td>
+                      <h1
+                        className="mousePointer"
+                        onClick={() => handleClickIDUser(charges.id_cliente)}
+                      >
+                        {charges.id_cobranca}
+                      </h1>
+                    </td>
+                    <td>
+                      <h1>{moneyMask(charges.vencimento)}</h1>
+                    </td>
+                    <td>
+                      <h1>{dateDDMMYYYYMask(charges.valor)}</h1>
+                    </td>
+                    <td>
+                      <div className="div-status-charge">
+                        <h1 className="status-text">{charges.status}</h1>
+                      </div>
+                    </td>
+                    <td className="description-table description-table-charge">
+                      <h1>{charges.descricao}</h1>
+                    </td>
+                    <td className="imagem-table-charge">
+                      <img src={editCharge} alt="Editar" />
+                      <img src={deleteCharge} alt="Deletar" />
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

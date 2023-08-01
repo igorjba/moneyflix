@@ -46,6 +46,10 @@
     color: var(--font-clr-gree);
 }
 
+.td-uf {
+    width: 3rem !important;
+}
+
 .subtitle-bottom {
     margin-top: 3rem;
 }
@@ -80,6 +84,6 @@
     width: 60%;
 }
 
-.td-uf {
-    width: 3rem !important;
+.description-table h1 {
+    width: 100% !important;
 }
