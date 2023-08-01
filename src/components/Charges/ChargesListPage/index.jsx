@@ -10,7 +10,7 @@ import './style.css';
 import { dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
 
 export default function ChargesListPage() {
-    const { setTitle, token, setIdListChargesClick } = useUser();
+    const { setTitle, token, setIdListChargesClick,setOpenModalEditClient, idListChargesClick } = useUser();
     const [infoClientCharges, setInfoClientCharges] = useState([])
     const [countOrder, setCountOrder] = useState(1)
     const [countOrderIdCharges, setcountOrderIdCharges] = useState(1)
@@ -50,7 +50,8 @@ export default function ChargesListPage() {
                     authorization: `Bearer ${token}`
                 }
             });
-            setIdListChargesClick(response)
+            setIdListChargesClick(response.data)
+            setOpenModalEditClient(true)
         } catch (error) {
             console.log(error)
         }

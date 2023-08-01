@@ -1,46 +1,56 @@
-import { useEffect, useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import api from '../../../api/api.jsx';
-import clientSFont from '../../../assets/Client(2).svg';
-import filter from '../../../assets/Filter.svg';
-import lupa from '../../../assets/Lupa.svg';
-import defaulter from '../../../assets/defaulter.svg';
-import useUser from '../../../hooks/useUser.jsx';
-import './style.css';
+import { useEffect, useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import api from "../../../api/api.jsx";
+import clientSFont from "../../../assets/Client(2).svg";
+import filter from "../../../assets/Filter.svg";
+import lupa from "../../../assets/Lupa.svg";
+import defaulter from "../../../assets/defaulter.svg";
+import useUser from "../../../hooks/useUser.jsx";
+import ClientDetail from "../ClientDetail/index.jsx";
+import "./style.css";
 
 export default function ClientListPage() {
-    const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token} = useUser();
-    const [countOrder, setCountOrder] = useState(1)
-    const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
-    const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
-    async function ClientCadaster() {
-        try {
-            const response = await api.get('cliente', {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                }
-            });
-            setClientRegisters((response.data).slice(0, 10));
-        } catch (error) {
+  const {
+    setOpenModalRegister,
+    setClientRegisters,
+    clientRegisters,
+    setTitle,
+    token,
+    corarrowTop,
+    setCorArrowTop,
+    corarrowBottom,
+    setCorArrowBottom,
+  } = useUser();
 
-        }
-    }
-    function backgroundSituation() {
-        const situation = document.querySelectorAll('.situation');
-        situation.forEach(element => {
-            if (element.textContent == 'Inadimplente') {
-                return element.classList.add('situationDefaulter')
-            }
-            return element.classList.add('situationOk')
-        });
-    }
+  const [stateClientDetail, setStateClientDetail] = useState(false);
+  const [countOrder, setCountOrder] = useState(1)
+
+
+  async function ClientCadaster() {
+    try {
+      const response = await api.get("cliente", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setClientRegisters(response.data.slice(0, 10));
+    } catch (error) {console.log(error)}
+  }
+  function backgroundSituation() {
+    const situation = document.querySelectorAll(".situation");
+    situation.forEach((element) => {
+      if (element.textContent == "Inadimplente") {
+        return element.classList.add("situationDefaulter");
+      }
+      return element.classList.add("situationOk");
+    });
+  }
     function orderName() {
         setCountOrder(countOrder + 1)
         if (countOrder === 1) {
             const order = clientRegisters.slice().sort(function (a, b) {
                 let x = a.nome_cliente.toUpperCase()
                 let y = b.nome_cliente.toUpperCase()
-
                 return x == y ? 0 : x > y ? 1 : - 1
             })
             setCorArrowTop('#3F3F55')
@@ -64,16 +74,20 @@ export default function ClientListPage() {
             setCountOrder(1);
         }
     }
-    useEffect(() => {
-        ClientCadaster()
-        backgroundSituation()
-        setTitle("Clientes")
-    }, [])
-    useEffect(() => {
-        backgroundSituation()
-    }, [clientRegisters])
-    return (
-        <>
+  useEffect(() => {
+    ClientCadaster();
+    backgroundSituation();
+    setTitle("Clientes");
+  }, []);
+  useEffect(() => {
+    backgroundSituation();
+  }, [clientRegisters]);
+ 
+  return (
+     <>
+    {/* {stateClientDetail ? (
+      <ClientDetail />
+      ) : ( */}
             <div className='initial header'>
                 <div className='initial client-header'>
                     <img src={clientSFont} alt="Client" />
@@ -116,7 +130,7 @@ export default function ClientListPage() {
                             <th><h1>E-mail</h1></th>
                             <th><h1>Telefone</h1></th>
                             <th><h1>Status</h1></th>
-                            <th><h1>Criar Cobrança</h1></th>
+                            <th><h1>Criar CobranÃ§a</h1></th>
                         </tr>
                     </thead>
                     <tbody className='extract-table'>
@@ -138,5 +152,4 @@ export default function ClientListPage() {
                 </table>
             </div>
         </>
-    )
-}
+)};

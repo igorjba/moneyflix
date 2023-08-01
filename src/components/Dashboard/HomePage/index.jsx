@@ -105,6 +105,7 @@ export default function HomePage() {
           cardL={data.totalInadimplentes?.clientDefaulters}
           iconCard={ClienteOverdue}
           isClientData={true}
+          isLastCard={true}
         />
         <SummaryCardsList
           titleCard="Clientes em dia"
@@ -116,6 +117,7 @@ export default function HomePage() {
           cardL={data.totalEmdias?.clientInDay}
           iconCard={ClienteOK}
           isClientData={true}
+          isLastCard={true}
         />
       </div>
     </>

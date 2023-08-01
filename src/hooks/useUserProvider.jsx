@@ -9,6 +9,7 @@ function useUserProvider() {
     const token = getItem("token");
     const [nameUser, setNameUser] = useState('');
     const [idListChargesClick, setIdListChargesClick] = useState([]);
+    const [openModalEditClient, setOpenModalEditClient] = useState(false)
     const [formEdit, setFormEdit] = useState({
         nome: '',
         email: '',
@@ -35,7 +36,9 @@ function useUserProvider() {
             formEdit,
             setFormEdit,
             idListChargesClick,
-            setIdListChargesClick
+            setIdListChargesClick,
+            openModalEditClient,
+            setOpenModalEditClient
         }
     )
 }
