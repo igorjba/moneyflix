@@ -1,69 +1,57 @@
-.Modal-Edit {
-    position: fixed;
-    top: 50%;
-    /* Position the modal in the center vertically */
-    left: 50%;
-    /* Position the modal in the center horizontally */
-    transform: translate(-50%, -50%);
-    /* Center the modal */
-    max-width: 49.1rem;
-    width: 100%;
-    border-radius: 3rem;
-    background-color: white;
-    /* Set the modal background to white */
+/* .ModalEdit-Main {
+    width: 35%;
+    height: 75%;
     padding: 4rem 5rem 0;
-    z-index: 9999;
-    /* Set a higher z-index to ensure the modal appears above the page background */
-}
+    border-radius: 3rem;
+    position: absolute;
 
+    background-color: var(--bg-modal);
+} */
 
 .header-ModalEdit {
-    display: flex;
     justify-content: center;
-}
-
-.header-ModalEdit h2 {
-    margin-top: 0.2rem;
+    margin-bottom: 3.2rem;
 }
 
 .closedEdit {
     position: absolute;
     right: 5rem;
+
+    cursor: pointer;
 }
 
-.main-ModalEdit form {
+/* .main-ModalEdit form {
     display: flex;
     flex-direction: column;
+
     width: 100%;
     padding-top: 3.2rem;
-    margin-bottom: 4rem;
 }
 
 .main-ModalEdit form h1 {
-    color: var(--gray-700, #344054);
-    font-family: Nunito;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px;
-}
+    font-size: var(--fz-14);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-20);
 
-.main-ModalEdit form input {
+    color: var(--font-clr-gray-text);
+} */
+
+.Modal-Edit form input {
+    gap: 0.6rem;
+
     width: 100%;
     height: 4.4rem;
-    gap: 0.6rem;
+    margin-bottom: 0.6rem;
     padding: 0 1.4rem;
-    margin-right: 2.4rem;
-    border-radius: 0.8rem;
     border: 1px solid var(--border-input);
+    border-radius: 0.8rem;
+
     background-color: var(--bg-modal);
     box-shadow: 0 0.1rem 0.2rem 0px rgba(16, 24, 40, 0.05);
-    margin-bottom: 0.6rem;
 }
 
-.main-ModalEdit .box-info,
-.information-ModalEdit {
-    margin-bottom: 2rem;
+.main-ModalEdit span h1 {
+    padding-bottom: 2rem;
 }
 
 .information-ModalEdit {
@@ -81,15 +69,12 @@
 
 .ModalEdit-Button {
     align-self: center;
+
     width: 16rem;
     height: 3.3rem;
+    margin-top: 3rem;
     border-radius: 1rem;
+
     background-color: var(--bg-pink);
     color: var(--font-clr-white);
-
-}
-
-.main-ModalEdit label,
-.information-ModalEdit h1 {
-    height: 26px;
 }

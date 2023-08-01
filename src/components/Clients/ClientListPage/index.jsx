@@ -15,7 +15,8 @@ const {
     setClientRegisters,
     clientRegisters,
     setTitle,
-    token
+    token,
+    setOpenModalRegistercharges
 } = useUser();
 
 const [stateClientDetail, setStateClientDetail] = useState(false);
@@ -43,7 +44,7 @@ if (element.textContent == "Inadimplente") {
 return element.classList.add("situationOk");
     });
 }
-    function orderName() {
+function orderName() {
         setCountOrder(countOrder + 1)
         if (countOrder === 1) {
             const order = clientRegisters.slice().sort(function (a, b) {
@@ -71,7 +72,14 @@ return element.classList.add("situationOk");
             setCorArrowTop('#3F3F55')
             setCountOrder(1);
         }
-    }
+}
+function sendInformationRegisterCharges(event){
+    setOpenModalRegistercharges({
+        status: true,
+        id_user: event.id_cliente,
+        nome_user: event.nome_cliente
+    })
+}
 useEffect(() => {
     ClientCadaster();
     backgroundSituation();
@@ -127,7 +135,7 @@ return (
                             <th><h1>E-mail</h1></th>
                             <th><h1>Telefone</h1></th>
                             <th><h1>Status</h1></th>
-                            <th><h1>Criar CobranÃ§a</h1></th>
+                            <th><h1>Criar Cobrança</h1></th>
                         </tr>
                     </thead>
                     <tbody className='extract-table'>
@@ -140,7 +148,7 @@ return (
                                     <td><h1>{client.telefone}</h1></td>
                                     <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                                     <td>
-                                        <img src={defaulter} alt="inadimplente" />
+                                        <img src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client) }/>
                                     </td>
                                 </tr>
                             )
