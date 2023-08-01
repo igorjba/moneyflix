@@ -10,47 +10,45 @@ import ClientDetail from "../ClientDetail/index.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-  const {
+const {
     setOpenModalRegister,
     setClientRegisters,
     clientRegisters,
     setTitle,
-    token,
-    corarrowTop,
-    setCorArrowTop,
-    corarrowBottom,
-    setCorArrowBottom,
-  } = useUser();
+    token
+} = useUser();
 
-  const [stateClientDetail, setStateClientDetail] = useState(false);
-  const [countOrder, setCountOrder] = useState(1)
+const [stateClientDetail, setStateClientDetail] = useState(false);
+const [countOrder, setCountOrder] = useState(1);
+const [corarrowTop, setCorArrowTop] = useState('#3F3F55');
+const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55');
 
-  async function ClientCadaster() {
+
+async function ClientCadaster() {
     try {
-      const response = await api.get("cliente", {
+    const response = await api.get("cliente", {
         headers: {
-          authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
         },
-      });
-      setClientRegisters(response.data.slice(0, 10));
-    } catch (error) {console.log(error}
-  }
-  function backgroundSituation() {
+});
+setClientRegisters(response.data.slice(0, 10));
+    } catch (error) {console.log(error)}
+}
+function backgroundSituation() {
     const situation = document.querySelectorAll(".situation");
     situation.forEach((element) => {
-      if (element.textContent == "Inadimplente") {
+if (element.textContent == "Inadimplente") {
         return element.classList.add("situationDefaulter");
-      }
-      return element.classList.add("situationOk");
+}
+return element.classList.add("situationOk");
     });
-  }
+}
     function orderName() {
         setCountOrder(countOrder + 1)
         if (countOrder === 1) {
             const order = clientRegisters.slice().sort(function (a, b) {
-                let x = a.nome_cliente
-                let y = b.nome_cliente
-
+                let x = a.nome_cliente.toUpperCase()
+                let y = b.nome_cliente.toUpperCase()
                 return x == y ? 0 : x > y ? 1 : - 1
             })
             setCorArrowTop('#3F3F55')
@@ -59,8 +57,8 @@ export default function ClientListPage() {
         }
         if (countOrder === 2) {
             const order = clientRegisters.slice().sort(function (a, b) {
-                let x = a.nome_cliente
-                let y = b.nome_cliente
+                let x = a.nome_cliente.toUpperCase()
+                let y = b.nome_cliente.toUpperCase()
                 return x == y ? 0 : x < y ? 1 : - 1
             })
             setCorArrowBottom('#3F3F55')
@@ -74,21 +72,19 @@ export default function ClientListPage() {
             setCountOrder(1);
         }
     }
-  }
-  useEffect(() => {
+useEffect(() => {
     ClientCadaster();
     backgroundSituation();
     setTitle("Clientes");
-  }, []);
-  useEffect(() => {
+}, []);
+useEffect(() => {
     backgroundSituation();
-  }, [clientRegisters]);
- 
-  return (
-     <>
-//          {stateClientDetail ? (
-//         <ClientDetail />
-//       ) : (
+}, [clientRegisters]);
+return (
+<>
+    {/* {stateClientDetail ? (
+<ClientDetail />
+      ) : ( */}
             <div className='initial header'>
                 <div className='initial client-header'>
                     <img src={clientSFont} alt="Client" />

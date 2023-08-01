@@ -7,9 +7,9 @@ function useUserProvider() {
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [clientRegisters, setClientRegisters] = useState([]);
     const token = getItem("token");
-    const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
-    const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [nameUser, setNameUser] = useState('');
+    const [idListChargesClick, setIdListChargesClick] = useState([]);
+    const [openModalEditClient, setOpenModalEditClient] = useState(false)
     const [formEdit, setFormEdit] = useState({
         nome: '',
         email: '',
@@ -31,14 +31,14 @@ function useUserProvider() {
             clientRegisters,
             setClientRegisters,
             token,
-            corarrowTop,
-            setCorArrowTop,
-            corarrowBottom,
-            setCorArrowBottom,
             nameUser,
             setNameUser,
             formEdit,
-            setFormEdit
+            setFormEdit,
+            idListChargesClick,
+            setIdListChargesClick,
+            openModalEditClient,
+            setOpenModalEditClient
         }
     )
 }

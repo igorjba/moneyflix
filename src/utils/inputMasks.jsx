@@ -64,5 +64,12 @@ function moneyUnmask(value) {
     let number = Number(value.replace(/[^0-9,-]+/g, "").replace(',', '.'));
     return Math.round(number * 100);
 }
+//`${extract.data.slice(8, 10)}/${extract.data.slice(5, 7)}/${extract.data.slice(0, 4)}`
+function dateDDMMYYYYMask(value){
+let data = new Date(value);
+let dateFormated = ((data.getDate() +1)) + `/` + ((data.getMonth() + 1)) + `/` + ((data.getFullYear()))
+return dateFormated
+}
 
-export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask };
+
+export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask, dateDDMMYYYYMask };
