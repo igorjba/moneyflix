@@ -16,7 +16,6 @@ import EditClientModal from '../../components/Clients/EditClientModal';
 import RegisterChargesModal from '../../components/Charges/RegisterChargesModal'
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
-import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
 import "./style.css";
 
 function Main() {
