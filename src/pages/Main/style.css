@@ -92,6 +92,8 @@ header h2 {
   font-size: var(--fz-22);
   font-weight: var(--fw-medium);
   line-height: var(--fstyle-normal);
+  text-align: center;
+
   color: var(--font-clr-green);
 }
 

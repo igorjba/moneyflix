@@ -7,11 +7,20 @@ function useUserProvider() {
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [clientRegisters, setClientRegisters] = useState([]);
     const token = getItem("token");
+    const [nameUser, setNameUser] = useState(getItem("name"));
     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState(false);
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
-    const [nameUser, setNameUser] = useState('');
-    const [formEdit, setFormEdit] = useState({
+        const [formEdit, setFormEdit] = useState({
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        senhaAtual: '',
+        senha: '',
+        confirmeSenha: ''
+    });
+    const [GetProfile, setGetProfile] = useState({
         nome: '',
         email: '',
         cpf: '',
@@ -22,7 +31,8 @@ function useUserProvider() {
     });
 
     return (
-        {
+        {GetProfile,
+            setGetProfile,
             setOpenModalRegisterCharges,
             openModalRegisterCharges,
             openModalEditPerfil,
