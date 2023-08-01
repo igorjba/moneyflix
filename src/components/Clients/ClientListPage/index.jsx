@@ -23,7 +23,9 @@ export default function ClientListPage() {
   } = useUser();
 
   const [stateClientDetail, setStateClientDetail] = useState(false);
-  const [countOrder, setCountOrder] = useState(1)
+  const [countOrder, setCountOrder] = useState(1);
+  const [corarrowTop, setCorArrowTop] = useState('#3F3F55');
+  const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55');
 
 
   async function ClientCadaster() {
