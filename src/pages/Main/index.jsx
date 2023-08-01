@@ -12,6 +12,7 @@ import RegisterClientModal from "../../components/Clients/RegisterClientModal";
 import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
+import EditClientModal from '../../components/Clients/EditClientModal'
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
@@ -25,7 +26,7 @@ function Main() {
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, SetOpenModalEdit] = useState(false);
   /*   const [userPerfil, setUserPerfil] = useState({}); */
-  const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser } = useUser();
+  const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser, openModalEditClient } = useUser();
 
 
   function onClickNavLeft(event) {
@@ -128,6 +129,7 @@ function Main() {
       <div className="center">
         {openModalRegister && <div className="backgroundModal"></div>}
         {openModalEdit && <div className="backgroundModal"></div>}
+        {openModalEditClient && <div className="backgroundModal"></div>}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
             {title}
@@ -159,11 +161,8 @@ function Main() {
         </div>
       </div>
       {openModalRegister && (<RegisterClientModal/>)}
-      {openModalEditPerfil && (
-        <EditUserModal
-          SetOpenModalEdit={SetOpenModalEdit}
-        />
-      )}
+      {openModalEditPerfil && (<EditUserModal SetOpenModalEdit={SetOpenModalEdit}/>)}
+      {openModalEditClient && (<EditClientModal />)}
     </div>
   );
 }
