@@ -14,6 +14,7 @@ import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal"
 import EditUserModal from "../../components/Users/EditUserModal";
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
+import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
 import "./style.css";
 
 function Main() {
@@ -25,7 +26,7 @@ function Main() {
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, SetOpenModalEdit] = useState(false);
   /*   const [userPerfil, setUserPerfil] = useState({}); */
-  const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser } = useUser();
+  const { openModalRegisterCharges, openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser } = useUser();
 
 
   function onClickNavLeft(event) {
@@ -126,7 +127,12 @@ function Main() {
         </div>
       </nav>
       <div className="center">
-        {openModalRegister && <div className="backgroundModal"></div>}
+        {openModalRegister && <div className="backgroundModal initial">
+          {openModalRegister && (<RegisterClientModal />)}
+        </div>}
+        {openModalRegisterCharges && <div className="background-modal initial">
+          {openModalRegisterCharges && (<RegisterChargesModal />)}
+        </div>}
         {openModalEdit && <div className="backgroundModal"></div>}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
@@ -158,7 +164,8 @@ function Main() {
           {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
-      {openModalRegister && (<RegisterClientModal/>)}
+
+
       {openModalEditPerfil && (
         <EditUserModal
           SetOpenModalEdit={SetOpenModalEdit}

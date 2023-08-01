@@ -119,9 +119,11 @@ header h2 {
 }
 
 .backgroundModal {
+  justify-content: center;
   position: absolute;
   top: 0;
   left: 10.80rem;
+
   width: calc(100% - 10.80rem);
   height: 100%;
   background-color: rgba(145, 154, 150, 0.30);

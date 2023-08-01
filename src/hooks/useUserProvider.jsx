@@ -7,6 +7,7 @@ function useUserProvider() {
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [clientRegisters, setClientRegisters] = useState([]);
     const token = getItem("token");
+    const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState(false);
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [nameUser, setNameUser] = useState('');
@@ -22,6 +23,8 @@ function useUserProvider() {
 
     return (
         {
+            setOpenModalRegisterCharges,
+            openModalRegisterCharges,
             openModalEditPerfil,
             SetOpenModalEditPerfil,
             title,

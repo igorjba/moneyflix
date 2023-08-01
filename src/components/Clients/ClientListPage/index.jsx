@@ -10,7 +10,7 @@ import './style.css';
 
 export default function ClientListPage() {
     const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token, corarrowTop,
-        setCorArrowTop, corarrowBottom, setCorArrowBottom } = useUser();
+        setCorArrowTop, corarrowBottom, setCorArrowBottom, setOpenModalRegisterCharges } = useUser();
 
     const [countOrder, setCountOrder] = useState(0)
     async function ClientCadaster() {
@@ -129,7 +129,7 @@ export default function ClientListPage() {
                                     <td><h1>{client.telefone}</h1></td>
                                     <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                                     <td>
-                                        <img src={defaulter} alt="inadimplente" />
+                                        <img src={defaulter} alt="inadimplente" onClick={() => setOpenModalRegisterCharges(true)} />
                                     </td>
                                 </tr>
                             )
