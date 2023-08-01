@@ -43,7 +43,7 @@ function cellPhoneMask(value) {
     let phone = '';
     phone += '(' + value.slice(0, 2) + ')';
     if (value.length > 2) {
-        phone += ' ' + value.slice(2, 7);
+        phone += ' ' + value.slice(2,3) + ' ' + value.slice(3, 7);
     }
     if (value.length > 7) {
         phone += '-' + value.slice(7, 11);
