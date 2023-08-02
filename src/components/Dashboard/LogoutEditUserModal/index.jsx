@@ -7,6 +7,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./style.css";
 import api from "../../../api/api";
+import success from '../../../assets/Success-Toast.svg';
+import toastError from '../../../assets/toastError.svg';
+import { clearAll } from "../../../utils/localStorage";
 
 export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) {
     const navigate = useNavigate()
@@ -42,6 +45,10 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
                 });
             }
         } catch (error) {
+            if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+                clearAll()
+                navigate("/login");
+                            }
             if(error.response && error.response.data) {
                 toast.error(error.response.data.message, {
                     className: "customToastify-error",
