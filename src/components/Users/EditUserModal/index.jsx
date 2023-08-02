@@ -9,6 +9,8 @@ import openEye from "../../../assets/OpenEye.svg";
 import closedEye from "../../../assets/ClosedEye.svg";
 import { cellPhoneMask, cellPhoneUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
+import { clearAll } from '../../../utils/localStorage';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
 
 export default function EditUserModal({ setOpenModalEdit }) {
@@ -23,6 +25,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
     const [showPassword, setShowPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setNumberCPF(cpfMask(GetProfile.cpf));
@@ -82,6 +85,10 @@ export default function EditUserModal({ setOpenModalEdit }) {
             setOpenModalEditProfileSuccess(true)
 
         } catch (error) {
+            if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+                clearAll()
+                navigate("/login");
+                            }
             toast.error(error.response.data.message, {
                 className: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />

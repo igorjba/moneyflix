@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import { NumericFormat } from 'react-number-format';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api';
+import checkboxGreen from '../../../assets/Checkbox.svg';
 import IconCharge from '../../../assets/IconCharge.svg';
 import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
-import toastError from '../../../assets/toastError.svg';
-import checkboxGreen from '../../../assets/Checkbox.svg'
 import useUser from '../../../hooks/useUser';
-import {NumericFormat} from 'react-number-format';
+import { clearAll } from '../../../utils/localStorage';
 import './style.css';
 
 export default function RegisterChargesModal() {
@@ -21,6 +22,7 @@ export default function RegisterChargesModal() {
     const [errorDate, setErrorDate] = useState('');
     const [errorDescription, setErrorDescription] = useState('');
     const [errorValue, setErrorValue] = useState('')
+    const navigate = useNavigate();
     /* let numeroEnvoar = 0 */
     let validate = 0
     const [formRegisterCharges, setFormRegisterCharges] = useState({
@@ -106,7 +108,10 @@ async function sendInformationCharges(event) {
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
     } catch (error) {
-        console.log(error)
+        if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+            clearAll()
+            navigate("/login");
+                        }
       toast.error(
         error.response.data.message, {
         className: 'customToastify-error',
@@ -124,7 +129,17 @@ async function ClientCadaster() {
         },
 });
 setClientRegisters(response.data/* .slice(0, 10) */);
-    } catch (error) {console.log(error)}
+    } catch (error) {
+        console.log(error)
+        if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+            clearAll()
+            navigate("/login");
+                        }
+toast.error(error.response.data.message, {
+                            className: 'customToastify-error',
+                            icon: ({ theme, type }) => <img src={toastError} alt="" />
+                        })
+    }
 }
 function backgroundSituation() {
     const situation = document.querySelectorAll(".situation");

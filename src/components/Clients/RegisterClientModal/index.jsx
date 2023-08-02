@@ -11,8 +11,11 @@ import useUser from '../../../hooks/useUser';
 import { cellPhoneMask, cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
+import { clearAll } from '../../../utils/localStorage';
+import { useNavigate } from 'react-router-dom';
 
 export default function RegisterClientModal() {
+  const navigate = useNavigate
   const { setOpenModalRegister, setClientRegisters, token, setCorArrowBottom, setCorArrowTop } = useUser();
   const [form, setForm] = useState({
     nome: '',
@@ -76,6 +79,10 @@ export default function RegisterClientModal() {
         setValidationInputDisabled(false)
       }
     } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
       toast.error("CEP inválido", {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
@@ -135,6 +142,10 @@ export default function RegisterClientModal() {
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
     } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
       toast.error(
         error.response.data.message, {
         className: 'customToastify-error',
@@ -151,6 +162,10 @@ export default function RegisterClientModal() {
       });
       setClientRegisters((response.data).slice(0, 10));
     } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
       toast.error(
         error.response.data.message, {
         className: 'customToastify-error',

@@ -10,6 +10,9 @@ import useUser from '../../../hooks/useUser';
 import { cellPhoneMask, cellPhoneUnmask, cepMask, cepMaskSecond, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
+import { clearAll } from '../../../utils/localStorage';
+
 
 export default function EditClientModal() {
     const {setOpenModalEditClient, idListChargesClick, token, setClientRegisters} = useUser()
@@ -18,6 +21,7 @@ export default function EditClientModal() {
     const [errorCPF, setErrorCPF] = useState('');
     const [errorPhone, setErrorPhone] = useState('');
     const inputRef = useRef(null);
+    const navigate = useNavigate();
     //const [numberHouse, setNumberHouse] = useState((idListChargesClick.client[0].endereco) == null ? '' :(idListChargesClick.client[0].endereco).slice(-2))
     const [form, setForm] = useState({
     nome: idListChargesClick.client[0].nome_cliente,
@@ -121,6 +125,10 @@ export default function EditClientModal() {
           ClientCadaster()
         } catch (error) {
           //console.log(error)
+          if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+            clearAll()
+            navigate("/login");
+                        }
           toast.error(
             error.response.data.message, {
             className: 'customToastify-error',
@@ -137,8 +145,12 @@ export default function EditClientModal() {
           });
           setClientRegisters((response.data).slice(0, 10));
         } catch (error) {
+          if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+            clearAll()
+            navigate("/login");
+                        }
           toast.error(
-            error.response.data.message, {
+                        error.response.data.message, {
             className: 'customToastify-error',
             icon: ({ theme, type }) => <img src={error} alt="" />
           });
