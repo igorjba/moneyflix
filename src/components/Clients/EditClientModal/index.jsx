@@ -4,11 +4,10 @@ import closed from '../../../assets/close.svg';
 import useUser from '../../../hooks/useUser';
 import apiCep from '../../../api/apiCep';
 import './style.css';
-import { cellPhoneMask, cepMask, cepUnmask, cpfMask } from '../../../utils/inputMasks';
+import { cellPhoneMask, cepMask, cepUnmask} from '../../../utils/inputMasks';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 
 export default function EditClientModal() {
-
     const {setOpenModalEditClient, idListChargesClick} = useUser()
     const [errorName, setErrorName] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
@@ -19,7 +18,7 @@ export default function EditClientModal() {
     const [form, setForm] = useState({
     nome: idListChargesClick.client[0].nome_cliente,
     email: idListChargesClick.client[0].email,
-    cpf: cpfMask(idListChargesClick.client[0].cpf),
+    cpf: idListChargesClick.client[0].cpf,
     telefone: cellPhoneMask(idListChargesClick.client[0].telefone),
       });
     const [formAdressEditClient, setFormAdressEditClient] = useState({
@@ -34,12 +33,12 @@ export default function EditClientModal() {
       function handleChangeForm(event){
           return setForm({ ...form, [event.target.name]: event.target.value });
         }
-        function handleChangeFormAdress(event){
+      function handleChangeFormAdress(event){
             return setFormAdressEditClient({ ...formAdressEditClient, [event.target.name]: event.target.value });
           }
       async function searchCep(event) {
         try {
-          const response = await apiCep.get(`${cepUnmask(event.target.value)}/json/`)
+          const response = await apiCep.get(`${event.target.value}/json/`)
           setFormAdressEditClient({
             logradouro: response.data.logradouro,/* .concat() */
             bairro: response.data.bairro,
@@ -81,7 +80,7 @@ export default function EditClientModal() {
           setErrorEmail(validationEmail.message)
           validate = +1
         }
-        const validationCPF = validateCPF(cpfMask(form.cpf))
+        const validationCPF = validateCPF(form.cpf)
         if (!validationCPF.isValid) {
           setErrorCPF(validationCPF.message);
           validate = +1
@@ -148,7 +147,7 @@ export default function EditClientModal() {
           <div className='formAndress'>
             <div>
               <label htmlFor="inputCEP"><h1>CEP</h1></label>
-              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={cepMask(formAdressEditClient.cep)} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeFormAdress(event)} />
+              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={formAdressEditClient.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeFormAdress(event)} />
             </div>
             <div>
               <label htmlFor="inputNumber"><h1>Número da Residência</h1></label>
