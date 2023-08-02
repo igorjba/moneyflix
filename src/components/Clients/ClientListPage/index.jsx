@@ -6,7 +6,6 @@ import filter from "../../../assets/Filter.svg";
 import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
 import useUser from "../../../hooks/useUser.jsx";
-import ClientDetail from "../ClientDetail/index.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
@@ -20,7 +19,8 @@ const {
     openModalRegisterCharges,
     setIdListChargesClick,
     idListChargesClick,
-    setOpenModalEditClient
+    setOpenModalEditClient,
+    setClientDetailPage
 } = useUser();
 
 const [stateClientDetail, setStateClientDetail] = useState(false);
@@ -78,8 +78,8 @@ function orderName() {
         }
 }
 function sendInformationRegisterCharges(event){
-    console.log(event)
-    console.log(openModalRegisterCharges)
+    //console.log(event)
+    //console.log(openModalRegisterCharges)
     setOpenModalRegisterCharges({
         status: true,
         id_user: event.id_cliente,
@@ -95,8 +95,8 @@ async function handleClickIDUser(event){
             }
         });
         setIdListChargesClick(response.data)
-        console.log(response.data)
-        setOpenModalEditClient(true)
+        //setOpenModalEditClient(true)
+        setClientDetailPage(true)
     } catch (error) {
         console.log(error)
     }

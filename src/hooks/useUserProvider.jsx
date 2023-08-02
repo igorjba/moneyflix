@@ -10,6 +10,7 @@ function useUserProvider() {
     const [nameUser, setNameUser] = useState(getItem("name"));
     const [idListChargesClick, setIdListChargesClick] = useState([]);
     const [openModalEditClient, setOpenModalEditClient] = useState(false)
+    const [clientDetailPage, setClientDetailPage] = useState(false)
     const [idClientDetail, setIdClientDetail] = useState(null);
     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
         status: false,
@@ -59,6 +60,8 @@ function useUserProvider() {
             setOpenModalEditClient,
             idClientDetail,
             setIdClientDetail,
+            clientDetailPage,
+            setClientDetailPage
         }
     )
 }
