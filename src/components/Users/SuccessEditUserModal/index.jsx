@@ -23,8 +23,7 @@ export default function SuccessEditUserModal() {
                 <div className='success-img' style={{
                     backgroundImage: `url(${imageSuccess})`
                 }} alt="Sucesso" />
-
-                <h2 className='.edit-user-modal-success-h2'>Cadastro editado com sucesso!</h2>
+                <h2 className='.edit-user-modal-success-h2'>Cadastro alterado com sucesso!</h2>
             </div>
         </>
     )

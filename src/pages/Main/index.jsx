@@ -67,11 +67,23 @@ function Main() {
   
   useEffect(() => {
     titleAtived();
-    // fetchUserPerfil();
   }, []);
+
   useEffect(() => {
     fetchUserPerfil();
   }, [nameUser]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalExit && !document.getElementById('modalExit').contains(event.target)) {
+        setModalExit(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [modalExit]);
 
   return (
     <div className="initial mainBody">
@@ -128,7 +140,6 @@ function Main() {
          <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
          </div>
          )}
-        {/* {openModalEditClient && <div className="backgroundModal"></div>} */}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
             {title}
