@@ -4,9 +4,10 @@ import api from '../../../api/api';
 import apiCep from '../../../api/apiCep';
 import clientSFont from '../../../assets/Client(2).svg';
 import success from '../../../assets/Success-Toast.svg';
+import toastError from '../../../assets/toastError.svg';
 import closed from '../../../assets/close.svg';
 import useUser from '../../../hooks/useUser';
-import { cellPhoneMask, cepUnmask, cpfMask } from '../../../utils/inputMasks';
+import { cellPhoneMask, cellPhoneUnmask, cepMask, cepMaskSecond, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
 
@@ -17,7 +18,7 @@ export default function EditClientModal() {
     const [errorCPF, setErrorCPF] = useState('');
     const [errorPhone, setErrorPhone] = useState('');
     const inputRef = useRef(null);
-    const [numberHouse, setNumberHouse] = useState((idListChargesClick.client[0].endereco) == null ? '' :(idListChargesClick.client[0].endereco).slice(-2))
+    //const [numberHouse, setNumberHouse] = useState((idListChargesClick.client[0].endereco) == null ? '' :(idListChargesClick.client[0].endereco).slice(-2))
     const [form, setForm] = useState({
     nome: idListChargesClick.client[0].nome_cliente,
     email: idListChargesClick.client[0].email,
@@ -25,9 +26,9 @@ export default function EditClientModal() {
     telefone: cellPhoneMask(idListChargesClick.client[0].telefone),
       });
     const [formAdressEditClient, setFormAdressEditClient] = useState({
-        logradouro: ((idListChargesClick.client[0].endereco) == null ? '' : (idListChargesClick.client[0].endereco).slice(0, idListChargesClick.client[0].endereco.length - 3)),
+        logradouro: idListChargesClick.client[0].endereco,
             bairro: idListChargesClick.client[0].bairro,
-            cep: (idListChargesClick.client[0].cep == '' ? '' : idListChargesClick.client[0].cep),
+            cep: (idListChargesClick.client[0].cep == null ? '' : idListChargesClick.client[0].cep),
             cidade: idListChargesClick.client[0].cidade,
             estado: idListChargesClick.client[0].estado,
             complemento: idListChargesClick.client[0].complemento,
@@ -46,13 +47,11 @@ export default function EditClientModal() {
           setFormAdressEditClient({
             logradouro: response.data.logradouro,/* .concat() */
             bairro: response.data.bairro,
-            cep: cepUnmask(response.data.cep),
+            cep: response.data.cep,
             cidade: response.data.localidade,
             estado: response.data.uf,
             complemento: ''
           })
-          console.log(response)
-          console.log(formAdressEditClient)
           if(response.data.erro){
             toast.error("CEP não encontrado", {
               className: 'customToastify-error',
@@ -84,7 +83,7 @@ export default function EditClientModal() {
           setErrorEmail(validationEmail.message)
           validate = +1
         }
-        const validationCPF = validateCPF(form.cpf)
+        const validationCPF = validateCPF(cpfUnmask(form.cpf))
         if (!validationCPF.isValid) {
           setErrorCPF(validationCPF.message);
           validate = +1
@@ -99,17 +98,21 @@ export default function EditClientModal() {
         }
       }
       async function updateClient() {
-        console.log({...form, ...formAdressEditClient})
+        //console.log({...form, ...formAdressEditClient})
         //console.log(formAdressEditClient)
         try {
           const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`,{
             ...form,
-            ...formAdressEditClient
+            cpf: cpfUnmask(form.cpf),
+            telefone: cellPhoneUnmask(form.telefone),
+            ...formAdressEditClient,
+            cep: cepUnmask(formAdressEditClient.cep)
           }, {
             headers: {
               authorization: `Bearer ${token}`,
             }
           });
+          //console.log(response)
           toast.success(
             'Cliente Atualizado com Sucesso!', {
             className: 'customToastify-success',
@@ -164,31 +167,27 @@ export default function EditClientModal() {
           <div className='formInformation'>
             <div>
               <label htmlFor="inputCPF"><h1>CPF*</h1></label>
-              <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" id='inputCPF' ref={inputRef} placeholder='Digite o CPF' name='cpf' value={form.cpf} maxLength={14}  onChange={(event) => handleChangeForm(event)} />
+              <input className={`${errorCPF ? 'errorLine' : ''}`} type="text" id='inputCPF' ref={inputRef} placeholder='Digite o CPF' name='cpf' value={cpfMask(form.cpf)} maxLength={14}  onChange={(event) => handleChangeForm(event)} />
               {errorCPF && <span className='error'><h1>{errorCPF}</h1></span>}
             </div>
             <div>
               <label htmlFor="inputPhone"><h1>Telefone*</h1></label>
-              <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" id='inputPhone' ref={inputRef} placeholder='Digite o telefone' name='telefone' value={form.telefone} onChange={(event) => handleChangeForm(event)} />
+              <input className={`${errorPhone ? 'errorLine' : ''}`} type="text" id='inputPhone' maxLength={16} ref={inputRef} placeholder='Digite o telefone' name='telefone' value={cellPhoneMask(form.telefone)} onChange={(event) => handleChangeForm(event)} />
               {errorPhone && <span className='error'><h1>{errorPhone}</h1></span>}
             </div>
           </div>
           <div className='formAndress'>
-            <div>
-              <label htmlFor="inputCEP"><h1>CEP</h1></label>
-              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={formAdressEditClient.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeFormAdress(event)} />
-            </div>
-            <div>
-              <label htmlFor="inputNumber"><h1>Número da Residência</h1></label>
-              <input type="text" maxLength={4} placeholder='Digite número da residência' id='inputNumber' ref={inputRef} name='numero' value={/*formAdressEditClient.numero */numberHouse} onChange={(event) => /* handleChangeFormAdress(event) */setNumberHouse(event.target.value)} />
+            <div className='AdressEditClientModal'>
+              <label htmlFor="inputAdress "><h1>Endereço</h1></label>
+              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' value={formAdressEditClient.logradouro} onChange={(event) => handleChangeFormAdress(event)} />
             </div>
           </div>
           <label htmlFor="inputCompl"><h1>Complemento</h1></label>
           <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdressEditClient.complemento} onChange={(event) => handleChangeFormAdress(event)} />
           <div className='formInformation'>
-            <div>
-              <label htmlFor="inputAdress"><h1>Endereço</h1></label>
-              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' value={formAdressEditClient.logradouro} onChange={(event) => handleChangeFormAdress(event)} />
+          <div>
+              <label htmlFor="inputCEP"><h1>CEP</h1></label>
+              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={cepMask(formAdressEditClient.cep)} onChange={(event) => handleChangeFormAdress(event)} onBlur={(event) => searchCep(event)}  />
             </div>
             <div>
               <label htmlFor="inputNeighborhood"><h1>Bairro</h1></label>
