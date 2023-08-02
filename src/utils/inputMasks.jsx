@@ -22,13 +22,15 @@ function cpfUnmask(value) {
 }
 
 function cepMask(value){
-    value = value.replace(/\D/g, '')
+    value = value.replace(/\D/g, '');
 
-    let cep = ''
+    //let cep = ''
 
     if (value.length > 5) {
-      cep = `${value.slice(0, 5)}-${value.slice(5, 8)}`;
+      value = `${value.slice(0, 5)}-${value.slice(5, 8)}`;
     }
+
+    return value;
 }
 
 function cepMaskSecond(value){
@@ -37,6 +39,8 @@ function cepMaskSecond(value){
     if (value.length > 5) {
       cep = `${value.slice(0, 5)}-${value.slice(5, 8)}`;
     }
+
+    return cep;
 }
 
 function cepUnmask(value) {

@@ -10,7 +10,7 @@ import api from "../../../api/api";
 
 export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) {
     const navigate = useNavigate()
-    const { SetOpenModalEditPerfil, token, GetProfile, setGetProfile } = useUser();
+    const { SetOpenModalEditProfile, token, GetProfile, setGetProfile } = useUser();
 
     async function getUserDetails() {
         try {
@@ -55,7 +55,7 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
     
 
    async function openModal() {
-        SetOpenModalEditPerfil(true)
+        SetOpenModalEditProfile(true)
         setModalExit(false);
         await getUserDetails(); 
         setOpenModalEdit(true)
