@@ -204,6 +204,7 @@
 
 .container-input-status-paid input[type="checkbox"]:checked+label:after {
     opacity: 1;
+
 } */
 /* ==================================================================================== */
 .formButton button {
@@ -225,7 +226,6 @@
     color: var(--font-clr-white);
     background-color: var(--bg-pink);
 }
-
 
 /* Style do checkbox */
 .testeInput{

@@ -3,15 +3,61 @@ import edit from "../../../assets/Edit.svg";
 import exit from "../../../assets/Exit.svg";
 import set from "../../../assets/Set.svg";
 import useUser from "../../../hooks/useUser";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./style.css";
+import api from "../../../api/api";
 
 export default function LogoutEditUserModal({ setModalExit, SetOpenModalEdit }) {
     const navigate = useNavigate()
-    const { SetOpenModalEditPerfil } = useUser();
+    const { SetOpenModalEditPerfil, token, GetProfile, setGetProfile } = useUser();
 
-    function openModal() {
+    async function getUserDetails() {
+        try {
+            const response = await api.get("/usuario", {
+                headers: {
+                    authorization: token,
+                }
+            });
+  
+            if (response && response.data) {
+                setGetProfile({
+                    nome: response.data.nome_usuario || "",
+                    email: response.data.email || "",
+                    cpf: response.data.cpf || "",
+                    telefone: response.data.telefone || "",
+                    senhaAtual: "",
+                    senha: "",
+                    confirmeSenha: ""
+                });
+            } else {
+                setGetProfile({
+                    nome: '',
+                    email: '',
+                    cpf: '',
+                    telefone: '',
+                    senhaAtual: '',
+                    senha: '',
+                    confirmeSenha: ''
+                });
+            }
+        } catch (error) {
+            if(error.response && error.response.data) {
+                toast.error(error.response.data.message, {
+                    className: "customToastify-error",
+                    icon: ({ theme, type }) => <img src={toastError} alt="" />,
+                });
+            }
+        }
+    }
+    
+      
+    
+
+   async function openModal() {
         SetOpenModalEditPerfil(true)
-        setModalExit(false)
+        setModalExit(false);
+        await getUserDetails(); 
         SetOpenModalEdit(true)
     }
 
@@ -19,6 +65,7 @@ export default function LogoutEditUserModal({ setModalExit, SetOpenModalEdit }) 
         localStorage.clear();
         navigate('/Login')
     }
+
     return (
         <div className='modalExit initial'>
             <img className='set' src={set} alt="" />

@@ -12,7 +12,7 @@ import {NumericFormat} from 'react-number-format';
 import './style.css';
 
 export default function RegisterChargesModal() {
-    const {setOpenModalRegistercharges, token, openModalRegisterCharges} = useUser();
+    const {setOpenModalRegisterCharges, token, openModalRegisterCharges} = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
@@ -54,6 +54,7 @@ export default function RegisterChargesModal() {
             const parts = value.split('-');
             setDateValueBr(`${parts[2]}/${parts[1]}/${parts[0]}`);
         }
+
         formRegisterCharges.vencimento = event.target.value
     }
 
@@ -96,7 +97,7 @@ async function sendInformationCharges(event) {
           authorization: token,
         }
       });
-      setOpenModalRegistercharges({...openModalRegisterCharges, status: false })
+      ({...openModalRegisterCharges, status: false })
       toast.success(
         'Cobrança Cadastrada com Sucesso!', {
         className: 'customToastify-success',
@@ -124,18 +125,18 @@ async function sendInformationCharges(event) {
             <form onSubmit={sendInformationCharges}>
                 <div className='container-inputs-form'>
                     <div className='container-input-name'>
-                        <label for="nameInput">Nome</label>
+                        <label htmlFor="nameInput">Nome</label>
                         <input className='charges-input-name' id="nameInput" type="text" placeholder='Digite o nome' name='nome' disabled value={openModalRegisterCharges.nome_user} />
                     </div>
                     <div className='container-input-description'>
-                        <label for="descriptionInput">Descrição*</label>
+                        <label htmlFor="descriptionInput">Descrição*</label>
                         <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
                         </textarea>
                         {errorDescription && <span className='errorCharges'><h1>{errorDescription}</h1></span>}
                     </div>
                     <div className='container-inputs-value-date'>
                         <div className='container-input-date'>
-                            <label for="dateInput">Vencimento*</label>
+                            <label htmlFor="dateInput">Vencimento*</label>
                             <input
                                 className={`charges-input-date ${errorDate ? 'errorChargesLine' : ''}`}
                                 id="dateInput"
@@ -151,7 +152,7 @@ async function sendInformationCharges(event) {
                             {errorDate && <span className='errorCharges'><h1>{errorDate}</h1></span>}
                         </div>
                         <div className='container-input-value'>
-                            <label for="valueInput">Valor*</label>
+                            <label htmlFor="valueInput">Valor*</label>
                             <NumericFormat 
                             className={`${errorValue ? 'errorChargesLine' : ''}`}
                             value={formRegisterCharges.valor}
@@ -186,7 +187,7 @@ async function sendInformationCharges(event) {
                     </div>
                     </div>
                     <div className='formButton initial'>
-                        <button type='button' onClick={() => setOpenModalRegistercharges({...openModalRegisterCharges, status: false })}>Cancelar</button>
+                    <button type='button' onClick={() => setOpenModalRegisterCharges(prevState => ({...prevState, status: false }))}>Cancelar</button>
                         <button type='submit'>Aplicar</button>
                     </div>
                 </div>
