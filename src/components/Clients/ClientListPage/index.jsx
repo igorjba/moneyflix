@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import api from "../../../api/api.jsx";
 import clientSFont from "../../../assets/Client(2).svg";
 import filter from "../../../assets/Filter.svg";
 import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
+import toastError from '../../../assets/toastError.svg';
 import useUser from "../../../hooks/useUser.jsx";
+import { clearAll } from "../../../utils/localStorage.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
@@ -22,6 +26,7 @@ export default function ClientListPage() {
     setOpenModalEditClient,
     setClientDetailPage,
   } = useUser();
+  const navigate = useNavigate();
 
   const [stateClientDetail, setStateClientDetail] = useState(false);
   const [countOrder, setCountOrder] = useState(1);
@@ -38,6 +43,14 @@ export default function ClientListPage() {
       setClientRegisters(response.data /* .slice(0, 10) */);
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
+toast.error(error.response.data.message, {
+                        className: 'customToastify-error',
+                        icon: ({ theme, type }) => <img src={toastError} alt="" />
+                    })
     }
   }
   function backgroundSituation() {
@@ -101,6 +114,15 @@ export default function ClientListPage() {
       setClientDetailPage(true);
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
+toast.error(error.response.data.message, {
+                        className: 'customToastify-error',
+                        icon: ({ theme, type }) => <img src={toastError} alt="" />
+                    })
+
     }
   }
 
