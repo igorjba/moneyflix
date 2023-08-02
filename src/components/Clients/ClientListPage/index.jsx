@@ -17,7 +17,10 @@ const {
     setTitle,
     token,
     setOpenModalRegisterCharges,
-    openModalRegisterCharges
+    openModalRegisterCharges,
+    setIdListChargesClick,
+    idListChargesClick,
+    setOpenModalEditClient
 } = useUser();
 
 const [stateClientDetail, setStateClientDetail] = useState(false);
@@ -83,6 +86,22 @@ function sendInformationRegisterCharges(event){
         nome_user: event.nome_cliente
     })
 }
+
+async function handleClickIDUser(event){
+    try {
+        const response = await api.get(`cliente/${event}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        });
+        setIdListChargesClick(response.data)
+        console.log(response.data)
+        setOpenModalEditClient(true)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 useEffect(() => {
     ClientCadaster();
     backgroundSituation();
@@ -145,7 +164,7 @@ return (
                         {clientRegisters.map((client) => {
                             return (
                                 <tr key={client.id_cliente}>
-                                    <td className='description-table'><h1>{client.nome_cliente}</h1></td>
+                                    <td className='description-table'><h1 className='mousePointer' onClick={() => handleClickIDUser(client.id_cliente)}>{client.nome_cliente}</h1></td>
                                     <td><h1>{client.cpf}</h1></td>
                                     <td className='description-table'><h1>{client.email}</h1></td>
                                     <td><h1>{client.telefone}</h1></td>

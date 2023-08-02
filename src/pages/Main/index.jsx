@@ -98,7 +98,7 @@ function Main() {
           <img src={imageNavClient ? client : clientePink} alt="Cliente" />
         </div>
         <div
-          className="initial nav-icons"
+          className="initial nav-icons mousePointer"
           onClick={(event) => {
             onClickNavLeft(event),
               setimageNavClient(true),
