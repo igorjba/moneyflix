@@ -149,6 +149,11 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
             name="email"
             value={localForm.email}
             onChange={handleChangeSignIn}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                handleSubmitSignIn(event);
+              }
+            }}
             placeholder="Digite seu e-mail"
           />
           {errorEmail && (
