@@ -46,7 +46,7 @@
     flex-direction: column;
     gap: 0.4rem;
 
-    margin-bottom: 1.6rem;
+    margin-bottom: 0.8rem;
 }
 
 .container-input-name input.charges-input-name {
@@ -258,4 +258,14 @@
 }
 
 /* Fim dos Style do checkbox */
+
+.errorCharges h1{
+    color: var(--font-clr-text-error) !important;
+    margin: 4px 0 8px 0 ;
+}
+
+.errorChargesLine{
+    margin-bottom: 0px !important;
+    border: 1px solid var(--font-clr-text-error) !important;
+}
 

@@ -108,12 +108,18 @@
     color: var(--font-clr-text-card);
 }
 
+.description-table  {
+    overflow: hidden;
+}
+
+
 .description-table h1 {
-    width: 80%;
+    width: 90%;
 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
 }
 .error {
     font-family: var(--ff-inter);
