@@ -117,7 +117,7 @@ export default function EditClientModal() {
           });
           ClientCadaster()
         } catch (error) {
-            console.log(error)
+          //console.log(error)
           toast.error(
             error.response.data.message, {
             className: 'customToastify-error',
