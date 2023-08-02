@@ -12,11 +12,10 @@ export default function ClientDetail() {
   const {
     setTitle,
     token,
-    idClientDetail,
-    setIdListChargesClick,
+    idListChargesClick,
     setOpenModalEditClient,
     setOpenModalRegisterCharges,
-    openModalRegisterCharges
+    openModalRegisterCharges,
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -28,51 +27,29 @@ export default function ClientDetail() {
   const [corarrowTopDue, setCorArrowTopDue] = useState("#3F3F55");
   const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
 
-  async function DetailCustomerData() {
-    try {
-      const response = await api.get(`cliente/${idClientDetail}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
+  function DetailCustomerData() {
+    const fullName = idListChargesClick.client[0].nome_cliente;
+    const partsName = fullName.split(" ");
+    const nameClientCapitalized = partsName
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
 
-      const fullName = response.data.client[0].nome_cliente;
-      const partsName = fullName.split(" ");
-      const nameClientCapitalized = partsName
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-        .join(" ");
+    const replaceNullWithDefault = (obj, defaultValue = "--") => {
+      return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => [key, value ?? defaultValue])
+      );
+    };
 
-      const replaceNullWithDefault = (obj, defaultValue = "--") => {
-        return Object.fromEntries(
-          Object.entries(obj).map(([key, value]) => [
-            key,
-            value ?? defaultValue,
-          ])
-        );
-      };
+    const formattedData = replaceNullWithDefault(idListChargesClick.client[0]);
 
-      const formattedData = replaceNullWithDefault(response.data.client[0]);
-
-      setDetailsData({
-        ...formattedData,
-        nome_cliente: nameClientCapitalized,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    setDetailsData({
+      ...formattedData,
+      nome_cliente: nameClientCapitalized,
+    });
   }
 
   async function ListCharges() {
-    try {
-      const response = await api.get(`cliente/${idClientDetail}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      setInfoClientCharges(response.data.billing);
-    } catch (error) {
-      console.log(error);
-    }
+    setInfoClientCharges(idListChargesClick.billing);
   }
 
   function backgroundSituation() {
@@ -166,7 +143,9 @@ export default function ClientDetail() {
                 <th>
                   <button
                     className="button-edit-client"
-                    onClick={() => setOpenModalEditClient(true)} /* Preciso que seja passado também o id do cliente para que possa fazer get desse usuario, ou para que não precisa ser feito novo get, caso conseguir salvar as informações do cliente em estado no hook, eu consigo pegar essas informações*/
+                    onClick={() =>
+                      setOpenModalEditClient(true)
+                    } /* Preciso que seja passado também o id do cliente para que possa fazer get desse usuario, ou para que não precisa ser feito novo get, caso conseguir salvar as informações do cliente em estado no hook, eu consigo pegar essas informações*/
                   >
                     <img src={EditGreen} alt="editar cliente" />
                     <h4>Editar Cliente</h4>
@@ -248,7 +227,18 @@ export default function ClientDetail() {
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
                   <button className="addClient">
-                    <h1 onClick={() => setOpenModalRegisterCharges({...openModalRegisterCharges, status: true})}> + Nova cobrança </h1> {/* ainda dentro desse estado ao lado me passar o id e nome do usuario*/}
+                    <h1
+                      onClick={() =>
+                        setOpenModalRegisterCharges({
+                          ...openModalRegisterCharges,
+                          status: true,
+                        })
+                      }
+                    >
+                      {" "}
+                      + Nova cobrança{" "}
+                    </h1>{" "}
+                    {/* ainda dentro desse estado ao lado me passar o id e nome do usuario*/}
                   </button>
                 </th>
               </tr>
