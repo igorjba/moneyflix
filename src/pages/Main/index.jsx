@@ -110,15 +110,17 @@ function Main() {
         </div>
       </nav>
       <div className="center">
-
+        {openModalEditClient && <div className="backgroundModal initial">
+        {openModalEditClient && (<EditClientModal />)}
+        </div>}
         {openModalRegister && <div className="backgroundModal initial">
-          {openModalRegister && (<RegisterClientModal />)}
+        {openModalRegister && (<RegisterClientModal />)}
         </div>}
         {openModalRegisterCharges.status && <div className="background-modal initial">
         {openModalRegisterCharges.status && (<RegisterChargesModal />)}
         </div>}
         {openModalEdit && <div className="backgroundModal"></div>}
-        {openModalEditClient && <div className="backgroundModal"></div>}
+        {/* {openModalEditClient && <div className="backgroundModal"></div>} */}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
             {title}
@@ -154,7 +156,7 @@ function Main() {
           SetOpenModalEdit={SetOpenModalEdit}
         />
       )}
-      {openModalEditClient && (<EditClientModal />)}
+      
     </div>
   );
 }

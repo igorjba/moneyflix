@@ -16,7 +16,8 @@ const {
     clientRegisters,
     setTitle,
     token,
-    setOpenModalRegistercharges
+    setOpenModalRegisterCharges,
+    openModalRegisterCharges
 } = useUser();
 
 const [stateClientDetail, setStateClientDetail] = useState(false);
@@ -74,7 +75,9 @@ function orderName() {
         }
 }
 function sendInformationRegisterCharges(event){
-    setOpenModalRegistercharges({
+    console.log(event)
+    console.log(openModalRegisterCharges)
+    setOpenModalRegisterCharges({
         status: true,
         id_user: event.id_cliente,
         nome_user: event.nome_cliente
