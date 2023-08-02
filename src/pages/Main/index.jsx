@@ -23,12 +23,9 @@ function Main() {
   const [imageNavHome, setimageNavHome] = useState(false);
   const [imageNavClient, setimageNavClient] = useState(true);
   const [imageNavCharge, setimageNavCharge] = useState(true);
-  /* const [userName, setUserName] = useState(""); */
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, SetOpenModalEdit] = useState(false);
-  /*   const [userPerfil, setUserPerfil] = useState({}); */
   const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser, openModalEditClient, openModalRegisterCharges } = useUser();
-
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -38,36 +35,22 @@ function Main() {
     event.currentTarget.classList.add("atived");
   }
 
+  function toTitleCase(name) {
+    return name.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
+
   async function fetchUserPerfil() {
-    /* try { */
-    /* const response = await api.get("usuario/painel", {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }); */
-    /* console.log(response.data); */
-    /* const userNameWords = response.data.nome_usuario.split(" "); */
-    //const userNameWords = nameUser.split(" ");
-    const userNameWords = nameUser
-    //setNameUser(userNameWords[0].charAt(0).toUpperCase() + userNameWords[0].slice(1)); //deixar assim ou fazer aparecer nome completo ????
-    /* let resumeName; */
+    const userNameWords = nameUser.split(" ");
     if (userNameWords.length === 1) {
-      return setResumeName(userNameWords[0].substring(0, 2).toUpperCase());
+        return setResumeName(userNameWords[0].charAt(0).toUpperCase());
     } else {
-      const lastWord = userNameWords[userNameWords.length - 1];
-      return setResumeName(userNameWords[0].charAt(0).toUpperCase() +
-        lastWord.charAt(0).toUpperCase());
+        const lastWord = userNameWords[userNameWords.length - 1];
+        return setResumeName(userNameWords[0].charAt(0).toUpperCase() +
+            lastWord.charAt(0).toUpperCase());
     }
-    /* setUserName(capitalizedUserName); */
-    /* setResumeName(resumeName); */
-    /* }  *//* catch (error) {
-      console.log(error)
-      toast.error("Falha ao nome e apelido", {
-        className: "customToastify-error",
-        icon: ({ theme, type }) => <img src={toastError} alt="" />,
-      }); */
-  }
-  /* } */
+}
 
   function titleAtived() {
     if (!imageNavHome) {
@@ -80,15 +63,14 @@ function Main() {
       setTitle("Cobranças");
     }
   }
-
+  
   useEffect(() => {
     titleAtived();
-    fetchUserPerfil();
+    // fetchUserPerfil();
   }, []);
-
   useEffect(() => {
     fetchUserPerfil();
-  }, [nameUser])
+  }, [nameUser]);
 
   return (
     <div className="initial mainBody">
@@ -128,11 +110,13 @@ function Main() {
         </div>
       </nav>
       <div className="center">
-        {openModalRegister && 
-        <div className="backgroundModal initial">
-        {openModalRegister && (<RegisterClientModal/>)}  
-          </div>}
-          
+
+        {openModalRegister && <div className="backgroundModal initial">
+          {openModalRegister && (<RegisterClientModal />)}
+        </div>}
+        {openModalRegisterCharges && <div className="background-modal initial">
+          {openModalRegisterCharges && (<RegisterChargesModal />)}
+        </div>}
         {openModalEdit && <div className="backgroundModal"></div>}
         {openModalEditClient && <div className="backgroundModal"></div>}
 
@@ -149,7 +133,7 @@ function Main() {
               <h1>{resumeName}</h1>
             </div>
             <div className="profile initial">
-              <h1>{nameUser}</h1>
+              <h1>{toTitleCase(nameUser)}</h1>
               <img
                 src={setBottom}
                 alt="seta"
@@ -170,10 +154,12 @@ function Main() {
           {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
-      
-      {openModalEditPerfil && (<EditUserModal SetOpenModalEdit={SetOpenModalEdit}/>)}
+      {openModalEditPerfil && (
+        <EditUserModal
+          SetOpenModalEdit={SetOpenModalEdit}
+        />
+      )}
       {openModalEditClient && (<EditClientModal />)}
-
     </div>
   );
 }

@@ -49,6 +49,7 @@ export default function RegisterChargesModal() {
             const parts = value.split('-');
             setDateValueBr(`${parts[2]}/${parts[1]}/${parts[0]}`);
         }
+
         formRegisterCharges.vencimento = event.target.value
     }
 

@@ -3,7 +3,7 @@ function validateName(name) {
         return { isValid: false, message: "Este campo deve ser preenchido" };
     }
 
-    if (name[0] === " ") {
+    if (name[0] === " " || name[name.length - 1] === " ") {
         return { isValid: false, message: "Nome inválido" };
     }
 
@@ -15,8 +15,16 @@ function validateName(name) {
         return { isValid: false, message: "Nome inválido" };
     }
 
+    const namesArray = name.split(" ");
+    const hasMultipleSpaces = namesArray.some(namePart => namePart === "");
+
+    if (hasMultipleSpaces) {
+        return { isValid: false, message: "Nome inválido" };
+    }
+
     return { isValid: true, message: "Nome válido" };
 }
+
 
 function validateEmail(email) {
     if (!email || email.trim() === '') {
