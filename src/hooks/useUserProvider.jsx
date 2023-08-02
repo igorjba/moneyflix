@@ -12,6 +12,7 @@ function useUserProvider() {
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [idListChargesClick, setIdListChargesClick] = useState([]);
     const [openModalEditClient, setOpenModalEditClient] = useState(false)
+    const [idClientDetail, setIdClientDetail] = useState(null);
     const [openModalRegisterCharges, setOpenModalRegistercharges] = useState({
         status: false,
         id_user: '',
@@ -59,10 +60,11 @@ function useUserProvider() {
             openModalEditClient,
             setOpenModalEditClient,
             openModalRegisterCharges,
-            setOpenModalRegistercharges
+            setOpenModalRegistercharges,
+            idClientDetail,
+            setIdClientDetail,
         }
     )
 }
 
-export default useUserProvider
-
+export default useUserProvider;

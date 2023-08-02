@@ -45,6 +45,10 @@
     color: var(--font-clr-gray-text-modal);
 }
 
+.name-client {
+    cursor: pointer;
+}
+
 .div-status {
     width: 60%;
 }
