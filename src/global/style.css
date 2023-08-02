@@ -75,6 +75,9 @@
     margin-top: 2.576rem;
     border-radius: 3rem;
     padding: 0 2.2rem;
+    
+    overflow-y: auto;
+    height: 61.8rem;
 
     background-color: var(--bg-modal);
 }
@@ -82,6 +85,24 @@
 .tableAll table {
     width: 100%;
 }
+
+::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--font-clr-gray-text); 
+    border-radius: 1rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--bg-pink); 
+    border-radius: 1rem;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--font-clr-gray-extract-client); 
+  }
 
 .tableAll tr {
     display: flex;
@@ -108,12 +129,18 @@
     color: var(--font-clr-text-card);
 }
 
+.description-table  {
+    overflow: hidden;
+}
+
+
 .description-table h1 {
-    width: 80%;
+    width: 90%;
 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
 }
 .error {
     font-family: var(--ff-inter);

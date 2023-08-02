@@ -16,7 +16,8 @@ const {
     clientRegisters,
     setTitle,
     token,
-    setOpenModalRegistercharges
+    setOpenModalRegisterCharges,
+    openModalRegisterCharges
 } = useUser();
 
 const [stateClientDetail, setStateClientDetail] = useState(false);
@@ -32,7 +33,7 @@ async function ClientCadaster() {
         authorization: `Bearer ${token}`,
         },
 });
-setClientRegisters(response.data.slice(0, 10));
+setClientRegisters(response.data/* .slice(0, 10) */);
     } catch (error) {console.log(error)}
 }
 function backgroundSituation() {
@@ -74,7 +75,9 @@ function orderName() {
         }
 }
 function sendInformationRegisterCharges(event){
-    setOpenModalRegistercharges({
+    console.log(event)
+    console.log(openModalRegisterCharges)
+    setOpenModalRegisterCharges({
         status: true,
         id_user: event.id_cliente,
         nome_user: event.nome_cliente
@@ -148,7 +151,7 @@ return (
                                     <td><h1>{client.telefone}</h1></td>
                                     <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                                     <td>
-                                        <img src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client) }/>
+                                        <img className="mousePointer" src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client) }/>
                                     </td>
                                 </tr>
                             )

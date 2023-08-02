@@ -10,10 +10,9 @@ import useUser from '../../../hooks/useUser'
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
-  const { setNameUser, setFormEdit, formEdit } = useUser();
+  const { setNameUser, setLoggedInUser, loggedInUser } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
   const [localForm, setLocalForm] = useState({
     email: signInForm.email,
     password: signInForm.password,
@@ -32,15 +31,16 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         email: localForm.email,
         senha: localForm.password,
       });
-      if (response && response.data.user) {
+      if (response && response.data.id_usuario) {
         localStorage.setItem("token", `${response.data.token}`);
-        localStorage.setItem("id", response.data.user.id_usuario);
-        setNameUser(response.data.user.nome_usuario)
-        setFormEdit({
-          nome: response.data.user.nome_usuario,
-          email: response.data.user.email,
-          cpf: response.data.user.cpf,
-          telefone: response.data.user.telefone
+        localStorage.setItem("id", response.data.id_usuario);
+        localStorage.setItem("name", response.data.nome_usuario);
+        setNameUser(response.data.nome_usuario)
+        setLoggedInUser({
+          nome: response.data.nome_usuario,
+          email: response.data.email,
+          cpf: response.data.cpf,
+          telefone: response.data.telefone
         })
         toast.success('Login bem sucedido', {
           className: 'customToastify-success',
@@ -70,7 +70,6 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         ...localForm,
       });
     }
-
     login();
   };
 

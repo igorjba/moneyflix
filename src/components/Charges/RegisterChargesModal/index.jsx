@@ -12,12 +12,17 @@ import {NumericFormat} from 'react-number-format';
 import './style.css';
 
 export default function RegisterChargesModal() {
-    const { setOpenModalRegistercharges, token, openModalRegisterCharges } = useUser();
+    const {setOpenModalRegisterCharges, token, openModalRegisterCharges} = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
-    const [verifyCheckbox, setVerifyCheckbox] = useState(true)
-    let numeroEnvoar = 0
+    const [verifyCheckbox, setVerifyCheckbox] = useState(true);
+    const [testeNumero, setTesteNumero] = useState('');
+    const [errorDate, setErrorDate] = useState('');
+    const [errorDescription, setErrorDescription] = useState('');
+    const [errorValue, setErrorValue] = useState('')
+    /* let numeroEnvoar = 0 */
+    let validate = 0
     const [formRegisterCharges, setFormRegisterCharges] = useState({
         descricao: '',
         vencimento: '',
@@ -27,11 +32,11 @@ export default function RegisterChargesModal() {
     function statusCharges(event){
         if(event){
             setVerifyCheckbox(event)
-            return formRegisterCharges.status = 'Paga'
+            return setFormRegisterCharges({...formRegisterCharges, status: 'Paga'})
         }
         if(!event) {
             setVerifyCheckbox(event)
-            return formRegisterCharges.status = 'Pendente'
+            return setFormRegisterCharges({...formRegisterCharges, status: 'Pendente'})
         }
     }
     const handleFocusInputCharge = () => {
@@ -49,6 +54,7 @@ export default function RegisterChargesModal() {
             const parts = value.split('-');
             setDateValueBr(`${parts[2]}/${parts[1]}/${parts[0]}`);
         }
+
         formRegisterCharges.vencimento = event.target.value
     }
 
@@ -63,18 +69,37 @@ export default function RegisterChargesModal() {
 
 async function sendInformationCharges(event) {
     event.preventDefault()
+    setErrorDescription(''),
+    setErrorDate(''),
+    setErrorValue('')
+
+    if (!formRegisterCharges.descricao) {
+        setErrorDescription('Este campo deve ser preenchido');
+        validate = +1
+      }
+      if(!testeNumero){
+        setErrorValue('Este campo deve ser preenchido')
+        validate =+1
+      }
+
+      if(!formRegisterCharges.vencimento){
+        setErrorDate('Este campo deve ser preenchido')
+        validate =+1
+      }
+
+      if (validate === 0) {
     try {
       const response = await api.post(`cobranca/cadastro/${openModalRegisterCharges.id_user}`, {
         ...formRegisterCharges,
-        valor: numeroEnvoar
+        valor: testeNumero
       }, {
         headers: {
           authorization: token,
         }
       });
-      setOpenModalRegistercharges({...openModalRegisterCharges, status: false })
+      ({...openModalRegisterCharges, status: false })
       toast.success(
-        'Cliente Cadastro com Sucesso!', {
+        'Cobrança Cadastrada com Sucesso!', {
         className: 'customToastify-success',
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
@@ -87,11 +112,12 @@ async function sendInformationCharges(event) {
       });
     }
   }
+}
     
     return (
         <div className='main-modal-flex modal-charge'>
             <div></div>
-            <img src={closed} className="main-modal-flex-close" alt="fechar" onClick={() => setOpenModalRegistercharges({...openModalRegisterCharges, status: false })} />
+            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalRegistercharges({...openModalRegisterCharges, status: false })} />
             <div className='main-modal-flex-header initial'>
                 <img src={IconCharge} alt="" />
                 <h2>Cadastro de Cobrança</h2>
@@ -99,19 +125,20 @@ async function sendInformationCharges(event) {
             <form onSubmit={sendInformationCharges}>
                 <div className='container-inputs-form'>
                     <div className='container-input-name'>
-                        <label for="nameInput">Nome*</label>
+                        <label htmlFor="nameInput">Nome</label>
                         <input className='charges-input-name' id="nameInput" type="text" placeholder='Digite o nome' name='nome' disabled value={openModalRegisterCharges.nome_user} />
                     </div>
                     <div className='container-input-description'>
-                        <label for="descriptionInput">Descrição*</label>
-                        <textarea className='charges-input-description' id="descriptionInput" placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
+                        <label htmlFor="descriptionInput">Descrição*</label>
+                        <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
                         </textarea>
+                        {errorDescription && <span className='errorCharges'><h1>{errorDescription}</h1></span>}
                     </div>
                     <div className='container-inputs-value-date'>
                         <div className='container-input-date'>
-                            <label for="dateInput">Vencimento*</label>
+                            <label htmlFor="dateInput">Vencimento*</label>
                             <input
-                                className='charges-input-date'
+                                className={`charges-input-date ${errorDate ? 'errorChargesLine' : ''}`}
                                 id="dateInput"
                                 type={inputTypeChargesDate}
                                 onFocus={handleFocusInputCharge}
@@ -122,10 +149,12 @@ async function sendInformationCharges(event) {
                                 name='vencimento'
                                 max="9999-12-28"
                             />
+                            {errorDate && <span className='errorCharges'><h1>{errorDate}</h1></span>}
                         </div>
                         <div className='container-input-value'>
-                            <label for="valueInput">Valor*</label>
+                            <label htmlFor="valueInput">Valor*</label>
                             <NumericFormat 
+                            className={`${errorValue ? 'errorChargesLine' : ''}`}
                             value={formRegisterCharges.valor}
                             thousandSeparator={true}
                             prefix={'R$ '}
@@ -135,8 +164,10 @@ async function sendInformationCharges(event) {
                             placeholder="0,00"
                             name='vencimento'
                             /* onValueChange={(sourceInfo) => {handleSubmitChargesNumber(sourceInfo.value)}} */
-                            onValueChange={(sourceInfo) => {numeroEnvoar = sourceInfo.value.replace(/\./g, "")}}
+                            //onValueChange={(sourceInfo) => {numeroEnvoar = sourceInfo.value.replace(/\./g, "")}}
+                            onValueChange={(sourceInfo) => {setTesteNumero(sourceInfo.value.replace(/\./g, ""))}}
                             />
+                            {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}
                             {/* <input id="valueInput" type="text" placeholder='Digite o valor' name='valor' value={formRegisterCharges.valor} onChange={(event) => handleSubmitCharges(event)} /> */}
                         </div>
                     </div>
@@ -156,7 +187,7 @@ async function sendInformationCharges(event) {
                     </div>
                     </div>
                     <div className='formButton initial'>
-                        <button type='button' onClick={() => setOpenModalRegistercharges({...openModalRegisterCharges, status: false })}>Cancelar</button>
+                    <button type='button' onClick={() => setOpenModalRegisterCharges(prevState => ({...prevState, status: false }))}>Cancelar</button>
                         <button type='submit'>Aplicar</button>
                     </div>
                 </div>

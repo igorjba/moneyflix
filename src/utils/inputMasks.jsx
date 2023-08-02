@@ -31,6 +31,14 @@ function cepMask(value){
     }
 }
 
+function cepMaskSecond(value){
+    let cep = ''
+
+    if (value.length > 5) {
+      cep = `${value.slice(0, 5)}-${value.slice(5, 8)}`;
+    }
+}
+
 function cepUnmask(value) {
     return value.replace(/\D/g, '');
 }
@@ -72,4 +80,4 @@ return dateFormated
 }
 
 
-export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask, dateDDMMYYYYMask };
+export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask, dateDDMMYYYYMask, cepMaskSecond };

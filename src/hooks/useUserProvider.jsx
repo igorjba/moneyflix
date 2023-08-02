@@ -7,15 +7,16 @@ function useUserProvider() {
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [clientRegisters, setClientRegisters] = useState([]);
     const token = getItem("token");
-    const [nameUser, setNameUser] = useState('');
+    const [nameUser, setNameUser] = useState(getItem("name"));
     const [idListChargesClick, setIdListChargesClick] = useState([]);
     const [openModalEditClient, setOpenModalEditClient] = useState(false)
-    const [openModalRegisterCharges, setOpenModalRegistercharges] = useState({
+    const [idClientDetail, setIdClientDetail] = useState(null);
+    const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
         status: false,
         id_user: '',
         nome_user: ''
     })
-    const [formEdit, setFormEdit] = useState({
+  const [loggedInUser, setLoggedInUser] = useState({
         nome: '',
         email: '',
         cpf: '',
@@ -24,9 +25,21 @@ function useUserProvider() {
         senha: '',
         confirmeSenha: ''
     });
-
+    const [GetProfile, setGetProfile] = useState({
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        senhaAtual: '',
+        senha: '',
+        confirmeSenha: ''
+    });
+  
     return (
-        {
+        {GetProfile,
+            setGetProfile,
+            setOpenModalRegisterCharges,
+            openModalRegisterCharges,
             openModalEditPerfil,
             SetOpenModalEditPerfil,
             title,
@@ -38,17 +51,16 @@ function useUserProvider() {
             token,
             nameUser,
             setNameUser,
-            formEdit,
-            setFormEdit,
+            loggedInUser,
+            setLoggedInUser,
             idListChargesClick,
             setIdListChargesClick,
             openModalEditClient,
             setOpenModalEditClient,
-            openModalRegisterCharges,
-            setOpenModalRegistercharges
+            idClientDetail,
+            setIdClientDetail,
         }
     )
 }
 
-export default useUserProvider
-
+export default useUserProvider;
