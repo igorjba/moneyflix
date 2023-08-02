@@ -12,7 +12,7 @@ import {NumericFormat} from 'react-number-format';
 import './style.css';
 
 export default function RegisterChargesModal() {
-    const {setOpenModalRegisterCharges, token, openModalRegisterCharges} = useUser();
+    const {setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters} = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
@@ -97,7 +97,9 @@ async function sendInformationCharges(event) {
           authorization: token,
         }
       });
-      ({...openModalRegisterCharges, status: false })
+      setOpenModalRegisterCharges(() => ({...openModalRegisterCharges, status: false }))
+      ClientCadaster()
+      backgroundSituation()
       toast.success(
         'Cobrança Cadastrada com Sucesso!', {
         className: 'customToastify-success',
@@ -111,13 +113,34 @@ async function sendInformationCharges(event) {
         icon: ({ theme, type }) => <img src={error} alt="" />
       });
     }
-  }
 }
+}
+
+async function ClientCadaster() {
+    try {
+    const response = await api.get("cliente", {
+        headers: {
+        authorization: `Bearer ${token}`,
+        },
+});
+setClientRegisters(response.data/* .slice(0, 10) */);
+    } catch (error) {console.log(error)}
+}
+function backgroundSituation() {
+    const situation = document.querySelectorAll(".situation");
+    situation.forEach((element) => {
+if (element.textContent == "Inadimplente") {
+        return element.classList.add("situationDefaulter");
+}
+return element.classList.add("situationOk");
+    });
+}
+
     
     return (
         <div className='main-modal-flex modal-charge'>
             <div></div>
-            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalRegistercharges({...openModalRegisterCharges, status: false })} />
+            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalRegisterCharges(() => ({...openModalRegisterCharges, status: false }))} />
             <div className='main-modal-flex-header initial'>
                 <img src={IconCharge} alt="" />
                 <h2>Cadastro de Cobrança</h2>
@@ -187,7 +210,7 @@ async function sendInformationCharges(event) {
                     </div>
                     </div>
                     <div className='formButton initial'>
-                    <button type='button' onClick={() => setOpenModalRegisterCharges(prevState => ({...prevState, status: false }))}>Cancelar</button>
+                    <button type='button' onClick={() => setOpenModalRegisterCharges(() => ({...openModalRegisterCharges, status: false }))}>Cancelar</button>
                         <button type='submit'>Aplicar</button>
                     </div>
                 </div>

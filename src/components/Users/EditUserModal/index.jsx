@@ -9,8 +9,8 @@ import { cellPhoneMask, cellPhoneUnmask, cpfMask, cpfUnmask } from '../../../uti
 import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
 import './style.css';
 
-export default function EditUserModal({ SetOpenModalEdit }) {
-    const { SetOpenModalEditPerfil, openModalEditPerfil, token, loggedInUser, setLoggedInUser, setNameUser, setGetProfile, GetProfile} = useUser();
+export default function EditUserModal({ setOpenModalEdit }) {
+    const { SetOpenModalEditPerfil, openModalEditPerfil, token, setNameUser, setGetProfile, GetProfile} = useUser();
     const [errorName, setErrorName] = useState('')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
@@ -26,7 +26,7 @@ const [numberTel, setNumberTel] = useState('');
 
     function onclickCloseModal() {
         SetOpenModalEditPerfil(!openModalEditPerfil)
-        SetOpenModalEdit(false)
+        setOpenModalEdit(false)
     }
 
     async function handleSubmitEdit(event) {
@@ -73,7 +73,7 @@ const [numberTel, setNumberTel] = useState('');
                 icon: ({ theme, type }) => <img src={success} alt="" />
             })
             SetOpenModalEditPerfil(false)
-            SetOpenModalEdit(false)
+            setOpenModalEdit(false)
        
         } catch (error) {
             toast.error(error.response.data.message, {
@@ -119,10 +119,10 @@ const [numberTel, setNumberTel] = useState('');
     }
 
     return (
-        <div className="main-Modal Modal-Edit">
+        <div className="main-modal-flex Modal-Edit">
             <div className='header-ModalEdit initial'>
                 <h2>Edite seu cadastro</h2>
-                <img className='closedEdit' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
+                <img className='main-modal-flex-close' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
             </div>
             <div className='main-ModalEdit'>
                 <form onSubmit={handleSubmitEdit}>
