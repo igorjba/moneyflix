@@ -10,7 +10,7 @@ import { validateEmail, validateName, validatePassword } from '../../../utils/va
 import './style.css';
 
 export default function EditUserModal({ setOpenModalEdit }) {
-    const { SetOpenModalEditPerfil, openModalEditPerfil, token, setNameUser, setGetProfile, GetProfile} = useUser();
+    const { SetOpenModalEditProfile, openModalEditProfile, token, setNameUser, setGetProfile, GetProfile, setOpenModalEditProfileSuccess} = useUser();
     const [errorName, setErrorName] = useState('')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
@@ -25,7 +25,7 @@ const [numberTel, setNumberTel] = useState('');
     }, [GetProfile]);
 
     function onclickCloseModal() {
-        SetOpenModalEditPerfil(!openModalEditPerfil)
+        SetOpenModalEditProfile(!openModalEditProfile)
         setOpenModalEdit(false)
     }
 
@@ -72,8 +72,9 @@ const [numberTel, setNumberTel] = useState('');
                 className: 'customToastify-success',
                 icon: ({ theme, type }) => <img src={success} alt="" />
             })
-            SetOpenModalEditPerfil(false)
+            SetOpenModalEditProfile(false)
             setOpenModalEdit(false)
+            setOpenModalEditProfileSuccess(true)
        
         } catch (error) {
             toast.error(error.response.data.message, {
