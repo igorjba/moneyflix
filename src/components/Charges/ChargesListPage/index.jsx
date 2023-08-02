@@ -10,7 +10,7 @@ import './style.css';
 import { dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
 
 export default function ChargesListPage() {
-    const { setTitle, token, setIdListChargesClick,setOpenModalEditClient, idListChargesClick } = useUser();
+    const { setTitle, token } = useUser();
     const [infoClientCharges, setInfoClientCharges] = useState([])
     const [countOrder, setCountOrder] = useState(1)
     const [countOrderIdCharges, setcountOrderIdCharges] = useState(1)
@@ -43,20 +43,7 @@ export default function ChargesListPage() {
             console.log(error)
         }
     }
-    async function handleClickIDUser(event){
-        try {
-            const response = await api.get(`cliente/${event}`, {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            setIdListChargesClick(response.data)
-            console.log(response.data)
-            setOpenModalEditClient(true)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    
     function orderName() {
         setCountOrder(countOrder + 1)
         if (countOrder === 1) {
@@ -182,7 +169,7 @@ export default function ChargesListPage() {
                         {infoClientCharges.map((charges) =>{
                             return( 
                         <tr className='extract-table' key={charges.id_cobranca}>
-                            <td className='description-table'><h1 className='mousePointer' onClick={() => handleClickIDUser(charges.id_cliente)}>{charges.cliente}</h1></td>
+                            <td className='description-table'><h1 >{charges.cliente}</h1></td>
                             <td><h1>{charges.id_cobranca}</h1></td>
                             <td><h1>{moneyMask(charges.valor)}</h1></td>
                             <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>

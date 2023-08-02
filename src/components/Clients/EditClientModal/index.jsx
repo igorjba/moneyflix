@@ -1,15 +1,17 @@
 import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import api from '../../../api/api';
+import apiCep from '../../../api/apiCep';
 import clientSFont from '../../../assets/Client(2).svg';
+import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import useUser from '../../../hooks/useUser';
-import api from '../../../api/api'
-import apiCep from '../../../api/apiCep';
-import './style.css';
-import { cellPhoneMask, cepMask, cepMaskSecond, cepUnmask, cpfMask} from '../../../utils/inputMasks';
+import { cellPhoneMask, cepUnmask, cpfMask } from '../../../utils/inputMasks';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
+import './style.css';
 
 export default function EditClientModal() {
-    const {setOpenModalEditClient, idListChargesClick, token} = useUser()
+    const {setOpenModalEditClient, idListChargesClick, token, setClientRegisters} = useUser()
     const [errorName, setErrorName] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorCPF, setErrorCPF] = useState('');
@@ -59,10 +61,10 @@ export default function EditClientModal() {
           }
         } catch (error) {
             console.log(error)
-          /* toast.error("CEP inválido", {
+          toast.error("CEP inválido", {
             className: 'customToastify-error',
             icon: ({ theme, type }) => <img src={toastError} alt="" />
-          }); */
+          });
 
         }
       }
@@ -108,13 +110,35 @@ export default function EditClientModal() {
               authorization: `Bearer ${token}`,
             }
           });
+          toast.success(
+            'Cliente Atualizado com Sucesso!', {
+            className: 'customToastify-success',
+            icon: ({ theme, type }) => <img src={success} alt="" />
+          });
+          ClientCadaster()
         } catch (error) {
             console.log(error)
-          /* toast.error(
+          toast.error(
             error.response.data.message, {
             className: 'customToastify-error',
             icon: ({ theme, type }) => <img src={error} alt="" />
-          }); */
+          });
+        }
+      }
+      async function ClientCadaster() {
+        try {
+          const response = await api.get('cliente', {
+            headers: {
+              authorization: `Bearer ${token}`,
+            }
+          });
+          setClientRegisters((response.data).slice(0, 10));
+        } catch (error) {
+          toast.error(
+            error.response.data.message, {
+            className: 'customToastify-error',
+            icon: ({ theme, type }) => <img src={error} alt="" />
+          });
         }
       }
 
