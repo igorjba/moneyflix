@@ -16,6 +16,7 @@ export default function ClientListPage() {
     clientRegisters,
     setTitle,
     token,
+    setOpenModalRegistercharges,
     setIdClientDetail,
     idClientDetail,
   } = useUser();
@@ -73,6 +74,13 @@ export default function ClientListPage() {
       setCorArrowTop("#3F3F55");
       setCountOrder(1);
     }
+  }
+  function sendInformationRegisterCharges(event) {
+    setOpenModalRegistercharges({
+      status: true,
+      id_user: event.id_cliente,
+      nome_user: event.nome_cliente,
+    });
   }
   useEffect(() => {
     ClientCadaster();
@@ -187,7 +195,7 @@ export default function ClientListPage() {
                     <h1>Status</h1>
                   </th>
                   <th>
-                    <h1>Criar CobranÃ§a</h1>
+                    <h1>Criar Cobrança</h1>
                   </th>
                 </tr>
               </thead>

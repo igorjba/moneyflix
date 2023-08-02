@@ -11,6 +11,11 @@ function useUserProvider() {
   const [idListChargesClick, setIdListChargesClick] = useState([]);
   const [openModalEditClient, setOpenModalEditClient] = useState(false);
   const [idClientDetail, setIdClientDetail] = useState(null);
+  const [openModalRegisterCharges, setOpenModalRegistercharges] = useState({
+    status: false,
+    id_user: "",
+    nome_user: "",
+  });
   const [formEdit, setFormEdit] = useState({
     nome: "",
     email: "",
@@ -39,6 +44,8 @@ function useUserProvider() {
     setIdListChargesClick,
     openModalEditClient,
     setOpenModalEditClient,
+    openModalRegisterCharges,
+    setOpenModalRegistercharges,
     idClientDetail,
     setIdClientDetail,
   };

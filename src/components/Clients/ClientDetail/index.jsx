@@ -11,7 +11,6 @@ import { dateDDMMYYYYMask, moneyMask } from "../../../utils/inputMasks";
 export default function ClientDetail() {
   const {
     setTitle,
-    setOpenModalRegister,
     token,
     idClientDetail,
     setIdListChargesClick,
@@ -19,10 +18,13 @@ export default function ClientDetail() {
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
+  const [countOrderDueDate, setcountOrderDueDate] = useState(1);
   const [infoClientCharges, setInfoClientCharges] = useState([]);
   const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
   const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
+  const [corarrowTopDue, setCorArrowTopDue] = useState("#3F3F55");
+  const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
 
   async function DetailCustomerData() {
     try {
@@ -84,9 +86,9 @@ export default function ClientDetail() {
     });
   }
 
-  async function handleClickIDUser(event) {
+  async function handleClickIDUser(id) {
     try {
-      const response = await api.get(`cliente/${event}`, {
+      const response = await api.get(`cliente/${id}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -102,10 +104,10 @@ export default function ClientDetail() {
     setcountOrderIdCharges(countOrderIdCharges + 1);
     if (countOrderIdCharges === 1) {
       const orderId = infoClientCharges.slice().sort(function (a, b) {
-        return a.id_cobranca - b.id_cobranca;
+        return b.id_cobranca - a.id_cobranca;
       });
-      setCorArrowTopId("#3F3F55");
-      setCorArrowBottomId("#DA0175");
+      setCorArrowTopId("#DA0175");
+      setCorArrowBottomId("#3F3F55");
       setInfoClientCharges(orderId);
     }
     if (countOrderIdCharges === 2) {
@@ -113,6 +115,24 @@ export default function ClientDetail() {
       setCorArrowBottomId("#3F3F55");
       setCorArrowTopId("#3F3F55");
       setcountOrderIdCharges(1);
+    }
+  }
+
+  function orderDueDate() {
+    setcountOrderDueDate(countOrderDueDate + 1);
+    if (countOrderDueDate === 1) {
+      const orderDue = infoClientCharges.slice().sort(function (a, b) {
+        return b.id_cobranca - a.id_cobranca;
+      });
+      setCorArrowTopDue("#DA0175");
+      setCorArrowBottomDue("#3F3F55");
+      setInfoClientCharges(orderDue);
+    }
+    if (countOrderDueDate === 2) {
+      ListCharges();
+      setCorArrowBottomDue("#3F3F55");
+      setCorArrowTopDue("#3F3F55");
+      setcountOrderDueDate(1);
     }
   }
 
@@ -142,7 +162,10 @@ export default function ClientDetail() {
               <tr className="table-first-title">
                 <th className="table-title">Dados do Cliente</th>
                 <th>
-                  <button className="button-edit-client">
+                  <button
+                    className="button-edit-client"
+                    onClick={() => setOpenModalEditClient(true)}
+                  >
                     <img src={EditGreen} alt="editar cliente" />
                     <h4>Editar Cliente</h4>
                   </button>
@@ -222,10 +245,7 @@ export default function ClientDetail() {
               <tr className="table-first-title">
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
-                  <button
-                    className="addClient"
-                    onClick={() => setOpenModalRegister(true)}
-                  >
+                  <button className="addClient">
                     <h1> + Nova cobrança </h1>
                   </button>
                 </th>
@@ -293,7 +313,10 @@ export default function ClientDetail() {
                   </svg>
                   <h1>ID Cob.</h1>
                 </th>
-                <th className="PageOrderDate mousePointer">
+                <th
+                  className="PageOrderDate mousePointer"
+                  onClick={() => orderDueDate()}
+                >
                   <svg
                     width="25"
                     height="24"
@@ -306,7 +329,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottomId}
+                          stroke={corarrowBottomDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -314,7 +337,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottomId}
+                          stroke={corarrowBottomDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -322,7 +345,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTopId}
+                          stroke={corarrowTopDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -330,7 +353,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTopId}
+                          stroke={corarrowTopDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -369,16 +392,18 @@ export default function ClientDetail() {
                     <td>
                       <h1
                         className="mousePointer"
-                        onClick={() => handleClickIDUser(charges.id_cliente)}
+                        onClick={() =>
+                          handleClickIDUser(detailsData.id_cliente)
+                        }
                       >
                         {charges.id_cobranca}
                       </h1>
                     </td>
                     <td>
-                      <h1>{moneyMask(charges.vencimento)}</h1>
+                      <h1>{dateDDMMYYYYMask(charges.vencimento)}</h1>
                     </td>
                     <td>
-                      <h1>{dateDDMMYYYYMask(charges.valor)}</h1>
+                      <h1>{moneyMask(charges.valor)}</h1>
                     </td>
                     <td>
                       <div className="div-status-charge">
