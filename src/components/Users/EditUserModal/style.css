@@ -12,13 +12,24 @@
     justify-content: center;
     margin-bottom: 3.2rem;
 }
+.main-modal-flex-close {
+    position: absolute;
+    top: 2.4rem;
+    right: 2.89rem;
 
-.closedEdit {
+    width: 3.2rem;
+    height: 3.5512rem;
+
+    background-color: transparent;
+    border: none;
+}
+
+/* .closedEdit {
     position: absolute;
     right: 5rem;
 
     cursor: pointer;
-}
+} */
 
 /* .main-ModalEdit form {
     display: flex;

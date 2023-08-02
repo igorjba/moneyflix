@@ -24,7 +24,7 @@ function Main() {
   const [imageNavClient, setimageNavClient] = useState(true);
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
-  const [openModalEdit, SetOpenModalEdit] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
   const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser, openModalEditClient, openModalRegisterCharges } = useUser();
 
   function onClickNavLeft(event) {
@@ -119,7 +119,9 @@ function Main() {
         {openModalRegisterCharges.status && <div className="background-modal initial">
         {openModalRegisterCharges.status && (<RegisterChargesModal />)}
         </div>}
-        {openModalEdit && <div className="backgroundModal"></div>}
+        {openModalEdit && <div className="background-modal initial">
+        {openModalEditPerfil && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
+        </div>}
         {/* {openModalEditClient && <div className="backgroundModal"></div>} */}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
@@ -141,7 +143,7 @@ function Main() {
           {modalExit && (
             <LogoutEditUserModal
               setModalExit={setModalExit}
-              SetOpenModalEdit={SetOpenModalEdit}
+              setOpenModalEdit={setOpenModalEdit}
             />
           )}
         </header>
@@ -151,13 +153,7 @@ function Main() {
           {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
-      {openModalEditPerfil && (
-        <EditUserModal
-          SetOpenModalEdit={SetOpenModalEdit}
-        />
-      )}
-      
-    </div>
+      </div>
   );
 }
 export default Main;
