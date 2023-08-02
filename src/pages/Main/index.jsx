@@ -13,7 +13,8 @@ import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
 import EditClientModal from '../../components/Clients/EditClientModal';
-import RegisterChargesModal from '../../components/Charges/RegisterChargesModal'
+import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
+import ClientDetail from "../../components/Clients/ClientDetail";
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
@@ -26,7 +27,8 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const { openModalRegister, openModalEditProfile,openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, nameUser, setNameUser, openModalEditClient, openModalRegisterCharges } = useUser();
+
+  const { openModalRegister, openModalEditPerfil, openModalEditProfile, openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, setNameUser, nameUser, setOpenModalEditClient, openModalEditClient, openModalRegisterCharges, clientDetailPage, setClientDetailPage } = useUser();
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -106,6 +108,7 @@ function Main() {
               setimageNavClient(false),
               setimageNavHome(true),
               setimageNavCharge(true);
+              setClientDetailPage(false)
           }}
         >
           <img src={imageNavClient ? client : clientePink} alt="Cliente" />
@@ -165,7 +168,8 @@ function Main() {
           )}
         </header>
         <div className="main">
-          {!imageNavClient && (<ClientListPage />)}
+          {!imageNavClient && !clientDetailPage && <ClientListPage />}
+          {!imageNavClient && clientDetailPage && <ClientDetail /> }
           {!imageNavHome && <HomePage />}
           {!imageNavCharge && <ChargesListPage />}
         </div>

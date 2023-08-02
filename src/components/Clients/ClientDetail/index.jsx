@@ -15,6 +15,8 @@ export default function ClientDetail() {
     idClientDetail,
     setIdListChargesClick,
     setOpenModalEditClient,
+    setOpenModalRegisterCharges,
+    openModalRegisterCharges
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -164,7 +166,7 @@ export default function ClientDetail() {
                 <th>
                   <button
                     className="button-edit-client"
-                    onClick={() => setOpenModalEditClient(true)}
+                    onClick={() => setOpenModalEditClient(true)} /* Preciso que seja passado também o id do cliente para que possa fazer get desse usuario, ou para que não precisa ser feito novo get, caso conseguir salvar as informações do cliente em estado no hook, eu consigo pegar essas informações*/
                   >
                     <img src={EditGreen} alt="editar cliente" />
                     <h4>Editar Cliente</h4>
@@ -246,7 +248,7 @@ export default function ClientDetail() {
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
                   <button className="addClient">
-                    <h1> + Nova cobrança </h1>
+                    <h1 onClick={() => setOpenModalRegisterCharges({...openModalRegisterCharges, status: true})}> + Nova cobrança </h1> {/* ainda dentro desse estado ao lado me passar o id e nome do usuario*/}
                   </button>
                 </th>
               </tr>
