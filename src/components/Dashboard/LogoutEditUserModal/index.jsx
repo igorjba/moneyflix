@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./style.css";
 import api from "../../../api/api";
 
-export default function LogoutEditUserModal({ setModalExit, SetOpenModalEdit }) {
+export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) {
     const navigate = useNavigate()
     const { SetOpenModalEditPerfil, token, GetProfile, setGetProfile } = useUser();
 
@@ -58,7 +58,7 @@ export default function LogoutEditUserModal({ setModalExit, SetOpenModalEdit }) 
         SetOpenModalEditPerfil(true)
         setModalExit(false);
         await getUserDetails(); 
-        SetOpenModalEdit(true)
+        setOpenModalEdit(true)
     }
 
     function onClickExit() {
