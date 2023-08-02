@@ -76,7 +76,7 @@ function Main() {
     <div className="initial mainBody">
       <nav className="initial navegation">
         <div
-          className="initial nav-icons atived"
+          className="initial nav-icons atived mousePointer"
           onClick={(event) => {
             onClickNavLeft(event),
               setimageNavClient(true),
@@ -87,7 +87,7 @@ function Main() {
           <img src={imageNavHome ? home : homePink} alt="Inicio" />
         </div>
         <div
-          className="initial nav-icons"
+          className="initial nav-icons mousePointer"
           onClick={(event) => {
             onClickNavLeft(event),
               setimageNavClient(false),
