@@ -16,7 +16,7 @@ function useUserProvider() {
         id_user: '',
         nome_user: ''
     })
-  const [formEdit, setFormEdit] = useState({
+  const [loggedInUser, setLoggedInUser] = useState({
         nome: '',
         email: '',
         cpf: '',
@@ -51,8 +51,8 @@ function useUserProvider() {
             token,
             nameUser,
             setNameUser,
-            formEdit,
-            setFormEdit,
+            loggedInUser,
+            setLoggedInUser,
             idListChargesClick,
             setIdListChargesClick,
             openModalEditClient,

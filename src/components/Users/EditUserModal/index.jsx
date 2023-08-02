@@ -10,7 +10,7 @@ import { validateEmail, validateName, validatePassword } from '../../../utils/va
 import './style.css';
 
 export default function EditUserModal({ SetOpenModalEdit }) {
-    const { SetOpenModalEditPerfil, openModalEditPerfil, token, formEdit, setFormEdit, setNameUser, setGetProfile, GetProfile} = useUser();
+    const { SetOpenModalEditPerfil, openModalEditPerfil, token, loggedInUser, setLoggedInUser, setNameUser, setGetProfile, GetProfile} = useUser();
     const [errorName, setErrorName] = useState('')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
