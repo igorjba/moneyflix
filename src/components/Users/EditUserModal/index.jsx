@@ -5,19 +5,24 @@ import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
+import openEye from "../../../assets/OpenEye.svg";
+import closedEye from "../../../assets/ClosedEye.svg";
 import { cellPhoneMask, cellPhoneUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
 import './style.css';
 
 export default function EditUserModal({ setOpenModalEdit }) {
-    const { SetOpenModalEditPerfil, openModalEditPerfil, token, setNameUser, setGetProfile, GetProfile} = useUser();
+    const { SetOpenModalEditProfile, openModalEditProfile, token, setNameUser, setGetProfile, GetProfile, setOpenModalEditProfileSuccess } = useUser();
     const [errorName, setErrorName] = useState('')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
     const [errorNewPasswordEdit, setErrorNewPasswordEdit] = useState('')
     const [errorPasswordAgainEdit, setErrorPasswordAgainEdit] = useState('')
-const [numberCPF, setNumberCPF] = useState('');
-const [numberTel, setNumberTel] = useState('');
+    const [numberCPF, setNumberCPF] = useState('');
+    const [numberTel, setNumberTel] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     useEffect(() => {
         setNumberCPF(cpfMask(GetProfile.cpf));
@@ -25,7 +30,7 @@ const [numberTel, setNumberTel] = useState('');
     }, [GetProfile]);
 
     function onclickCloseModal() {
-        SetOpenModalEditPerfil(!openModalEditPerfil)
+        SetOpenModalEditProfile(!openModalEditProfile)
         setOpenModalEdit(false)
     }
 
@@ -66,15 +71,16 @@ const [numberTel, setNumberTel] = useState('');
                 }
             });
             localStorage.setItem("name", GetProfile.nome);
-            setNameUser(GetProfile.nome);  
+            setNameUser(GetProfile.nome);
             toast.success(
                 'Cliente Atualizado com Sucesso!', {
                 className: 'customToastify-success',
                 icon: ({ theme, type }) => <img src={success} alt="" />
             })
-            SetOpenModalEditPerfil(false)
+            SetOpenModalEditProfile(false)
             setOpenModalEdit(false)
-       
+            setOpenModalEditProfileSuccess(true)
+
         } catch (error) {
             toast.error(error.response.data.message, {
                 className: 'customToastify-error',
@@ -139,34 +145,53 @@ const [numberTel, setNumberTel] = useState('');
                         </div>
                         <div className='information-ModalEdit'>
                             <div>
-                                <label htmlFor=""><h1>CPF</h1></label>
+                                <label htmlFor=""><h1>CPF*</h1></label>
                                 <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={handleChangeFormCPF} />
                                 {errorPasswordEdit && <span className='error'><h1>{errorPasswordEdit}</h1></span>}
                             </div>
                             <div>
-                                <label htmlFor=""><h1>Telefone</h1></label>
+                                <label htmlFor=""><h1>Telefone*</h1></label>
                                 <input type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={15} onChange={handleChangeFormTel} />
                             </div>
                         </div>
                         <div className='box-info'>
                             <label htmlFor=""><h1>Senha Atual*</h1></label>
-                            <input type="password" placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={handleChangeForm} />
+                            <div className="password-input">
+                                <input type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={handleChangeForm} />
+                                <div
+                                    className='password-toggle-visibility'
+                                    onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
+                                    style={{
+                                        backgroundImage: `url(${showPassword ? openEye : closedEye})`,
+                                    }}
+                                />
+                            </div>
                             {errorPasswordEdit && <span className='error'><h1>{errorPasswordEdit}</h1></span>}
                         </div>
                         <div className='box-info'>
-                            <label htmlFor=""><h1>Nova Senha*</h1></label>
-                            <input type="password" placeholder='Digite sua Senha' name='senha' value={GetProfile.senha} maxLength={200} onChange={handleChangeForm} />
+                            <label htmlFor=''><h1>Nova Senha</h1></label>
+                            <div className='password-input'>
+                                <input
+                                    type={showNewPassword ? 'text' : 'password'} placeholder='Digite sua Senha' name='senha' value={GetProfile.senha} maxLength={200} onChange={handleChangeForm} />
+                                <div
+                                    className='password-toggle-visibility' onClick={() => setShowNewPassword((prevShowNewPassword) => !prevShowNewPassword)}
+                                    style={{ backgroundImage: `url(${showNewPassword ? openEye : closedEye})`, }} />
+                            </div>
                             {errorNewPasswordEdit && <span className='error'><h1>{errorNewPasswordEdit}</h1></span>}
                         </div>
+
                         <div className='box-info'>
-                            <label htmlFor=""><h1>Confirmar a Senha*</h1></label>
-                            <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type="password" placeholder='Confirme sua senha' name='confirmeSenha' value={GetProfile.confirmeSenha} maxLength={200} onChange={handleChangeForm} />
-                            {errorPasswordEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
+                            <label htmlFor=''><h1>Confirmar a Senha</h1></label>
+                            <div className='password-input'>
+                                <input type={showConfirmPassword ? 'text' : 'password'} placeholder='Confirme sua senha' name='confirmeSenha' value={GetProfile.confirmeSenha} maxLength={200} onChange={handleChangeForm} />
+                                <div className='password-toggle-visibility' onClick={() => setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword)} style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})`, }} />
+                            </div>
+                            {errorPasswordAgainEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
                         </div>
                     </div>
                     <button className='ModalEdit-Button'>Continuar</button>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }

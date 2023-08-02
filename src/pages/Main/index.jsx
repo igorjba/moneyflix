@@ -18,6 +18,7 @@ import ClientDetail from "../../components/Clients/ClientDetail";
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
+import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal"
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -26,7 +27,8 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setOpenModalEditClient, openModalEditClient, openModalRegisterCharges, clientDetailPage, setClientDetailPage } = useUser();
+
+  const { openModalRegister, openModalEditPerfil, openModalEditProfile, openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, setNameUser, nameUser, setOpenModalEditClient, openModalEditClient, openModalRegisterCharges, clientDetailPage, setClientDetailPage } = useUser();
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -67,11 +69,23 @@ function Main() {
   
   useEffect(() => {
     titleAtived();
-    // fetchUserPerfil();
   }, []);
+
   useEffect(() => {
     fetchUserPerfil();
   }, [nameUser]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalExit && !document.getElementById('modalExit').contains(event.target)) {
+        setModalExit(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [modalExit]);
 
   return (
     <div className="initial mainBody">
@@ -122,9 +136,13 @@ function Main() {
         {openModalRegisterCharges.status && (<RegisterChargesModal />)}
         </div>}
         {openModalEdit && <div className="background-modal initial">
-        {openModalEditPerfil && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
+        {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
         </div>}
-        {/* {openModalEditClient && <div className="backgroundModal"></div>} */}
+        {openModalEditProfileSuccess && (
+         <div className="background-modal initial">
+         <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
+         </div>
+         )}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
             {title}

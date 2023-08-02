@@ -84,6 +84,10 @@
     color: #667085
 }
 
+.input-password {
+    padding-right: 3.5rem !important;
+}
+
 .sign-in-form-spans-password {
     width: 100%;
     display: flex;
@@ -97,7 +101,7 @@
     width: 2.4rem;
     height: 2.4rem;
     right: 1.4rem;
-    bottom: 0;
+    bottom: -0.4rem;
     transform: translateY(-50%);
 
     cursor: pointer;

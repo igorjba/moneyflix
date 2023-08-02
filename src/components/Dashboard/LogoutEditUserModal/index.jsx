@@ -10,7 +10,7 @@ import api from "../../../api/api";
 
 export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) {
     const navigate = useNavigate()
-    const { SetOpenModalEditPerfil, token, GetProfile, setGetProfile } = useUser();
+    const { SetOpenModalEditProfile, token, setGetProfile } = useUser();
 
     async function getUserDetails() {
         try {
@@ -51,11 +51,8 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
         }
     }
     
-      
-    
-
    async function openModal() {
-        SetOpenModalEditPerfil(true)
+        SetOpenModalEditProfile(true)
         setModalExit(false);
         await getUserDetails(); 
         setOpenModalEdit(true)
@@ -67,11 +64,10 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
     }
 
     return (
-        <div className='modalExit initial'>
+        <div id="modalExit" className='modalExit initial'>
             <img className='set' src={set} alt="" />
             <img src={edit} alt="editar" onClick={openModal} />
             <img src={exit} alt="sair" onClick={onClickExit} />
-
         </div>
     )
 }
