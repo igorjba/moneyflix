@@ -51,6 +51,7 @@ export default function ChargesListPage() {
                 }
             });
             setIdListChargesClick(response.data)
+            console.log(response.data)
             setOpenModalEditClient(true)
         } catch (error) {
             console.log(error)
@@ -181,7 +182,7 @@ export default function ChargesListPage() {
                         {infoClientCharges.map((charges) =>{
                             return( 
                         <tr className='extract-table' key={charges.id_cobranca}>
-                            <td><h1 className='mousePointer' onClick={() => handleClickIDUser(charges.id_cliente)}>{charges.cliente}</h1></td>
+                            <td className='description-table'><h1 className='mousePointer' onClick={() => handleClickIDUser(charges.id_cliente)}>{charges.cliente}</h1></td>
                             <td><h1>{charges.id_cobranca}</h1></td>
                             <td><h1>{moneyMask(charges.valor)}</h1></td>
                             <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
