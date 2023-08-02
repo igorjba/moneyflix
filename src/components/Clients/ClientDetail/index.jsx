@@ -16,7 +16,8 @@ export default function ClientDetail() {
     setIdListChargesClick,
     setOpenModalEditClient,
     setOpenModalRegisterCharges,
-    openModalRegisterCharges
+    openModalRegisterCharges,
+    idListChargesClick
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -248,7 +249,7 @@ export default function ClientDetail() {
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
                   <button className="addClient">
-                    <h1 onClick={() => setOpenModalRegisterCharges({...openModalRegisterCharges, status: true})}> + Nova cobrança </h1> {/* ainda dentro desse estado ao lado me passar o id e nome do usuario*/}
+                    <h1 onClick={() => setOpenModalRegisterCharges({status: true, id_user: idListChargesClick.client[0].id_cliente, nome_user: idListChargesClick.client[0].nome_cliente})}> + Nova cobrança </h1> {/* ainda dentro desse estado ao lado me passar o id e nome do usuario*/}
                   </button>
                 </th>
               </tr>

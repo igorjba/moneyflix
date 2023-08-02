@@ -23,7 +23,7 @@ const {
     setClientDetailPage
 } = useUser();
 
-const [stateClientDetail, setStateClientDetail] = useState(false);
+//const [stateClientDetail, setStateClientDetail] = useState(false);
 const [countOrder, setCountOrder] = useState(1);
 const [corarrowTop, setCorArrowTop] = useState('#3F3F55');
 const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55');
@@ -36,7 +36,7 @@ async function ClientCadaster() {
         authorization: `Bearer ${token}`,
         },
 });
-setClientRegisters(response.data/* .slice(0, 10) */);
+setClientRegisters(response.data);
     } catch (error) {console.log(error)}
 }
 function backgroundSituation() {
@@ -95,7 +95,7 @@ async function handleClickIDUser(event){
             }
         });
         setIdListChargesClick(response.data)
-        //setOpenModalEditClient(true)
+        console.log(response.data)
         setClientDetailPage(true)
     } catch (error) {
         console.log(error)
@@ -112,9 +112,6 @@ useEffect(() => {
 }, [clientRegisters]);
 return (
 <>
-    {/* {stateClientDetail ? (
-<ClientDetail />
-      ) : ( */}
             <div className='initial header'>
                 <div className='initial client-header'>
                     <img src={clientSFont} alt="Client" />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api';
@@ -135,6 +135,10 @@ if (element.textContent == "Inadimplente") {
 return element.classList.add("situationOk");
     });
 }
+
+useEffect(() => {
+    console.log(openModalRegisterCharges);
+}, [])
 
     
     return (
