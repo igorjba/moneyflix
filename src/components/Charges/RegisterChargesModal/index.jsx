@@ -116,7 +116,7 @@ async function sendInformationCharges(event) {
     return (
         <div className='main-modal-flex modal-charge'>
             <div></div>
-            <img src={closed} className="main-modal-flex-close" alt="fechar" onClick={() => setOpenModalRegistercharges({...openModalRegisterCharges, status: false })} />
+            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalRegistercharges({...openModalRegisterCharges, status: false })} />
             <div className='main-modal-flex-header initial'>
                 <img src={IconCharge} alt="" />
                 <h2>Cadastro de Cobrança</h2>

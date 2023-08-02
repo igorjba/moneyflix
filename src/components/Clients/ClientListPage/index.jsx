@@ -32,7 +32,7 @@ async function ClientCadaster() {
         authorization: `Bearer ${token}`,
         },
 });
-setClientRegisters(response.data.slice(0, 10));
+setClientRegisters(response.data/* .slice(0, 10) */);
     } catch (error) {console.log(error)}
 }
 function backgroundSituation() {
@@ -148,7 +148,7 @@ return (
                                     <td><h1>{client.telefone}</h1></td>
                                     <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                                     <td>
-                                        <img src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client) }/>
+                                        <img className="mousePointer" src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client) }/>
                                     </td>
                                 </tr>
                             )
