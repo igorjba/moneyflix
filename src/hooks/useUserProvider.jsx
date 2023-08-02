@@ -3,7 +3,7 @@ import { getItem } from "../utils/localStorage";
 
 function useUserProvider() {
     const [openModalEditProfile, SetOpenModalEditProfile] = useState(false);
-    const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(true);
+    const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);
     const [title, setTitle] = useState("Resumo de Cobranças");
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [clientRegisters, setClientRegisters] = useState([]);

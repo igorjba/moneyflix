@@ -6,6 +6,7 @@ import './style.css';
 
 export default function SuccessEditUserModal() {
     const {setOpenModalEditProfileSuccess} = useUser();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function SuccessEditUserModal() {
                     backgroundImage: `url(${imageSuccess})`
                 }} alt="Sucesso" />
 
-                <h2 className='.edit-user-modal-success-h2'>Cadastro realizado com sucesso!</h2>
+                <h2 className='.edit-user-modal-success-h2'>Cadastro editado com sucesso!</h2>
             </div>
         </>
     )
