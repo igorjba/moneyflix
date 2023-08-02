@@ -8,12 +8,10 @@ function useUserProvider() {
     const [clientRegisters, setClientRegisters] = useState([]);
     const token = getItem("token");
     const [nameUser, setNameUser] = useState(getItem("name"));
-    const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
-    const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [idListChargesClick, setIdListChargesClick] = useState([]);
     const [openModalEditClient, setOpenModalEditClient] = useState(false)
     const [idClientDetail, setIdClientDetail] = useState(null);
-    const [openModalRegisterCharges, setOpenModalRegistercharges] = useState({
+    const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
         status: false,
         id_user: '',
         nome_user: ''
@@ -59,8 +57,6 @@ function useUserProvider() {
             setIdListChargesClick,
             openModalEditClient,
             setOpenModalEditClient,
-            openModalRegisterCharges,
-            setOpenModalRegistercharges,
             idClientDetail,
             setIdClientDetail,
         }

@@ -16,7 +16,7 @@ export default function ClientListPage() {
     clientRegisters,
     setTitle,
     token,
-    setOpenModalRegistercharges,
+    setOpenModalRegisterCharges,
     setIdClientDetail,
     idClientDetail,
   } = useUser();
@@ -76,7 +76,7 @@ export default function ClientListPage() {
     }
   }
   function sendInformationRegisterCharges(event) {
-    setOpenModalRegistercharges({
+    setOpenModalRegisterCharges({
       status: true,
       id_user: event.id_cliente,
       nome_user: event.nome_cliente,

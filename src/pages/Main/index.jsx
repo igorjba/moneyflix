@@ -114,16 +114,11 @@ function Main() {
         {openModalRegister && <div className="backgroundModal initial">
           {openModalRegister && (<RegisterClientModal />)}
         </div>}
-        {openModalRegisterCharges && <div className="background-modal initial">
-          {openModalRegisterCharges && (<RegisterChargesModal />)}
+        {openModalRegisterCharges.status && <div className="background-modal initial">
+        {openModalRegisterCharges.status && (<RegisterChargesModal />)}
         </div>}
         {openModalEdit && <div className="backgroundModal"></div>}
         {openModalEditClient && <div className="backgroundModal"></div>}
-
-        {openModalRegisterCharges.status && 
-        <div className="background-modal initial">
-        {openModalRegisterCharges.status && <RegisterChargesModal />}
-          </div>}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
             {title}
