@@ -10,24 +10,28 @@ export default function SummaryCardsList({
   isClientData = false,
   isLastCard,
 }) {
-
   function maskCPF(e) {
-    const inputNumberCPF = e.replace(/\D/g, '')
-    let formattedValue = e
+    const inputNumberCPF = e.replace(/\D/g, "");
+    let formattedValue = e;
     if (e.length > 3) {
       formattedValue = `${e.slice(0, 3)}.${e.slice(3)}`;
     }
     if (e.length > 6) {
-      formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(7)}`;
+      formattedValue = `${formattedValue.slice(0, 7)}.${formattedValue.slice(
+        7
+      )}`;
     }
     if (inputNumberCPF.length > 9) {
-      formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(11, 13)}`;
+      formattedValue = `${formattedValue.slice(0, 11)}-${formattedValue.slice(
+        11,
+        13
+      )}`;
     }
-    return formattedValue
+    return formattedValue;
   }
 
   return (
-    <div className={`card ${isLastCard ? 'last-card' : 'initial-card'}`}>
+    <div className={`card ${isLastCard ? "last-card" : "initial-card"}`}>
       <div className="headerCard initial">
         <div className="initial">
           <div
@@ -51,17 +55,28 @@ export default function SummaryCardsList({
             <th>{isClientData ? "CPF" : "Valor"}</th>
           </tr>
         </thead>
-        {<tbody>
-          {cardL && cardL.map((client) => {
-            return (
-              <tr key={client.id_cobranca || client.id_cliente}>
-                <td>{client.cliente || client.id_cliente}</td>
-                <td>{isClientData ? client.id_cliente : client.id_cobranca || '-'}</td>
-                <td>{isClientData ? maskCPF(client.cpf) : 'R$ ' + (client.valor || '-')}</td>
-              </tr>
-            );
-          })}
-        </tbody>}
+        {
+          <tbody>
+            {cardL &&
+              cardL.map((client) => {
+                return (
+                  <tr key={client.id_cobranca || client.id_cliente}>
+                    <td>{client.cliente || client.nome_cliente}</td>
+                    <td>
+                      {isClientData
+                        ? client.id_cliente
+                        : client.id_cobranca || "-"}
+                    </td>
+                    <td>
+                      {isClientData
+                        ? maskCPF(client.cpf)
+                        : "R$ " + (client.valor || "-")}
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        }
       </table>
       <div className="footerTable initial">
         <span>Ver todos</span>

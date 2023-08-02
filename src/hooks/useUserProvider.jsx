@@ -2,7 +2,8 @@ import { useState } from "react";
 import { getItem } from "../utils/localStorage";
 
 function useUserProvider() {
-    const [openModalEditPerfil, SetOpenModalEditPerfil] = useState(false);
+    const [openModalEditProfile, SetOpenModalEditProfile] = useState(false);
+    const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);
     const [title, setTitle] = useState("Resumo de Cobranças");
     const [openModalRegister, setOpenModalRegister] = useState(false);
     const [clientRegisters, setClientRegisters] = useState([]);
@@ -37,12 +38,14 @@ function useUserProvider() {
     });
   
     return (
-        {GetProfile,
+        {   setOpenModalEditProfileSuccess,
+            openModalEditProfileSuccess,
+            GetProfile,
             setGetProfile,
             setOpenModalRegisterCharges,
             openModalRegisterCharges,
-            openModalEditPerfil,
-            SetOpenModalEditPerfil,
+            openModalEditProfile,
+            SetOpenModalEditProfile,
             title,
             setTitle,
             openModalRegister,

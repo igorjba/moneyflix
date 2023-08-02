@@ -9,7 +9,7 @@ import useUser from "../../../hooks/useUser.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-const {
+  const {
     setOpenModalRegister,
     setClientRegisters,
     clientRegisters,
@@ -20,8 +20,8 @@ const {
     setIdListChargesClick,
     idListChargesClick,
     setOpenModalEditClient,
-    setClientDetailPage
-} = useUser();
+    setClientDetailPage,
+  } = useUser();
 
 //const [stateClientDetail, setStateClientDetail] = useState(false);
 const [countOrder, setCountOrder] = useState(1);
@@ -29,11 +29,11 @@ const [corarrowTop, setCorArrowTop] = useState('#3F3F55');
 const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55');
 
 
-async function ClientCadaster() {
+  async function ClientCadaster() {
     try {
-    const response = await api.get("cliente", {
+      const response = await api.get("cliente", {
         headers: {
-        authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
 });
 setClientRegisters(response.data);
@@ -42,52 +42,52 @@ setClientRegisters(response.data);
 function backgroundSituation() {
     const situation = document.querySelectorAll(".situation");
     situation.forEach((element) => {
-if (element.textContent == "Inadimplente") {
+      if (element.textContent == "Inadimplente") {
         return element.classList.add("situationDefaulter");
-}
-return element.classList.add("situationOk");
+      }
+      return element.classList.add("situationOk");
     });
-}
-function orderName() {
-        setCountOrder(countOrder + 1)
-        if (countOrder === 1) {
-            const order = clientRegisters.slice().sort(function (a, b) {
-                let x = a.nome_cliente.toUpperCase()
-                let y = b.nome_cliente.toUpperCase()
-                return x == y ? 0 : x > y ? 1 : - 1
-            })
-            setCorArrowTop('#3F3F55')
-            setCorArrowBottom('#DA0175')
-            setClientRegisters(order)
-        }
-        if (countOrder === 2) {
-            const order = clientRegisters.slice().sort(function (a, b) {
-                let x = a.nome_cliente.toUpperCase()
-                let y = b.nome_cliente.toUpperCase()
-                return x == y ? 0 : x < y ? 1 : - 1
-            })
-            setCorArrowBottom('#3F3F55')
-            setCorArrowTop('#DA0175')
-            setClientRegisters(order)
-        }
-        if (countOrder === 3) {
-            ClientCadaster()
-            setCorArrowBottom('#3F3F55')
-            setCorArrowTop('#3F3F55')
-            setCountOrder(1);
-        }
-}
-function sendInformationRegisterCharges(event){
+  }
+  function orderName() {
+    setCountOrder(countOrder + 1);
+    if (countOrder === 1) {
+      const order = clientRegisters.slice().sort(function (a, b) {
+        let x = a.nome_cliente.toUpperCase();
+        let y = b.nome_cliente.toUpperCase();
+        return x == y ? 0 : x > y ? 1 : -1;
+      });
+      setCorArrowTop("#3F3F55");
+      setCorArrowBottom("#DA0175");
+      setClientRegisters(order);
+    }
+    if (countOrder === 2) {
+      const order = clientRegisters.slice().sort(function (a, b) {
+        let x = a.nome_cliente.toUpperCase();
+        let y = b.nome_cliente.toUpperCase();
+        return x == y ? 0 : x < y ? 1 : -1;
+      });
+      setCorArrowBottom("#3F3F55");
+      setCorArrowTop("#DA0175");
+      setClientRegisters(order);
+    }
+    if (countOrder === 3) {
+      ClientCadaster();
+      setCorArrowBottom("#3F3F55");
+      setCorArrowTop("#3F3F55");
+      setCountOrder(1);
+    }
+  }
+  function sendInformationRegisterCharges(event) {
     //console.log(event)
     //console.log(openModalRegisterCharges)
     setOpenModalRegisterCharges({
-        status: true,
-        id_user: event.id_cliente,
-        nome_user: event.nome_cliente
-    })
-}
+      status: true,
+      id_user: event.id_cliente,
+      nome_user: event.nome_cliente,
+    });
+  }
 
-async function handleClickIDUser(event){
+  async function handleClickIDUser(event) {
     try {
         const response = await api.get(`cliente/${event}`, {
             headers: {
@@ -98,16 +98,16 @@ async function handleClickIDUser(event){
         console.log(response.data)
         setClientDetailPage(true)
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-}
+  }
 
-useEffect(() => {
+  useEffect(() => {
     ClientCadaster();
     backgroundSituation();
     setTitle("Clientes");
-}, []);
-useEffect(() => {
+  }, []);
+  useEffect(() => {
     backgroundSituation();
 }, [clientRegisters]);
 return (
