@@ -17,6 +17,7 @@ import RegisterChargesModal from '../../components/Charges/RegisterChargesModal'
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
+import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal"
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -25,7 +26,7 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const { openModalRegister, openModalEditPerfil, title, setTitle, token, nameUser, setNameUser, openModalEditClient, openModalRegisterCharges } = useUser();
+  const { openModalRegister, openModalEditProfile,openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, nameUser, setNameUser, openModalEditClient, openModalRegisterCharges } = useUser();
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -120,8 +121,13 @@ function Main() {
         {openModalRegisterCharges.status && (<RegisterChargesModal />)}
         </div>}
         {openModalEdit && <div className="background-modal initial">
-        {openModalEditPerfil && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
+        {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
         </div>}
+        {openModalEditProfileSuccess && (
+         <div className="background-modal initial">
+         <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
+         </div>
+         )}
         {/* {openModalEditClient && <div className="backgroundModal"></div>} */}
         <header>
           <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
