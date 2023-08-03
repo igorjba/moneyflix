@@ -7,21 +7,19 @@ import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
-import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
-import ClientDetail from "../../components/Clients/ClientDetail";
 import ClientListPage from "../../components/Clients/ClientListPage";
-import EditClientModal from '../../components/Clients/EditClientModal';
 import RegisterClientModal from "../../components/Clients/RegisterClientModal";
 import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
-import EditClientModal from "../../components/Clients/EditClientModal";
-import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
+import EditClientModal from '../../components/Clients/EditClientModal';
+import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
 import ClientDetail from "../../components/Clients/ClientDetail";
-import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
 import "../../global/styleModal.css";
-import useUser from "../../hooks/useUser";
+import useUser from '../../hooks/useUser';
 import "./style.css";
+import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal"
+
 
 
 function Main() {
