@@ -76,7 +76,7 @@ function validatePassword(password) {
     return { isValid: true };
 }
 
-function validateCPF(cpf){
+function validateCPF(cpf) {
     if (!cpf || cpf === '') {
         return { isValid: false, message: 'Este campo deve ser preenchido' };
     }
@@ -90,7 +90,7 @@ function validateCPF(cpf){
         }
         result = (result % 11)
         result = (11 - result)
-        if(result === 11 || result === 10){
+        if (result === 11 || result === 10) {
             result = 0
         }
         if (result !== Number(cpf.slice(9, 10))) {
@@ -103,13 +103,48 @@ function validateCPF(cpf){
             result = (Consultarcpf * index) + result;
             countCPF++;
         }
-        result = (result  % 11)
+        result = (result % 11)
         result = (11 - result)
-         if (result !== Number(cpf.slice(10, 11))) {
+        if (result !== Number(cpf.slice(10, 11))) {
             return { isValid: false, message: "Entre com CPF válido" }
-        } 
+        }
 
         return { isValid: true };
+    }
+}
+
+function validateCPFLength(cpf) {
+    if (cpf) {
+        let result = 0;
+        let countCPF = 0;
+        for (let index = 10; index > 1; index--) {
+            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (Consultarcpf * index) + result;
+            countCPF++;
+        }
+        result = (result % 11)
+        result = (11 - result)
+        if (result === 11 || result === 10) {
+            result = 0
+        }
+        if (result !== Number(cpf.slice(9, 10))) {
+            return { isValid: false, message: "Entre com CPF válido 1" }
+        }
+        result = 0;
+        countCPF = 0;
+        for (let index = 11; index > 1; index--) {
+            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (Consultarcpf * index) + result;
+            countCPF++;
+        }
+        result = (result % 11)
+        result = (11 - result)
+        if (result !== Number(cpf.slice(10, 11))) {
+            return { isValid: false, message: "Entre com CPF válido" }
+        }
+
+        return { isValid: true };
+    }
 }
 
 function validatePhone(phone) {
@@ -130,7 +165,6 @@ function validatePhone(phone) {
     return { isValid: true };
 }
 
-
 function validatePhoneLength(phone) {
     const phoneDigits = phone.replace(/\D/g, '');
 
@@ -139,6 +173,7 @@ function validatePhoneLength(phone) {
     }
 
     return { isValid: true };
+
 }
 
 /* function contains_WhiteSpace(value){
@@ -149,7 +184,6 @@ function validatePhoneLength(phone) {
     return { isValid: true };
 } */
 
-}
 
+export { validateName, validateEmail, validatePassword, validateCPF, validatePhone, validateCPFLength, validatePhoneLength };
 
-export { validateName, validateEmail, validatePassword, validateCPF};

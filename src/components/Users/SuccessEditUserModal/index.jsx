@@ -5,14 +5,14 @@ import useUser from '../../../hooks/useUser';
 import './style.css';
 
 export default function SuccessEditUserModal() {
-    const {setOpenModalEditProfileSuccess} = useUser();
+    const { setOpenModalEditProfileSuccess } = useUser();
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setOpenModalEditProfileSuccess(false)
-        }, 3000);
+        }, 2000);
 
         return () => clearTimeout(timer);
     }, [navigate]);

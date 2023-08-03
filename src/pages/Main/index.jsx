@@ -7,18 +7,18 @@ import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
+import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
+import ClientDetail from "../../components/Clients/ClientDetail";
 import ClientListPage from "../../components/Clients/ClientListPage";
+import EditClientModal from '../../components/Clients/EditClientModal';
 import RegisterClientModal from "../../components/Clients/RegisterClientModal";
 import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
-import EditClientModal from '../../components/Clients/EditClientModal';
-import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
-import ClientDetail from "../../components/Clients/ClientDetail";
+import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
-import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal"
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -27,7 +27,6 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-
   const { openModalRegister, openModalEditPerfil, setTitleNameSecond, openModalEditProfile, openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, setNameUser, nameUser, setOpenModalEditClient, openModalEditClient, openModalRegisterCharges, clientDetailPage, setClientDetailPage, titleNameSecond } = useUser();
 
   function onClickNavLeft(event) {
@@ -39,21 +38,21 @@ function Main() {
   }
 
   function toTitleCase(name) {
-    return  name == null ? '' : name.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    return name == null ? '' : name.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
-}
+  }
 
   async function fetchUserPerfil() {
     const userNameWords = nameUser.split(" ");
     if (userNameWords.length === 1) {
-        return setResumeName(userNameWords[0].charAt(0).toUpperCase());
+      return setResumeName(userNameWords[0].charAt(0).toUpperCase());
     } else {
-        const lastWord = userNameWords[userNameWords.length - 1];
-        return setResumeName(userNameWords[0].charAt(0).toUpperCase() +
-            lastWord.charAt(0).toUpperCase());
+      const lastWord = userNameWords[userNameWords.length - 1];
+      return setResumeName(userNameWords[0].charAt(0).toUpperCase() +
+        lastWord.charAt(0).toUpperCase());
     }
-}
+  }
 
   function titleAtived() {
     if (!imageNavHome) {
@@ -66,7 +65,6 @@ function Main() {
       setTitle("Cobranças");
     }
   }
-
   async function verifyTextHeader(e){
     if(title === 'Clientes  '){
       setTitleNameSecond(" "),
@@ -74,7 +72,6 @@ function Main() {
       setClientDetailPage(false)
     }
   }
-  
   useEffect(() => {
     titleAtived();
   }, []);
@@ -138,22 +135,22 @@ function Main() {
       </nav>
       <div className="center">
         {openModalEditClient && <div className="backgroundModal initial">
-        {openModalEditClient && (<EditClientModal />)}
+          {openModalEditClient && (<EditClientModal />)}
         </div>}
         {openModalRegister && <div className="backgroundModal initial">
-        {openModalRegister && (<RegisterClientModal />)}
+          {openModalRegister && (<RegisterClientModal />)}
         </div>}
         {openModalRegisterCharges.status && <div className="background-modal initial">
-        {openModalRegisterCharges.status && (<RegisterChargesModal />)}
+          {openModalRegisterCharges.status && (<RegisterChargesModal />)}
         </div>}
         {openModalEdit && <div className="background-modal initial">
-        {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
+          {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
         </div>}
         {openModalEditProfileSuccess && (
-         <div className="background-modal initial">
-         <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
-         </div>
-         )}
+          <div className="background-modal initial">
+            <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
+          </div>
+        )}
         <header>
           <div className="text-header-perfil">
           <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && clientDetailPage ? 'mousePointer' : ''}`} >
@@ -183,12 +180,12 @@ function Main() {
         </header>
         <div className="main">
           {!imageNavClient && !clientDetailPage && <ClientListPage />}
-          {!imageNavClient && clientDetailPage && <ClientDetail /> }
+          {!imageNavClient && clientDetailPage && <ClientDetail />}
           {!imageNavHome && <HomePage />}
           {!imageNavCharge && <ChargesListPage />}
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 export default Main;
