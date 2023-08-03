@@ -22,7 +22,7 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
                     authorization: token,
                 }
             });
-  
+
             if (response && response.data) {
                 setGetProfile({
                     nome: response.data.nome_usuario || "",
@@ -45,23 +45,27 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
                 });
             }
         } catch (error) {
-            if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-                clearAll()
-                navigate("/login");
-                            }
-            if(error.response && error.response.data) {
-                toast.error(error.response.data.message, {
-                    className: "customToastify-error",
-                    icon: ({ theme, type }) => <img src={toastError} alt="" />,
-                });
+            if (error.response) {
+                if (error.response.status === 401 && error.response.data.message === "token expirado") {
+                    clearAll()
+                    navigate("/login");
+                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+                    clearAll()
+                    navigate("/login");
+                }
             }
+            toast.error(error.response.data.message, {
+                className: "customToastify-error",
+                icon: ({ theme, type }) => <img src={toastError} alt="" />,
+            });
+
         }
     }
-    
-   async function openModal() {
+
+    async function openModal() {
         SetOpenModalEditProfile(true)
         setModalExit(false);
-        await getUserDetails(); 
+        await getUserDetails();
         setOpenModalEdit(true)
     }
 
