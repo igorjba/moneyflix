@@ -1,7 +1,8 @@
 .Modal-Register input {
     gap: 0.8rem;
 
-    margin-bottom: 0.8rem;
+    margin: 0.6rem 0 0.8rem 0;
+    /*margin-bottom: 0.8rem;*/
     padding: 1rem 1.4rem;
     border: 1px solid var(--border-input);
     border-radius: 0.8rem;
@@ -11,7 +12,7 @@
 }
 
 .divs-inputs-form {
-    height: 50rem;
+    height: 45rem;
 }
 
 .divs-inputs-form input {
@@ -37,6 +38,12 @@
 
 .mainModalRegister span {
     padding-bottom: 0.8rem;
+}
+
+.closed-Modal-Register-Client{
+    position: absolute;
+    top: 22.4rem;
+    right: 86.4rem;
 }
 
 .formInformation,
@@ -66,6 +73,10 @@
 .formAndress div:first-child {
     width: 70%;
     margin-right: 2.4rem;
+}
+
+.formButton{
+    margin-top: 5.7rem;
 }
 
 .formButton button {

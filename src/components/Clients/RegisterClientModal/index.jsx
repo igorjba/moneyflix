@@ -181,12 +181,12 @@ export default function RegisterClientModal() {
   }
   return (
     <div className='main-Modal Modal-Register'>
+      <img className='mousePointer closed-Modal-Register-Client' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
       <div className='headerModal initial'>
         <div className='initial'>
           <img src={clientSFont} alt="" />
           <h2>Cadastro do Cliente</h2>
         </div>
-        <img className='mousePointer' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
       </div>
       <form onSubmit={handleSubmit}>
         <div className='divs-inputs-form'>
