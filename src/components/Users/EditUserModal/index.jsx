@@ -85,16 +85,23 @@ export default function EditUserModal({ setOpenModalEdit }) {
             setOpenModalEditProfileSuccess(true)
 
         } catch (error) {
-            if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-                clearAll()
-                navigate("/login");
-                            }
+            if (error.response) {
+                if (error.response.status === 401 && error.response.data.message === "token expirado") {
+                    clearAll()
+                    navigate("/login");
+                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+                    clearAll()
+                    navigate("/login");
+                }
+            }
             toast.error(error.response.data.message, {
                 className: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
             })
         }
     }
+
+
 
     function handleChangeFormTel(e) {
         const inputNumberTel = e.target.value.replace(/\D/g, '')
