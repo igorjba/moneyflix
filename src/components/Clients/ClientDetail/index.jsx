@@ -9,9 +9,9 @@ import { useEffect, useState } from "react";
 import { dateDDMMYYYYMask, moneyMask } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
 import { useNavigate } from "react-router-dom";
-import success from '../../../assets/Success-Toast.svg';
-import toastError from '../../../assets/toastError.svg';
-import { toast } from 'react-toastify';
+import success from "../../../assets/Success-Toast.svg";
+import toastError from "../../../assets/toastError.svg";
+import { toast } from "react-toastify";
 
 export default function ClientDetail() {
   const {
@@ -19,7 +19,10 @@ export default function ClientDetail() {
     token,
     idListChargesClick,
     setOpenModalEditClient,
+    idClientDetail,
     setOpenModalRegisterCharges,
+    setIdListChargesClick,
+    openModalEditClient,
     openModalRegisterCharges,
   } = useUser();
 
@@ -33,29 +36,76 @@ export default function ClientDetail() {
   const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
   const navigate = useNavigate();
 
-  function DetailCustomerData() {
-    const fullName = idListChargesClick.client.length > 0 ? idListChargesClick.client[0].nome_cliente : '';
-    const partsName = fullName.split(" ");
-    const nameClientCapitalized = partsName
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(" ");
+  async function DetailCustomerData() {
+    try {
+      console.log("Requisição na Api");
+      const response = await api.get(`cliente/${idClientDetail}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
 
-    const replaceNullWithDefault = (obj, defaultValue = "--") => {
-      return Object.fromEntries(
-        Object.entries(obj).map(([key, value]) => [key, value ?? defaultValue])
-      );
-    };
+      setIdListChargesClick(response.data);
 
-    const formattedData = replaceNullWithDefault(idListChargesClick.client[0]);
+      const fullName =
+        response.data.client.length > 0
+          ? response.data.client[0].nome_cliente
+          : "";
+      const partsName = fullName.split(" ");
+      const nameClientCapitalized = partsName
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ");
 
-    setDetailsData({
-      ...formattedData,
-      nome_cliente: nameClientCapitalized,
-    });
+      const replaceNullWithDefault = (obj, defaultValue = "--") => {
+        return Object.fromEntries(
+          Object.entries(obj).map(([key, value]) => [
+            key,
+            value ?? defaultValue,
+          ])
+        );
+      };
+
+      const formattedData = replaceNullWithDefault(response.data.client[0]);
+
+      setDetailsData({
+        ...formattedData,
+        nome_cliente: nameClientCapitalized,
+      });
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        if (
+          error.response.status === 401 &&
+          error.response.data.message === "token expirado"
+        ) {
+          clearAll();
+          navigate("/login");
+        } else if (
+          error.response.status === 400 &&
+          error.response.data.message === "Não autorizado"
+        ) {
+          clearAll();
+          navigate("/login");
+        }
+      }
+      toast.error(error.response.data.message, {
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
+      });
+    }
   }
 
   async function ListCharges() {
-    setInfoClientCharges(idListChargesClick.billing);
+    try {
+      const response = await api.get(`cliente/${idClientDetail}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setInfoClientCharges(response.data.billing);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function backgroundSituation() {
@@ -69,33 +119,6 @@ export default function ClientDetail() {
         return element.classList.add("statusPay");
       }
     });
-  }
-
-  async function handleClickIDUser(id) {
-    try {
-      const response = await api.get(`cliente/${id}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      setIdListChargesClick(response.data);
-      setOpenModalEditClient(true);
-    } catch (error) {
-      console.log(error);
-      if (error.response) {
-        if (error.response.status === 401 && error.response.data.message === "token expirado") {
-          clearAll()
-          navigate("/login");
-        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-          clearAll()
-          navigate("/login");
-        }
-      }
-      toast.error(error.response.data.message, {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      })
-    }
   }
 
   function orderIdCharges() {
@@ -138,11 +161,21 @@ export default function ClientDetail() {
   }, [infoClientCharges]);
 
   useEffect(() => {
-    DetailCustomerData();
-    ListCharges();
     backgroundSituation();
     setTitle("Clientes    >    Detalhes do cliente");
   }, []);
+
+  useEffect(() => {
+    console.log("fui chamada");
+
+    if (openModalEditClient == false) {
+      DetailCustomerData();
+    }
+
+    if (openModalRegisterCharges !== false) {
+      ListCharges();
+    }
+  }, [openModalRegisterCharges, openModalEditClient]);
 
   return (
     <>
@@ -245,7 +278,15 @@ export default function ClientDetail() {
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
                   <button className="addClient">
-                    <h1 onClick={() => setOpenModalRegisterCharges({status: true, id_user: idListChargesClick.client[0].id_cliente, nome_user: idListChargesClick.client[0].nome_cliente})}>
+                    <h1
+                      onClick={() =>
+                        setOpenModalRegisterCharges({
+                          status: true,
+                          id_user: idListChargesClick.client[0].id_cliente,
+                          nome_user: idListChargesClick.client[0].nome_cliente,
+                        })
+                      }
+                    >
                       {" "}
                       + Nova cobrança{" "}
                     </h1>{" "}
@@ -393,14 +434,7 @@ export default function ClientDetail() {
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
                     <td>
-                      <h1
-                        className="mousePointer"
-                        onClick={() =>
-                          handleClickIDUser(detailsData.id_cliente)
-                        }
-                      >
-                        {charges.id_cobranca}
-                      </h1>
+                      <h1>{charges.id_cobranca}</h1>
                     </td>
                     <td>
                       <h1>{dateDDMMYYYYMask(charges.vencimento)}</h1>
