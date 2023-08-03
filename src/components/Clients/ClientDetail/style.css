@@ -87,3 +87,27 @@
 .description-table h1 {
     width: 100% !important;
 }
+
+.detail-text-line-detail-client{
+    overflow: hidden;
+/*     text-overflow: ellipsis; */
+/*     white-space: nowrap; */
+}
+
+.detail-text-line-detail-client h1{
+    width: 90%;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.detail-client-span {
+    font-family: var(--ff-inter);
+    font-size: var(--fz-16);
+    font-style: normal;
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-24);
+
+    color: var(--font-clr-gray-extract-client);
+}

@@ -23,7 +23,7 @@ export default function EditClientModal() {
     const inputRef = useRef(null);
     const navigate = useNavigate();
     const [form, setForm] = useState({
-    nome: idListChargesClick.client[0].nome_cliente,
+    nome: idListChargesClick.client[0].nome_cliente == undefined ? '' : idListChargesClick.client[0].nome_cliente,
     email: idListChargesClick.client[0].email,
     cpf: cpfMask(idListChargesClick.client[0].cpf),
     telefone: cellPhoneMask(idListChargesClick.client[0].telefone),
@@ -129,7 +129,7 @@ export default function EditClientModal() {
           });
         }
       }
-      async function ClientCadaster() {
+      /* async function ClientCadaster() {
         try {
           const response = await api.get('cliente', {
             headers: {
@@ -148,7 +148,7 @@ export default function EditClientModal() {
             icon: ({ theme, type }) => <img src={error} alt="" />
           });
         }
-      }
+      } */
     return (
         <>
             <div className='main-Modal Modal-Register'>

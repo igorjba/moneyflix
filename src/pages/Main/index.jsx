@@ -27,8 +27,7 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-
-  const { openModalRegister, openModalEditProfile, openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, setNameUser, nameUser, setOpenModalEditClient, openModalEditClient, openModalRegisterCharges, clientDetailPage, setClientDetailPage } = useUser();
+  const { openModalRegister, openModalEditPerfil, setTitleNameSecond, openModalEditProfile, openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, setNameUser, nameUser, setOpenModalEditClient, openModalEditClient, openModalRegisterCharges, clientDetailPage, setClientDetailPage, titleNameSecond } = useUser();
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -66,7 +65,13 @@ function Main() {
       setTitle("Cobranças");
     }
   }
-
+  async function verifyTextHeader(e){
+    if(title === 'Clientes  '){
+      setTitleNameSecond(" "),
+      setimageNavClient(false),
+      setClientDetailPage(false)
+    }
+  }
   useEffect(() => {
     titleAtived();
   }, []);
@@ -96,7 +101,8 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(true),
               setimageNavHome(false),
-              setimageNavCharge(true);
+              setimageNavCharge(true),
+              setTitleNameSecond('')
           }}
         >
           <img src={imageNavHome ? home : homePink} alt="Inicio" />
@@ -107,8 +113,9 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(false),
               setimageNavHome(true),
-              setimageNavCharge(true);
-            setClientDetailPage(false)
+              setimageNavCharge(true),
+              setClientDetailPage(false),
+              setTitleNameSecond('')
           }}
         >
           <img src={imageNavClient ? client : clientePink} alt="Cliente" />
@@ -119,7 +126,8 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(true),
               setimageNavHome(true),
-              setimageNavCharge(false);
+              setimageNavCharge(false),
+              setTitleNameSecond('')
           }}
         >
           <img src={imageNavCharge ? charge : chargePink} alt="Cobranças" />
@@ -144,9 +152,12 @@ function Main() {
           </div>
         )}
         <header>
-          <h2 className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"}`} >
+          <div className="text-header-perfil">
+          <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && clientDetailPage ? 'mousePointer' : ''}`} >
             {title}
           </h2>
+          <span className="detail-client-span">{titleNameSecond}</span>
+          </div>
           <div className="initial header-perfil">
             <div className="title circle-perfil">
               <h1>{resumeName}</h1>
