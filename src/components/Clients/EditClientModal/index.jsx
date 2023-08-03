@@ -49,10 +49,7 @@ export default function EditClientModal() {
   const [formAdressEditClient, setFormAdressEditClient] = useState({
     logradouro: idListChargesClick.client[0].endereco,
     bairro: idListChargesClick.client[0].bairro,
-    cep:
-      idListChargesClick.client[0].cep == null
-        ? ""
-        : idListChargesClick.client[0].cep,
+    cep:idListChargesClick.client[0].cep == null ? "" : idListChargesClick.client[0].cep,
     cidade: idListChargesClick.client[0].cidade,
     estado: idListChargesClick.client[0].estado,
     complemento: idListChargesClick.client[0].complemento,
@@ -62,10 +59,7 @@ export default function EditClientModal() {
     return setForm({ ...form, [event.target.name]: event.target.value });
   }
   function handleChangeFormAdress(event) {
-    return setFormAdressEditClient({
-      ...formAdressEditClient,
-      [event.target.name]: event.target.value,
-    });
+    return setFormAdressEditClient({...formAdressEditClient, [event.target.name]: event.target.value,});
   }
   async function searchCep(event) {
     try {
@@ -122,43 +116,62 @@ export default function EditClientModal() {
       setOpenModalEditClient(false);
     }
   }
-/*<<<<<<< feature/devGeazi
   async function updateClient() {
     try {
-      const response = await api.put(
-        `cliente/${idListChargesClick.client[0].id_cliente}`,
-        {
-          ...form,
-          cpf: cpfUnmask(form.cpf),
-          telefone: cellPhoneUnmask(form.telefone),
-          ...formAdressEditClient,
-          cep: cepUnmask(formAdressEditClient.cep),
-        },
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+      const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`,{
+        ...form,
+        cpf: cpfUnmask(form.cpf),
+        telefone: cellPhoneUnmask(form.telefone),
+        ...formAdressEditClient,
+        cep: cepUnmask(formAdressEditClient.cep)
+      }, {
+        headers: {
+          authorization: `Bearer ${token}`,
         }
-      );
-      toast.success("Cliente Atualizado com Sucesso!", {
-        className: "customToastify-success",
-        icon: ({ theme, type }) => <img src={success} alt="" />,
       });
-      ClientCadaster();
+      toast.success(
+        'Cliente Atualizado com Sucesso!', {
+        className: 'customToastify-success',
+        icon: ({ theme, type }) => <img src={success} alt="" />
+      });
+      ClientCadaster()
     } catch (error) {
-      if (
-        (error.response && error.response.status === 401) ||
-        error.response.status === 400
-      ) {
-        clearAll();
-        navigate("/login");
-      }
-      toast.error(error.response.data.message, {
-        className: "customToastify-error",
-        icon: ({ theme, type }) => <img src={error} alt="" />,
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");}
+      toast.error(
+        error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={error} alt="" />
       });
     }
   }
+  /* async function ClientCadaster() {
+    try {
+      const response = await api.get('cliente', {
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+      });
+      //setClientRegisters((response.data));
+      setIdListChargesClick(response.data)
+    } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");}
+      toast.error(
+                    error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={error} alt="" />
+      });
+    }
+  }  */
+
+
+
+
+
+
   // async function ClientCadaster() {
   //   try {
   //     const response = await api.get('cliente', {
@@ -179,6 +192,7 @@ export default function EditClientModal() {
   //     });
   //   }
   // }
+
   return (
     <>
       <div className="main-Modal Modal-Register">
@@ -193,64 +207,6 @@ export default function EditClientModal() {
             alt="fechar"
             onClick={() => setOpenModalEditClient(false)}
           />
-======= */
-      async function updateClient() {
-        try {
-          const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`,{
-            ...form,
-            cpf: cpfUnmask(form.cpf),
-            telefone: cellPhoneUnmask(form.telefone),
-            ...formAdressEditClient,
-            cep: cepUnmask(formAdressEditClient.cep)
-          }, {
-            headers: {
-              authorization: `Bearer ${token}`,
-            }
-          });
-          toast.success(
-            'Cliente Atualizado com Sucesso!', {
-            className: 'customToastify-success',
-            icon: ({ theme, type }) => <img src={success} alt="" />
-          });
-          ClientCadaster()
-        } catch (error) {
-          if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-            clearAll()
-            navigate("/login");}
-          toast.error(
-            error.response.data.message, {
-            className: 'customToastify-error',
-            icon: ({ theme, type }) => <img src={error} alt="" />
-          });
-        }
-      }
-      /* async function ClientCadaster() {
-        try {
-          const response = await api.get('cliente', {
-            headers: {
-              authorization: `Bearer ${token}`,
-            }
-          });
-          //setClientRegisters((response.data));
-          setIdListChargesClick(response.data)
-        } catch (error) {
-          if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-            clearAll()
-            navigate("/login");}
-          toast.error(
-                        error.response.data.message, {
-            className: 'customToastify-error',
-            icon: ({ theme, type }) => <img src={error} alt="" />
-          });
-        }
-      } */
-    return (
-        <>
-            <div className='main-Modal Modal-Register'>
-            <div className='initial headerModal'>
-        <div className='initial'>
-          <img src={clientSFont} alt="" />
-          <h2>Editar Cliente</h2>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="divs-inputs-form">
@@ -437,5 +393,6 @@ export default function EditClientModal() {
         </form>
       </div>
     </>
+    
   );
 }
