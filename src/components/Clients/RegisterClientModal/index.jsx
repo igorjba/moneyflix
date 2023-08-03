@@ -79,10 +79,6 @@ export default function RegisterClientModal() {
         setValidationInputDisabled(false)
       }
     } catch (error) {
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");
-                    }
       toast.error("CEP inválido", {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
