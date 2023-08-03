@@ -15,10 +15,14 @@ import RegisterClientModal from "../../components/Clients/RegisterClientModal";
 import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
+import EditClientModal from "../../components/Clients/EditClientModal";
+import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
+import ClientDetail from "../../components/Clients/ClientDetail";
 import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
 import "../../global/styleModal.css";
-import useUser from '../../hooks/useUser';
+import useUser from "../../hooks/useUser";
 import "./style.css";
+
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -27,7 +31,28 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const { openModalRegister, openModalEditPerfil, setTitleNameSecond, openModalEditProfile, openModalEditProfileSuccess, setOpenModalEditProfileSuccess, title, setTitle, token, setNameUser, nameUser, setOpenModalEditClient, openModalEditClient, openModalRegisterCharges, clientDetailPage, setClientDetailPage, titleNameSecond } = useUser();
+
+  const {
+    openModalRegister,
+    openModalEditPerfil,
+    openModalEditProfile,
+    openModalEditProfileSuccess,
+    setOpenModalEditProfileSuccess,
+    title,
+    setTitle,
+    token,
+    setNameUser,
+    nameUser,
+    setOpenModalEditClient,
+    openModalEditClient,
+    openModalRegisterCharges,
+    idClientDetail,
+    setIdClientDetail,
+    setTitleNameSecond,
+    clientDetailPage,
+    setClientDetailPage,
+    titleNameSecond
+  } = useUser();
 
   function onClickNavLeft(event) {
     const divs = document.querySelectorAll("div");
@@ -38,9 +63,11 @@ function Main() {
   }
 
   function toTitleCase(name) {
-    return name == null ? '' : name.replace(/\w\S*/g, function (txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
+    return name == null
+      ? ""
+      : name.replace(/\w\S*/g, function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
   }
 
   async function fetchUserPerfil() {
@@ -49,8 +76,11 @@ function Main() {
       return setResumeName(userNameWords[0].charAt(0).toUpperCase());
     } else {
       const lastWord = userNameWords[userNameWords.length - 1];
-      return setResumeName(userNameWords[0].charAt(0).toUpperCase() +
-        lastWord.charAt(0).toUpperCase());
+      return setResumeName(
+        userNameWords[0].charAt(0).toUpperCase() +
+          lastWord.charAt(0).toUpperCase()
+      );
+
     }
   }
 
@@ -65,13 +95,16 @@ function Main() {
       setTitle("Cobranças");
     }
   }
+
   async function verifyTextHeader(e){
     if(title === 'Clientes  '){
       setTitleNameSecond(" "),
       setimageNavClient(false),
-      setClientDetailPage(false)
+      setClientDetailPage(false),
+      setIdClientDetail(false)
     }
   }
+
   useEffect(() => {
     titleAtived();
   }, []);
@@ -82,14 +115,17 @@ function Main() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (modalExit && !document.getElementById('modalExit').contains(event.target)) {
+      if (
+        modalExit &&
+        !document.getElementById("modalExit").contains(event.target)
+      ) {
         setModalExit(false);
       }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [modalExit]);
 
   return (
@@ -113,6 +149,9 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(false),
               setimageNavHome(true),
+
+              setimageNavCharge(true);
+            setIdClientDetail(false);
               setimageNavCharge(true),
               setClientDetailPage(false),
               setTitleNameSecond('')
@@ -134,6 +173,7 @@ function Main() {
         </div>
       </nav>
       <div className="center">
+
         {openModalEditClient && <div className="backgroundModal initial">
           {openModalEditClient && (<EditClientModal />)}
         </div>}
@@ -153,7 +193,7 @@ function Main() {
         )}
         <header>
           <div className="text-header-perfil">
-          <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && clientDetailPage ? 'mousePointer' : ''}`} >
+          <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
             {title}
           </h2>
           <span className="detail-client-span">{titleNameSecond}</span>
@@ -179,8 +219,9 @@ function Main() {
           )}
         </header>
         <div className="main">
-          {!imageNavClient && !clientDetailPage && <ClientListPage />}
-          {!imageNavClient && clientDetailPage && <ClientDetail />}
+          {!imageNavClient && !idClientDetail && <ClientListPage />}
+          {!imageNavClient && idClientDetail && <ClientDetail />}
+
           {!imageNavHome && <HomePage />}
           {!imageNavCharge && <ChargesListPage />}
         </div>
