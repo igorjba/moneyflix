@@ -31,7 +31,7 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-
+  // teste
   const {
     openModalRegister,
     openModalEditPerfil,
@@ -66,8 +66,8 @@ function Main() {
     return name == null
       ? ""
       : name.replace(/\w\S*/g, function (txt) {
-          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        });
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
   }
 
   async function fetchUserPerfil() {
@@ -78,7 +78,7 @@ function Main() {
       const lastWord = userNameWords[userNameWords.length - 1];
       return setResumeName(
         userNameWords[0].charAt(0).toUpperCase() +
-          lastWord.charAt(0).toUpperCase()
+        lastWord.charAt(0).toUpperCase()
       );
 
     }
@@ -96,12 +96,12 @@ function Main() {
     }
   }
 
-  async function verifyTextHeader(e){
-    if(title === 'Clientes  '){
+  async function verifyTextHeader(e) {
+    if (title === 'Clientes  ') {
       setTitleNameSecond(" "),
-      setimageNavClient(false),
-      setClientDetailPage(false),
-      setIdClientDetail(false)
+        setimageNavClient(false),
+        setClientDetailPage(false),
+        setIdClientDetail(false)
     }
   }
 
@@ -152,7 +152,7 @@ function Main() {
 
               setimageNavCharge(true);
             setIdClientDetail(false);
-              setimageNavCharge(true),
+            setimageNavCharge(true),
               setClientDetailPage(false),
               setTitleNameSecond('')
           }}
@@ -193,10 +193,10 @@ function Main() {
         )}
         <header>
           <div className="text-header-perfil">
-          <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
-            {title}
-          </h2>
-          <span className="detail-client-span">{titleNameSecond}</span>
+            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
+              {title}
+            </h2>
+            <span className="detail-client-span">{titleNameSecond}</span>
           </div>
           <div className="initial header-perfil">
             <div className="title circle-perfil">
