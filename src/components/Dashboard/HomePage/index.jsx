@@ -29,10 +29,15 @@ export default function HomePage() {
       });
       setData(response.data);
     } catch (error) {
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");
-                    }
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+          clearAll()
+          navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+          clearAll()
+          navigate("/login");
+        }
+      }
       toast.error("Falha ao carregar valores", {
         errorValue: 1,
       });
