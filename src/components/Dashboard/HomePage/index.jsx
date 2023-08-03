@@ -27,7 +27,11 @@ export default function HomePage() {
           authorization: `Bearer ${token}`,
         },
       });
-      setData(response.data);
+
+      if (response.status === 200) {
+        setData(response.data);
+      }
+
     } catch (error) {
       if (error.response) {
         if (error.response.status === 401 && error.response.data.message === "token expirado") {

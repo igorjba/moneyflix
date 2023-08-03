@@ -7,7 +7,10 @@ import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
+import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
+import ClientDetail from "../../components/Clients/ClientDetail";
 import ClientListPage from "../../components/Clients/ClientListPage";
+import EditClientModal from '../../components/Clients/EditClientModal';
 import RegisterClientModal from "../../components/Clients/RegisterClientModal";
 import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
@@ -15,10 +18,11 @@ import EditUserModal from "../../components/Users/EditUserModal";
 import EditClientModal from "../../components/Clients/EditClientModal";
 import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
 import ClientDetail from "../../components/Clients/ClientDetail";
+import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
 import "../../global/styleModal.css";
 import useUser from "../../hooks/useUser";
 import "./style.css";
-import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
+
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -44,6 +48,10 @@ function Main() {
     openModalRegisterCharges,
     idClientDetail,
     setIdClientDetail,
+    setTitleNameSecond,
+    clientDetailPage,
+    setClientDetailPage,
+    titleNameSecond
   } = useUser();
 
   function onClickNavLeft(event) {
@@ -72,6 +80,7 @@ function Main() {
         userNameWords[0].charAt(0).toUpperCase() +
           lastWord.charAt(0).toUpperCase()
       );
+
     }
   }
 
@@ -84,6 +93,15 @@ function Main() {
     }
     if (!imageNavCharge) {
       setTitle("Cobranças");
+    }
+  }
+
+  async function verifyTextHeader(e){
+    if(title === 'Clientes  '){
+      setTitleNameSecond(" "),
+      setimageNavClient(false),
+      setClientDetailPage(false),
+      setIdClientDetail(false)
     }
   }
 
@@ -119,7 +137,8 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(true),
               setimageNavHome(false),
-              setimageNavCharge(true);
+              setimageNavCharge(true),
+              setTitleNameSecond('')
           }}
         >
           <img src={imageNavHome ? home : homePink} alt="Inicio" />
@@ -130,8 +149,12 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(false),
               setimageNavHome(true),
+
               setimageNavCharge(true);
             setIdClientDetail(false);
+              setimageNavCharge(true),
+              setClientDetailPage(false),
+              setTitleNameSecond('')
           }}
         >
           <img src={imageNavClient ? client : clientePink} alt="Cliente" />
@@ -142,50 +165,39 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(true),
               setimageNavHome(true),
-              setimageNavCharge(false);
+              setimageNavCharge(false),
+              setTitleNameSecond('')
           }}
         >
           <img src={imageNavCharge ? charge : chargePink} alt="Cobranças" />
         </div>
       </nav>
       <div className="center">
-        {openModalEditClient && (
-          <div className="backgroundModal initial">
-            {openModalEditClient && <EditClientModal />}
-          </div>
-        )}
-        {openModalRegister && (
-          <div className="backgroundModal initial">
-            {openModalRegister && <RegisterClientModal />}
-          </div>
-        )}
-        {openModalRegisterCharges.status && (
-          <div className="background-modal initial">
-            {openModalRegisterCharges.status && <RegisterChargesModal />}
-          </div>
-        )}
-        {openModalEdit && (
-          <div className="background-modal initial">
-            {openModalEditProfile && (
-              <EditUserModal setOpenModalEdit={setOpenModalEdit} />
-            )}
-          </div>
-        )}
+
+        {openModalEditClient && <div className="backgroundModal initial">
+          {openModalEditClient && (<EditClientModal />)}
+        </div>}
+        {openModalRegister && <div className="backgroundModal initial">
+          {openModalRegister && (<RegisterClientModal />)}
+        </div>}
+        {openModalRegisterCharges.status && <div className="background-modal initial">
+          {openModalRegisterCharges.status && (<RegisterChargesModal />)}
+        </div>}
+        {openModalEdit && <div className="background-modal initial">
+          {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
+        </div>}
         {openModalEditProfileSuccess && (
           <div className="background-modal initial">
-            <SuccessEditUserModal
-              setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess}
-            />
+            <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
           </div>
         )}
         <header>
-          <h2
-            className={`initial ${
-              title == "Resumo de Cobranças" ? "" : "titleSecond"
-            }`}
-          >
+          <div className="text-header-perfil">
+          <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
             {title}
           </h2>
+          <span className="detail-client-span">{titleNameSecond}</span>
+          </div>
           <div className="initial header-perfil">
             <div className="title circle-perfil">
               <h1>{resumeName}</h1>
@@ -209,6 +221,7 @@ function Main() {
         <div className="main">
           {!imageNavClient && !idClientDetail && <ClientListPage />}
           {!imageNavClient && idClientDetail && <ClientDetail />}
+
           {!imageNavHome && <HomePage />}
           {!imageNavCharge && <ChargesListPage />}
         </div>

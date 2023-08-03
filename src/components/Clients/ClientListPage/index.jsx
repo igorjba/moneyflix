@@ -43,7 +43,7 @@ export default function ClientListPage() {
         },
       });
       setClientRegisters(response.data);
-      console.log(FullName(response.data[2].nome_cliente));
+
     } catch (error) {
       console.log(error);
       if (error.response) {
@@ -115,36 +115,34 @@ export default function ClientListPage() {
     });
   }
 
-  //ESTÁ SENDO CHAMADO NO Client Detail
-  // async function handleClickIDUser(event) {
-  //   try {
-  //     const response = await api.get(`cliente/${event}`, {
-  //       headers: {
-  //         authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setIdListChargesClick(response.data);
-  //     //console.log(response.data);
-  //     //setOpenModalEditClient(true)
-  //     setClientDetailPage(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //     if (error.response) {
-  //       if (error.response.status === 401 && error.response.data.message === "token expirado") {
-  //         clearAll()
-  //         navigate("/login");
-  //       } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-  //         clearAll()
-  //         navigate("/login");
-  //       }
-  //     }
-  //     toast.error(error.response.data.message, {
-  //       className: 'customToastify-error',
-  //       icon: ({ theme, type }) => <img src={toastError} alt="" />
-  //     })
-
-  //   }
-  // }
+  /* async function handleClickIDUser(event) {
+    try {
+      const response = await api.get(`cliente/${event}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setIdListChargesClick(response.data);
+      //console.log(response.data);
+      //setOpenModalEditClient(true)
+      setClientDetailPage(true);
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+          clearAll()
+          navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+          clearAll()
+          navigate("/login");
+        }
+      }
+      toast.error(error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      })
+    }
+  } */
 
   useEffect(() => {
     ClientCadaster();
