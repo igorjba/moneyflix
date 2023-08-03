@@ -36,6 +36,10 @@
     line-height: normal;
 }
 
+.header-table-client{
+    display: block;
+}
+
 .header-table-client h1 {
     font-size: var(--fz-16);
     font-weight: var(--fw-bold);

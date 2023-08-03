@@ -34,7 +34,7 @@ export default function ClientDetail() {
   const navigate = useNavigate();
 
   function DetailCustomerData() {
-    const fullName = idListChargesClick.client[0].nome_cliente;
+    const fullName = idListChargesClick.client.length > 0 ? idListChargesClick.client[0].nome_cliente : '';
     const partsName = fullName.split(" ");
     const nameClientCapitalized = partsName
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
@@ -133,7 +133,6 @@ export default function ClientDetail() {
       setcountOrderDueDate(1);
     }
   }
-
   useEffect(() => {
     backgroundSituation();
   }, [infoClientCharges]);
@@ -246,14 +245,7 @@ export default function ClientDetail() {
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
                   <button className="addClient">
-                    <h1
-                      onClick={() =>
-                        setOpenModalRegisterCharges({
-                          ...openModalRegisterCharges,
-                          status: true,
-                        })
-                      }
-                    >
+                    <h1 onClick={() => setOpenModalRegisterCharges({status: true, id_user: idListChargesClick.client[0].id_cliente, nome_user: idListChargesClick.client[0].nome_cliente})}>
                       {" "}
                       + Nova cobrança{" "}
                     </h1>{" "}
