@@ -79,9 +79,66 @@ function moneyUnmask(value) {
 //`${extract.data.slice(8, 10)}/${extract.data.slice(5, 7)}/${extract.data.slice(0, 4)}`
 function dateDDMMYYYYMask(value){
 let data = new Date(value);
-let dateFormated = ((data.getDate() +1)) + `/` + ((data.getMonth() + 1)) + `/` + ((data.getFullYear()))
-return dateFormated
+return data.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
 }
 
 
-export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask, dateDDMMYYYYMask, cepMaskSecond };
+function FullName(value){
+    value = value.toLocaleLowerCase();
+    value = value.split(' ')
+
+    let nameCompleted = ''
+
+    value.forEach(element => {
+        let name = element.replace(element[0], element[0].toUpperCase())
+        nameCompleted = nameCompleted.concat(`${name} `) 
+    })
+
+    return nameCompleted.trimEnd()
+}
+
+function removeSpace(value){
+    value = value.split(' ')
+
+    let noSpace = ''
+
+    value.forEach(element => {
+        if(element === ''){
+            return
+        }else {
+            noSpace = noSpace.concat(` ${element}`)
+        }
+    })
+
+    return noSpace.trimStart();
+}
+
+function completedName(value){
+    value = value.split(' ')
+
+    let noSpace = ''
+
+    value.forEach(element => {
+        if(element === ''){
+            return
+        }else {
+            noSpace = noSpace.concat(` ${element}`)
+        }
+    })
+
+    noSpace = noSpace.trimStart();
+
+    noSpace = noSpace.toLocaleLowerCase();
+    noSpace = noSpace.split(' ')
+
+    let nameCompleted = ''
+
+    noSpace.forEach(element => {
+        let name = element.replace(element[0], element[0].toUpperCase())
+        nameCompleted = nameCompleted.concat(`${name} `) 
+    })
+
+    return nameCompleted.trimEnd()
+}
+
+export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask, dateDDMMYYYYMask, cepMaskSecond, FullName, removeSpace, completedName};

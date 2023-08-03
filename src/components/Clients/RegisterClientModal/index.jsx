@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../api/api';
@@ -9,10 +10,12 @@ import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
 import { cellPhoneMask, cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
+import { clearAll } from '../../../utils/localStorage';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
 
 export default function RegisterClientModal() {
+  const navigate = useNavigate
   const { setOpenModalRegister, setClientRegisters, token, setCorArrowBottom, setCorArrowTop } = useUser();
   const [form, setForm] = useState({
     nome: '',
@@ -76,6 +79,10 @@ export default function RegisterClientModal() {
         setValidationInputDisabled(false)
       }
     } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
       toast.error("CEP inválido", {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
@@ -135,6 +142,10 @@ export default function RegisterClientModal() {
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
     } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
       toast.error(
         error.response.data.message, {
         className: 'customToastify-error',
@@ -149,8 +160,12 @@ export default function RegisterClientModal() {
           authorization: `Bearer ${token}`,
         }
       });
-      setClientRegisters((response.data).slice(0, 10));
+      setClientRegisters((response.data)/* .slice(0, 10) */);
     } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
       toast.error(
         error.response.data.message, {
         className: 'customToastify-error',

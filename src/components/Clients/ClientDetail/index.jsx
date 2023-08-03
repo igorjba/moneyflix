@@ -7,6 +7,11 @@ import editCharge from "../../../assets/Edit.svg";
 import api from "../../../api/api.jsx";
 import { useEffect, useState } from "react";
 import { dateDDMMYYYYMask, moneyMask } from "../../../utils/inputMasks";
+import { clearAll } from "../../../utils/localStorage";
+import { useNavigate } from "react-router-dom";
+import success from '../../../assets/Success-Toast.svg';
+import toastError from '../../../assets/toastError.svg';
+import { toast } from 'react-toastify';
 
 export default function ClientDetail() {
   const {
@@ -26,9 +31,10 @@ export default function ClientDetail() {
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
   const [corarrowTopDue, setCorArrowTopDue] = useState("#3F3F55");
   const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
+  const navigate = useNavigate();
 
   function DetailCustomerData() {
-    const fullName = idListChargesClick.client[0].nome_cliente;
+    const fullName = idListChargesClick.client.length > 0 ? idListChargesClick.client[0].nome_cliente : '';
     const partsName = fullName.split(" ");
     const nameClientCapitalized = partsName
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
@@ -76,6 +82,14 @@ export default function ClientDetail() {
       setOpenModalEditClient(true);
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
+toast.error(error.response.data.message, {
+                        className: 'customToastify-error',
+                        icon: ({ theme, type }) => <img src={toastError} alt="" />
+                    })
     }
   }
 
@@ -114,7 +128,6 @@ export default function ClientDetail() {
       setcountOrderDueDate(1);
     }
   }
-
   useEffect(() => {
     backgroundSituation();
   }, [infoClientCharges]);
@@ -227,14 +240,7 @@ export default function ClientDetail() {
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
                   <button className="addClient">
-                    <h1
-                      onClick={() =>
-                        setOpenModalRegisterCharges({
-                          ...openModalRegisterCharges,
-                          status: true,
-                        })
-                      }
-                    >
+                    <h1 onClick={() => setOpenModalRegisterCharges({status: true, id_user: idListChargesClick.client[0].id_cliente, nome_user: idListChargesClick.client[0].nome_cliente})}>
                       {" "}
                       + Nova cobrança{" "}
                     </h1>{" "}

@@ -7,18 +7,21 @@ import success from '../../../assets/Success-Toast.svg';
 import toastError from '../../../assets/toastError.svg';
 import closed from '../../../assets/close.svg';
 import useUser from '../../../hooks/useUser';
-import { cellPhoneMask, cellPhoneUnmask, cepMask, cepMaskSecond, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
+import { cellPhoneMask, cellPhoneUnmask, cepMask, cepMaskSecond, cepUnmask, completedName, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
+import { useNavigate } from 'react-router-dom';
+import { clearAll } from '../../../utils/localStorage';
+
 
 export default function EditClientModal() {
-    const {setOpenModalEditClient, idListChargesClick, token, setClientRegisters} = useUser()
+    const {setOpenModalEditClient, idListChargesClick, token, setClientRegisters, setIdListChargesClick} = useUser()
     const [errorName, setErrorName] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorCPF, setErrorCPF] = useState('');
     const [errorPhone, setErrorPhone] = useState('');
     const inputRef = useRef(null);
-    //const [numberHouse, setNumberHouse] = useState((idListChargesClick.client[0].endereco) == null ? '' :(idListChargesClick.client[0].endereco).slice(-2))
+    const navigate = useNavigate();
     const [form, setForm] = useState({
     nome: idListChargesClick.client[0].nome_cliente,
     email: idListChargesClick.client[0].email,
@@ -32,7 +35,6 @@ export default function EditClientModal() {
             cidade: idListChargesClick.client[0].cidade,
             estado: idListChargesClick.client[0].estado,
             complemento: idListChargesClick.client[0].complemento,
-            //numero: ((idListChargesClick.client[0].endereco) == null ? '' :(idListChargesClick.client[0].endereco).slice(-2))
       })
       let validate = 0;
       function handleChangeForm(event){
@@ -98,8 +100,6 @@ export default function EditClientModal() {
         }
       }
       async function updateClient() {
-        //console.log({...form, ...formAdressEditClient})
-        //console.log(formAdressEditClient)
         try {
           const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`,{
             ...form,
@@ -112,7 +112,6 @@ export default function EditClientModal() {
               authorization: `Bearer ${token}`,
             }
           });
-          //console.log(response)
           toast.success(
             'Cliente Atualizado com Sucesso!', {
             className: 'customToastify-success',
@@ -120,7 +119,9 @@ export default function EditClientModal() {
           });
           ClientCadaster()
         } catch (error) {
-          //console.log(error)
+          if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+            clearAll()
+            navigate("/login");}
           toast.error(
             error.response.data.message, {
             className: 'customToastify-error',
@@ -135,17 +136,19 @@ export default function EditClientModal() {
               authorization: `Bearer ${token}`,
             }
           });
-          setClientRegisters((response.data).slice(0, 10));
+          //setClientRegisters((response.data));
+          setIdListChargesClick(response.data)
         } catch (error) {
+          if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+            clearAll()
+            navigate("/login");}
           toast.error(
-            error.response.data.message, {
+                        error.response.data.message, {
             className: 'customToastify-error',
             icon: ({ theme, type }) => <img src={error} alt="" />
           });
         }
       }
-
-
     return (
         <>
             <div className='main-Modal Modal-Register'>
@@ -159,7 +162,7 @@ export default function EditClientModal() {
       <form onSubmit={handleSubmit}>
         <div className='divs-inputs-form'>
           <label htmlFor="inputName"><h1>Nome*</h1></label>
-          <input className={`${errorName ? 'errorLine' : ''}`} type="text" id='inputName' ref={inputRef} placeholder='Digite o nome' name='nome' disabled={true} value={form.nome} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+          <input className={`${errorName ? 'errorLine' : ''}`} type="text" id='inputName' ref={inputRef} placeholder='Digite o nome' name='nome' disabled={true} value={completedName(form.nome)} maxLength={200} onChange={(event) => handleChangeForm(event)} />
           {errorName && <span className='mainModalRegister error'><h1>{errorName}</h1></span>}
           <label htmlFor="inputEmail"><h1>E-mail*</h1></label>
           <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" id='inputEmail' ref={inputRef} placeholder='Digite o e-mail' value={form.email} name='email' maxLength={200} onChange={(event) => handleChangeForm(event)} />

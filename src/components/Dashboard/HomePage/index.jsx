@@ -10,12 +10,15 @@ import toastError from '../../../assets/toastError.svg';
 import useUser from "../../../hooks/useUser.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
+import success from '../../../assets/Success-Toast.svg';
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const { setTitle, token } = useUser();
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
+  const navigate = useNavigate()
 
   async function fetchData() {
     try {
@@ -26,6 +29,10 @@ export default function HomePage() {
       });
       setData(response.data);
     } catch (error) {
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
       toast.error("Falha ao carregar valores", {
         errorValue: 1,
       });

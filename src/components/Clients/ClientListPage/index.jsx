@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import api from "../../../api/api.jsx";
 import clientSFont from "../../../assets/Client(2).svg";
 import filter from "../../../assets/Filter.svg";
 import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
+import toastError from '../../../assets/toastError.svg';
 import useUser from "../../../hooks/useUser.jsx";
+import { FullName, completedName } from "../../../utils/inputMasks.jsx";
+import { clearAll } from "../../../utils/localStorage.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
@@ -22,12 +27,12 @@ export default function ClientListPage() {
     setOpenModalEditClient,
     setClientDetailPage,
   } = useUser();
+  const navigate = useNavigate();
 
-//const [stateClientDetail, setStateClientDetail] = useState(false);
-const [countOrder, setCountOrder] = useState(1);
-const [corarrowTop, setCorArrowTop] = useState('#3F3F55');
-const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55');
-
+  //const [stateClientDetail, setStateClientDetail] = useState(false);
+  const [countOrder, setCountOrder] = useState(1);
+  const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
+  const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
 
   async function ClientCadaster() {
     try {
@@ -35,11 +40,23 @@ const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55');
         headers: {
           authorization: `Bearer ${token}`,
         },
-});
-setClientRegisters(response.data);
-    } catch (error) {console.log(error)}
-}
-function backgroundSituation() {
+      });
+      setClientRegisters(response.data);
+      console.log(FullName(response.data[2].nome_cliente))
+
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
+toast.error(error.response.data.message, {
+                        className: 'customToastify-error',
+                        icon: ({ theme, type }) => <img src={toastError} alt="" />
+                    })
+    }
+  }
+  function backgroundSituation() {
     const situation = document.querySelectorAll(".situation");
     situation.forEach((element) => {
       if (element.textContent == "Inadimplente") {
@@ -89,16 +106,26 @@ function backgroundSituation() {
 
   async function handleClickIDUser(event) {
     try {
-        const response = await api.get(`cliente/${event}`, {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        });
-        setIdListChargesClick(response.data)
-        console.log(response.data)
-        setClientDetailPage(true)
+      const response = await api.get(`cliente/${event}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setIdListChargesClick(response.data);
+      //console.log(response.data);
+      //setOpenModalEditClient(true)
+      setClientDetailPage(true);
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
+        clearAll()
+        navigate("/login");
+                    }
+toast.error(error.response.data.message, {
+                        className: 'customToastify-error',
+                        icon: ({ theme, type }) => <img src={toastError} alt="" />
+                    })
+
     }
   }
 
@@ -109,7 +136,7 @@ function backgroundSituation() {
   }, []);
   useEffect(() => {
     backgroundSituation();
-}, [clientRegisters]);
+  }, [clientRegisters]);
 return (
 <>
             <div className='initial header'>
@@ -161,7 +188,7 @@ return (
                         {clientRegisters.map((client) => {
                             return (
                                 <tr key={client.id_cliente}>
-                                    <td className='description-table'><h1 className='mousePointer' onClick={() => handleClickIDUser(client.id_cliente)}>{client.nome_cliente}</h1></td>
+                                    <td className='description-table'><h1 className='mousePointer' onClick={() => handleClickIDUser(client.id_cliente)}>{client.nome_cliente && completedName(client.nome_cliente)}</h1></td>
                                     <td><h1>{client.cpf}</h1></td>
                                     <td className='description-table'><h1>{client.email}</h1></td>
                                     <td><h1>{client.telefone}</h1></td>
