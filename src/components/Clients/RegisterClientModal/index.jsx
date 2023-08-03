@@ -161,7 +161,7 @@ export default function RegisterClientModal() {
           authorization: `Bearer ${token}`,
         }
       });
-      setClientRegisters((response.data).slice(0, 10));
+      setClientRegisters((response.data)/* .slice(0, 10) */);
     } catch (error) {
       if (error.response) {
         if (error.response.status === 401 && error.response.data.message === "token expirado") {

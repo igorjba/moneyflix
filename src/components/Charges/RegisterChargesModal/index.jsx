@@ -11,6 +11,7 @@ import closed from '../../../assets/close.svg';
 import useUser from '../../../hooks/useUser';
 import { clearAll } from '../../../utils/localStorage';
 import './style.css';
+import { completedName } from '../../../utils/inputMasks';
 
 export default function RegisterChargesModal() {
     const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters } = useUser();
@@ -174,7 +175,7 @@ export default function RegisterChargesModal() {
                 <div className='container-inputs-form'>
                     <div className='container-input-name'>
                         <label htmlFor="nameInput">Nome</label>
-                        <input className='charges-input-name' id="nameInput" type="text" placeholder='Digite o nome' name='nome' disabled value={openModalRegisterCharges.nome_user} />
+                        <input className='charges-input-name' id="nameInput" type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalRegisterCharges.nome_user)} />
                     </div>
                     <div className='container-input-description'>
                         <label htmlFor="descriptionInput">Descrição*</label>

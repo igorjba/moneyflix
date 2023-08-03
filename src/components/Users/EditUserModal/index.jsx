@@ -30,7 +30,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
     useEffect(() => {
         setNumberCPF(cpfMask(GetProfile.cpf));
         setNumberTel(cellPhoneMask(GetProfile.telefone));
-    }, [GetProfile]);
+    }, []);
 
     function onclickCloseModal() {
         SetOpenModalEditProfile(!openModalEditProfile)
@@ -62,9 +62,9 @@ export default function EditUserModal({ setOpenModalEdit }) {
         try {
             const response = await api.put('usuario/atualizar', {
                 nome: GetProfile.nome,
-                cpf: cpfUnmask(GetProfile.cpf),
+                cpf: cpfUnmask(numberCPF),
                 email: GetProfile.email,
-                telefone: cellPhoneUnmask(GetProfile.telefone),
+                telefone: cellPhoneUnmask(numberTel),
                 senhaAtual: GetProfile.senhaAtual,
                 senha: GetProfile.senha,
                 confirmeSenha: GetProfile.confirmeSenha
@@ -105,14 +105,19 @@ export default function EditUserModal({ setOpenModalEdit }) {
 
     function handleChangeFormTel(e) {
         const inputNumberTel = e.target.value.replace(/\D/g, '')
-        let formattedValue = inputNumberTel
-        if (inputNumberTel.length > 2) {
-            formattedValue = `(${inputNumberTel.slice(0, 2)}) ${inputNumberTel.slice(2)}`;
+        let value = inputNumberTel
+        if (value.length > 11) {
+            value = value.slice(0, 11);
         }
-        if (inputNumberTel.length > 7) {
-            formattedValue = ` ${formattedValue.slice(0, 9)}-${formattedValue.slice(9, 13)}`;
+        let phone = '';
+        phone += '(' + value.slice(0, 2) + ')';
+        if (value.length > 2) {
+            phone += ' ' + value.slice(2,3) + ' ' + value.slice(3, 7);
         }
-        setNumberTel(formattedValue);
+        if (value.length > 7) {
+            phone += '-' + value.slice(7, 11);
+        }
+        setNumberTel(phone);
     }
 
     function handleChangeFormCPF(e) {
@@ -132,10 +137,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
         setNumberCPF(formattedValue);
     }
     function handleChangeForm(e) {
-        setGetProfile(prevState => {
-            const newState = { ...prevState, [e.target.name]: e.target.value };
-            return newState;
-        });
+        setGetProfile({ ...GetProfile, [e.target.name]: e.target.value });
     }
 
     return (
@@ -149,29 +151,29 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     <div className='divs-inputs-form'>
                         <div className='box-info'>
                             <label htmlFor=""><h1>Nome*</h1></label>
-                            <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite seu nome' name='nome' value={GetProfile.nome} maxLength={200} onChange={handleChangeForm} />
+                            <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite seu nome' name='nome' value={GetProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorName && <span className='error'><h1>{errorName}</h1></span>}
                         </div>
                         <div className='box-info'>
                             <label htmlFor=""><h1>E-mail*</h1></label>
-                            <input className={`${errorEmailEdit ? 'errorLine' : ''}`} type="text" placeholder='Digite seu e-mail' name='email' value={GetProfile.email} maxLength={200} onChange={handleChangeForm} />
+                            <input className={`${errorEmailEdit ? 'errorLine' : ''}`} type="text" placeholder='Digite seu e-mail' name='email' value={GetProfile.email} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorEmailEdit && <span className='error'><h1>{errorEmailEdit}</h1></span>}
                         </div>
                         <div className='information-ModalEdit'>
                             <div>
                                 <label htmlFor=""><h1>CPF*</h1></label>
-                                <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={handleChangeFormCPF} />
+                                <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={(e) => handleChangeFormCPF(e)} />
                                 {errorPasswordEdit && <span className='error'><h1>{errorPasswordEdit}</h1></span>}
                             </div>
                             <div>
                                 <label htmlFor=""><h1>Telefone*</h1></label>
-                                <input type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={15} onChange={handleChangeFormTel} />
+                                <input type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={16} onChange={(e) => handleChangeFormTel(e)} />
                             </div>
                         </div>
                         <div className='box-info'>
                             <label htmlFor=""><h1>Senha Atual*</h1></label>
                             <div className="password-input">
-                                <input type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={handleChangeForm} />
+                                <input type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div
                                     className='password-toggle-visibility'
                                     onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
@@ -186,7 +188,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             <label htmlFor=''><h1>Nova Senha</h1></label>
                             <div className='password-input'>
                                 <input
-                                    type={showNewPassword ? 'text' : 'password'} placeholder='Digite sua Senha' name='senha' value={GetProfile.senha} maxLength={200} onChange={handleChangeForm} />
+                                    type={showNewPassword ? 'text' : 'password'} placeholder='Digite sua Senha' name='senha' value={GetProfile.senha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div
                                     className='password-toggle-visibility' onClick={() => setShowNewPassword((prevShowNewPassword) => !prevShowNewPassword)}
                                     style={{ backgroundImage: `url(${showNewPassword ? openEye : closedEye})`, }} />
@@ -197,7 +199,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                         <div className='box-info'>
                             <label htmlFor=''><h1>Confirmar a Senha</h1></label>
                             <div className='password-input'>
-                                <input type={showConfirmPassword ? 'text' : 'password'} placeholder='Confirme sua senha' name='confirmeSenha' value={GetProfile.confirmeSenha} maxLength={200} onChange={handleChangeForm} />
+                                <input type={showConfirmPassword ? 'text' : 'password'} placeholder='Confirme sua senha' name='confirmeSenha' value={GetProfile.confirmeSenha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div className='password-toggle-visibility' onClick={() => setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword)} style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})`, }} />
                             </div>
                             {errorPasswordAgainEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
