@@ -97,11 +97,21 @@ export default function RegisterClientModal() {
       setErrorName(validationName.message)
       validate = +1
     }
+    /* if(form.email){
+      const validationWhiteSpace = contains_WhiteSpace(form.email)
+      if(!validationWhiteSpace.isValid){
+        console.log('chamou aqui');
+        setErrorEmail(validationWhiteSpace.message)
+        return validate =+1
+      }
+      
+    } */
+
     const validationEmail = validateEmail(form.email)
-    if (!validationEmail.isValid) {
-      setErrorEmail(validationEmail.message)
-      validate = +1
-    }
+      if (!validationEmail.isValid) {
+        setErrorEmail(validationEmail.message)
+        return validate = +1
+      }
     const validationCPF = validateCPF(cpfUnmask(form.cpf))
     if (!validationCPF.isValid) {
       setErrorCPF(validationCPF.message);

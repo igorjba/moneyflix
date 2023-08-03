@@ -42,7 +42,7 @@ export default function ClientListPage() {
         },
       });
       setClientRegisters(response.data);
-      console.log(FullName(response.data[2].nome_cliente))
+      //console.log(FullName(response.data[2].nome_cliente))
 
     } catch (error) {
       console.log(error);
@@ -109,7 +109,7 @@ export default function ClientListPage() {
     });
   }
 
-  async function handleClickIDUser(event) {
+  /* async function handleClickIDUser(event) {
     try {
       const response = await api.get(`cliente/${event}`, {
         headers: {
@@ -135,9 +135,8 @@ export default function ClientListPage() {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
       })
-
     }
-  }
+  } */
 
   useEffect(() => {
     ClientCadaster();

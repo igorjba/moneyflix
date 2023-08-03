@@ -21,6 +21,7 @@ export default function ClientDetail() {
     setOpenModalEditClient,
     setOpenModalRegisterCharges,
     openModalRegisterCharges,
+    setTitleNameSecond
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -31,6 +32,7 @@ export default function ClientDetail() {
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
   const [corarrowTopDue, setCorArrowTopDue] = useState("#3F3F55");
   const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
+  const space = '  '
   const navigate = useNavigate();
 
   function DetailCustomerData() {
@@ -141,7 +143,8 @@ export default function ClientDetail() {
     DetailCustomerData();
     ListCharges();
     backgroundSituation();
-    setTitle("Clientes    >    Detalhes do cliente");
+    setTitleNameSecond(`> ${space}Detalhes do cliente`);
+    setTitle(`Clientes${space}`)
   }, []);
 
   return (
@@ -184,7 +187,7 @@ export default function ClientDetail() {
                 </td>
               </tr>
               <tr className="extract-table">
-                <td>
+                <td className='detail-text-line-detail-client'>
                   <h1>{detailsData.email}</h1>
                 </td>
                 <td>
@@ -215,10 +218,10 @@ export default function ClientDetail() {
                 </td>
               </tr>
               <tr className="extract-table">
-                <td>
+                <td className='detail-text-line-detail-client'>
                   <h1>{detailsData.endereco}</h1>
                 </td>
-                <td>
+                <td className='detail-text-line-detail-client'>
                   <h1>{detailsData.bairro}</h1>
                 </td>
                 <td>

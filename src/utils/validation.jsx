@@ -111,6 +111,45 @@ function validateCPF(cpf){
 
         return { isValid: true };
 }
+
+function validatePhone(phone) {
+    if (!phone || phone === '') {
+        return { isValid: false, message: 'Este campo deve ser preenchido' };
+    }
+
+    if (phone[0] === ' ' || phone[phone.length - 1] === ' ' || phone.includes('  ')) {
+        return { isValid: false, message: 'Telefone inválido.' };
+    }
+
+    const phoneDigits = phone.replace(/\D/g, '');
+
+    if (phoneDigits.length < 10) {
+        return { isValid: false, message: 'Telefone inválido.' };
+    }
+
+    return { isValid: true };
 }
 
-export { validateName, validateEmail, validatePassword, validateCPF };
+
+function validatePhoneLength(phone) {
+    const phoneDigits = phone.replace(/\D/g, '');
+
+    if (phoneDigits.length < 10) {
+        return { isValid: false, message: 'Telefone inválido.' };
+    }
+
+    return { isValid: true };
+}
+
+/* function contains_WhiteSpace(value){
+    if (value[0] === ' ' || value[value.length - 1] === ' ' || value.includes('  ')) {
+        return { isValid: false, message: 'Remover os espaços.' };
+    }
+
+    return { isValid: true };
+} */
+
+}
+
+
+export { validateName, validateEmail, validatePassword, validateCPF};
