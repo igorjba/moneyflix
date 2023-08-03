@@ -1,5 +1,5 @@
 .background-modal {
-    position: absolute;
+    position: fixed;
     top: 0;
 
     justify-content: center;
@@ -70,9 +70,10 @@
 }
 
 .main-Modal {
-    width: 30vw;
-    /* height: 85vh; */
-    max-height: 95vh;
+    width: 100%;
+    max-width: 60rem;
+    height: 100%;
+    max-height: 75.8rem;
     padding: 4rem 5.7rem;
     border-radius: 3rem;
 

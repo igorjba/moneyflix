@@ -97,11 +97,21 @@ export default function RegisterClientModal() {
       setErrorName(validationName.message)
       validate = +1
     }
+    /* if(form.email){
+      const validationWhiteSpace = contains_WhiteSpace(form.email)
+      if(!validationWhiteSpace.isValid){
+        console.log('chamou aqui');
+        setErrorEmail(validationWhiteSpace.message)
+        return validate =+1
+      }
+      
+    } */
+
     const validationEmail = validateEmail(form.email)
-    if (!validationEmail.isValid) {
-      setErrorEmail(validationEmail.message)
-      validate = +1
-    }
+      if (!validationEmail.isValid) {
+        setErrorEmail(validationEmail.message)
+        return validate = +1
+      }
     const validationCPF = validateCPF(cpfUnmask(form.cpf))
     if (!validationCPF.isValid) {
       setErrorCPF(validationCPF.message);
@@ -181,12 +191,12 @@ export default function RegisterClientModal() {
   }
   return (
     <div className='main-Modal Modal-Register'>
+      <img className='mousePointer closed-Modal-Register-Client' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
       <div className='headerModal initial'>
         <div className='initial'>
           <img src={clientSFont} alt="" />
           <h2>Cadastro do Cliente</h2>
         </div>
-        <img className='mousePointer' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
       </div>
       <form onSubmit={handleSubmit}>
         <div className='divs-inputs-form'>
