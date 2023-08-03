@@ -37,7 +37,7 @@ export default function ChargesListPage() {
             }
         });
     }
-    async function ListCharges(){
+    async function ListCharges() {
         try {
             const response = await api.get('cobranca', {
                 headers: {
@@ -47,18 +47,23 @@ export default function ChargesListPage() {
             setInfoClientCharges(response.data)
         } catch (error) {
             console.log(error)
-            if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-                clearAll()
-                navigate("/login");
-                            }
-                            toast.error(error.response.data.message, {
-                                className: 'customToastify-error',
-                                icon: ({ theme, type }) => <img src={toastError} alt="" />
-                            })
+            if (error.response) {
+                if (error.response.status === 401 && error.response.data.message === "token expirado") {
+                    clearAll()
+                    navigate("/login");
+                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+                    clearAll()
+                    navigate("/login");
+                }
+            }
+            toast.error(error.response.data.message, {
+                className: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            })
 
         }
     }
-    
+
     function orderName() {
         setCountOrder(countOrder + 1)
         if (countOrder === 1) {
@@ -109,7 +114,7 @@ export default function ChargesListPage() {
     useEffect(() => {
         backgroundSituation()
     }, [infoClientCharges])
-    useEffect(() =>{
+    useEffect(() => {
         ListCharges()
         setTitle('Cobranças')
         backgroundSituation()
@@ -138,7 +143,7 @@ export default function ChargesListPage() {
                     <thead className='header-table-client'>
                         <tr >
                             <th className='PageOrderClient mousePointer' onClick={() => orderName()}>
-                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                     <g id="Frame" clipPath="url(#clip0_84440_3278)">
                                         <g id="Group">
                                             <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -156,7 +161,7 @@ export default function ChargesListPage() {
                                 <h1>Cliente</h1>
                             </th>
                             <th className='PageOrderID mousePointer' onClick={() => orderIdCharges()}>
-                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                     <g id="Frame" clipPath="url(#clip0_84440_3278)">
                                         <g id="Group">
                                             <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

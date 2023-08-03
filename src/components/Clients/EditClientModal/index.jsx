@@ -35,70 +35,70 @@ export default function EditClientModal() {
             cidade: idListChargesClick.client[0].cidade,
             estado: idListChargesClick.client[0].estado,
             complemento: idListChargesClick.client[0].complemento,
+  })
+  let validate = 0;
+  function handleChangeForm(event) {
+    return setForm({ ...form, [event.target.name]: event.target.value });
+  }
+  function handleChangeFormAdress(event) {
+    return setFormAdressEditClient({ ...formAdressEditClient, [event.target.name]: event.target.value });
+  }
+  async function searchCep(event) {
+    try {
+      const response = await apiCep.get(`${event.target.value}/json/`)
+      setFormAdressEditClient({
+        logradouro: response.data.logradouro,/* .concat() */
+        bairro: response.data.bairro,
+        cep: response.data.cep,
+        cidade: response.data.localidade,
+        estado: response.data.uf,
+        complemento: ''
       })
-      let validate = 0;
-      function handleChangeForm(event){
-          return setForm({ ...form, [event.target.name]: event.target.value });
-        }
-      function handleChangeFormAdress(event){
-            return setFormAdressEditClient({ ...formAdressEditClient, [event.target.name]: event.target.value });
-          }
-      async function searchCep(event) {
-        try {
-          const response = await apiCep.get(`${event.target.value}/json/`)
-          setFormAdressEditClient({
-            logradouro: response.data.logradouro,/* .concat() */
-            bairro: response.data.bairro,
-            cep: response.data.cep,
-            cidade: response.data.localidade,
-            estado: response.data.uf,
-            complemento: ''
-          })
-          if(response.data.erro){
-            toast.error("CEP não encontrado", {
-              className: 'customToastify-error',
-              icon: ({ theme, type }) => <img src={toastError} alt="" />
-            });
-          }
-        } catch (error) {
-            console.log(error)
-          toast.error("CEP inválido", {
-            className: 'customToastify-error',
-            icon: ({ theme, type }) => <img src={toastError} alt="" />
-          });
+      if (response.data.erro) {
+        toast.error("CEP não encontrado", {
+          className: 'customToastify-error',
+          icon: ({ theme, type }) => <img src={toastError} alt="" />
+        });
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error("CEP inválido", {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      });
 
-        }
-      }
-      function handleSubmit(event){
-        event.preventDefault();
-        setErrorName('')
-        setErrorEmail('')
-        setErrorCPF('')
-        setErrorPhone('')
-        const validationName = validateName(form.nome)
-        if (!validationName.isValid) {
-          setErrorName(validationName.message)
-          validate = +1
-        }
-        const validationEmail = validateEmail(form.email)
-        if (!validationEmail.isValid) {
-          setErrorEmail(validationEmail.message)
-          validate = +1
-        }
-        const validationCPF = validateCPF(cpfUnmask(form.cpf))
-        if (!validationCPF.isValid) {
-          setErrorCPF(validationCPF.message);
-          validate = +1
-        }
-        if (!form.telefone) {
-          setErrorPhone('Este campo deve ser preenchido');
-          validate = +1
-        }
-        if (validate === 0) {
-            updateClient()
-          setOpenModalEditClient(false)
-        }
-      }
+    }
+  }
+  function handleSubmit(event) {
+    event.preventDefault();
+    setErrorName('')
+    setErrorEmail('')
+    setErrorCPF('')
+    setErrorPhone('')
+    const validationName = validateName(form.nome)
+    if (!validationName.isValid) {
+      setErrorName(validationName.message)
+      validate = +1
+    }
+    const validationEmail = validateEmail(form.email)
+    if (!validationEmail.isValid) {
+      setErrorEmail(validationEmail.message)
+      validate = +1
+    }
+    const validationCPF = validateCPF(cpfUnmask(form.cpf))
+    if (!validationCPF.isValid) {
+      setErrorCPF(validationCPF.message);
+      validate = +1
+    }
+    if (!form.telefone) {
+      setErrorPhone('Este campo deve ser preenchido');
+      validate = +1
+    }
+    if (validate === 0) {
+      updateClient()
+      setOpenModalEditClient(false)
+    }
+  }
       async function updateClient() {
         try {
           const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`,{

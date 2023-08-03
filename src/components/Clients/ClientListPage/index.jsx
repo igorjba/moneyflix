@@ -46,14 +46,19 @@ export default function ClientListPage() {
 
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");
-                    }
-toast.error(error.response.data.message, {
-                        className: 'customToastify-error',
-                        icon: ({ theme, type }) => <img src={toastError} alt="" />
-                    })
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+          clearAll()
+          navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+          clearAll()
+          navigate("/login");
+        }
+      }
+      toast.error(error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      })
     }
   }
   function backgroundSituation() {
@@ -117,14 +122,19 @@ toast.error(error.response.data.message, {
       setClientDetailPage(true);
     } catch (error) {
       console.log(error);
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");
-                    }
-toast.error(error.response.data.message, {
-                        className: 'customToastify-error',
-                        icon: ({ theme, type }) => <img src={toastError} alt="" />
-                    })
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+          clearAll()
+          navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+          clearAll()
+          navigate("/login");
+        }
+      }
+      toast.error(error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+      })
 
     }
   }

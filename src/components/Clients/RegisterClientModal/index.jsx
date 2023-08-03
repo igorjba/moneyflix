@@ -39,25 +39,25 @@ export default function RegisterClientModal() {
   const [errorCPF, setErrorCPF] = useState('');
   const [errorPhone, setErrorPhone] = useState('');
   const [validationInputDisabled, setValidationInputDisabled] = useState(false)
-  function handleChangeForm(event){
-    if(event.target.name === 'nome' || event.target.name === 'email'){
+  function handleChangeForm(event) {
+    if (event.target.name === 'nome' || event.target.name === 'email') {
       return setForm({ ...form, [event.target.name]: event.target.value });
     }
-    if(event.target.name === 'logradouro' || event.target.name === 'complemento' || event.target.name === 'bairro' ||  event.target.name === 'cidade' || event.target.name === 'estado'){
+    if (event.target.name === 'logradouro' || event.target.name === 'complemento' || event.target.name === 'bairro' || event.target.name === 'cidade' || event.target.name === 'estado') {
       return setFormAdress({ ...formAdress, [event.target.name]: event.target.value })
     }
-    if(event.target.name === 'cpf'){
+    if (event.target.name === 'cpf') {
       return setForm({ ...form, [event.target.name]: cpfMask(event.target.value) });
     }
-    if(event.target.name === 'telefone'){
-      return setForm({...form, [event.target.name]: cellPhoneMask(event.target.value)})
+    if (event.target.name === 'telefone') {
+      return setForm({ ...form, [event.target.name]: cellPhoneMask(event.target.value) })
     }
-    if(event.target.name === 'cep'){
-      return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value)});
+    if (event.target.name === 'cep') {
+      return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value) });
     }
-    if(event.target.name === 'numero'){
+    if (event.target.name === 'numero') {
       const inputNumberTel = event.target.value.replace(/\D/g, '')
-    setNumberHouse(inputNumberTel)
+      setNumberHouse(inputNumberTel)
     }
   }
   async function searchCep(event) {
@@ -71,7 +71,7 @@ export default function RegisterClientModal() {
         estado: response.data.uf
       })
       setValidationInputDisabled(true)
-      if(response.data.erro){
+      if (response.data.erro) {
         toast.error("CEP não encontrado", {
           className: 'customToastify-error',
           icon: ({ theme, type }) => <img src={toastError} alt="" />
@@ -79,10 +79,6 @@ export default function RegisterClientModal() {
         setValidationInputDisabled(false)
       }
     } catch (error) {
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");
-                    }
       toast.error("CEP inválido", {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
@@ -90,7 +86,7 @@ export default function RegisterClientModal() {
       setValidationInputDisabled(false)
     }
   }
-  function handleSubmit(event){
+  function handleSubmit(event) {
     event.preventDefault();
     setErrorName('')
     setErrorEmail('')
@@ -142,10 +138,15 @@ export default function RegisterClientModal() {
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
     } catch (error) {
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");
-                    }
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+          clearAll()
+          navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+          clearAll()
+          navigate("/login");
+        }
+      }
       toast.error(
         error.response.data.message, {
         className: 'customToastify-error',
@@ -162,10 +163,15 @@ export default function RegisterClientModal() {
       });
       setClientRegisters((response.data)/* .slice(0, 10) */);
     } catch (error) {
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");
-                    }
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+          clearAll()
+          navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+          clearAll()
+          navigate("/login");
+        }
+      }
       toast.error(
         error.response.data.message, {
         className: 'customToastify-error',
@@ -231,7 +237,7 @@ export default function RegisterClientModal() {
             </div>
             <div>
               <label htmlFor="inputUF"><h1>UF</h1></label>
-              <input type="text" placeholder='Digite o UF' name='estado' id='inputUF' ref={inputRef} disabled={validationInputDisabled } value={formAdress.estado} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" placeholder='Digite o UF' name='estado' id='inputUF' ref={inputRef} disabled={validationInputDisabled} value={formAdress.estado} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ import './style.css';
 import { completedName } from '../../../utils/inputMasks';
 
 export default function RegisterChargesModal() {
-    const {setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters} = useUser();
+    const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters } = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
@@ -32,14 +32,14 @@ export default function RegisterChargesModal() {
         valor: '',
         status: 'Paga'
     })
-    function statusCharges(event){
-        if(event){
+    function statusCharges(event) {
+        if (event) {
             setVerifyCheckbox(event)
-            return setFormRegisterCharges({...formRegisterCharges, status: 'Paga'})
+            return setFormRegisterCharges({ ...formRegisterCharges, status: 'Paga' })
         }
-        if(!event) {
+        if (!event) {
             setVerifyCheckbox(event)
-            return setFormRegisterCharges({...formRegisterCharges, status: 'Pendente'})
+            return setFormRegisterCharges({ ...formRegisterCharges, status: 'Pendente' })
         }
     }
     const handleFocusInputCharge = () => {
@@ -65,98 +65,108 @@ export default function RegisterChargesModal() {
         numeroEnvoar = event.replace(/,/g, "").replace(/\./g, "")
     } */
 
-    function handleSubmitCharges(event){
-        setFormRegisterCharges({ ...formRegisterCharges, [event.target.name]: event.target.value });   
+    function handleSubmitCharges(event) {
+        setFormRegisterCharges({ ...formRegisterCharges, [event.target.name]: event.target.value });
     }
 
 
-async function sendInformationCharges(event) {
-    event.preventDefault()
-    setErrorDescription(''),
-    setErrorDate(''),
-    setErrorValue('')
+    async function sendInformationCharges(event) {
+        event.preventDefault()
+        setErrorDescription(''),
+            setErrorDate(''),
+            setErrorValue('')
 
-    if (!formRegisterCharges.descricao) {
-        setErrorDescription('Este campo deve ser preenchido');
-        validate = +1
-      }
-      if(!testeNumero){
-        setErrorValue('Este campo deve ser preenchido')
-        validate =+1
-      }
-
-      if(!formRegisterCharges.vencimento){
-        setErrorDate('Este campo deve ser preenchido')
-        validate =+1
-      }
-
-      if (validate === 0) {
-    try {
-      const response = await api.post(`cobranca/cadastro/${openModalRegisterCharges.id_user}`, {
-        ...formRegisterCharges,
-        valor: testeNumero
-      }, {
-        headers: {
-          authorization: token,
+        if (!formRegisterCharges.descricao) {
+            setErrorDescription('Este campo deve ser preenchido');
+            validate = +1
         }
-      });
-      setOpenModalRegisterCharges(() => ({...openModalRegisterCharges, status: false }))
-      ClientCadaster()
-      backgroundSituation()
-      toast.success(
-        'Cobrança Cadastrada com Sucesso!', {
-        className: 'customToastify-success',
-        icon: ({ theme, type }) => <img src={success} alt="" />
-      });
-    } catch (error) {
-        if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-            clearAll()
-            navigate("/login");
-                        }
-      toast.error(
-        error.response.data.message, {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={error} alt="" />
-      });
-    }
-}
-}
+        if (!testeNumero) {
+            setErrorValue('Este campo deve ser preenchido')
+            validate = +1
+        }
 
-async function ClientCadaster() {
-    try {
-    const response = await api.get("cliente", {
-        headers: {
-        authorization: `Bearer ${token}`,
-        },
-});
-setClientRegisters(response.data/* .slice(0, 10) */);
-    } catch (error) {
-        console.log(error)
-        if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-            clearAll()
-            navigate("/login");
-                        }
-toast.error(error.response.data.message, {
-                            className: 'customToastify-error',
-                            icon: ({ theme, type }) => <img src={toastError} alt="" />
-                        })
-    }
-}
-function backgroundSituation() {
-    const situation = document.querySelectorAll(".situation");
-    situation.forEach((element) => {
-if (element.textContent == "Inadimplente") {
-        return element.classList.add("situationDefaulter");
-}
-return element.classList.add("situationOk");
-    });
-}
+        if (!formRegisterCharges.vencimento) {
+            setErrorDate('Este campo deve ser preenchido')
+            validate = +1
+        }
 
-    
+        if (validate === 0) {
+            try {
+                const response = await api.post(`cobranca/cadastro/${openModalRegisterCharges.id_user}`, {
+                    ...formRegisterCharges,
+                    valor: testeNumero
+                }, {
+                    headers: {
+                        authorization: token,
+                    }
+                });
+                setOpenModalRegisterCharges(() => ({ ...openModalRegisterCharges, status: false }))
+                ClientCadaster()
+                backgroundSituation()
+                toast.success(
+                    'Cobrança Cadastrada com Sucesso!', {
+                    className: 'customToastify-success',
+                    icon: ({ theme, type }) => <img src={success} alt="" />
+                });
+            } catch (error) {
+                if (error.response) {
+                    if (error.response.status === 401 && error.response.data.message === "token expirado") {
+                        clearAll()
+                        navigate("/login");
+                    } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+                        clearAll()
+                        navigate("/login");
+                    }
+                }
+                toast.error(
+                    error.response.data.message, {
+                    className: 'customToastify-error',
+                    icon: ({ theme, type }) => <img src={error} alt="" />
+                });
+            }
+        }
+    }
+
+    async function ClientCadaster() {
+        try {
+            const response = await api.get("cliente", {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            });
+            setClientRegisters(response.data/* .slice(0, 10) */);
+        } catch (error) {
+            console.log(error)
+            if (error.response) {
+                if (error.response.status === 401 && error.response.data.message === "token expirado") {
+                    clearAll()
+                    navigate("/login");
+                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+                    clearAll()
+                    navigate("/login");
+                }
+            }
+            toast.error(error.response.data.message, {
+                className: 'customToastify-error',
+                icon: ({ theme, type }) => <img src={toastError} alt="" />
+            })
+        }
+    }
+    function backgroundSituation() {
+        const situation = document.querySelectorAll(".situation");
+        situation.forEach((element) => {
+            if (element.textContent == "Inadimplente") {
+                return element.classList.add("situationDefaulter");
+            }
+            return element.classList.add("situationOk");
+        });
+    }
+
+
     return (
         <div className='main-modal-flex modal-charge'>
             <div></div>
-            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalRegisterCharges(() => ({...openModalRegisterCharges, status: false }))} />
+            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalRegisterCharges(() => ({ ...openModalRegisterCharges, status: false }))} />
             <div className='main-modal-flex-header initial'>
                 <img src={IconCharge} alt="" />
                 <h2>Cadastro de Cobrança</h2>
@@ -192,41 +202,41 @@ return element.classList.add("situationOk");
                         </div>
                         <div className='container-input-value'>
                             <label htmlFor="valueInput">Valor*</label>
-                            <NumericFormat 
-                            className={`${errorValue ? 'errorChargesLine' : ''}`}
-                            value={formRegisterCharges.valor}
-                            thousandSeparator={true}
-                            prefix={'R$ '}
-                            decimalScale={2}
-                            fixedDecimalScale={true}
-                            allowNegative={false}
-                            placeholder="0,00"
-                            name='vencimento'
-                            /* onValueChange={(sourceInfo) => {handleSubmitChargesNumber(sourceInfo.value)}} */
-                            //onValueChange={(sourceInfo) => {numeroEnvoar = sourceInfo.value.replace(/\./g, "")}}
-                            onValueChange={(sourceInfo) => {setTesteNumero(sourceInfo.value.replace(/\./g, ""))}}
+                            <NumericFormat
+                                className={`${errorValue ? 'errorChargesLine' : ''}`}
+                                value={formRegisterCharges.valor}
+                                thousandSeparator={true}
+                                prefix={'R$ '}
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                allowNegative={false}
+                                placeholder="0,00"
+                                name='vencimento'
+                                /* onValueChange={(sourceInfo) => {handleSubmitChargesNumber(sourceInfo.value)}} */
+                                //onValueChange={(sourceInfo) => {numeroEnvoar = sourceInfo.value.replace(/\./g, "")}}
+                                onValueChange={(sourceInfo) => { setTesteNumero(sourceInfo.value.replace(/\./g, "")) }}
                             />
                             {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}
                             {/* <input id="valueInput" type="text" placeholder='Digite o valor' name='valor' value={formRegisterCharges.valor} onChange={(event) => handleSubmitCharges(event)} /> */}
                         </div>
                     </div>
                     <div>
-                    <h1>Status</h1>
-                    <div className='testeInput'>
-                    <div className='inputParaCheck' onClick={() => statusCharges(true) }>
-                    {verifyCheckbox && <img src={checkboxGreen} alt="" />}
-                    </div>
-                    <h1>Cobrança Paga</h1>
-                    </div>
-                    <div className='testeInput'>
-                    <div className='inputParaCheck' onClick={() => statusCharges(false)}>
-                    {!verifyCheckbox && <img src={checkboxGreen} alt="" /> }
-                    </div>
-                    <h1>Cobrança Pendente</h1>
-                    </div>
+                        <h1>Status</h1>
+                        <div className='testeInput'>
+                            <div className='inputParaCheck' onClick={() => statusCharges(true)}>
+                                {verifyCheckbox && <img src={checkboxGreen} alt="" />}
+                            </div>
+                            <h1>Cobrança Paga</h1>
+                        </div>
+                        <div className='testeInput'>
+                            <div className='inputParaCheck' onClick={() => statusCharges(false)}>
+                                {!verifyCheckbox && <img src={checkboxGreen} alt="" />}
+                            </div>
+                            <h1>Cobrança Pendente</h1>
+                        </div>
                     </div>
                     <div className='formButton initial'>
-                    <button type='button' onClick={() => setOpenModalRegisterCharges(() => ({...openModalRegisterCharges, status: false }))}>Cancelar</button>
+                        <button type='button' onClick={() => setOpenModalRegisterCharges(() => ({ ...openModalRegisterCharges, status: false }))}>Cancelar</button>
                         <button type='submit'>Aplicar</button>
                     </div>
                 </div>
