@@ -1,3 +1,7 @@
+.main-Modal.Modal-Register {
+    position: relative;
+}
+
 .Modal-Register input {
     gap: 0.8rem;
 
@@ -40,10 +44,10 @@
     padding-bottom: 0.8rem;
 }
 
-.closed-Modal-Register-Client{
+.closed-Modal-Register-Client {
     position: absolute;
-    top: 22.4rem;
-    right: 86.4rem;
+    top: 2.47rem;
+    right: 2.47rem;
 }
 
 .formInformation,
@@ -75,7 +79,7 @@
     margin-right: 2.4rem;
 }
 
-.formButton{
+.formButton {
     margin-top: 5.7rem;
 }
 
