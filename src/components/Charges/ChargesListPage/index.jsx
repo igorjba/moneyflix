@@ -204,7 +204,7 @@ export default function ChargesListPage() {
                         })}
                     </tbody>
                 </table>
-            </div>
+            </div>    
         </>
     )
 }
