@@ -186,20 +186,20 @@ export default function ChargesListPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {infoClientCharges.map((charges) =>{
-                            return( 
-                        <tr className='extract-table' key={charges.id_cobranca}>
-                            <td className='description-table'><h1 >{completedName(charges.cliente)}</h1></td>
-                            <td><h1>{charges.id_cobranca}</h1></td>
-                            <td><h1>{moneyMask(charges.valor)}</h1></td>
-                            <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
-                            <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
-                            <td className='description-table description-table-charge'><h1>{charges.descricao}</h1></td>
-                            <td className='imagem-table-charge'>
-                                <img src={editCharge} alt="Editar" />
-                                <img src={deleteCharge} alt="Deletar" />
-                            </td>
-                        </tr>
+                        {infoClientCharges.map((charges) => {
+                            return (
+                                <tr className='extract-table' key={charges.id_cobranca}>
+                                    <td className='description-table'><h1 >{completedName(charges.cliente)}</h1></td>
+                                    <td><h1>{charges.id_cobranca}</h1></td>
+                                    <td><h1>{moneyMask(charges.valor)}</h1></td>
+                                    <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
+                                    <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
+                                    <td className='description-table description-table-charge'><h1>{charges.descricao}</h1></td>
+                                    <td className='imagem-table-charge'>
+                                        <img src={editCharge} alt="Editar" />
+                                        <img src={deleteCharge} alt="Deletar" />
+                                    </td>
+                                </tr>
                             )
                         })}
                     </tbody>

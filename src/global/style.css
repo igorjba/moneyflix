@@ -48,6 +48,7 @@
     position: relative;
 }
 
+
 .search-filter-client input {
     min-width: 32.2rem;
     flex: 1;
@@ -57,7 +58,6 @@
     padding-right: 3rem;
     border: none;
     border-radius: 1rem;
-    gap: 50px;
 
     font-family: var(--ff-nunito);
     font-size: var(--fz-18);
@@ -76,9 +76,8 @@
 
 .search {
     position: absolute;
-    top: 50%;
-    right: 1rem;
-    transform: translateY(-50%);
+    top: 1rem;
+    right: 0.8rem;
 
     cursor: pointer;
 }

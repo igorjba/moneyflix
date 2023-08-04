@@ -140,7 +140,7 @@ export default function ClientListPage() {
           </button>
           <div>
             <input placeholder="Pesquisa" type="text" name="Filter nome" />
-            <img src={lupa} alt="" className="search" />
+            <img src={lupa} alt="Lupa" className="search" />
           </div>
         </div>
       </div>
