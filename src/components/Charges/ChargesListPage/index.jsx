@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import api from '../../../api/api';
 import deleteCharge from '../../../assets/DeleteCharge.svg';
 import editCharge from '../../../assets/Edit.svg';
 import filter from '../../../assets/Filter.svg';
-import iconCharge from '../../../assets/IconCharge.svg';
 import lupa from '../../../assets/Lupa.svg';
-import toastError from '../../../assets/toastError.svg';
+import iconCharge from '../../../assets/IconCharge.svg';
 import useUser from '../../../hooks/useUser';
+import api from '../../../api/api'
+import './style.css';
 import { completedName, dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
-import './style.css';
+import { useNavigate } from 'react-router-dom';
+import success from '../../../assets/Success-Toast.svg';
+import toastError from '../../../assets/toastError.svg';
+import { toast } from 'react-toastify';
 
 export default function ChargesListPage() {
     const { setTitle, token } = useUser();
@@ -45,6 +46,7 @@ export default function ChargesListPage() {
             });
             setInfoClientCharges(response.data)
         } catch (error) {
+            console.log(error)
             if (error.response) {
                 if (error.response.status === 401 && error.response.data.message === "token expirado") {
                     clearAll()
@@ -180,7 +182,7 @@ export default function ChargesListPage() {
                             <th><h1>Data de venc.</h1></th>
                             <th><h1>Status</h1></th>
                             <th className='description-table-header'><h1>Descrição</h1></th>
-                            <th className='imagem-table-header'></th>
+                            <th className='imagem-table-header'></th> {/* Juntar as imagem com a descrição ou fazer um a parte porém retornando vazio */}
                         </tr>
                     </thead>
                     <tbody>
