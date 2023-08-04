@@ -76,9 +76,9 @@
 
 .search {
     position: absolute;
-    top: 1rem;
-    right: 0.8rem;
-
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
     cursor: pointer;
 }
 
