@@ -11,7 +11,7 @@ import { validateEmail } from "../../../utils/validation";
 import "./style.css";
 
 const SignInForm = ({ signInForm, setSignInForm }) => {
-  const { setNameUser, setLoggedInUser } = useUser();
+  const { setNameUser, setLoggedInUser, setOpenLoading } = useUser();
   const [showPassword, setShowPassword] = useState(false);
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
@@ -90,6 +90,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
   const handleSubmitSignIn = (event) => {
     event.preventDefault();
+    setOpenLoading(true)
     setErrorEmail("");
     setErrorPassword("");
 
@@ -118,14 +119,25 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     }
-
+    
     setSignInForm({
       ...signInForm,
       ...localForm,
     });
-
-    login();
+    
+    setTimeout(() => {
+      login();
+      setOpenLoading(false)
+    }, 2000)
+    
   };
+
+
+  function teste(e){
+    
+    handleSubmitSignIn(e)
+  }
+
 
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -202,7 +214,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       </form>
 
       <div className="container-sign-in-form-button">
-        <button className="sign-in-button" onClick={handleSubmitSignIn}>
+        <button className="sign-in-button" onClick={(e) => teste(e)}>
           Entrar
         </button>
       </div>
