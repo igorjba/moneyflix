@@ -31,8 +31,10 @@ export default function EditClientModal() {
     setOpenModalEditClient,
     idListChargesClick,
     token,
-    setClientRegisters,
-    setIdListChargesClick,
+    getInformationClientDetail,
+    setGetInformationClientDetail/* ,
+    idClientDetail,
+    setIdListChargesClick, */
   } = useUser();
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
@@ -159,23 +161,44 @@ export default function EditClientModal() {
           authorization: `Bearer ${token}`,
         }
       });
+      setGetInformationClientDetail(!getInformationClientDetail)
       toast.success(
         'Cliente Atualizado com Sucesso!', {
-        className: 'customToastify-success',
-        icon: ({ theme, type }) => <img src={success} alt="" />
-      });
-      ClientCadaster()
+          className: 'customToastify-success',
+          icon: ({ theme, type }) => <img src={success} alt="" />
+        });
+      //ClientCadaster()
     } catch (error) {
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");}
-      toast.error(
-        error.response.data.message, {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={error} alt="" />
-      });
+      console.log(error);
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+            clearAll()
+            navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+            clearAll()
+            navigate("/login");
+        }
     }
-  }
+    toast.error(error.response.data.message, {
+        className: 'customToastify-error',
+        icon: ({ theme, type }) => <img src={toastError} alt="" />
+    })
+}
+    }
+/* 
+    async function ClientCadaster() {
+    try {
+      const response = await api.get(`cliente/${idClientDetail}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setDetailsData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  } */
+
 
   return (
     <>
@@ -205,7 +228,7 @@ export default function EditClientModal() {
               placeholder="Digite o nome"
               name="nome"
               disabled={true}
-              value={(form.nome)}
+              value={completedName(form.nome)}
               maxLength={200}
               onChange={(event) => handleChangeForm(event)}
             />

@@ -14,7 +14,7 @@ import './style.css';
 import { completedName } from '../../../utils/inputMasks';
 
 export default function RegisterChargesModal() {
-    const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters } = useUser();
+    const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters, setGetInformationClientDetail, getInformationClientDetail } = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
@@ -101,8 +101,8 @@ export default function RegisterChargesModal() {
                     }
                 });
                 setOpenModalRegisterCharges(() => ({ ...openModalRegisterCharges, status: false }))
-                ClientCadaster()
                 backgroundSituation()
+                setGetInformationClientDetail(!getInformationClientDetail)
                 toast.success(
                     'Cobrança Cadastrada com Sucesso!', {
                     className: 'customToastify-success',
@@ -127,31 +127,6 @@ export default function RegisterChargesModal() {
         }
     }
 
-    async function ClientCadaster() {
-        try {
-            const response = await api.get("cliente", {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            });
-            setClientRegisters(response.data/* .slice(0, 10) */);
-        } catch (error) {
-            console.log(error)
-            if (error.response) {
-                if (error.response.status === 401 && error.response.data.message === "token expirado") {
-                    clearAll()
-                    navigate("/login");
-                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-                    clearAll()
-                    navigate("/login");
-                }
-            }
-            toast.error(error.response.data.message, {
-                className: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            })
-        }
-    }
     function backgroundSituation() {
         const situation = document.querySelectorAll(".situation");
         situation.forEach((element) => {
