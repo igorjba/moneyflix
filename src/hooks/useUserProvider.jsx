@@ -15,6 +15,7 @@ function useUserProvider() {
     const [idClientDetail, setIdClientDetail] = useState(null);
     const [titleNameSecond, setTitleNameSecond] = useState('')
     const [openLoading, setOpenLoading] = useState(false)
+    const [getInformationClientDetail, setGetInformationClientDetail] = useState(true)
     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
         status: false,
         id_user: '',
@@ -70,7 +71,9 @@ function useUserProvider() {
             titleNameSecond,
             setTitleNameSecond,
             openLoading,
-            setOpenLoading
+            setOpenLoading,
+            getInformationClientDetail,
+            setGetInformationClientDetail
         }
     )
 }

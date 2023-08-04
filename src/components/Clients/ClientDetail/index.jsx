@@ -22,9 +22,11 @@ export default function ClientDetail() {
     idClientDetail,
     setOpenModalRegisterCharges,
     setIdListChargesClick,
-    openModalEditClient,
-    openModalRegisterCharges,
-    setTitleNameSecond
+/*     openModalEditClient,
+    openModalRegisterCharges, */
+    setTitleNameSecond,
+    getInformationClientDetail,
+    setGetInformationClientDetail
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -40,7 +42,7 @@ export default function ClientDetail() {
 
   async function DetailCustomerData() {
     try {
-      console.log("Requisição na Api");
+
       const response = await api.get(`cliente/${idClientDetail}`, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -48,6 +50,7 @@ export default function ClientDetail() {
       });
 
       setIdListChargesClick(response.data);
+      setInfoClientCharges(response.data.billing);
 
       const fullName =
         response.data.client.length > 0
@@ -67,6 +70,7 @@ export default function ClientDetail() {
         );
       };
 
+      //console.log('chamou aqui');
       const formattedData = replaceNullWithDefault(response.data.client[0]);
 
       setDetailsData({
@@ -97,7 +101,7 @@ export default function ClientDetail() {
     }
   }
 
-  async function ListCharges() {
+ /*  async function ListCharges() {
     try {
       const response = await api.get(`cliente/${idClientDetail}`, {
         headers: {
@@ -109,7 +113,7 @@ export default function ClientDetail() {
       console.log(error);
     }
   }
-
+ */
   function backgroundSituation() {
     const status = document.querySelectorAll(".status-text");
     status.forEach((element) => {
@@ -158,27 +162,18 @@ export default function ClientDetail() {
       setcountOrderDueDate(1);
     }
   }
-  useEffect(() => {
-    backgroundSituation();
-  }, [infoClientCharges]);
+
 
   useEffect(() => {
     backgroundSituation();
     setTitleNameSecond(`> ${space}Detalhes do cliente`);
-    setTitle(`Clientes${space}`)
+    setTitle(`Clientes${space}`);
+    DetailCustomerData();
   }, []);
 
-  useEffect(() => {
-    //console.log("fui chamada");
-
-    if (openModalEditClient == false) {
+  useEffect(() =>{
       DetailCustomerData();
-    }
-
-    if (openModalRegisterCharges !== false) {
-      ListCharges();
-    }
-  }, [openModalRegisterCharges, openModalEditClient]);
+  },[getInformationClientDetail])
 
   return (
     <>
