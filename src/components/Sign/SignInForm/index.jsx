@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import openEye from "../../../assets/OpenEye.svg";
-import closedEye from "../../../assets/ClosedEye.svg";
 import api from "../../../api/api.jsx";
-import toastError from "../../../assets/toastError.svg";
+import closedEye from "../../../assets/ClosedEye.svg";
+import openEye from "../../../assets/OpenEye.svg";
 import success from "../../../assets/Success-Toast.svg";
+import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser";
 import { validateEmail } from "../../../utils/validation";
 import "./style.css";
@@ -119,22 +119,22 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     }
-    
+
     setSignInForm({
       ...signInForm,
       ...localForm,
     });
-    
+
     setTimeout(() => {
       login();
       setOpenLoading(false)
     }, 2000)
-    
+
   };
 
 
-  function teste(e){
-    
+  function teste(e) {
+
     handleSubmitSignIn(e)
   }
 
@@ -154,9 +154,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         <div className="container-email-sign-in-form container-input">
           <span className="sign-in-form-email span-forms">E-mail</span>
           <input
-            className={`${
-              errorEmail ? "errorLine" : ""
-            } sign-in-form-input input-forms`}
+            className={`${errorEmail ? "errorLine" : ""
+              } sign-in-form-input input-forms`}
             type="email"
             name="email"
             value={localForm.email}
@@ -184,9 +183,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           </div>
 
           <input
-            className={`${
-              errorPassword ? "errorLine" : ""
-            } sign-in-form-input input-forms input-password`}
+            className={`${errorPassword ? "errorLine" : ""
+              } sign-in-form-input input-forms input-password`}
             type={showPassword ? "text" : "password"}
             name="password"
             value={localForm.password}

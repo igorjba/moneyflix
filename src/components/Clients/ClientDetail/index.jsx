@@ -1,17 +1,16 @@
-import "./style.css";
-import useUser from "../../../hooks/useUser";
-import clientSFont from "../../../assets/Client(2).svg";
-import EditGreen from "../../../assets/Edit-green.svg";
-import deleteCharge from "../../../assets/DeleteCharge.svg";
-import editCharge from "../../../assets/Edit.svg";
-import api from "../../../api/api.jsx";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from "../../../api/api.jsx";
+import clientSFont from "../../../assets/Client(2).svg";
+import deleteCharge from "../../../assets/DeleteCharge.svg";
+import EditGreen from "../../../assets/Edit-green.svg";
+import editCharge from "../../../assets/Edit.svg";
+import toastError from "../../../assets/toastError.svg";
+import useUser from "../../../hooks/useUser";
 import { dateDDMMYYYYMask, moneyMask } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
-import { useNavigate } from "react-router-dom";
-import success from "../../../assets/Success-Toast.svg";
-import toastError from "../../../assets/toastError.svg";
-import { toast } from "react-toastify";
+import "./style.css";
 
 export default function ClientDetail() {
   const {
@@ -22,11 +21,8 @@ export default function ClientDetail() {
     idClientDetail,
     setOpenModalRegisterCharges,
     setIdListChargesClick,
-/*     openModalEditClient,
-    openModalRegisterCharges, */
     setTitleNameSecond,
     getInformationClientDetail,
-    setGetInformationClientDetail
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -70,7 +66,6 @@ export default function ClientDetail() {
         );
       };
 
-      //console.log('chamou aqui');
       const formattedData = replaceNullWithDefault(response.data.client[0]);
 
       setDetailsData({
@@ -78,7 +73,6 @@ export default function ClientDetail() {
         nome_cliente: nameClientCapitalized,
       });
     } catch (error) {
-      console.log(error);
       if (error.response) {
         if (
           error.response.status === 401 &&
@@ -101,19 +95,6 @@ export default function ClientDetail() {
     }
   }
 
- /*  async function ListCharges() {
-    try {
-      const response = await api.get(`cliente/${idClientDetail}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      setInfoClientCharges(response.data.billing);
-    } catch (error) {
-      console.log(error);
-    }
-  }
- */
   function backgroundSituation() {
     const status = document.querySelectorAll(".status-text");
     status.forEach((element) => {
@@ -171,9 +152,9 @@ export default function ClientDetail() {
     DetailCustomerData();
   }, []);
 
-  useEffect(() =>{
-      DetailCustomerData();
-  },[getInformationClientDetail])
+  useEffect(() => {
+    DetailCustomerData();
+  }, [getInformationClientDetail])
 
   return (
     <>
@@ -194,7 +175,7 @@ export default function ClientDetail() {
                     className="button-edit-client"
                     onClick={() =>
                       setOpenModalEditClient(true)
-                    } /* Preciso que seja passado também o id do cliente para que possa fazer get desse usuario, ou para que não precisa ser feito novo get, caso conseguir salvar as informações do cliente em estado no hook, eu consigo pegar essas informações*/
+                    }
                   >
                     <img src={EditGreen} alt="editar cliente" />
                     <h4>Editar Cliente</h4>
@@ -288,7 +269,6 @@ export default function ClientDetail() {
                       {" "}
                       + Nova cobrança{" "}
                     </h1>{" "}
-                    {/* ainda dentro desse estado ao lado me passar o id e nome do usuario*/}
                   </button>
                 </th>
               </tr>

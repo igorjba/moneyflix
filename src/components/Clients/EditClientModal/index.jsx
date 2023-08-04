@@ -1,30 +1,29 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../../api/api";
 import apiCep from "../../../api/apiCep";
 import clientSFont from "../../../assets/Client(2).svg";
 import success from "../../../assets/Success-Toast.svg";
-import toastError from "../../../assets/toastError.svg";
 import closed from "../../../assets/close.svg";
+import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser";
 import {
   cellPhoneMask,
   cellPhoneUnmask,
   cepMask,
-  cepMaskSecond,
   cepUnmask,
   completedName,
   cpfMask,
-  cpfUnmask,
+  cpfUnmask
 } from "../../../utils/inputMasks";
+import { clearAll } from "../../../utils/localStorage";
 import {
   validateCPF,
   validateEmail,
   validateName,
 } from "../../../utils/validation";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
-import { clearAll } from "../../../utils/localStorage";
 
 export default function EditClientModal() {
   const {
@@ -32,9 +31,7 @@ export default function EditClientModal() {
     idListChargesClick,
     token,
     getInformationClientDetail,
-    setGetInformationClientDetail/* ,
-    idClientDetail,
-    setIdListChargesClick, */
+    setGetInformationClientDetail
   } = useUser();
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
@@ -51,7 +48,7 @@ export default function EditClientModal() {
   const [formAdressEditClient, setFormAdressEditClient] = useState({
     logradouro: idListChargesClick.client[0].endereco,
     bairro: idListChargesClick.client[0].bairro,
-    cep:idListChargesClick.client[0].cep == null ? "" : idListChargesClick.client[0].cep,
+    cep: idListChargesClick.client[0].cep == null ? "" : idListChargesClick.client[0].cep,
     cidade: idListChargesClick.client[0].cidade,
     estado: idListChargesClick.client[0].estado,
     complemento: idListChargesClick.client[0].complemento,
@@ -61,39 +58,39 @@ export default function EditClientModal() {
     return setForm({ ...form, [event.target.name]: event.target.value });
   }
   function handleChangeFormAdress(event) {
-    return setFormAdressEditClient({...formAdressEditClient, [event.target.name]: event.target.value,});
+    return setFormAdressEditClient({ ...formAdressEditClient, [event.target.name]: event.target.value, });
   }
   function handleChangeFormTel(e) {
     const inputNumberTel = e.target.value.replace(/\D/g, '')
 
     if (inputNumberTel.length > 11) {
-        return;
+      return;
     }
 
     let value = inputNumberTel;
     let phone = '';
     if (value.length > 0) {
-        phone += '(' + value.slice(0, 2);
+      phone += '(' + value.slice(0, 2);
     }
     if (value.length > 2) {
-        if (value.length <= 10) {
-            phone += ') ' + value.slice(2, 6);
-        } else if (value.length === 11) {
-            phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
-        }
+      if (value.length <= 10) {
+        phone += ') ' + value.slice(2, 6);
+      } else if (value.length === 11) {
+        phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
+      }
     }
     if (value.length > 6 && value.length <= 10) {
-        phone += '-' + value.slice(6);
+      phone += '-' + value.slice(6);
     } else if (value.length === 11) {
-        phone += '-' + value.slice(7);
+      phone += '-' + value.slice(7);
     }
     return setForm({ ...form, telefone: phone })
-}
+  }
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${event.target.value}/json/`);
       setFormAdressEditClient({
-        logradouro: response.data.logradouro /* .concat() */,
+        logradouro: response.data.logradouro,
         bairro: response.data.bairro,
         cep: response.data.cep,
         cidade: response.data.localidade,
@@ -107,7 +104,6 @@ export default function EditClientModal() {
         });
       }
     } catch (error) {
-      console.log(error);
       toast.error("CEP inválido", {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
@@ -146,16 +142,16 @@ export default function EditClientModal() {
   }
   async function updateClient() {
     try {
-      const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`,{
+      const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`, {
         ...form,
-        cpf:  cpfUnmask(form.cpf),
+        cpf: cpfUnmask(form.cpf),
         telefone: cellPhoneUnmask(form.telefone),
-        logradouro: formAdressEditClient.logradouro === '' || formAdressEditClient.logradouro === null  ? '' : formAdressEditClient.logradouro,
+        logradouro: formAdressEditClient.logradouro === '' || formAdressEditClient.logradouro === null ? '' : formAdressEditClient.logradouro,
         bairro: formAdressEditClient.bairro === '' || formAdressEditClient.bairro === null ? '' : formAdressEditClient.bairro,
-        cidade: formAdressEditClient.cidade === '' || formAdressEditClient.cidade === null  ? '' : formAdressEditClient.cidade,
-        estado: formAdressEditClient.estado === '' || formAdressEditClient.estado === null  ? '' : formAdressEditClient.estado,
-        complemento: formAdressEditClient.complemento === ''|| formAdressEditClient.complemento === null ? '' : formAdressEditClient.complemento,
-        cep: formAdressEditClient.cep === '' || formAdressEditClient.cep === null  ? '' : cepUnmask(formAdressEditClient.cep)
+        cidade: formAdressEditClient.cidade === '' || formAdressEditClient.cidade === null ? '' : formAdressEditClient.cidade,
+        estado: formAdressEditClient.estado === '' || formAdressEditClient.estado === null ? '' : formAdressEditClient.estado,
+        complemento: formAdressEditClient.complemento === '' || formAdressEditClient.complemento === null ? '' : formAdressEditClient.complemento,
+        cep: formAdressEditClient.cep === '' || formAdressEditClient.cep === null ? '' : cepUnmask(formAdressEditClient.cep)
       }, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -164,41 +160,25 @@ export default function EditClientModal() {
       setGetInformationClientDetail(!getInformationClientDetail)
       toast.success(
         'Cliente Atualizado com Sucesso!', {
-          className: 'customToastify-success',
-          icon: ({ theme, type }) => <img src={success} alt="" />
-        });
-      //ClientCadaster()
+        className: 'customToastify-success',
+        icon: ({ theme, type }) => <img src={success} alt="" />
+      });
     } catch (error) {
-      console.log(error);
       if (error.response) {
         if (error.response.status === 401 && error.response.data.message === "token expirado") {
-            clearAll()
-            navigate("/login");
+          clearAll()
+          navigate("/login");
         } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-            clearAll()
-            navigate("/login");
+          clearAll()
+          navigate("/login");
         }
-    }
-    toast.error(error.response.data.message, {
+      }
+      toast.error(error.response.data.message, {
         className: 'customToastify-error',
         icon: ({ theme, type }) => <img src={toastError} alt="" />
-    })
-}
+      })
     }
-/* 
-    async function ClientCadaster() {
-    try {
-      const response = await api.get(`cliente/${idClientDetail}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      setDetailsData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  } */
-
+  }
 
   return (
     <>
@@ -400,6 +380,6 @@ export default function EditClientModal() {
         </form>
       </div>
     </>
-    
+
   );
 }
