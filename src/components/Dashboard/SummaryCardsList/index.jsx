@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {completedName} from '../../../utils/inputMasks'
+import { completedName } from "../../../utils/inputMasks";
 import "./style.css";
 
 export default function SummaryCardsList({
@@ -62,7 +62,9 @@ export default function SummaryCardsList({
               cardL.map((client) => {
                 return (
                   <tr key={client.id_cobranca || client.id_cliente}>
-                    <td>{client.cliente || completedName(client.nome_cliente)}</td>
+                    <td>
+                      {client.cliente || completedName(client.nome_cliente)}
+                    </td>
                     <td>
                       {isClientData
                         ? client.id_cliente

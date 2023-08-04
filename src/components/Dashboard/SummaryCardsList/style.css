@@ -70,6 +70,7 @@
 }
 
 .table-main-card td {
+  text-transform: capitalize;
   font-size: 14px;
   font-weight: 400;
   color: var(--font-table);
@@ -80,7 +81,12 @@
 }
 
 .table-main-card tr :first-child {
+  max-width: 17rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding-left: 3.2rem;
+  padding-right: 0.5rem;
 }
 
 .footerTable {
