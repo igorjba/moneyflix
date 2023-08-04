@@ -100,113 +100,6 @@
     flex-direction: row;
 }
 
-/* .container-input-status-pending {
-    position: relative;
-    margin: 0.8rem 0 3.2rem;
-    padding: 1.2rem 1.6rem;
-
-    border-radius: 1rem;
-    background-color: var(--bg-nav);
-}
-
-.container-input-status-pending label {
-    background-color: #C8C8D7;
-    border-radius: 50%;
-    cursor: pointer;
-    height: 28px;
-    left: 1.6rem;
-    position: absolute;
-    top: 25%;
-    width: 28px;
-}
-
-.container-input-status-pending label:after {
-    border: 2px solid #fff;
-    border-top: none;
-    border-right: none;
-    content: "";
-    height: 6px;
-    left: 7px;
-    opacity: 0;
-    position: absolute;
-    top: 8px;
-    transform: rotate(-45deg);
-    width: 12px;
-}
-
-.container-input-status-pending input[type="checkbox"] {
-    visibility: hidden;
-}
-
-.container-input-status-pending input[type="checkbox"]:checked+label {
-    background-color: var(--font-clr-green);
-    border-color: var(--font-clr-green);
-}
-
-.container-input-status-pending input[type="checkbox"]:checked+label:after {
-    opacity: 1;
-}
-
-
-
-
-/* ==================================================================================== */
-/* .container-input-status-paid {
-    position: relative;
-    margin-top: 0.8rem;
-    padding: 1.2rem 1.6rem;
-
-
-    border-radius: 1rem;
-    background-color: var(--bg-nav);
-}
-
-.container-input-status-paid label {
-    background-color: #C8C8D7;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-    height: 28px;
-    left: 1.6rem;
-    position: absolute;
-    top: 25%;
-    width: 28px;
-
-}
-
-.container-input-status-paid label h1{
-    margin-left: 4rem;
-    width: 1000%;
-}
-
-.container-input-status-paid label:after {
-    border: 2px solid #fff;
-    border-top: none;
-    border-right: none;
-    content: "";
-    height: 6px;
-    left: 7px;
-    opacity: 0;
-    position: absolute;
-    top: 8px;
-    transform: rotate(-45deg);
-    width: 12px;
-}
-
-.container-input-status-paid input[type="checkbox"] {
-    visibility: hidden;
-}
-
-.container-input-status-paid input[type="checkbox"]:checked+label {
-    background-color: var(--font-clr-green);
-    border-color: var(--font-clr-green);
-}
-
-.container-input-status-paid input[type="checkbox"]:checked+label:after {
-    opacity: 1;
-
-} */
-/* ==================================================================================== */
 .formButton button {
     margin-top: 5rem;
     width: 50%;
@@ -227,8 +120,7 @@
     background-color: var(--bg-pink);
 }
 
-/* Style do checkbox */
-.testeInput{
+.testeInput {
     display: flex;
     align-items: center;
 
@@ -241,7 +133,7 @@
     background-color: var(--bg-nav);
 }
 
-.inputParaCheck{
+.inputParaCheck {
     background-color: #C8C8D7;
     border-radius: 50%;
     cursor: pointer;
@@ -249,23 +141,20 @@
     width: 24px;
 }
 
-.testeInput h1{
+.testeInput h1 {
     margin-left: 8px;
 }
 
-.inputParaCheck input[type='checkbox']{
-   display: none;
+.inputParaCheck input[type='checkbox'] {
+    display: none;
 }
 
-/* Fim dos Style do checkbox */
-
-.errorCharges h1{
+.errorCharges h1 {
     color: var(--font-clr-text-error) !important;
-    margin: 4px 0 8px 0 ;
+    margin: 4px 0 8px 0;
 }
 
-.errorChargesLine{
+.errorChargesLine {
     margin-bottom: 0px !important;
     border: 1px solid var(--font-clr-text-error) !important;
 }
-

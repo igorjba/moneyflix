@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { completedName } from "../../../utils/inputMasks";
 import "./style.css";
 

@@ -9,7 +9,7 @@ import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
-import { cellPhoneMask, cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
+import { cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
@@ -53,25 +53,25 @@ export default function RegisterClientModal() {
       const inputNumberTel = event.target.value.replace(/\D/g, '')
 
       if (inputNumberTel.length > 11) {
-          return;
+        return;
       }
 
       let value = inputNumberTel;
       let phone = '';
       if (value.length > 0) {
-          phone += '(' + value.slice(0, 2);
+        phone += '(' + value.slice(0, 2);
       }
       if (value.length > 2) {
-          if (value.length <= 10) {
-              phone += ') ' + value.slice(2, 6);
-          } else if (value.length === 11) {
-              phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
-          }
+        if (value.length <= 10) {
+          phone += ') ' + value.slice(2, 6);
+        } else if (value.length === 11) {
+          phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
+        }
       }
       if (value.length > 6 && value.length <= 10) {
-          phone += '-' + value.slice(6);
+        phone += '-' + value.slice(6);
       } else if (value.length === 11) {
-          phone += '-' + value.slice(7);
+        phone += '-' + value.slice(7);
       }
 
       return setForm({ ...form, [event.target.name]: phone })
@@ -121,21 +121,12 @@ export default function RegisterClientModal() {
       setErrorName(validationName.message)
       validate = +1
     }
-    /* if(form.email){
-      const validationWhiteSpace = contains_WhiteSpace(form.email)
-      if(!validationWhiteSpace.isValid){
-        console.log('chamou aqui');
-        setErrorEmail(validationWhiteSpace.message)
-        return validate =+1
-      }
-      
-    } */
 
     const validationEmail = validateEmail(form.email)
-      if (!validationEmail.isValid) {
-        setErrorEmail(validationEmail.message)
-         validate = +1
-      }
+    if (!validationEmail.isValid) {
+      setErrorEmail(validationEmail.message)
+      validate = +1
+    }
     const validationCPF = validateCPF(cpfUnmask(form.cpf))
     if (!validationCPF.isValid) {
       setErrorCPF(validationCPF.message);
@@ -195,7 +186,7 @@ export default function RegisterClientModal() {
           authorization: `Bearer ${token}`,
         }
       });
-      setClientRegisters((response.data)/* .slice(0, 10) */);
+      setClientRegisters((response.data));
     } catch (error) {
       if (error.response) {
         if (error.response.status === 401 && error.response.data.message === "token expirado") {

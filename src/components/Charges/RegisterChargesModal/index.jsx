@@ -9,12 +9,12 @@ import IconCharge from '../../../assets/IconCharge.svg';
 import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import useUser from '../../../hooks/useUser';
+import { completedName } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import './style.css';
-import { completedName } from '../../../utils/inputMasks';
 
 export default function RegisterChargesModal() {
-    const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters, setGetInformationClientDetail, getInformationClientDetail } = useUser();
+    const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setGetInformationClientDetail, getInformationClientDetail } = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
@@ -24,7 +24,6 @@ export default function RegisterChargesModal() {
     const [errorDescription, setErrorDescription] = useState('');
     const [errorValue, setErrorValue] = useState('')
     const navigate = useNavigate();
-    /* let numeroEnvoar = 0 */
     let validate = 0
     const [formRegisterCharges, setFormRegisterCharges] = useState({
         descricao: '',
@@ -60,10 +59,6 @@ export default function RegisterChargesModal() {
 
         formRegisterCharges.vencimento = event.target.value
     }
-
-    /* function handleSubmitChargesNumber(event){
-        numeroEnvoar = event.replace(/,/g, "").replace(/\./g, "")
-    } */
 
     function handleSubmitCharges(event) {
         setFormRegisterCharges({ ...formRegisterCharges, [event.target.name]: event.target.value });
@@ -187,12 +182,9 @@ export default function RegisterChargesModal() {
                                 allowNegative={false}
                                 placeholder="0,00"
                                 name='vencimento'
-                                /* onValueChange={(sourceInfo) => {handleSubmitChargesNumber(sourceInfo.value)}} */
-                                //onValueChange={(sourceInfo) => {numeroEnvoar = sourceInfo.value.replace(/\./g, "")}}
                                 onValueChange={(sourceInfo) => { setTesteNumero(sourceInfo.value.replace(/\./g, "")) }}
                             />
                             {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}
-                            {/* <input id="valueInput" type="text" placeholder='Digite o valor' name='valor' value={formRegisterCharges.valor} onChange={(event) => handleSubmitCharges(event)} /> */}
                         </div>
                     </div>
                     <div>

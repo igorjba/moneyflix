@@ -1,5 +1,5 @@
-import "./style.css";
 import ImgError404 from "../../assets/404 Error.svg";
+import "./style.css";
 
 export default function NotFound() {
   return (

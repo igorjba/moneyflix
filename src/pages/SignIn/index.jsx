@@ -6,7 +6,7 @@ import useUser from "../../hooks/useUser";
 import "./style.css";
 
 export default function SignIn() {
-  const {openLoading} = useUser()
+  const { openLoading } = useUser()
 
   const [signInForm, setSignInForm] = useState({
     email: "",
@@ -15,17 +15,17 @@ export default function SignIn() {
 
   return (
     <>
-    {openLoading && <Loading />}
-    <div className="container-sign-in initial">
-      <div className="sign-in-img">
-        <h2 className="sentence-img">
-          Gerencie todos os pagamentos da sua empresa em um só lugar.
-        </h2>
+      {openLoading && <Loading />}
+      <div className="container-sign-in initial">
+        <div className="sign-in-img">
+          <h2 className="sentence-img">
+            Gerencie todos os pagamentos da sua empresa em um só lugar.
+          </h2>
+        </div>
+        <div className="container-sign-in-form">
+          <SignInForm signInForm={signInForm} setSignInForm={setSignInForm} />
+        </div>
       </div>
-      <div className="container-sign-in-form">
-        <SignInForm signInForm={signInForm} setSignInForm={setSignInForm} />
-      </div>
-    </div>
     </>
   );
 }

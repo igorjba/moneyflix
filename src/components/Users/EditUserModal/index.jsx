@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../../../api/api';
-import success from '../../../assets/Success-Toast.svg';
+import closedEye from "../../../assets/ClosedEye.svg";
+import openEye from "../../../assets/OpenEye.svg";
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
-import openEye from "../../../assets/OpenEye.svg";
-import closedEye from "../../../assets/ClosedEye.svg";
 import { cellPhoneMask, cellPhoneUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
-import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
 import { clearAll } from '../../../utils/localStorage';
-import { useNavigate } from 'react-router-dom';
+import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
 import './style.css';
 
 export default function EditUserModal({ setOpenModalEdit }) {
@@ -59,12 +58,10 @@ export default function EditUserModal({ setOpenModalEdit }) {
         if (GetProfile.senha !== GetProfile.confirmeSenha) {
             setErrorPasswordAgainEdit('As senhas não coincidem');
         }
-        if(!GetProfile.senha){
+        if (!GetProfile.senha) {
             setErrorPasswordEdit('Digite sua senha')
         }
 
-        console.log(numberCPF);
-        console.log(numberTel);
         try {
             const response = await api.put('usuario/atualizar', {
                 nome: GetProfile.nome,
@@ -81,11 +78,6 @@ export default function EditUserModal({ setOpenModalEdit }) {
             });
             localStorage.setItem("name", GetProfile.nome);
             setNameUser(GetProfile.nome);
-            /* toast.success(
-                'Cliente Atualizado com Sucesso!', {
-                className: 'customToastify-success',
-                icon: ({ theme, type }) => <img src={success} alt="" />
-            }) */
             SetOpenModalEditProfile(false)
             setOpenModalEdit(false)
             setOpenModalEditProfileSuccess(true)
@@ -187,7 +179,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             <label htmlFor=""><h1>Senha Atual*</h1></label>
                             <div className="password-input">
                                 <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
-                                {/* {errorPasswordEdit && <span className='error'><h1>{errorPasswordEdit}</h1></span>} */}
+
                                 <div
                                     className='password-toggle-visibility'
                                     onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
@@ -217,7 +209,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             {errorPasswordAgainEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
                         </div>
                         <div className='ModalDiv-Button'>
-                    <button className='ModalEdit-Button'>Continuar</button>
+                            <button className='ModalEdit-Button'>Continuar</button>
                         </div>
                     </div>
                 </form>

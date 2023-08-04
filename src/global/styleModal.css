@@ -77,9 +77,6 @@
     padding: 4rem 5.7rem;
     border-radius: 3rem;
 
-    /* position: absolute; */
-    /* top: 7%; */
-
     background-color: var(--bg-modal);
     z-index: 4;
 }
@@ -106,5 +103,4 @@
 
     color: var(--font-clr-text-error);
 
-    /* margin-bottom: 0.8rem */
 }

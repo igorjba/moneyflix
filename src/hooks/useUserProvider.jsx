@@ -21,7 +21,7 @@ function useUserProvider() {
         id_user: '',
         nome_user: ''
     })
-  const [loggedInUser, setLoggedInUser] = useState({
+    const [loggedInUser, setLoggedInUser] = useState({
         nome: '',
         email: '',
         cpf: '',
@@ -39,9 +39,10 @@ function useUserProvider() {
         senha: '',
         confirmeSenha: ''
     });
-  
+
     return (
-        {   setOpenModalEditProfileSuccess,
+        {
+            setOpenModalEditProfileSuccess,
             openModalEditProfileSuccess,
             GetProfile,
             setGetProfile,
