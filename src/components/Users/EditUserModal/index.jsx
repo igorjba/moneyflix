@@ -79,14 +79,13 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     authorization: token,
                 }
             });
-            console.log(response);
             localStorage.setItem("name", GetProfile.nome);
             setNameUser(GetProfile.nome);
-            toast.success(
+            /* toast.success(
                 'Cliente Atualizado com Sucesso!', {
                 className: 'customToastify-success',
                 icon: ({ theme, type }) => <img src={success} alt="" />
-            })
+            }) */
             SetOpenModalEditProfile(false)
             setOpenModalEdit(false)
             setOpenModalEditProfileSuccess(true)
@@ -108,21 +107,29 @@ export default function EditUserModal({ setOpenModalEdit }) {
         }
     }
 
-
-
     function handleChangeFormTel(e) {
         const inputNumberTel = e.target.value.replace(/\D/g, '')
-        let value = inputNumberTel
-        if (value.length > 11) {
-            value = value.slice(0, 11);
+
+        if (inputNumberTel.length > 11) {
+            return;
         }
+
+        let value = inputNumberTel;
         let phone = '';
-        phone += '(' + value.slice(0, 2) + ')';
-        if (value.length > 2) {
-            phone += ' ' + value.slice(2,3) + ' ' + value.slice(3, 7);
+        if (value.length > 0) {
+            phone += '(' + value.slice(0, 2);
         }
-        if (value.length > 7) {
-            phone += '-' + value.slice(7, 11);
+        if (value.length > 2) {
+            if (value.length <= 10) {
+                phone += ') ' + value.slice(2, 6);
+            } else if (value.length === 11) {
+                phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
+            }
+        }
+        if (value.length > 6 && value.length <= 10) {
+            phone += '-' + value.slice(6);
+        } else if (value.length === 11) {
+            phone += '-' + value.slice(7);
         }
         setNumberTel(phone);
     }

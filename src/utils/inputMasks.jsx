@@ -63,6 +63,27 @@ function cellPhoneMask(value) {
     return phone;
 }
 
+/* function cellPhoneMask(e) {
+    let value = e;
+    let phone = '';
+    if (e.length > 0) {
+        phone += '(' + e.slice(0, 2);
+    }
+    if (e.length > 2) {
+        if (e.length <= 10) {
+            phone += ') ' + e.slice(2, 6);
+        } else if (e.length === 11) {
+            phone += ') ' + e.slice(2, 3) + ' ' + e.slice(3, 7);
+        }
+    }
+    if (e.length > 6 && e.length <= 10) {
+        phone += '-' + e.slice(6);
+    } else if (e.length === 11) {
+        phone += '-' + e.slice(7);
+    }
+    return phone;
+} */
+
 function cellPhoneUnmask(value) {
     return value.replace(/\D/g, '');
 }

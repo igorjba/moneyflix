@@ -43,7 +43,7 @@ export default function EditClientModal() {
   const [form, setForm] = useState({
     nome: idListChargesClick.client[0].nome_cliente,
     email: idListChargesClick.client[0].email,
-    cpf: cpfMask(idListChargesClick.client[0].cpf),
+    cpf: /* cpfMask */(idListChargesClick.client[0].cpf),
     telefone: cellPhoneMask(idListChargesClick.client[0].telefone),
   });
   const [formAdressEditClient, setFormAdressEditClient] = useState({
@@ -61,6 +61,32 @@ export default function EditClientModal() {
   function handleChangeFormAdress(event) {
     return setFormAdressEditClient({...formAdressEditClient, [event.target.name]: event.target.value,});
   }
+  function handleChangeFormTel(e) {
+    const inputNumberTel = e.target.value.replace(/\D/g, '')
+
+    if (inputNumberTel.length > 11) {
+        return;
+    }
+
+    let value = inputNumberTel;
+    let phone = '';
+    if (value.length > 0) {
+        phone += '(' + value.slice(0, 2);
+    }
+    if (value.length > 2) {
+        if (value.length <= 10) {
+            phone += ') ' + value.slice(2, 6);
+        } else if (value.length === 11) {
+            phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
+        }
+    }
+    if (value.length > 6 && value.length <= 10) {
+        phone += '-' + value.slice(6);
+    } else if (value.length === 11) {
+        phone += '-' + value.slice(7);
+    }
+    return setForm({ ...formAdressEditClient, [e.target.name]: phone })
+}
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${event.target.value}/json/`);
@@ -225,7 +251,7 @@ export default function EditClientModal() {
               placeholder="Digite o nome"
               name="nome"
               disabled={true}
-              value={completedName(form.nome)}
+              value={(form.nome)}
               maxLength={200}
               onChange={(event) => handleChangeForm(event)}
             />
@@ -265,7 +291,7 @@ export default function EditClientModal() {
                   ref={inputRef}
                   placeholder="Digite o CPF"
                   name="cpf"
-                  value={cpfMask(form.cpf)}
+                  value={/* cpfMask */(form.cpf)}
                   maxLength={14}
                   onChange={(event) => handleChangeForm(event)}
                 />
@@ -287,8 +313,8 @@ export default function EditClientModal() {
                   ref={inputRef}
                   placeholder="Digite o telefone"
                   name="telefone"
-                  value={cellPhoneMask(form.telefone)}
-                  onChange={(event) => handleChangeForm(event)}
+                  value={form.telefone}
+                  onChange={(event) => handleChangeFormTel(event)}
                 />
                 {errorPhone && (
                   <span className="error">
