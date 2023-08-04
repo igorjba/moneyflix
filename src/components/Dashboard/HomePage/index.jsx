@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import api from "../../../api/api.jsx";
 import ClienteOK from "../../../assets/ClienteOK.svg";
 import ClienteOverdue from "../../../assets/ClienteOverdue.svg";
 import Expired from "../../../assets/Expired.svg";
 import Paid from "../../../assets/Paid.svg";
 import Pending from "../../../assets/Pending.svg";
-import toastError from '../../../assets/toastError.svg';
+import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
-import success from '../../../assets/Success-Toast.svg';
+import success from "../../../assets/Success-Toast.svg";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +18,7 @@ export default function HomePage() {
   const { setTitle, token } = useUser();
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   async function fetchData() {
     try {
@@ -31,14 +31,19 @@ export default function HomePage() {
       if (response.status === 200) {
         setData(response.data);
       }
-
     } catch (error) {
       if (error.response) {
-        if (error.response.status === 401 && error.response.data.message === "token expirado") {
-          clearAll()
+        if (
+          error.response.status === 401 &&
+          error.response.data.message === "token expirado"
+        ) {
+          clearAll();
           navigate("/login");
-        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-          clearAll()
+        } else if (
+          error.response.status === 400 &&
+          error.response.data.message === "Não autorizado"
+        ) {
+          clearAll();
           navigate("/login");
         }
       }
@@ -58,7 +63,7 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchData();
-    setTitle("Resumo de Cobranças")
+    setTitle("Resumo de Cobranças");
   }, []);
 
   return (
