@@ -43,7 +43,7 @@ export default function EditClientModal() {
   const [form, setForm] = useState({
     nome: idListChargesClick.client[0].nome_cliente,
     email: idListChargesClick.client[0].email,
-    cpf: /* cpfMask */(idListChargesClick.client[0].cpf),
+    cpf: cpfMask(idListChargesClick.client[0].cpf),
     telefone: cellPhoneMask(idListChargesClick.client[0].telefone),
   });
   const [formAdressEditClient, setFormAdressEditClient] = useState({
@@ -85,7 +85,7 @@ export default function EditClientModal() {
     } else if (value.length === 11) {
         phone += '-' + value.slice(7);
     }
-    return setForm({ ...formAdressEditClient, [e.target.name]: phone })
+    return setForm({ ...form, telefone: phone })
 }
   async function searchCep(event) {
     try {
@@ -146,7 +146,7 @@ export default function EditClientModal() {
     try {
       const response = await api.put(`cliente/${idListChargesClick.client[0].id_cliente}`,{
         ...form,
-        cpf: cpfUnmask(form.cpf),
+        cpf:  cpfUnmask(form.cpf),
         telefone: cellPhoneUnmask(form.telefone),
         logradouro: formAdressEditClient.logradouro === '' || formAdressEditClient.logradouro === null  ? '' : formAdressEditClient.logradouro,
         bairro: formAdressEditClient.bairro === '' || formAdressEditClient.bairro === null ? '' : formAdressEditClient.bairro,
@@ -176,52 +176,6 @@ export default function EditClientModal() {
       });
     }
   }
-  /* async function ClientCadaster() {
-    try {
-      const response = await api.get('cliente', {
-        headers: {
-          authorization: `Bearer ${token}`,
-        }
-      });
-      //setClientRegisters((response.data));
-      setIdListChargesClick(response.data)
-    } catch (error) {
-      if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-        clearAll()
-        navigate("/login");}
-      toast.error(
-                    error.response.data.message, {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={error} alt="" />
-      });
-    }
-  }  */
-
-
-
-
-
-
-  // async function ClientCadaster() {
-  //   try {
-  //     const response = await api.get('cliente', {
-  //       headers: {
-  //         authorization: `Bearer ${token}`,
-  //       }
-  //     });
-  //     //setClientRegisters((response.data));
-  //     setIdListChargesClick(response.data)
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401 || error.response.status === 400 ) {
-  //       clearAll()
-  //       navigate("/login");}
-  //     toast.error(
-  //                   error.response.data.message, {
-  //       className: 'customToastify-error',
-  //       icon: ({ theme, type }) => <img src={error} alt="" />
-  //     });
-  //   }
-  // }
 
   return (
     <>
@@ -291,7 +245,7 @@ export default function EditClientModal() {
                   ref={inputRef}
                   placeholder="Digite o CPF"
                   name="cpf"
-                  value={/* cpfMask */(form.cpf)}
+                  value={cpfMask(form.cpf)}
                   maxLength={14}
                   onChange={(event) => handleChangeForm(event)}
                 />
