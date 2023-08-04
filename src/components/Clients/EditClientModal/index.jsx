@@ -122,8 +122,12 @@ export default function EditClientModal() {
         ...form,
         cpf: cpfUnmask(form.cpf),
         telefone: cellPhoneUnmask(form.telefone),
-        ...formAdressEditClient,
-        cep: cepUnmask(formAdressEditClient.cep)
+        logradouro: formAdressEditClient.logradouro === '' || formAdressEditClient.logradouro === null  ? '' : formAdressEditClient.logradouro,
+        bairro: formAdressEditClient.bairro === '' || formAdressEditClient.bairro === null ? '' : formAdressEditClient.bairro,
+        cidade: formAdressEditClient.cidade === '' || formAdressEditClient.cidade === null  ? '' : formAdressEditClient.cidade,
+        estado: formAdressEditClient.estado === '' || formAdressEditClient.estado === null  ? '' : formAdressEditClient.estado,
+        complemento: formAdressEditClient.complemento === ''|| formAdressEditClient.complemento === null ? '' : formAdressEditClient.complemento,
+        cep: formAdressEditClient.cep === '' || formAdressEditClient.cep === null  ? '' : cepUnmask(formAdressEditClient.cep)
       }, {
         headers: {
           authorization: `Bearer ${token}`,

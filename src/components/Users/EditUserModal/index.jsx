@@ -59,12 +59,18 @@ export default function EditUserModal({ setOpenModalEdit }) {
         if (GetProfile.senha !== GetProfile.confirmeSenha) {
             setErrorPasswordAgainEdit('As senhas não coincidem');
         }
+        if(!GetProfile.senha){
+            setErrorPasswordEdit('Digite sua senha')
+        }
+
+        console.log(numberCPF);
+        console.log(numberTel);
         try {
             const response = await api.put('usuario/atualizar', {
                 nome: GetProfile.nome,
                 cpf: cpfUnmask(numberCPF),
                 email: GetProfile.email,
-                telefone: cellPhoneUnmask(numberTel),
+                telefone: numberTel === '' || numberTel === null ? '' : cellPhoneUnmask(numberTel),
                 senhaAtual: GetProfile.senhaAtual,
                 senha: GetProfile.senha,
                 confirmeSenha: GetProfile.confirmeSenha
@@ -73,6 +79,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     authorization: token,
                 }
             });
+            console.log(response);
             localStorage.setItem("name", GetProfile.nome);
             setNameUser(GetProfile.nome);
             toast.success(
@@ -163,7 +170,6 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             <div>
                                 <label htmlFor=""><h1>CPF*</h1></label>
                                 <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={(e) => handleChangeFormCPF(e)} />
-                                {errorPasswordEdit && <span className='error'><h1>{errorPasswordEdit}</h1></span>}
                             </div>
                             <div>
                                 <label htmlFor=""><h1>Telefone*</h1></label>
@@ -173,7 +179,8 @@ export default function EditUserModal({ setOpenModalEdit }) {
                         <div className='box-info'>
                             <label htmlFor=""><h1>Senha Atual*</h1></label>
                             <div className="password-input">
-                                <input type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                                <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                                {/* {errorPasswordEdit && <span className='error'><h1>{errorPasswordEdit}</h1></span>} */}
                                 <div
                                     className='password-toggle-visibility'
                                     onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
@@ -182,7 +189,6 @@ export default function EditUserModal({ setOpenModalEdit }) {
                                     }}
                                 />
                             </div>
-                            {errorPasswordEdit && <span className='error'><h1>{errorPasswordEdit}</h1></span>}
                         </div>
                         <div className='box-info'>
                             <label htmlFor=''><h1>Nova Senha</h1></label>
@@ -195,7 +201,6 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             </div>
                             {errorNewPasswordEdit && <span className='error'><h1>{errorNewPasswordEdit}</h1></span>}
                         </div>
-
                         <div className='box-info'>
                             <label htmlFor=''><h1>Confirmar a Senha</h1></label>
                             <div className='password-input'>
@@ -204,8 +209,10 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             </div>
                             {errorPasswordAgainEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
                         </div>
-                    </div>
+                        <div className='ModalDiv-Button'>
                     <button className='ModalEdit-Button'>Continuar</button>
+                        </div>
+                    </div>
                 </form>
             </div >
         </div >

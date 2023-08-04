@@ -110,7 +110,7 @@ export default function RegisterClientModal() {
     const validationEmail = validateEmail(form.email)
       if (!validationEmail.isValid) {
         setErrorEmail(validationEmail.message)
-        return validate = +1
+         validate = +1
       }
     const validationCPF = validateCPF(cpfUnmask(form.cpf))
     if (!validationCPF.isValid) {

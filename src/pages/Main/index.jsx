@@ -20,8 +20,6 @@ import useUser from '../../hooks/useUser';
 import "./style.css";
 import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal"
 
-
-
 function Main() {
   const [modalExit, setModalExit] = useState(false);
   const [imageNavHome, setimageNavHome] = useState(false);
@@ -29,7 +27,6 @@ function Main() {
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  // teste
   const {
     openModalRegister,
     openModalEditPerfil,
@@ -38,16 +35,16 @@ function Main() {
     setOpenModalEditProfileSuccess,
     title,
     setTitle,
-    token,
-    setNameUser,
+    /* token,
+    setNameUser, */
     nameUser,
-    setOpenModalEditClient,
+    /* setOpenModalEditClient, */
     openModalEditClient,
     openModalRegisterCharges,
     idClientDetail,
     setIdClientDetail,
     setTitleNameSecond,
-    clientDetailPage,
+    /* clientDetailPage, */
     setClientDetailPage,
     titleNameSecond
   } = useUser();
@@ -78,7 +75,6 @@ function Main() {
         userNameWords[0].charAt(0).toUpperCase() +
         lastWord.charAt(0).toUpperCase()
       );
-
     }
   }
 
@@ -147,12 +143,11 @@ function Main() {
             onClickNavLeft(event),
               setimageNavClient(false),
               setimageNavHome(true),
-
               setimageNavCharge(true);
-            setIdClientDetail(false);
-            setimageNavCharge(true),
-              setClientDetailPage(false),
               setTitleNameSecond('')
+
+              setIdClientDetail(false);
+              //setClientDetailPage(false),
           }}
         >
           <img src={imageNavClient ? client : clientePink} alt="Cliente" />
@@ -219,7 +214,6 @@ function Main() {
         <div className="main">
           {!imageNavClient && !idClientDetail && <ClientListPage />}
           {!imageNavClient && idClientDetail && <ClientDetail />}
-
           {!imageNavHome && <HomePage />}
           {!imageNavCharge && <ChargesListPage />}
         </div>
