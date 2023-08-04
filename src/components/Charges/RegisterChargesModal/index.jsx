@@ -9,12 +9,12 @@ import IconCharge from '../../../assets/IconCharge.svg';
 import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import useUser from '../../../hooks/useUser';
+import { completedName } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import './style.css';
-import { completedName } from '../../../utils/inputMasks';
 
 export default function RegisterChargesModal() {
-    const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setClientRegisters } = useUser();
+    const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setGetInformationClientDetail, getInformationClientDetail } = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
@@ -24,7 +24,6 @@ export default function RegisterChargesModal() {
     const [errorDescription, setErrorDescription] = useState('');
     const [errorValue, setErrorValue] = useState('')
     const navigate = useNavigate();
-    /* let numeroEnvoar = 0 */
     let validate = 0
     const [formRegisterCharges, setFormRegisterCharges] = useState({
         descricao: '',
@@ -60,10 +59,6 @@ export default function RegisterChargesModal() {
 
         formRegisterCharges.vencimento = event.target.value
     }
-
-    /* function handleSubmitChargesNumber(event){
-        numeroEnvoar = event.replace(/,/g, "").replace(/\./g, "")
-    } */
 
     function handleSubmitCharges(event) {
         setFormRegisterCharges({ ...formRegisterCharges, [event.target.name]: event.target.value });
@@ -101,8 +96,8 @@ export default function RegisterChargesModal() {
                     }
                 });
                 setOpenModalRegisterCharges(() => ({ ...openModalRegisterCharges, status: false }))
-                ClientCadaster()
                 backgroundSituation()
+                setGetInformationClientDetail(!getInformationClientDetail)
                 toast.success(
                     'Cobrança Cadastrada com Sucesso!', {
                     className: 'customToastify-success',
@@ -127,31 +122,6 @@ export default function RegisterChargesModal() {
         }
     }
 
-    async function ClientCadaster() {
-        try {
-            const response = await api.get("cliente", {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            });
-            setClientRegisters(response.data/* .slice(0, 10) */);
-        } catch (error) {
-            console.log(error)
-            if (error.response) {
-                if (error.response.status === 401 && error.response.data.message === "token expirado") {
-                    clearAll()
-                    navigate("/login");
-                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-                    clearAll()
-                    navigate("/login");
-                }
-            }
-            toast.error(error.response.data.message, {
-                className: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            })
-        }
-    }
     function backgroundSituation() {
         const situation = document.querySelectorAll(".situation");
         situation.forEach((element) => {
@@ -212,12 +182,9 @@ export default function RegisterChargesModal() {
                                 allowNegative={false}
                                 placeholder="0,00"
                                 name='vencimento'
-                                /* onValueChange={(sourceInfo) => {handleSubmitChargesNumber(sourceInfo.value)}} */
-                                //onValueChange={(sourceInfo) => {numeroEnvoar = sourceInfo.value.replace(/\./g, "")}}
                                 onValueChange={(sourceInfo) => { setTesteNumero(sourceInfo.value.replace(/\./g, "")) }}
                             />
                             {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}
-                            {/* <input id="valueInput" type="text" placeholder='Digite o valor' name='valor' value={formRegisterCharges.valor} onChange={(event) => handleSubmitCharges(event)} /> */}
                         </div>
                     </div>
                     <div>

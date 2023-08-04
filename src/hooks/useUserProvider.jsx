@@ -15,12 +15,13 @@ function useUserProvider() {
     const [idClientDetail, setIdClientDetail] = useState(null);
     const [titleNameSecond, setTitleNameSecond] = useState('')
     const [openLoading, setOpenLoading] = useState(false)
+    const [getInformationClientDetail, setGetInformationClientDetail] = useState(true)
     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
         status: false,
         id_user: '',
         nome_user: ''
     })
-  const [loggedInUser, setLoggedInUser] = useState({
+    const [loggedInUser, setLoggedInUser] = useState({
         nome: '',
         email: '',
         cpf: '',
@@ -38,9 +39,10 @@ function useUserProvider() {
         senha: '',
         confirmeSenha: ''
     });
-  
+
     return (
-        {   setOpenModalEditProfileSuccess,
+        {
+            setOpenModalEditProfileSuccess,
             openModalEditProfileSuccess,
             GetProfile,
             setGetProfile,
@@ -70,7 +72,9 @@ function useUserProvider() {
             titleNameSecond,
             setTitleNameSecond,
             openLoading,
-            setOpenLoading
+            setOpenLoading,
+            getInformationClientDetail,
+            setGetInformationClientDetail
         }
     )
 }

@@ -89,9 +89,8 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
           <span className="step-two-form-name span-forms">Senha*</span>
           <div className="container-input-password">
             <input
-              className={`step-two-form-input input-forms step-two-input-password ${
-                errorPassword ? "errorLine" : ""
-              }`}
+              className={`step-two-form-input input-forms step-two-input-password ${errorPassword ? "errorLine" : ""
+                }`}
               type={showPassword ? "text" : "password"}
               name="password"
               value={localForm.password}
@@ -123,9 +122,8 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
           </span>
           <div className="container-input-password-confirm">
             <input
-              className={`step-two-form-input input-forms step-two-input-password-confirm ${
-                errorConfirmPassword ? "errorLine" : ""
-              }`}
+              className={`step-two-form-input input-forms step-two-input-password-confirm ${errorConfirmPassword ? "errorLine" : ""
+                }`}
               type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
               value={localForm.confirmPassword}
@@ -143,9 +141,8 @@ const StepTwoForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
                 setShowConfirmPassword((prevShowPassword) => !prevShowPassword)
               }
               style={{
-                backgroundImage: `url(${
-                  showConfirmPassword ? openEye : closedEye
-                })`,
+                backgroundImage: `url(${showConfirmPassword ? openEye : closedEye
+                  })`,
               }}
             />
           </div>

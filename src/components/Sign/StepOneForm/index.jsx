@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import toastError from "../../../assets/toastError.svg";
-import { validateEmail, validateName } from "../../../utils/validation";
 import api from "../../../api/api.jsx";
+import { validateEmail, validateName } from "../../../utils/validation";
 import "./style.css";
 
 const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
@@ -71,11 +70,10 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
         <div className="container-name-step-one-form container-input">
           <span className="step-one-form-name label-forms">Nome*</span>
           <input
-            className={`step-one-form-input input-forms ${
-              errorName
+            className={`step-one-form-input input-forms ${errorName
                 ? "step-one-form-input input-forms errorLine"
                 : "step-one-form-input input-forms"
-            }`}
+              }`}
             type="text"
             name="username"
             value={localForm.username}
@@ -94,11 +92,10 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
         <div className="container-email-step-one-form container-input">
           <span className="step-one-form-email label-forms">E-mail*</span>
           <input
-            className={`step-one-form-input input-forms ${
-              errorEmail
+            className={`step-one-form-input input-forms ${errorEmail
                 ? "step-one-form-input input-forms errorLine"
                 : "step-one-form-input input-forms"
-            }`}
+              }`}
             type="email"
             name="email"
             value={localForm.email}

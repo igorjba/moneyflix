@@ -9,7 +9,7 @@ import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
 import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser.jsx";
-import { FullName, completedName } from "../../../utils/inputMasks.jsx";
+import { completedName } from "../../../utils/inputMasks.jsx";
 import { clearAll } from "../../../utils/localStorage.jsx";
 import "./style.css";
 
@@ -22,15 +22,9 @@ export default function ClientListPage() {
     token,
     setOpenModalRegisterCharges,
     setIdClientDetail,
-    /* openModalRegisterCharges,
-    setIdListChargesClick,
-    idListChargesClick,
-    setOpenModalEditClient,
-    setClientDetailPage, */
   } = useUser();
   const navigate = useNavigate();
 
-  //const [stateClientDetail, setStateClientDetail] = useState(false);
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
@@ -45,7 +39,6 @@ export default function ClientListPage() {
       setClientRegisters(response.data);
 
     } catch (error) {
-      console.log(error);
       if (error.response) {
         if (
           error.response.status === 401 &&
@@ -153,44 +146,44 @@ export default function ClientListPage() {
                 onClick={() => orderName()}
               >
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
-                                        <g id="Group">
-                                            <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </g>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_84440_3278">
-                                            <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            <h1>Cliente</h1>
-                            </th>
-                            <th><h1>CPF</h1></th>
-                            <th><h1>E-mail</h1></th>
-                            <th><h1>Telefone</h1></th>
-                            <th><h1>Status</h1></th>
-                            <th><h1>Criar Cobrança</h1></th>
-                        </tr>
+                  <g id="Frame" clipPath="url(#clip0_84440_3278)">
+                    <g id="Group">
+                      <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </g>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_84440_3278">
+                      <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <h1>Cliente</h1>
+              </th>
+              <th><h1>CPF</h1></th>
+              <th><h1>E-mail</h1></th>
+              <th><h1>Telefone</h1></th>
+              <th><h1>Status</h1></th>
+              <th><h1>Criar Cobrança</h1></th>
+            </tr>
           </thead>
           <tbody className="extract-table">
             {clientRegisters.map((client) => {
               return (
                 <tr key={client.id_cliente}>
-                  <td className="description-table"> <h1 className="mousePointer"onClick={() => setIdClientDetail(client.id_cliente)}> {client.nome_cliente && completedName(client.nome_cliente)} </h1> </td>
+                  <td className="description-table"> <h1 className="mousePointer" onClick={() => setIdClientDetail(client.id_cliente)}> {client.nome_cliente && completedName(client.nome_cliente)} </h1> </td>
                   <td><h1>{client.cpf}</h1></td>
-                                    <td className='description-table'><h1>{client.email}</h1></td>
-                                    <td><h1>{client.telefone}</h1></td>
-                                    <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
-                                    <td>
-                                        <img className="mousePointer" src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client) }/>
-                                    </td>
-                                </tr>
-                            )
-                        })}
+                  <td className='description-table'><h1>{client.email}</h1></td>
+                  <td><h1>{client.telefone}</h1></td>
+                  <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
+                  <td>
+                    <img className="mousePointer" src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client)} />
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

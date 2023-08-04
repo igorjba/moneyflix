@@ -88,13 +88,11 @@
     width: 100% !important;
 }
 
-.detail-text-line-detail-client{
+.detail-text-line-detail-client {
     overflow: hidden;
-/*     text-overflow: ellipsis; */
-/*     white-space: nowrap; */
 }
 
-.detail-text-line-detail-client h1{
+.detail-text-line-detail-client h1 {
     width: 90%;
 
     overflow: hidden;

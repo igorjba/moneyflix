@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../../api/api.jsx";
 import ClienteOK from "../../../assets/ClienteOK.svg";
@@ -10,9 +11,7 @@ import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
-import success from "../../../assets/Success-Toast.svg";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const { setTitle, token } = useUser();

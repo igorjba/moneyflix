@@ -176,14 +176,5 @@ function validatePhoneLength(phone) {
 
 }
 
-/* function contains_WhiteSpace(value){
-    if (value[0] === ' ' || value[value.length - 1] === ' ' || value.includes('  ')) {
-        return { isValid: false, message: 'Remover os espaços.' };
-    }
-
-    return { isValid: true };
-} */
-
-
 export { validateName, validateEmail, validatePassword, validateCPF, validatePhone, validateCPFLength, validatePhoneLength };
 
