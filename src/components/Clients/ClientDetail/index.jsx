@@ -169,7 +169,7 @@ export default function ClientDetail() {
   }, []);
 
   useEffect(() => {
-    console.log("fui chamada");
+    //console.log("fui chamada");
 
     if (openModalEditClient == false) {
       DetailCustomerData();
