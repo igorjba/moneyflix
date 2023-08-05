@@ -25,6 +25,7 @@ export default function RegisterChargesModal() {
     const [errorDescription, setErrorDescription] = useState('');
     const [errorValue, setErrorValue] = useState('')
     const navigate = useNavigate();
+    const inputRef = useRef(null);
     let validate = 0
     const [formRegisterCharges, setFormRegisterCharges] = useState({
         descricao: '',
@@ -148,21 +149,22 @@ function backgroundSituation() {
             <form onSubmit={sendInformationCharges}>
                 <div className='container-inputs-form'>
                     <div className='container-input-name'>
-                        <label htmlFor="nameInput">Nome</label>
-                        <input className='charges-input-name' id="nameInput" type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalRegisterCharges.nome_user)} />
+                        <label htmlFor="nameInput" className='mousePointer'>Nome</label>
+                        <input className='charges-input-name' id="nameInput" ref={inputRef} type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalRegisterCharges.nome_user)} />
                     </div>
                     <div className='container-input-description'>
-                        <label htmlFor="descriptionInput">Descrição*</label>
-                        <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
+                        <label htmlFor="descriptionInput" className='mousePointer'>Descrição*</label>
+                        <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" ref={inputRef} placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
                         </textarea>
                         {errorDescription && <span className='errorCharges'><h1>{errorDescription}</h1></span>}
                     </div>
                     <div className='container-inputs-value-date'>
                         <div className='container-input-date'>
-                            <label htmlFor="dateInput">Vencimento*</label>
+                            <label htmlFor="dateInput" className='mousePointer'>Vencimento*</label>
                             <input
                                 className={`charges-input-date ${errorDate ? 'errorChargesLine' : ''}`}
                                 id="dateInput"
+                                ref={inputRef}
                                 type={inputTypeChargesDate}
                                 onFocus={handleFocusInputCharge}
                                 onBlur={handleBlurInputCharge}
@@ -175,8 +177,10 @@ function backgroundSituation() {
                             {errorDate && <span className='errorCharges'><h1>{errorDate}</h1></span>}
                         </div>
                         <div className='container-input-value'>
-                            <label htmlFor="valueInput">Valor*</label>
+                            <label htmlFor="valueInput" className='mousePointer'>Valor*</label>
                             <NumericFormat
+                                id='valueInput'
+                                ref={inputRef}
                                 className={`${errorValue ? 'errorChargesLine' : ''}`}
                                 value={formRegisterCharges.valor}
                                 thousandSeparator={true}
