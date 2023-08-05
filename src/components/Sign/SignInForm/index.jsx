@@ -74,11 +74,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           telefone: response.data.telefone,
         });
 
-        toast.success("Login bem sucedido", {
-          className: "customToastify-success",
-          icon: ({ theme, type }) => <img src={success} alt="" />,
-        });
-        navigate("/home");
+        
       }
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -125,8 +121,14 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       ...localForm,
     });
 
+    login();
+
     setTimeout(() => {
-      login();
+      toast.success("Login bem sucedido", {
+        className: "customToastify-success",
+        icon: ({ theme, type }) => <img src={success} alt="" />,
+      });
+      navigate("/home");
       setOpenLoading(false)
     }, 2000)
 

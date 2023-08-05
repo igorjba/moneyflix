@@ -14,17 +14,8 @@ import { clearAll } from "../../../utils/localStorage.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-  const {
-    setOpenModalRegister,
-    setClientRegisters,
-    clientRegisters,
-    setTitle,
-    token,
-    setOpenModalRegisterCharges,
-    setIdClientDetail,
-  } = useUser();
+  const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setOpenModalRegisterCharges,setIdClientDetail,} = useUser();
   const navigate = useNavigate();
-
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
@@ -64,8 +55,10 @@ export default function ClientListPage() {
     const situation = document.querySelectorAll(".situation");
     situation.forEach((element) => {
       if (element.textContent == "Inadimplente") {
+        element.classList.remove("situationOk");
         return element.classList.add("situationDefaulter");
       }
+      element.classList.remove("situationDefaulter");
       return element.classList.add("situationOk");
     });
   }
@@ -122,10 +115,7 @@ export default function ClientListPage() {
           <h2>Clientes</h2>
         </div>
         <div className="initial search-filter-client">
-          <button
-            className="addClient"
-            onClick={() => setOpenModalRegister(true)}
-          >
+          <button className="addClient" onClick={() => setOpenModalRegister(true)}>
             <h1> + Adicionar Cliente </h1>
           </button>
           <button className="button-filter">
@@ -141,10 +131,7 @@ export default function ClientListPage() {
         <table>
           <thead className="header-table-client">
             <tr>
-              <th
-                className="ClientOrder mousePointer"
-                onClick={() => orderName()}
-              >
+              <th className="ClientOrder mousePointer" onClick={() => orderName()} >
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                   <g id="Frame" clipPath="url(#clip0_84440_3278)">
                     <g id="Group">

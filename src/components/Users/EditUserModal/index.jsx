@@ -7,7 +7,7 @@ import openEye from "../../../assets/OpenEye.svg";
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
-import { cellPhoneMask, cellPhoneUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
+import { FullName, cellPhoneMask, cellPhoneUnmask, completedName, cpfMask, cpfUnmask, removeSpace } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
 import './style.css';
@@ -125,7 +125,6 @@ export default function EditUserModal({ setOpenModalEdit }) {
         }
         setNumberTel(phone);
     }
-
     function handleChangeFormCPF(e) {
         const inputNumberCPF = e.target.value.replace(/\D/g, '')
         let formattedValue = inputNumberCPF
@@ -157,7 +156,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     <div className='divs-inputs-form'>
                         <div className='box-info'>
                             <label htmlFor=""><h1>Nome*</h1></label>
-                            <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite seu nome' name='nome' value={GetProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                            <input className={`${errorName ? 'errorLine' : ''}`} type="text" placeholder='Digite seu nome' name='nome' value={completedName(GetProfile.nome)} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorName && <span className='error'><h1>{errorName}</h1></span>}
                         </div>
                         <div className='box-info'>
@@ -167,11 +166,11 @@ export default function EditUserModal({ setOpenModalEdit }) {
                         </div>
                         <div className='information-ModalEdit'>
                             <div>
-                                <label htmlFor=""><h1>CPF*</h1></label>
+                                <label htmlFor=""><h1>CPF</h1></label>
                                 <input className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={(e) => handleChangeFormCPF(e)} />
                             </div>
                             <div>
-                                <label htmlFor=""><h1>Telefone*</h1></label>
+                                <label htmlFor=""><h1>Telefone</h1></label>
                                 <input type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={16} onChange={(e) => handleChangeFormTel(e)} />
                             </div>
                         </div>
