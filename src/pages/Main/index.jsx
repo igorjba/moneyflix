@@ -7,7 +7,7 @@ import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
-import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
+import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
 import ClientDetail from "../../components/Clients/ClientDetail";
 import ClientListPage from "../../components/Clients/ClientListPage";
 import EditClientModal from '../../components/Clients/EditClientModal';

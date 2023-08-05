@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { NumericFormat } from 'react-number-format';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ import useUser from '../../../hooks/useUser';
 import { completedName } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import './style.css';
+
 
 export default function RegisterChargesModal() {
     const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setGetInformationClientDetail, getInformationClientDetail } = useUser();
@@ -63,6 +64,18 @@ export default function RegisterChargesModal() {
     function handleSubmitCharges(event) {
         setFormRegisterCharges({ ...formRegisterCharges, [event.target.name]: event.target.value });
     }
+
+function backgroundSituation() {
+    const situation = document.querySelectorAll(".situation");
+    situation.forEach((element) => {
+        if (element.textContent == "Inadimplente") {
+            element.classList.remove("situationOk");
+            return element.classList.add("situationDefaulter");
+        }
+        element.classList.remove("situationDefaulter");
+        return element.classList.add("situationOk");
+    });
+}
 
 
     async function sendInformationCharges(event) {
@@ -122,16 +135,7 @@ export default function RegisterChargesModal() {
         }
     }
 
-    function backgroundSituation() {
-        const situation = document.querySelectorAll(".situation");
-        situation.forEach((element) => {
-            if (element.textContent == "Inadimplente") {
-                return element.classList.add("situationDefaulter");
-            }
-            return element.classList.add("situationOk");
-        });
-    }
-
+    
 
     return (
         <div className='main-modal-flex modal-charge'>
@@ -189,17 +193,17 @@ export default function RegisterChargesModal() {
                     </div>
                     <div>
                         <h1>Status</h1>
-                        <div className='testeInput'>
+                        <div className='testeInput mousePointer' onClick={() => statusCharges(true)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(true)}>
                                 {verifyCheckbox && <img src={checkboxGreen} alt="" />}
                             </div>
-                            <h1>Cobrança Paga</h1>
+                            <h1 >Cobrança Paga</h1>
                         </div>
-                        <div className='testeInput'>
+                        <div className='testeInput mousePointer' onClick={() => statusCharges(false)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(false)}>
                                 {!verifyCheckbox && <img src={checkboxGreen} alt="" />}
                             </div>
-                            <h1>Cobrança Pendente</h1>
+                            <h1 >Cobrança Pendente</h1>
                         </div>
                     </div>
                     <div className='formButton initial'>

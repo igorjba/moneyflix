@@ -9,7 +9,7 @@ import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
-import { cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
+import { cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask, phoneAndCelMask } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
@@ -50,7 +50,7 @@ export default function RegisterClientModal() {
       return setForm({ ...form, [event.target.name]: cpfMask(event.target.value) });
     }
     if (event.target.name === 'telefone') {
-      const inputNumberTel = event.target.value.replace(/\D/g, '')
+      /* const inputNumberTel = event.target.value.replace(/\D/g, '')
 
       if (inputNumberTel.length > 11) {
         return;
@@ -72,9 +72,11 @@ export default function RegisterClientModal() {
         phone += '-' + value.slice(6);
       } else if (value.length === 11) {
         phone += '-' + value.slice(7);
-      }
+      } */
 
-      return setForm({ ...form, [event.target.name]: phone })
+      
+
+      return setForm({ ...form, [event.target.name]: phoneAndCelMask(phone)})
     }
     if (event.target.name === 'cep') {
       return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value) });
@@ -121,7 +123,6 @@ export default function RegisterClientModal() {
       setErrorName(validationName.message)
       validate = +1
     }
-
     const validationEmail = validateEmail(form.email)
     if (!validationEmail.isValid) {
       setErrorEmail(validationEmail.message)

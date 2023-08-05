@@ -139,4 +139,30 @@ function completedName(value) {
     return nameCompleted.trimEnd()
 }
 
-export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask, dateDDMMYYYYMask, cepMaskSecond, FullName, removeSpace, completedName };
+function phoneAndCelMask(event){
+    const inputNumberTel = event.target.value.replace(/\D/g, '')
+
+      if (inputNumberTel.length > 11) {
+        return;
+      }
+
+      let value = inputNumberTel;
+      let phone = '';
+      if (value.length > 0) {
+        phone += '(' + value.slice(0, 2);
+      }
+      if (value.length > 2) {
+        if (value.length <= 10) {
+          phone += ') ' + value.slice(2, 6);
+        } else if (value.length === 11) {
+          phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
+        }
+      }
+      if (value.length > 6 && value.length <= 10) {
+        phone += '-' + value.slice(6);
+      } else if (value.length === 11) {
+        phone += '-' + value.slice(7);
+      }
+}
+
+export { cpfMask, cellPhoneMask, moneyMask, cpfUnmask, cellPhoneUnmask, moneyUnmask, cepUnmask, cepMask, dateDDMMYYYYMask, cepMaskSecond, FullName, removeSpace, completedName, phoneAndCelMask };
