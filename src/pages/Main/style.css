@@ -39,7 +39,7 @@
 
   width: calc(100% - 10.80rem);
   min-height: 100%;
-  padding: 0 3.2rem 3.7rem 3.2rem;
+  padding: 0 5.5rem 4rem 5.5rem;
   margin-top: 10rem;
 }
 
@@ -117,7 +117,7 @@ header h2 {
 
 .main {
   width: 100%;
-  max-width: 114.4rem;
+  /*max-width: 114.4rem;*/
 }
 
 .backgroundModal {
