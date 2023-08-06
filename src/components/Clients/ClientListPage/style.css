@@ -54,12 +54,22 @@
     color: var(--bg-pink) !important;
     transform: scale(1.1);
 
-
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: visible;
+    z-index: 4;
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;  */
 }
 
 /* .testeee:hover{
     text-decoration-color: var(--bg-pink);
 } */
+
+.testeee{
+    padding-left: 1rem;
+}
 
 .name-client {
     cursor: pointer;

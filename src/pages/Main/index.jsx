@@ -30,7 +30,6 @@ function Main() {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const {
     openModalRegister,
-    openModalEditPerfil,
     openModalEditProfile,
     openModalEditProfileSuccess,
     setOpenModalEditProfileSuccess,
@@ -45,7 +44,8 @@ function Main() {
     setClientDetailPage,
     titleNameSecond,
     openModalDelete,
-    setModalDelete
+    titleNameTerc,
+    setTitleNameTerc
   } = useUser();
 
   function onClickNavLeft(event) {
@@ -90,8 +90,9 @@ function Main() {
   }
 
   async function verifyTextHeader(e) {
-    if (title === 'Clientes  ') {
+    if (title === 'Clientes') {
       setTitleNameSecond(" "),
+      setTitleNameTerc(" ")
         setimageNavClient(false),
         setClientDetailPage(false),
         setIdClientDetail(false)
@@ -131,7 +132,8 @@ function Main() {
               setimageNavClient(true),
               setimageNavHome(false),
               setimageNavCharge(true),
-              setTitleNameSecond('')
+              setTitleNameSecond(''),
+              setTitleNameTerc('')
           }}
         >
           <img src={imageNavHome ? home : homePink} className="imageNavAnimation" alt="Inicio"  />
@@ -144,8 +146,8 @@ function Main() {
               setimageNavHome(true),
               setimageNavCharge(true);
             setTitleNameSecond('')
-
             setIdClientDetail(false);
+            setTitleNameTerc('')
           }}
         >
           <img src={imageNavClient ? client : clientePink} className="imageNavAnimation" alt="Cliente" />
@@ -157,7 +159,8 @@ function Main() {
               setimageNavClient(true),
               setimageNavHome(true),
               setimageNavCharge(false),
-              setTitleNameSecond('')
+              setTitleNameSecond(''),
+              setTitleNameTerc('')
           }}
         >
           <img src={imageNavCharge ? charge : chargePink} className="imageNavAnimation" alt="Cobranças" />
@@ -187,7 +190,8 @@ function Main() {
             <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
               {title}
             </h2>
-            <span className="detail-client-span">{titleNameSecond}</span>
+            <h3 className="detail-client-set">{titleNameSecond}</h3>
+            <h3 className="detail-cliente-title-second">{titleNameTerc}</h3>
           </div>
           <div className="initial header-perfil">
             <div className="title circle-perfil">

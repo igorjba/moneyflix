@@ -104,7 +104,28 @@ header h2 {
   font-style: var(--fstyle-normal);
   font-weight: var(--fw-regular);
   line-height: var(--lineh-24);
-  align-items: flex-end !important;
+  /* align-items: flex-end !important; */
+}
+
+.detail-client-set{
+  padding-left: 2rem;
+
+  color: var(--font-clr-gray-extract-client);
+  font-size: var(--fz-16);
+  font-style: var(--fstyle-normal);
+  font-weight: var(--fw-regular);
+  line-height: var(--lineh-24);
+}
+
+.detail-cliente-title-second{
+  padding-left: 2rem;
+
+  color: var(--font-clr-gray-extract-client);
+  font-size: var(--fz-16);
+  font-style: var(--fstyle-normal);
+  font-weight: var(--fw-regular);
+  line-height: var(--lineh-24);
+  /* align-items: flex-end !important; */
 }
 
 .profile h1 {

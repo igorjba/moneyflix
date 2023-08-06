@@ -14,6 +14,7 @@ function useUserProvider() {
     const [clientDetailPage, setClientDetailPage] = useState(false)
     const [idClientDetail, setIdClientDetail] = useState(null);
     const [titleNameSecond, setTitleNameSecond] = useState('')
+    const [titleNameTerc, setTitleNameTerc] = useState('');
     const [openLoading, setOpenLoading] = useState(false)
     const [getInformationClientDetail, setGetInformationClientDetail] = useState(true)
     const [infoClientCharges, setInfoClientCharges] = useState([])
@@ -83,7 +84,9 @@ function useUserProvider() {
             openModalDelete,
             setModalDelete,
             infoClientCharges,
-            setInfoClientCharges
+            setInfoClientCharges,
+            setTitleNameTerc,
+            titleNameTerc
         }
     )
 }
