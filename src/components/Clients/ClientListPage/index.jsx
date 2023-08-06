@@ -160,7 +160,7 @@ export default function ClientListPage() {
             {clientRegisters.map((client) => {
               return (
                 <tr key={client.id_cliente}>
-                  <td> <h1 className="mousePointer" onClick={() => setIdClientDetail(client.id_cliente)}> {client.nome_cliente && completedName(client.nome_cliente)} </h1> </td>
+                  <td className="testeee"><h1 className="mousePointer nameSelectDetail" onClick={() => setIdClientDetail(client.id_cliente)}> {client.nome_cliente && completedName(client.nome_cliente)} </h1> </td>
                   <td><h1>{cpfMask(client.cpf)}</h1></td>
                   <td><h1>{client.email}</h1></td>
                   <td><h1>{phoneAndCelMask2(client.telefone)}</h1></td>
