@@ -8,7 +8,7 @@ import useUser from '../../../hooks/useUser';
 import './style.css';
 
 export default function DeleteCharge(){
-    const { openModalDelete, setModalDelete, token, setInfoClientCharges } = useUser();
+    const { openModalDelete, setModalDelete, token, setInfoClientCharges, setGetInformationClientDetail, getInformationClientDetail } = useUser();
 
     async function deleteChargesList(){
         try {
@@ -23,6 +23,7 @@ export default function DeleteCharge(){
                 className: 'customToastify-success',
                 icon: ({ theme, type }) => <img src={success} alt="" />
             });
+            setGetInformationClientDetail(!getInformationClientDetail)
             ListCharges()
         } catch (error) {
             toast.error(
