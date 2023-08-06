@@ -134,7 +134,7 @@ function Main() {
               setTitleNameSecond('')
           }}
         >
-          <img src={imageNavHome ? home : homePink} alt="Inicio" />
+          <img src={imageNavHome ? home : homePink} className="imageNavAnimation" alt="Inicio"  />
         </div>
         <div
           className="initial nav-icons mousePointer"
@@ -148,7 +148,7 @@ function Main() {
             setIdClientDetail(false);
           }}
         >
-          <img src={imageNavClient ? client : clientePink} alt="Cliente" />
+          <img src={imageNavClient ? client : clientePink} className="imageNavAnimation" alt="Cliente" />
         </div>
         <div
           className="initial nav-icons mousePointer"
@@ -160,7 +160,7 @@ function Main() {
               setTitleNameSecond('')
           }}
         >
-          <img src={imageNavCharge ? charge : chargePink} alt="Cobranças" />
+          <img src={imageNavCharge ? charge : chargePink} className="imageNavAnimation" alt="Cobranças" />
         </div>
       </nav>
       <div className="center">
