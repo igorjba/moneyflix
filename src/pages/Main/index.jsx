@@ -19,6 +19,7 @@ import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
+import DeleteCharge from "../../components/Charges/DeleteCharge";
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -42,7 +43,9 @@ function Main() {
     setIdClientDetail,
     setTitleNameSecond,
     setClientDetailPage,
-    titleNameSecond
+    titleNameSecond,
+    openModalDelete,
+    setModalDelete
   } = useUser();
 
   function onClickNavLeft(event) {
@@ -161,7 +164,6 @@ function Main() {
         </div>
       </nav>
       <div className="center">
-
         {openModalEditClient && <div className="backgroundModal initial">
           {openModalEditClient && (<EditClientModal />)}
         </div>}
@@ -174,11 +176,12 @@ function Main() {
         {openModalEdit && <div className="background-modal initial">
           {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
         </div>}
-        {openModalEditProfileSuccess && (
-          <div className="background-modal initial">
+        {openModalEditProfileSuccess && (<div className="background-modal initial">
             <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
-          </div>
-        )}
+          </div>)}
+          {openModalDelete.status && <div className="background-modal initial">
+            {openModalDelete.status && <DeleteCharge />}
+            </div>}
         <header>
           <div className="text-header-perfil">
             <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
