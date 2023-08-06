@@ -8,7 +8,7 @@ import EditGreen from "../../../assets/Edit-green.svg";
 import editCharge from "../../../assets/Edit.svg";
 import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser";
-import { dateDDMMYYYYMask, moneyMask } from "../../../utils/inputMasks";
+import { cepMask, cpfMask, dateDDMMYYYYMask, moneyMask, phoneAndCelMask2 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
 
@@ -200,10 +200,10 @@ export default function ClientDetail() {
                   <h1>{detailsData.email}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.telefone}</h1>
+                  <h1>{detailsData.telefone === null || detailsData.telefone === undefined ? '' : phoneAndCelMask2(detailsData.telefone)}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.cpf}</h1>
+                  <h1>{detailsData.cpf === undefined ? '' : cpfMask(detailsData.cpf)}</h1>
                 </td>
               </tr>
               <tr className="header-table-client subtitle-bottom">
@@ -237,7 +237,7 @@ export default function ClientDetail() {
                   <h1>{detailsData.complemento}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.cep}</h1>
+                  <h1>{detailsData.cep === undefined ? '' : cepMask(detailsData.cep)}</h1>
                 </td>
                 <td>
                   <h1>{detailsData.cidade}</h1>
