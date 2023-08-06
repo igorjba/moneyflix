@@ -96,7 +96,8 @@
 }
 
 .tableAll table {
-    width: 100%;
+    width: 100%
+
 }
 
 ::-webkit-scrollbar {
@@ -123,6 +124,8 @@
     height: 5.6rem;
 
     border-bottom: 0.1rem solid var(--bg-card-gray);
+
+    column-gap: 2rem;
 }
 
 .tableAll th,
@@ -130,6 +133,13 @@
     width: 20%;
     display: flex;
     align-items: center;
+    overflow: hidden;
+}
+
+.tableAll td h1{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
 }
 
 .extract-table h1 {
@@ -141,19 +151,24 @@
     color: var(--font-clr-text-card);
 }
 
-.description-table {
-    overflow: hidden;
+.number-table{
+    text-overflow: clip !important;
+    white-space: normal !important; 
 }
 
+/* .description-table {
+    overflow: hidden;
+} */
 
-.description-table h1 {
+
+/* .description-table h1 {
     width: 90%;
 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
-}
+} */
 
 .error {
     font-family: var(--ff-inter);

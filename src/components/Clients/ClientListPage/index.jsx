@@ -9,7 +9,7 @@ import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
 import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser.jsx";
-import { completedName } from "../../../utils/inputMasks.jsx";
+import { completedName, cpfMask, phoneAndCelMask2 } from "../../../utils/inputMasks.jsx";
 import { clearAll } from "../../../utils/localStorage.jsx";
 import "./style.css";
 
@@ -160,10 +160,10 @@ export default function ClientListPage() {
             {clientRegisters.map((client) => {
               return (
                 <tr key={client.id_cliente}>
-                  <td className="description-table"> <h1 className="mousePointer" onClick={() => setIdClientDetail(client.id_cliente)}> {client.nome_cliente && completedName(client.nome_cliente)} </h1> </td>
-                  <td><h1>{client.cpf}</h1></td>
-                  <td className='description-table'><h1>{client.email}</h1></td>
-                  <td><h1>{client.telefone}</h1></td>
+                  <td> <h1 className="mousePointer" onClick={() => setIdClientDetail(client.id_cliente)}> {client.nome_cliente && completedName(client.nome_cliente)} </h1> </td>
+                  <td><h1>{cpfMask(client.cpf)}</h1></td>
+                  <td><h1>{client.email}</h1></td>
+                  <td><h1>{phoneAndCelMask2(client.telefone)}</h1></td>
                   <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                   <td>
                     <img className="mousePointer" src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client)} />
