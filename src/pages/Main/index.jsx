@@ -7,7 +7,7 @@ import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
-import RegisterChargesModal from '../../components/Charges/RegisterChargesModal';
+import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
 import ClientDetail from "../../components/Clients/ClientDetail";
 import ClientListPage from "../../components/Clients/ClientListPage";
 import EditClientModal from '../../components/Clients/EditClientModal';
@@ -19,6 +19,7 @@ import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
+import DeleteCharge from "../../components/Charges/DeleteCharge";
 
 function Main() {
   const [modalExit, setModalExit] = useState(false);
@@ -42,7 +43,9 @@ function Main() {
     setIdClientDetail,
     setTitleNameSecond,
     setClientDetailPage,
-    titleNameSecond
+    titleNameSecond,
+    openModalDelete,
+    setModalDelete
   } = useUser();
 
   function onClickNavLeft(event) {
@@ -131,7 +134,7 @@ function Main() {
               setTitleNameSecond('')
           }}
         >
-          <img src={imageNavHome ? home : homePink} alt="Inicio" />
+          <img src={imageNavHome ? home : homePink} className="imageNavAnimation" alt="Inicio"  />
         </div>
         <div
           className="initial nav-icons mousePointer"
@@ -145,7 +148,7 @@ function Main() {
             setIdClientDetail(false);
           }}
         >
-          <img src={imageNavClient ? client : clientePink} alt="Cliente" />
+          <img src={imageNavClient ? client : clientePink} className="imageNavAnimation" alt="Cliente" />
         </div>
         <div
           className="initial nav-icons mousePointer"
@@ -157,11 +160,10 @@ function Main() {
               setTitleNameSecond('')
           }}
         >
-          <img src={imageNavCharge ? charge : chargePink} alt="Cobranças" />
+          <img src={imageNavCharge ? charge : chargePink} className="imageNavAnimation" alt="Cobranças" />
         </div>
       </nav>
       <div className="center">
-
         {openModalEditClient && <div className="backgroundModal initial">
           {openModalEditClient && (<EditClientModal />)}
         </div>}
@@ -174,11 +176,12 @@ function Main() {
         {openModalEdit && <div className="background-modal initial">
           {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
         </div>}
-        {openModalEditProfileSuccess && (
-          <div className="background-modal initial">
+        {openModalEditProfileSuccess && (<div className="background-modal initial">
             <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
-          </div>
-        )}
+          </div>)}
+          {openModalDelete.status && <div className="background-modal initial">
+            {openModalDelete.status && <DeleteCharge />}
+            </div>}
         <header>
           <div className="text-header-perfil">
             <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >

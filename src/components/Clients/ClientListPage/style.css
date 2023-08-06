@@ -49,6 +49,18 @@
     color: var(--font-clr-gray-text-modal);
 }
 
+
+.nameSelectDetail:hover{
+    color: var(--bg-pink) !important;
+    transform: scale(1.1);
+
+
+}
+
+/* .testeee:hover{
+    text-decoration-color: var(--bg-pink);
+} */
+
 .name-client {
     cursor: pointer;
 }

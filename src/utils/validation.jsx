@@ -18,9 +18,10 @@ function validateName(name) {
     const namesArray = name.split(" ");
     const hasMultipleSpaces = namesArray.some(namePart => namePart === "");
 
-    if (hasMultipleSpaces) {
+    /* Tem a necessidade disso, podemos remover os espaços e quando ele salva ja vai estar sem os espaços*/
+   /*  if (hasMultipleSpaces) {
         return { isValid: false, message: "Nome inválido" };
-    }
+    } */
 
     return { isValid: true, message: "Nome válido" };
 }
