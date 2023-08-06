@@ -1,4 +1,4 @@
-import { completedName } from "../../../utils/inputMasks";
+import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
 
 export default function SummaryCardsList({
@@ -72,7 +72,7 @@ export default function SummaryCardsList({
                     <td>
                       {isClientData
                         ? maskCPF(client.cpf)
-                        : "R$ " + (client.valor || "-")}
+                        : moneyMask(client.valor || "-")}
                     </td>
                   </tr>
                 );

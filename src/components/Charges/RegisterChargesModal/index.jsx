@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { NumericFormat } from 'react-number-format';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -13,6 +13,7 @@ import { completedName } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import './style.css';
 
+
 export default function RegisterChargesModal() {
     const { setOpenModalRegisterCharges, token, openModalRegisterCharges, setGetInformationClientDetail, getInformationClientDetail } = useUser();
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
@@ -24,6 +25,7 @@ export default function RegisterChargesModal() {
     const [errorDescription, setErrorDescription] = useState('');
     const [errorValue, setErrorValue] = useState('')
     const navigate = useNavigate();
+    const inputRef = useRef(null);
     let validate = 0
     const [formRegisterCharges, setFormRegisterCharges] = useState({
         descricao: '',
@@ -63,6 +65,18 @@ export default function RegisterChargesModal() {
     function handleSubmitCharges(event) {
         setFormRegisterCharges({ ...formRegisterCharges, [event.target.name]: event.target.value });
     }
+
+function backgroundSituation() {
+    const situation = document.querySelectorAll(".situation");
+    situation.forEach((element) => {
+        if (element.textContent == "Inadimplente") {
+            element.classList.remove("situationOk");
+            return element.classList.add("situationDefaulter");
+        }
+        element.classList.remove("situationDefaulter");
+        return element.classList.add("situationOk");
+    });
+}
 
 
     async function sendInformationCharges(event) {
@@ -122,16 +136,7 @@ export default function RegisterChargesModal() {
         }
     }
 
-    function backgroundSituation() {
-        const situation = document.querySelectorAll(".situation");
-        situation.forEach((element) => {
-            if (element.textContent == "Inadimplente") {
-                return element.classList.add("situationDefaulter");
-            }
-            return element.classList.add("situationOk");
-        });
-    }
-
+    
 
     return (
         <div className='main-modal-flex modal-charge'>
@@ -144,21 +149,22 @@ export default function RegisterChargesModal() {
             <form onSubmit={sendInformationCharges}>
                 <div className='container-inputs-form'>
                     <div className='container-input-name'>
-                        <label htmlFor="nameInput">Nome</label>
-                        <input className='charges-input-name' id="nameInput" type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalRegisterCharges.nome_user)} />
+                        <label htmlFor="nameInput" className='mousePointer'>Nome</label>
+                        <input className='charges-input-name' id="nameInput" ref={inputRef} type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalRegisterCharges.nome_user)} />
                     </div>
                     <div className='container-input-description'>
-                        <label htmlFor="descriptionInput">Descrição*</label>
-                        <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
+                        <label htmlFor="descriptionInput" className='mousePointer'>Descrição*</label>
+                        <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" ref={inputRef} placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
                         </textarea>
                         {errorDescription && <span className='errorCharges'><h1>{errorDescription}</h1></span>}
                     </div>
                     <div className='container-inputs-value-date'>
                         <div className='container-input-date'>
-                            <label htmlFor="dateInput">Vencimento*</label>
+                            <label htmlFor="dateInput" className='mousePointer'>Vencimento*</label>
                             <input
                                 className={`charges-input-date ${errorDate ? 'errorChargesLine' : ''}`}
                                 id="dateInput"
+                                ref={inputRef}
                                 type={inputTypeChargesDate}
                                 onFocus={handleFocusInputCharge}
                                 onBlur={handleBlurInputCharge}
@@ -171,8 +177,10 @@ export default function RegisterChargesModal() {
                             {errorDate && <span className='errorCharges'><h1>{errorDate}</h1></span>}
                         </div>
                         <div className='container-input-value'>
-                            <label htmlFor="valueInput">Valor*</label>
+                            <label htmlFor="valueInput" className='mousePointer'>Valor*</label>
                             <NumericFormat
+                                id='valueInput'
+                                ref={inputRef}
                                 className={`${errorValue ? 'errorChargesLine' : ''}`}
                                 value={formRegisterCharges.valor}
                                 thousandSeparator={true}
@@ -189,17 +197,17 @@ export default function RegisterChargesModal() {
                     </div>
                     <div>
                         <h1>Status</h1>
-                        <div className='testeInput'>
+                        <div className='testeInput mousePointer' onClick={() => statusCharges(true)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(true)}>
                                 {verifyCheckbox && <img src={checkboxGreen} alt="" />}
                             </div>
-                            <h1>Cobrança Paga</h1>
+                            <h1 >Cobrança Paga</h1>
                         </div>
-                        <div className='testeInput'>
+                        <div className='testeInput mousePointer' onClick={() => statusCharges(false)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(false)}>
                                 {!verifyCheckbox && <img src={checkboxGreen} alt="" />}
                             </div>
-                            <h1>Cobrança Pendente</h1>
+                            <h1 >Cobrança Pendente</h1>
                         </div>
                     </div>
                     <div className='formButton initial'>

@@ -8,7 +8,7 @@ import EditGreen from "../../../assets/Edit-green.svg";
 import editCharge from "../../../assets/Edit.svg";
 import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser";
-import { dateDDMMYYYYMask, moneyMask } from "../../../utils/inputMasks";
+import { cepMask, cpfMask, dateDDMMYYYYMask, moneyMask, phoneAndCelMask2 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
 
@@ -23,6 +23,7 @@ export default function ClientDetail() {
     setIdListChargesClick,
     setTitleNameSecond,
     getInformationClientDetail,
+    setModalDelete
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -144,13 +145,35 @@ export default function ClientDetail() {
     }
   }
 
+  async function informationDeleteChargesClientDetail(event){
+    setModalDelete({
+        status: true,
+        id_charges: event
+    })
+
+    /* try {
+      const response = await api.get(`cliente/${idClientDetail}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(idListChargesClick);
+      return setIdListChargesClick(response.data);
+    } catch (error) {
+      console.log(error);
+    } */
+}
 
   useEffect(() => {
-    backgroundSituation();
     setTitleNameSecond(`> ${space}Detalhes do cliente`);
     setTitle(`Clientes${space}`);
     DetailCustomerData();
   }, []);
+
+  useEffect(() => {
+    backgroundSituation();
+  },[infoClientCharges])
 
   useEffect(() => {
     DetailCustomerData();
@@ -200,10 +223,10 @@ export default function ClientDetail() {
                   <h1>{detailsData.email}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.telefone}</h1>
+                  <h1>{detailsData.telefone === null || detailsData.telefone === undefined ? '' : phoneAndCelMask2(detailsData.telefone)}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.cpf}</h1>
+                  <h1>{detailsData.cpf === undefined ? '' : cpfMask(detailsData.cpf)}</h1>
                 </td>
               </tr>
               <tr className="header-table-client subtitle-bottom">
@@ -237,7 +260,7 @@ export default function ClientDetail() {
                   <h1>{detailsData.complemento}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.cep}</h1>
+                  <h1>{detailsData.cep === undefined ? '' : cepMask(detailsData.cep)}</h1>
                 </td>
                 <td>
                   <h1>{detailsData.cidade}</h1>
@@ -430,7 +453,7 @@ export default function ClientDetail() {
                     </td>
                     <td className="imagem-table-charge">
                       <img src={editCharge} alt="Editar" />
-                      <img src={deleteCharge} alt="Deletar" />
+                      <img className='mousePointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)}/>
                     </td>
                   </tr>
                 );

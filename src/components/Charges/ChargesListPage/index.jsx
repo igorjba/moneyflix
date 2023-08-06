@@ -14,8 +14,7 @@ import { clearAll } from '../../../utils/localStorage';
 import './style.css';
 
 export default function ChargesListPage() {
-    const { setTitle, token } = useUser();
-    const [infoClientCharges, setInfoClientCharges] = useState([])
+    const { setTitle, token, openModalDelete, setModalDelete, setInfoClientCharges, infoClientCharges } = useUser();
     const [countOrder, setCountOrder] = useState(1)
     const [countOrderIdCharges, setcountOrderIdCharges] = useState(1)
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
@@ -35,6 +34,12 @@ export default function ChargesListPage() {
                 return element.classList.add('statusPay')
             }
         });
+    }
+    function informationDeleteCharges(event){
+        setModalDelete({
+            status: true,
+            id_charges: event
+        })
     }
     async function ListCharges() {
         try {
@@ -61,7 +66,6 @@ export default function ChargesListPage() {
 
         }
     }
-
     function orderName() {
         setCountOrder(countOrder + 1)
         if (countOrder === 1) {
@@ -187,15 +191,15 @@ export default function ChargesListPage() {
                         {infoClientCharges.map((charges) => {
                             return (
                                 <tr className='extract-table' key={charges.id_cobranca}>
-                                    <td className='description-table'><h1 >{completedName(charges.cliente)}</h1></td>
+                                    <td><h1 >{completedName(charges.cliente)}</h1></td>
                                     <td><h1>{charges.id_cobranca}</h1></td>
-                                    <td><h1>{moneyMask(charges.valor)}</h1></td>
+                                    <td ><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
                                     <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
                                     <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
-                                    <td className='description-table description-table-charge'><h1>{charges.descricao}</h1></td>
+                                    <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
                                     <td className='imagem-table-charge'>
                                         <img src={editCharge} alt="Editar" />
-                                        <img src={deleteCharge} alt="Deletar" />
+                                        <img className='mousePointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
                                     </td>
                                 </tr>
                             )

@@ -12,6 +12,7 @@ import useUser from "../../../hooks/useUser.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
+import { moneyMask } from "../../../utils/inputMasks.jsx";
 
 export default function HomePage() {
   const { setTitle, token } = useUser();
@@ -72,19 +73,19 @@ export default function HomePage() {
           IconCard={Paid}
           BackgroundColor="#eef6f6"
           TitleCard="Cobranças Pagas"
-          ValueCard={data.totalValorPagas?.[0]?.sum}
+          ValueCard={data.totalValorPagas?.[0]?.sum === '' || data.totalValorPagas?.[0]?.sum === undefined ? '' : moneyMask(data.totalValorPagas?.[0]?.sum)}
         />
         <SummaryValueCards
           IconCard={Expired}
           BackgroundColor="#ffefef"
           TitleCard="Cobranças Vencidas"
-          ValueCard={data.totalValorVencidas?.[0]?.sum}
+          ValueCard={data.totalValorVencidas?.[0]?.sum === '' || data.totalValorVencidas?.[0]?.sum === undefined ? '' : moneyMask(data.totalValorVencidas?.[0]?.sum)}
         />
         <SummaryValueCards
           IconCard={Pending}
           BackgroundColor="#fcf6dc"
           TitleCard="Cobranças Previstas"
-          ValueCard={data.totalValorPendentes?.[0]?.sum}
+          ValueCard={data.totalValorPendentes?.[0]?.sum === '' || data.totalValorPendentes?.[0]?.sum === undefined ? '' : moneyMask(data.totalValorPendentes?.[0]?.sum)}
         />
       </div>
       <div className="contentCards">
