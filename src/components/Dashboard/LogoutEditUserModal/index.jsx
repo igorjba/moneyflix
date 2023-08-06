@@ -76,8 +76,8 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
     return (
         <div id="modalExit" className='modalExit initial'>
             <img className='set' src={set} alt="" />
-            <img src={edit} alt="editar" onClick={openModal} />
-            <img src={exit} alt="sair" onClick={onClickExit} />
+            <img className="mousePointer" src={edit} alt="editar" onClick={openModal} />
+            <img className="mousePointer" src={exit} alt="sair" onClick={onClickExit} />
         </div>
     )
 }

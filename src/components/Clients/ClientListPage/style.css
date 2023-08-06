@@ -49,16 +49,13 @@
     color: var(--font-clr-gray-text-modal);
 }
 
-/* Deixar com apenas uma linha rosa em baixo ou na cor rosa*/ 
-.nameSelectDetail:hover{
-    text-decoration: underline;
-    text-decoration-color: var(--bg-pink);
-    color: black !important;
-}
 
-/* .nameSelectDetail:hover{
+.nameSelectDetail:hover{
     color: var(--bg-pink) !important;
-} */
+    transform: scale(1.1);
+
+
+}
 
 /* .testeee:hover{
     text-decoration-color: var(--bg-pink);
