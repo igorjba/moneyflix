@@ -23,7 +23,8 @@ export default function ClientDetail() {
     setIdListChargesClick,
     setTitleNameSecond,
     getInformationClientDetail,
-    setModalDelete
+    setModalDelete,
+    setTitleNameTerc
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
@@ -166,8 +167,9 @@ export default function ClientDetail() {
 }
 
   useEffect(() => {
-    setTitleNameSecond(`> ${space}Detalhes do cliente`);
-    setTitle(`Clientes${space}`);
+    setTitle(`Clientes`);
+    setTitleNameSecond(`>`);
+    setTitleNameTerc('Detalhes do cliente')
     DetailCustomerData();
   }, []);
 

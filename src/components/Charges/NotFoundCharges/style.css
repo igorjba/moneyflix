@@ -1,0 +1,46 @@
+.modal-Not-Charges{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 2.576rem;
+    padding: 0 2.2rem;
+
+
+    border-radius: 3rem;
+    max-height: 61.8rem;
+    background-color: var(--bg-modal);
+}
+
+.modal-Not-Charges img:last-child{
+    position: absolute;
+
+    top: 25rem;
+    left: 110rem
+}
+
+.container-text-notfound-charges{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-bottom: 4rem;
+}
+
+.modal-Not-Charges h2:first-child{
+    font-size: 2.8rem;
+    font-style: var(--fstyle-normal);
+    font-weight: var(--fw-medium);
+    line-height: normal;
+
+    color: var(--font-clr-text-notfound-charges);
+}
+
+.modal-Not-Charges h2:last-child{
+    font-size: var(--fz-24);
+    font-style: var(--fstyle-normal);
+    font-weight: var(--fw-medium);
+    line-height: normal;
+
+    color: var(--font-clr-gray-input-modal);
+}

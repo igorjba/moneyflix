@@ -12,6 +12,7 @@ import useUser from '../../../hooks/useUser';
 import { completedName, dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import './style.css';
+import NotFoundCharges from '../NotFoundCharges';
 
 export default function ChargesListPage() {
     const { setTitle, token, openModalDelete, setModalDelete, setInfoClientCharges, infoClientCharges } = useUser();
@@ -21,6 +22,7 @@ export default function ChargesListPage() {
     const [corarrowBottom, setCorArrowBottom] = useState('#3F3F55')
     const [corarrowTopId, setCorArrowTopId] = useState('#3F3F55')
     const [corarrowBottomId, setCorArrowBottomId] = useState('#3F3F55')
+    const [searchNameCharges, setSearchNameCharges] = useState('')
     const navigate = useNavigate()
     function backgroundSituation() {
         const status = document.querySelectorAll('.status-text');
@@ -113,6 +115,25 @@ export default function ChargesListPage() {
             setcountOrderIdCharges(1);
         }
     }
+    async function searchNameChargesList(){
+    try {
+    const response = await api.get('cobranca',{
+        headers: {
+            authorization: `${token}`,
+        },
+        params: {
+            cliente: `${searchNameCharges}`,
+        }
+    });
+
+        setInfoClientCharges(response.data)
+
+
+} catch (error) {
+    console.log(error);
+}
+
+    }
     useEffect(() => {
         backgroundSituation()
     }, [infoClientCharges])
@@ -135,11 +156,13 @@ export default function ChargesListPage() {
                         <img src={filter} alt="Filtrar" />
                     </button>
                     <div>
-                        <input placeholder='Pesquisa' type="text" name="Filter nome" />
-                        <img src={lupa} alt="Lupa" className='search' />
+                        <input placeholder='Pesquisa' type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
+                        <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)}/>
                     </div>
                 </div>
             </div>
+            {!infoClientCharges.length && <NotFoundCharges />}
+            {infoClientCharges.length &&
             <div className='tableAll'>
                 <table>
                     <thead className='header-table-client'>
@@ -198,8 +221,8 @@ export default function ChargesListPage() {
                                     <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
                                     <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
                                     <td className='imagem-table-charge'>
-                                        <img src={editCharge} alt="Editar" />
-                                        <img className='mousePointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
+                                        <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" />
+                                        <img className='mousePointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
                                     </td>
                                 </tr>
                             )
@@ -207,6 +230,7 @@ export default function ChargesListPage() {
                     </tbody>
                 </table>
             </div>
+}
         </>
     )
 }
