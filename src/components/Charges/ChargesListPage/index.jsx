@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../../../api/api';
@@ -23,6 +23,7 @@ export default function ChargesListPage() {
     const [corarrowTopId, setCorArrowTopId] = useState('#3F3F55')
     const [corarrowBottomId, setCorArrowBottomId] = useState('#3F3F55')
     const [searchNameCharges, setSearchNameCharges] = useState('')
+    const inputSearch = useRef(null)
     const navigate = useNavigate()
     function backgroundSituation() {
         const status = document.querySelectorAll('.status-text');
@@ -115,24 +116,25 @@ export default function ChargesListPage() {
             setcountOrderIdCharges(1);
         }
     }
-    async function searchNameChargesList() {
+    async function searchNameChargesList(){
+        const validationFunctionSearch = parseFloat(searchNameCharges);
+        const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
+        let searchInformationCharges = {}
+        resultValidationFunctionSearct ? searchInformationCharges = {'id': searchNameCharges} : searchInformationCharges = {'cliente': searchNameCharges}
         try {
-            const response = await api.get('cobranca', {
-                headers: {
-                    authorization: `${token}`,
-                },
-                params: {
-                    cliente: `${searchNameCharges}`,
-                }
-            });
-
-            setInfoClientCharges(response.data)
-
-
-        } catch (error) {
-            console.log(error);
+        const response = await api.get('cobranca',{
+        headers: {
+            authorization: `${token}`,
+        },
+        params: {
+            ...searchInformationCharges
         }
-
+        });
+        inputSearch.current.value = ''
+        setInfoClientCharges(response.data)
+        } catch (error) {
+        console.log(error);
+        }
     }
     useEffect(() => {
         backgroundSituation()
@@ -155,9 +157,9 @@ export default function ChargesListPage() {
                     <button className='button-filter'>
                         <img src={filter} alt="Filtrar" />
                     </button>
-                    <div className='search-container'>
-                        <input placeholder='Pesquisa' type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
-                        <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)} />
+                    <div>
+                        <input placeholder='Pesquisa' ref={inputSearch} type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
+                        <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)}/>
                     </div>
                 </div>
             </div>
@@ -195,42 +197,43 @@ export default function ChargesListPage() {
                                                 <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </g>
                                         </g>
-                                        <defs>
-                                            <clipPath id="clip0_84440_3278">
-                                                <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                    <h1>ID Cob.</h1>
-                                </th>
-                                <th><h1>Valor</h1></th>
-                                <th><h1>Data de venc.</h1></th>
-                                <th><h1>Status</h1></th>
-                                <th className='description-table-header'><h1>Descrição</h1></th>
-                                <th className='imagem-table-header'></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {infoClientCharges.map((charges) => {
-                                return (
-                                    <tr className='extract-table' key={charges.id_cobranca}>
-                                        <td><h1 >{completedName(charges.cliente)}</h1></td>
-                                        <td><h1>{charges.id_cobranca}</h1></td>
-                                        <td ><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
-                                        <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
-                                        <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
-                                        <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
-                                        <td className='imagem-table-charge'>
-                                            <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" />
-                                            <img className='mousePointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            }
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_84440_3278">
+                                            <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <h1>ID Cob.</h1>
+                            </th>
+                            <th><h1>Valor</h1></th>
+                            <th><h1>Data de venc.</h1></th>
+                            <th><h1>Status</h1></th>
+                            <th className='description-table-header'><h1>Descrição</h1></th>
+                            <th className='imagem-table-header'></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {infoClientCharges.map((charges) => {
+                            return (
+                                <tr className='extract-table' key={charges.id_cobranca}>
+                                    <td><h1 >{completedName(charges.cliente) === undefined ? '' : completedName(charges.cliente)}</h1></td>
+                                    <td><h1>{charges.id_cobranca}</h1></td>
+                                    <td ><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
+                                    <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
+                                    <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
+                                    <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
+                                    <td className='imagem-table-charge'>
+                                        <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" />
+                                        <img className='mousePointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+}
         </>
     )
 }
