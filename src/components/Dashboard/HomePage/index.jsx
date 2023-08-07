@@ -9,10 +9,10 @@ import Paid from "../../../assets/Paid.svg";
 import Pending from "../../../assets/Pending.svg";
 import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser.jsx";
+import { moneyMask } from "../../../utils/inputMasks.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
-import { moneyMask } from "../../../utils/inputMasks.jsx";
 
 export default function HomePage() {
   const { setTitle, token } = useUser();
