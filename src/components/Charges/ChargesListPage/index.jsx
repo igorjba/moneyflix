@@ -37,7 +37,7 @@ export default function ChargesListPage() {
             }
         });
     }
-    function informationDeleteCharges(event){
+    function informationDeleteCharges(event) {
         setModalDelete({
             status: true,
             id_charges: event
@@ -115,23 +115,23 @@ export default function ChargesListPage() {
             setcountOrderIdCharges(1);
         }
     }
-    async function searchNameChargesList(){
-    try {
-    const response = await api.get('cobranca',{
-        headers: {
-            authorization: `${token}`,
-        },
-        params: {
-            cliente: `${searchNameCharges}`,
+    async function searchNameChargesList() {
+        try {
+            const response = await api.get('cobranca', {
+                headers: {
+                    authorization: `${token}`,
+                },
+                params: {
+                    cliente: `${searchNameCharges}`,
+                }
+            });
+
+            setInfoClientCharges(response.data)
+
+
+        } catch (error) {
+            console.log(error);
         }
-    });
-
-        setInfoClientCharges(response.data)
-
-
-} catch (error) {
-    console.log(error);
-}
 
     }
     useEffect(() => {
@@ -155,82 +155,82 @@ export default function ChargesListPage() {
                     <button className='button-filter'>
                         <img src={filter} alt="Filtrar" />
                     </button>
-                    <div>
+                    <div className='search-container'>
                         <input placeholder='Pesquisa' type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
-                        <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)}/>
+                        <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)} />
                     </div>
                 </div>
             </div>
             {!infoClientCharges.length && <NotFoundCharges />}
             {infoClientCharges.length &&
-            <div className='tableAll'>
-                <table>
-                    <thead className='header-table-client'>
-                        <tr >
-                            <th className='PageOrderClient mousePointer' onClick={() => orderName()}>
-                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
-                                        <g id="Group">
-                                            <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <div className='tableAll'>
+                    <table>
+                        <thead className='header-table-client'>
+                            <tr >
+                                <th className='PageOrderClient mousePointer' onClick={() => orderName()}>
+                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                        <g id="Frame" clipPath="url(#clip0_84440_3278)">
+                                            <g id="Group">
+                                                <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </g>
                                         </g>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_84440_3278">
-                                            <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                                <h1>Cliente</h1>
-                            </th>
-                            <th className='PageOrderID mousePointer' onClick={() => orderIdCharges()}>
-                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
-                                        <g id="Group">
-                                            <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <defs>
+                                            <clipPath id="clip0_84440_3278">
+                                                <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <h1>Cliente</h1>
+                                </th>
+                                <th className='PageOrderID mousePointer' onClick={() => orderIdCharges()}>
+                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                        <g id="Frame" clipPath="url(#clip0_84440_3278)">
+                                            <g id="Group">
+                                                <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </g>
                                         </g>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_84440_3278">
-                                            <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                                <h1>ID Cob.</h1>
-                            </th>
-                            <th><h1>Valor</h1></th>
-                            <th><h1>Data de venc.</h1></th>
-                            <th><h1>Status</h1></th>
-                            <th className='description-table-header'><h1>Descrição</h1></th>
-                            <th className='imagem-table-header'></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {infoClientCharges.map((charges) => {
-                            return (
-                                <tr className='extract-table' key={charges.id_cobranca}>
-                                    <td><h1 >{completedName(charges.cliente)}</h1></td>
-                                    <td><h1>{charges.id_cobranca}</h1></td>
-                                    <td ><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
-                                    <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
-                                    <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
-                                    <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
-                                    <td className='imagem-table-charge'>
-                                        <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" />
-                                        <img className='mousePointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
-}
+                                        <defs>
+                                            <clipPath id="clip0_84440_3278">
+                                                <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <h1>ID Cob.</h1>
+                                </th>
+                                <th><h1>Valor</h1></th>
+                                <th><h1>Data de venc.</h1></th>
+                                <th><h1>Status</h1></th>
+                                <th className='description-table-header'><h1>Descrição</h1></th>
+                                <th className='imagem-table-header'></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {infoClientCharges.map((charges) => {
+                                return (
+                                    <tr className='extract-table' key={charges.id_cobranca}>
+                                        <td><h1 >{completedName(charges.cliente)}</h1></td>
+                                        <td><h1>{charges.id_cobranca}</h1></td>
+                                        <td ><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
+                                        <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
+                                        <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
+                                        <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
+                                        <td className='imagem-table-charge'>
+                                            <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" />
+                                            <img className='mousePointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            }
         </>
     )
 }

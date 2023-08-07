@@ -14,7 +14,7 @@ import { clearAll } from "../../../utils/localStorage.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-  const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setOpenModalRegisterCharges,setIdClientDetail,} = useUser();
+  const { setOpenModalRegister, setClientRegisters, clientRegisters, setTitle, token, setOpenModalRegisterCharges, setIdClientDetail, } = useUser();
   const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
@@ -115,13 +115,15 @@ export default function ClientListPage() {
           <h2>Clientes</h2>
         </div>
         <div className="initial search-filter-client">
-          <button className="addClient" onClick={() => setOpenModalRegister(true)}>
-            <h1> + Adicionar Cliente </h1>
+          {/* <div className="container-add-client"> */}
+          <button className="addClient" onClick={() => setOpenModalRegister(true)}>+ Adicionar Cliente
+            {/* <h1> + Adicionar Cliente </h1> */}
           </button>
+          {/* </div> */}
           <button className="button-filter">
             <img src={filter} alt="Filtrar" />
           </button>
-          <div>
+          <div className="search-container">
             <input placeholder="Pesquisa" type="text" name="Filter nome" />
             <img src={lupa} alt="Lupa" className="search" />
           </div>
