@@ -58,14 +58,7 @@
     white-space: nowrap;
     overflow: visible;
     z-index: 4;
-    /* overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;  */
 }
-
-/* .testeee:hover{
-    text-decoration-color: var(--bg-pink);
-} */
 
 .testeee{
     padding-left: 1rem;
@@ -98,4 +91,12 @@
 .situationOk {
     background-color: var(--bg-card-gray);
     color: var(--font-clr-blue-number) !important;
+}
+
+.image-Charges-Modal{
+    margin-left: 1rem;
+}
+
+.image-Charges-Modal:hover{
+    transform: scale(1.1);
 }
