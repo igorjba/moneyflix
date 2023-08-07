@@ -166,7 +166,7 @@ export default function ClientListPage() {
                   <td><h1>{phoneAndCelMask2(client.telefone)}</h1></td>
                   <td><div className='div-status'><h1 className='situation'>{client.status}</h1></div></td>
                   <td>
-                    <img className="mousePointer" src={defaulter} alt="inadimplente" onClick={() => sendInformationRegisterCharges(client)} />
+                    <img className="mousePointer image-Charges-Modal" src={defaulter} alt="cobrança" onClick={() => sendInformationRegisterCharges(client)} />
                   </td>
                 </tr>
               )

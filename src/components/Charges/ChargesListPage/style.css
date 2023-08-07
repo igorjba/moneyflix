@@ -58,3 +58,7 @@
 .div-status-charge {
     width: 60%;
 }
+
+.transform-image-charges:hover{
+    transform: scale(1.1);
+}
