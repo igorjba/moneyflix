@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../../../api/api';
@@ -23,6 +23,7 @@ export default function ChargesListPage() {
     const [corarrowTopId, setCorArrowTopId] = useState('#3F3F55')
     const [corarrowBottomId, setCorArrowBottomId] = useState('#3F3F55')
     const [searchNameCharges, setSearchNameCharges] = useState('')
+    const inputSearch = useRef(null)
     const navigate = useNavigate()
     function backgroundSituation() {
         const status = document.querySelectorAll('.status-text');
@@ -116,23 +117,24 @@ export default function ChargesListPage() {
         }
     }
     async function searchNameChargesList(){
-    try {
-    const response = await api.get('cobranca',{
+        const validationFunctionSearch = parseFloat(searchNameCharges);
+        const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
+        let searchInformationCharges = {}
+        resultValidationFunctionSearct ? searchInformationCharges = {'id': searchNameCharges} : searchInformationCharges = {'cliente': searchNameCharges}
+        try {
+        const response = await api.get('cobranca',{
         headers: {
             authorization: `${token}`,
         },
         params: {
-            cliente: `${searchNameCharges}`,
+            ...searchInformationCharges
         }
-    });
-
+        });
+        inputSearch.current.value = ''
         setInfoClientCharges(response.data)
-
-
-} catch (error) {
-    console.log(error);
-}
-
+        } catch (error) {
+        console.log(error);
+        }
     }
     useEffect(() => {
         backgroundSituation()
@@ -156,7 +158,7 @@ export default function ChargesListPage() {
                         <img src={filter} alt="Filtrar" />
                     </button>
                     <div>
-                        <input placeholder='Pesquisa' type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
+                        <input placeholder='Pesquisa' ref={inputSearch} type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
                         <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)}/>
                     </div>
                 </div>
@@ -214,7 +216,7 @@ export default function ChargesListPage() {
                         {infoClientCharges.map((charges) => {
                             return (
                                 <tr className='extract-table' key={charges.id_cobranca}>
-                                    <td><h1 >{completedName(charges.cliente)}</h1></td>
+                                    <td><h1 >{completedName(charges.cliente) === undefined ? '' : completedName(charges.cliente)}</h1></td>
                                     <td><h1>{charges.id_cobranca}</h1></td>
                                     <td ><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
                                     <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
