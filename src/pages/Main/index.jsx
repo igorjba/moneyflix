@@ -92,8 +92,8 @@ function Main() {
   async function verifyTextHeader(e) {
     if (title === 'Clientes') {
       setTitleNameSecond(" "),
-      setTitleNameTerc(" ")
-        setimageNavClient(false),
+        setTitleNameTerc(" ")
+      setimageNavClient(false),
         setClientDetailPage(false),
         setIdClientDetail(false)
     }
@@ -187,7 +187,7 @@ function Main() {
         </div>}
         <header>
           <div className="text-header-perfil">
-            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
+            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
               {title}
             </h2>
             <h3 className="detail-client-set">{titleNameSecond}</h3>
@@ -199,21 +199,23 @@ function Main() {
             </div>
             <div className="profile initial">
               <h1>{toTitleCase(nameUser)}</h1>
+            </div>
+            <div className="arrow">
               <img
                 src={setBottom}
                 alt="seta"
                 onClick={() => setModalExit(!modalExit)}
               />
+              {modalExit && (
+                <LogoutEditUserModal
+                  setModalExit={setModalExit}
+                  setOpenModalEdit={setOpenModalEdit}
+                />
+              )}
             </div>
           </div>
-          {modalExit && (
-            <LogoutEditUserModal
-              setModalExit={setModalExit}
-              setOpenModalEdit={setOpenModalEdit}
-            />
-          )}
         </header>
-        <div className="main">
+        <div className={`main ${!imageNavHome ? 'dashboard' : 'table'}`}>
           {!imageNavClient && !idClientDetail && <ClientListPage />}
           {!imageNavClient && idClientDetail && <ClientDetail />}
           {!imageNavHome && <HomePage />}

@@ -38,7 +38,7 @@ export default function ChargesListPage() {
             }
         });
     }
-    function informationDeleteCharges(event){
+    function informationDeleteCharges(event) {
         setModalDelete({
             status: true,
             id_charges: event
@@ -165,36 +165,37 @@ export default function ChargesListPage() {
             </div>
             {!infoClientCharges.length && <NotFoundCharges />}
             {infoClientCharges.length &&
-            <div className='tableAll'>
-                <table>
-                    <thead className='header-table-client'>
-                        <tr >
-                            <th className='PageOrderClient mousePointer' onClick={() => orderName()}>
-                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
-                                        <g id="Group">
-                                            <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <div className='tableAll'>
+                    <table>
+                        <thead className='header-table-client'>
+                            <tr >
+                                <th className='PageOrderClient mousePointer' onClick={() => orderName()}>
+                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                        <g id="Frame" clipPath="url(#clip0_84440_3278)">
+                                            <g id="Group">
+                                                <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottom} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTop} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </g>
                                         </g>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_84440_3278">
-                                            <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                                <h1>Cliente</h1>
-                            </th>
-                            <th className='PageOrderID mousePointer' onClick={() => orderIdCharges()}>
-                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                                    <g id="Frame" clipPath="url(#clip0_84440_3278)">
-                                        <g id="Group">
-                                            <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <defs>
+                                            <clipPath id="clip0_84440_3278">
+                                                <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <h1>Cliente</h1>
+                                </th>
+                                <th className='PageOrderID mousePointer' onClick={() => orderIdCharges()}>
+                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                        <g id="Frame" clipPath="url(#clip0_84440_3278)">
+                                            <g id="Group">
+                                                <path id="Vector" d="M9.5 10.5L9.5 23.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_2" d="M12.5 20.25L9.5 23.25L6.5 20.25" stroke={corarrowBottomId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_3" d="M15.5 13.5L15.5 0.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </g>
                                         </g>
                                     </g>
                                     <defs>

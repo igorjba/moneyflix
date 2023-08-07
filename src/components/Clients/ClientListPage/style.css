@@ -1,7 +1,7 @@
 .header {
     justify-content: space-between;
 
-    margin: 3.0rem 0;
+    margin: 1.1rem 0;
 }
 
 .client-header img {
@@ -20,23 +20,33 @@
     align-self: center;
 }
 
+/* .container-add-client {
+    max-width: 26.4rem;
+    width: 100%;
+} */
+
 .addClient {
-    width: 26.4rem;
+    max-width: 26.4rem;
+    width: 100%;
     height: 3.3rem;
     border-radius: 1rem;
     gap: 4rem;
+
+    font-size: var(--fz-18);
+    font-weight: var(--fw-regular);
+    line-height: normal;
 
     background-color: var(--bg-pink);
     color: var(--font-clr-white);
 }
 
-.addClient h1 {
+/* .addClient h1 {
     font-size: var(--fz-18);
     font-weight: var(--fw-regular);
     line-height: normal;
-}
+} */
 
-.header-table-client{
+.header-table-client {
     display: block;
 }
 
@@ -50,7 +60,7 @@
 }
 
 
-.nameSelectDetail:hover{
+.nameSelectDetail:hover {
     color: var(--bg-pink) !important;
     transform: scale(1.1);
 
@@ -60,7 +70,7 @@
     z-index: 4;
 }
 
-.testeee{
+.testeee {
     padding-left: 1rem;
 }
 
@@ -93,10 +103,10 @@
     color: var(--font-clr-blue-number) !important;
 }
 
-.image-Charges-Modal{
+.image-Charges-Modal {
     margin-left: 1rem;
 }
 
-.image-Charges-Modal:hover{
+.image-Charges-Modal:hover {
     transform: scale(1.1);
 }

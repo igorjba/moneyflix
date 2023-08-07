@@ -2,7 +2,7 @@
     justify-content: space-between;
 
     width: 100%;
-    margin-top: 2.4rem;
+    margin-top: 1.1rem;
 
     background-color: var(--font-clr-white);
 }
@@ -59,6 +59,6 @@
     width: 60%;
 }
 
-.transform-image-charges:hover{
+.transform-image-charges:hover {
     transform: scale(1.1);
 }
