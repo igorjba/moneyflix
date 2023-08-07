@@ -197,7 +197,6 @@ export default function ChargesListPage() {
                                                 <path id="Vector_4" d="M12.5 3.75L15.5 0.75L18.5 3.75" stroke={corarrowTopId} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </g>
                                         </g>
-                                    </g>
                                     <defs>
                                         <clipPath id="clip0_84440_3278">
                                             <rect width="24" height="24" fill="white" transform="translate(24.5) rotate(90)" />
