@@ -157,7 +157,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     <div className='divs-inputs-form'>
                         <div className='box-info'>
                             <label htmlFor="nameEditUser" className='mousePointer'><h1>Nome*</h1></label>
-                            <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={completedName(GetProfile.nome)} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                            <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={GetProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorName && <span className='error'><h1>{errorName}</h1></span>}
                         </div>
                         <div className='box-info'>
