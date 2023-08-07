@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,13 +12,21 @@ import useUser from "../../../hooks/useUser.jsx";
 import { completedName, cpfMask, phoneAndCelMask2 } from "../../../utils/inputMasks.jsx";
 import { clearAll } from "../../../utils/localStorage.jsx";
 import "./style.css";
+import NotFoundCharges from "../../Charges/NotFoundCharges/index.jsx";
 
 export default function ClientListPage() {
-  const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setOpenModalRegisterCharges,setIdClientDetail,} = useUser();
+  const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setOpenModalRegisterCharges,setIdClientDetail} = useUser();
   const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
+  const [searchNameClient, setSearchNameClient] = useState('');
+  const [openNotFoundClient, setOpenNotFoundClient] = useState(true)
+  const inputSearch = useRef(null)
+
+
+
+
 
   async function ClientCadaster() {
     try {
@@ -27,8 +35,8 @@ export default function ClientListPage() {
           authorization: `Bearer ${token}`,
         },
       });
+      
       setClientRegisters(response.data);
-
     } catch (error) {
       if (error.response) {
         if (
@@ -98,11 +106,31 @@ export default function ClientListPage() {
       nome_user: event.nome_cliente,
     });
   }
-
+  async function searchNameChargesList(){
+    try {
+    const response = await api.get('cliente',{
+    headers: {
+        authorization: `${token}`,
+    },
+    params: {
+      search: searchNameClient
+    }
+    });
+    inputSearch.current.value = ''
+    setSearchNameClient('')
+    setClientRegisters(response.data)
+    setOpenNotFoundClient(true)
+    } catch (error) {
+      setOpenNotFoundClient(false)
+      setSearchNameClient('')
+      inputSearch.current.value = ''
+    }
+}
   useEffect(() => {
     ClientCadaster();
     backgroundSituation();
     setTitle("Clientes");
+    setOpenNotFoundClient(true)
   }, []);
   useEffect(() => {
     backgroundSituation();
@@ -122,11 +150,13 @@ export default function ClientListPage() {
             <img src={filter} alt="Filtrar" />
           </button>
           <div>
-            <input placeholder="Pesquisa" type="text" name="Filter nome" />
-            <img src={lupa} alt="Lupa" className="search" />
+          <input placeholder='Pesquisa' ref={inputSearch} type="text" name="Filter nome" onChange={(e) => setSearchNameClient(e.target.value)} />
+          <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)}/>
           </div>
         </div>
       </div>
+      {!openNotFoundClient && <NotFoundCharges />}
+      {openNotFoundClient &&
       <div className="tableAll">
         <table>
           <thead className="header-table-client">
@@ -174,6 +204,7 @@ export default function ClientListPage() {
           </tbody>
         </table>
       </div>
+      }
     </>
   );
 }
