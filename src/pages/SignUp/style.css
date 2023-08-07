@@ -21,6 +21,13 @@
   background-color: var(--bg-nav);
 }
 
+@media (max-width: 768px) {
+  .sign-up-steps {
+    display: none;
+  }
+
+}
+
 .sign-up-steps-item {
   display: flex;
   align-items: flex-start;
@@ -180,6 +187,12 @@
   max-height: 0.6rem;
   height: 100%;
   margin-bottom: 7.16%;
+}
+
+@media (max-width: 768px) {
+  .container-sign-up-indicator-forms {
+    display: none;
+  }
 }
 
 .steps-bar {

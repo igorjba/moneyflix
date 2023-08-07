@@ -97,7 +97,6 @@
 
 .tableAll table {
     width: 100%
-
 }
 
 ::-webkit-scrollbar {
@@ -137,10 +136,10 @@
     overflow: hidden;
 }
 
-.tableAll td h1{
+.tableAll td h1 {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap; 
+    white-space: nowrap;
 }
 
 .extract-table h1 {
@@ -152,9 +151,9 @@
     color: var(--font-clr-text-card);
 }
 
-.number-table{
+.number-table {
     text-overflow: clip !important;
-    white-space: normal !important; 
+    white-space: normal !important;
 }
 
 /* .description-table {
