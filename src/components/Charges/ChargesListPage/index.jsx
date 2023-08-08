@@ -17,6 +17,7 @@ import {
 import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
 import NotFoundCharges from "../NotFoundCharges";
+import ChargesModal from '../ChargesModalDetails/index.jsx';
 
 export default function ChargesListPage() {
   const {
@@ -166,6 +167,15 @@ export default function ChargesListPage() {
       console.log(error);
     }
   }
+  const [selectedCharge, setSelectedCharge] = useState(null);
+
+  const handleChargeClick = (charge) => {
+    setSelectedCharge(charge);
+  };
+
+  const closeModal = () => {
+    setSelectedCharge(null);
+  };
   useEffect(() => {
     backgroundSituation();
   }, [infoClientCharges]);
@@ -348,7 +358,7 @@ export default function ChargesListPage() {
             <tbody>
               {infoClientCharges.map((charges) => {
                 return (
-                  <tr className="extract-table" key={charges.id_cobranca}>
+                  <tr className="extract-table" key={charges.id_cobranca} onClick={() => handleChargeClick(charges)}>
                     <td>
                       <h1>
                         {completedName(charges.cliente) === undefined
@@ -393,6 +403,9 @@ export default function ChargesListPage() {
                   </tr>
                 );
               })}
+              {selectedCharge && (
+                <ChargesModal chargeDetails={selectedCharge} closeModal={closeModal} />
+              )}
             </tbody>
           </table>
         </div>
