@@ -167,6 +167,15 @@ export default function ChargesListPage() {
       console.log(error);
     }
   }
+  const [selectedCharge, setSelectedCharge] = useState(null);
+
+  const handleChargeClick = (charge) => {
+    setSelectedCharge(charge);
+  };
+
+  const closeModal = () => {
+    setSelectedCharge(null);
+  };
   useEffect(() => {
     backgroundSituation();
   }, [infoClientCharges]);
@@ -394,6 +403,9 @@ export default function ChargesListPage() {
                   </tr>
                 );
               })}
+              {selectedCharge && (
+                <ChargesModal chargeDetails={selectedCharge} closeModal={closeModal} />
+              )}
             </tbody>
           </table>
         </div>
