@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import chargePink from "../../assets/Charge-Pink.svg";
 import charge from "../../assets/Charge.svg";
 import clientePink from "../../assets/Client-Pink.svg";
@@ -6,6 +6,7 @@ import client from "../../assets/Client.svg";
 import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
+import BottomNav from "../../components/BottomNav";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
 import DeleteCharge from "../../components/Charges/DeleteCharge";
 import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
@@ -22,13 +23,24 @@ import useUser from '../../hooks/useUser';
 import "./style.css";
 
 function Main() {
-  const [modalExit, setModalExit] = useState(false);
-  const [imageNavHome, setimageNavHome] = useState(false);
-  const [imageNavClient, setimageNavClient] = useState(true);
-  const [imageNavCharge, setimageNavCharge] = useState(true);
-  const [resumeName, setResumeName] = useState("");
-  const [openModalEdit, setOpenModalEdit] = useState(false);
+  // const [modalExit, setModalExit] = useState(false);
+  // const [imageNavHome, setimageNavHome] = useState(false);
+  // const [imageNavClient, setimageNavClient] = useState(true);
+  // const [imageNavCharge, setimageNavCharge] = useState(true);
+  // const [openModalEdit, setOpenModalEdit] = useState(false);
   const {
+    modalExit,
+    setModalExit,
+    imageNavHome,
+    setimageNavHome,
+    imageNavClient,
+    setimageNavClient,
+    imageNavCharge,
+    setimageNavCharge,
+    openModalEdit,
+    setOpenModalEdit,
+    resumeName,
+    setResumeName,
     openModalRegister,
     openModalEditProfile,
     openModalEditProfileSuccess,
@@ -166,6 +178,28 @@ function Main() {
           <img src={imageNavCharge ? charge : chargePink} className="imageNavAnimation" alt="Cobranças" />
         </div>
       </nav>
+      {window.innerWidth <= 768 && (
+        <BottomNav
+          imageNavHome={imageNavHome}
+          imageNavClient={imageNavClient}
+          imageNavCharge={imageNavCharge}
+          onClick={(type) => {
+            if (type === 'home') {
+              setimageNavClient(true);
+              setimageNavHome(false);
+              setimageNavCharge(true);
+            } else if (type === 'client') {
+              setimageNavClient(false);
+              setimageNavHome(true);
+              setimageNavCharge(true);
+            } else if (type === 'charge') {
+              setimageNavClient(true);
+              setimageNavHome(true);
+              setimageNavCharge(false);
+            }
+          }}
+        />
+      )}
       <div className="center">
         {openModalEditClient && <div className="backgroundModal initial">
           {openModalEditClient && (<EditClientModal />)}

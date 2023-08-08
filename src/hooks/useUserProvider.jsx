@@ -22,6 +22,12 @@ function useUserProvider() {
         status: false,
         id_charges: ''
     })
+    const [modalExit, setModalExit] = useState(false);
+    const [imageNavHome, setimageNavHome] = useState(false);
+    const [imageNavClient, setimageNavClient] = useState(true);
+    const [imageNavCharge, setimageNavCharge] = useState(true);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [resumeName, setResumeName] = useState("");
     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
         status: false,
         id_user: '',
@@ -48,6 +54,18 @@ function useUserProvider() {
 
     return (
         {
+            modalExit,
+            setModalExit,
+            imageNavHome,
+            setimageNavHome,
+            imageNavClient,
+            setimageNavClient,
+            imageNavCharge,
+            setimageNavCharge,
+            openModalEdit,
+            setOpenModalEdit,
+            resumeName,
+            setResumeName,
             setOpenModalEditProfileSuccess,
             openModalEditProfileSuccess,
             GetProfile,
