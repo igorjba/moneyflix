@@ -9,6 +9,7 @@ export default function SummaryCardsList({
   backgroundColorTotalClient,
   isClientData = false,
   isLastCard,
+  seeAll,
 }) {
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
@@ -81,7 +82,7 @@ export default function SummaryCardsList({
         }
       </table>
       <div className="footerTable initial">
-        <span>Ver todos</span>
+        <span onClick={seeAll}>Ver todos</span>
       </div>
     </div>
   );
