@@ -1,7 +1,7 @@
 import React from 'react';
 import { dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
 import closed from '../../../assets/close.svg';
-import iconCharge from '../../../assets/IconCharge.svg'; // Importe o ícone aqui
+import iconCharge from '../../../assets/IconCharge.svg';
 import './style.css';
 
 export default function ChargesModal({ chargeDetails, closeModal }) {
