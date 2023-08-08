@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 4;
 }
 
 .charges-modal {
@@ -40,6 +41,8 @@ h2.modal-title {
     top: 4rem;
     right: 22rem;
     margin-bottom: 1.6rem;
+
+
 }
 
 .charges-details {
@@ -97,4 +100,43 @@ h2.modal-title {
     justify-content: center;
     align-items: flex-start;
     gap: 8px;
+}
+
+.description-detail {
+    width: 100%;
+    /* Outros estilos que você possa querer adicionar */
+}
+
+.status-text {
+    text-align: center;
+
+    padding: 0 0.8rem;
+    border-radius: 0.8rem;
+
+
+    font-weight: var(--fw-medium) !important;
+    line-height: 2rem !important;
+}
+
+.statusDefeated {
+    background-color: var(--bg-card-red);
+    color: var(--font-clr-red-number) !important;
+}
+
+.statusPending {
+    background-color: var(--bg-card-yellow);
+    color: var(--font-clr-yellow-number) !important;
+}
+
+.statusPay {
+    background-color: var(--bg-card-gray);
+    color: var(--font-clr-blue-number) !important;
+}
+
+.charge-icon {
+    position: absolute;
+    top: 4.1rem;
+    left: 4.9rem;
+    width: 3.2rem;
+    height: 3.2rem;
 }
