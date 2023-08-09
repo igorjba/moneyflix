@@ -60,7 +60,6 @@ export default function EditUserModal({ setOpenModalEdit }) {
             setErrorPasswordAgainEdit('As senhas não coincidem');
         }
         if (!getProfile.senhaAtual) {
-            console.log('chamou aqui campo de senha vazio');
             setErrorPasswordEdit('Digite sua senha')
         }
 

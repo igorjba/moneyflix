@@ -50,7 +50,9 @@ export default function RegisterClientModal() {
       return setForm({ ...form, [event.target.name]: cpfMask(event.target.value) });
     }
     if (event.target.name === 'telefone') {
-      /* const inputNumberTel = event.target.value.replace(/\D/g, '')
+      console.log(event.target);
+
+      const inputNumberTel = event.target.value.replace(/\D/g, '')
 
       if (inputNumberTel.length > 11) {
         return;
@@ -72,11 +74,9 @@ export default function RegisterClientModal() {
         phone += '-' + value.slice(6);
       } else if (value.length === 11) {
         phone += '-' + value.slice(7);
-      } */
+      }
 
-
-
-      return setForm({ ...form, [event.target.name]: phoneAndCelMask(phone) })
+      return setForm({ ...form, telefone: phone })
     }
     if (event.target.name === 'cep') {
       return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value) });
