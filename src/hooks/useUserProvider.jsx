@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { getItem } from "../utils/localStorage";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import api from "../api/api";
+import toastError from '../assets/toastError.svg';
+import { clearAll, getItem } from "../utils/localStorage";
 
 function useUserProvider() {
   const token = getItem("token");
+  const navigate = useNavigate()
   const [nameUser, setNameUser] = useState(getItem("name"));
 
   const [title, setTitle] = useState("Resumo de Cobranças");
@@ -18,6 +23,53 @@ function useUserProvider() {
   const [imageNavCharge, setImageNavCharge] = useState(true);
   const [modalExit, setModalExit] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
+
+  async function getUserDetails() {
+    try {
+      const response = await api.get("/usuario", {
+        headers: {
+          authorization: token,
+        }
+      });
+
+      if (response && response.data) {
+        setGetProfile({
+          nome: response.data.nome_usuario || "",
+          email: response.data.email || "",
+          cpf: response.data.cpf || "",
+          telefone: response.data.telefone || "",
+          senhaAtual: "",
+          senha: "",
+          confirmeSenha: ""
+        });
+      } else {
+        setGetProfile({
+          nome: '',
+          email: '',
+          cpf: '',
+          telefone: '',
+          senhaAtual: '',
+          senha: '',
+          confirmeSenha: ''
+        });
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401 && error.response.data.message === "token expirado") {
+          clearAll()
+          navigate("/login");
+        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+          clearAll()
+          navigate("/login");
+        }
+      }
+      toast.error(error.response.data.message, {
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
+      });
+
+    }
+  }
 
   //fazer hook so de client agora
   const [openModalEditClient, setOpenModalEditClient] = useState(false)
@@ -100,6 +152,7 @@ function useUserProvider() {
       setModalExit,
       openModalEdit,
       setOpenModalEdit,
+      getUserDetails,
     }
   )
 

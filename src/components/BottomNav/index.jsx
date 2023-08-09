@@ -64,19 +64,6 @@ export default function BottomNav() {
                 <div className="title circle-perfil">
                     <h1>{resumeName}</h1>
                 </div>
-                <div className="arrow">
-                    <img
-                        src={setBottom}
-                        alt="seta"
-                        onClick={() => setModalExit(!modalExit)}
-                    />
-                    {modalExit && (
-                        <LogoutEditUserModal
-                            setModalExit={setModalExit}
-                            setOpenModalEdit={setOpenModalEdit}
-                        />
-                    )}
-                </div>
             </nav>
         </>
     );
