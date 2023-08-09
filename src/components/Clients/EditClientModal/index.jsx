@@ -189,7 +189,7 @@ export default function EditClientModal() {
             <h2>Editar Cliente</h2>
           </div>
           <img
-            className="mousePointer"
+            className="mouse-pointer"
             src={closed}
             alt="fechar"
             onClick={() => setOpenModalEditClient(false)}
@@ -197,7 +197,7 @@ export default function EditClientModal() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="divs-inputs-form">
-            <label htmlFor="inputName" className="mousePointer">
+            <label htmlFor="inputName" className="mouse-pointer">
               <h1>Nome*</h1>
             </label>
             <input
@@ -217,7 +217,7 @@ export default function EditClientModal() {
                 <h1>{errorName}</h1>
               </span>
             )}
-            <label htmlFor="inputEmail" className="mousePointer">
+            <label htmlFor="inputEmail" className="mouse-pointer">
               <h1>E-mail*</h1>
             </label>
             <input
@@ -238,7 +238,7 @@ export default function EditClientModal() {
             )}
             <div className="formInformation">
               <div>
-                <label htmlFor="inputCPF" className="mousePointer">
+                <label htmlFor="inputCPF" className="mouse-pointer">
                   <h1>CPF*</h1>
                 </label>
                 <input
@@ -259,7 +259,7 @@ export default function EditClientModal() {
                 )}
               </div>
               <div>
-                <label htmlFor="inputPhone" className="mousePointer">
+                <label htmlFor="inputPhone" className="mouse-pointer">
                   <h1>Telefone*</h1>
                 </label>
                 <input
@@ -282,7 +282,7 @@ export default function EditClientModal() {
             </div>
             <div className="formAndress">
               <div className="AdressEditClientModal">
-                <label htmlFor="inputAdress" className="mousePointer">
+                <label htmlFor="inputAdress" className="mouse-pointer">
                   <h1>Endereço</h1>
                 </label>
                 <input
@@ -296,7 +296,7 @@ export default function EditClientModal() {
                 />
               </div>
             </div>
-            <label htmlFor="inputCompl" className="mousePointer">
+            <label htmlFor="inputCompl" className="mouse-pointer">
               <h1>Complemento</h1>
             </label>
             <input
@@ -310,7 +310,7 @@ export default function EditClientModal() {
             />
             <div className="formInformation">
               <div>
-                <label htmlFor="inputCEP" className="mousePointer">
+                <label htmlFor="inputCEP" className="mouse-pointer">
                   <h1>CEP</h1>
                 </label>
                 <input
@@ -326,7 +326,7 @@ export default function EditClientModal() {
                 />
               </div>
               <div>
-                <label htmlFor="inputNeighborhood" className="mousePointer">
+                <label htmlFor="inputNeighborhood" className="mouse-pointer">
                   <h1>Bairro</h1>
                 </label>
                 <input
@@ -342,7 +342,7 @@ export default function EditClientModal() {
             </div>
             <div className="formAndress">
               <div>
-                <label htmlFor="inputCity" className="mousePointer">
+                <label htmlFor="inputCity" className="mouse-pointer">
                   <h1>Cidade</h1>
                 </label>
                 <input
@@ -356,7 +356,7 @@ export default function EditClientModal() {
                 />
               </div>
               <div>
-                <label htmlFor="inputUF" className="mousePointer">
+                <label htmlFor="inputUF" className="mouse-pointer">
                   <h1>UF</h1>
                 </label>
                 <input

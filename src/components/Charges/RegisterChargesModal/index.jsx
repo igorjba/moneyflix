@@ -16,10 +16,10 @@ import './style.css';
 
 
 export default function RegisterChargesModal() {
-    const {openModalCharges, setOpenModalCharges,
-    errorDate, setErrorDate, errorDescription, setErrorDescription,
-    errorValue, setErrorValue, setVerifyDate, verifyDate} = useCharges();
-    const { token} = useUser();
+    const { openModalCharges, setOpenModalCharges,
+        errorDate, setErrorDate, errorDescription, setErrorDescription,
+        errorValue, setErrorValue, setVerifyDate, verifyDate } = useCharges();
+    const { token } = useUser();
     const navigate = useNavigate();
     const inputRef = useRef(null);
     let validate = 0
@@ -43,16 +43,16 @@ export default function RegisterChargesModal() {
             return setFormRegisterCharges({ ...formRegisterCharges, status: 'Pendente' })
         }
     }
-    function dateSendDatebase(event){
+    function dateSendDatebase(event) {
         const spreadNumber = event.split('/');
         const [day, month, year] = spreadNumber;
         setVerifyDate(0)
 
-        if(spreadNumber.length !== 3){
+        if (spreadNumber.length !== 3) {
             setVerifyDate(1)
         }
         return (`${year}-${month}-${day}`)
-    }    
+    }
     async function sendInformationCharges(event) {
         event.preventDefault()
         setErrorDescription(''),
@@ -106,13 +106,13 @@ export default function RegisterChargesModal() {
     }
     useEffect(() => {
         setErrorDescription(''),
-        setErrorDate(''),
-        setErrorValue('')
+            setErrorDate(''),
+            setErrorValue('')
     }, [])
     return (
         <div className='main-modal-flex modal-charge'>
             <div></div>
-            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalCharges(() => ({ ...openModalCharges, status: false }))} />
+            <img src={closed} className="main-modal-flex-close mouse-pointer" alt="fechar" onClick={() => setOpenModalCharges(() => ({ ...openModalCharges, status: false }))} />
             <div className='main-modal-flex-header initial'>
                 <img src={IconCharge} alt="" />
                 <h2>Cadastro de Cobrança</h2>
@@ -120,23 +120,23 @@ export default function RegisterChargesModal() {
             <form onSubmit={sendInformationCharges}>
                 <div className='container-inputs-form'>
                     <div className='container-input-name'>
-                        <label htmlFor="nameInput" className='mousePointer'>Nome</label>
+                        <label htmlFor="nameInput" className='mouse-pointer'>Nome</label>
                         <input className='charges-input-name' id="nameInput" ref={inputRef} type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalCharges.nome_user)} />
                     </div>
                     <div className='container-input-description'>
-                        <label htmlFor="descriptionInput" className='mousePointer'>Descrição*</label>
+                        <label htmlFor="descriptionInput" className='mouse-pointer'>Descrição*</label>
                         <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" ref={inputRef} placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
                         </textarea>
                         {errorDescription && <span className='errorCharges'><h1>{errorDescription}</h1></span>}
                     </div>
                     <div className='container-inputs-value-date'>
                         <div className='container-input-date'>
-                            <label htmlFor="dateInput" className='mousePointer'>Vencimento*</label>
-                            <PatternFormat id="dateInput" className={`${errorDate ? 'errorChargesLine' : ''}`} displayType="input" value={dateDDMMYYYYMask(formRegisterCharges.vencimento)} placeholder='  /   /   ' format="##/##/####" name='vencimento' onBlur={(event) => setFormRegisterCharges({...formRegisterCharges, vencimento: (dateSendDatebase(event.target.defaultValue))})}/>
+                            <label htmlFor="dateInput" className='mouse-pointer'>Vencimento*</label>
+                            <PatternFormat id="dateInput" className={`${errorDate ? 'errorChargesLine' : ''}`} displayType="input" value={dateDDMMYYYYMask(formRegisterCharges.vencimento)} placeholder='  /   /   ' format="##/##/####" name='vencimento' onBlur={(event) => setFormRegisterCharges({ ...formRegisterCharges, vencimento: (dateSendDatebase(event.target.defaultValue)) })} />
                             {errorDate && <span className='errorCharges'><h1>{errorDate}</h1></span>}
                         </div>
                         <div className='container-input-value'>
-                            <label htmlFor="valueInput" className='mousePointer'>Valor*</label>
+                            <label htmlFor="valueInput" className='mouse-pointer'>Valor*</label>
                             <NumericFormat
                                 id='valueInput'
                                 ref={inputRef}
@@ -150,20 +150,20 @@ export default function RegisterChargesModal() {
                                 allowNegative={false}
                                 placeholder="0,00"
                                 name='vencimento'
-                                onValueChange={(number) => {setFormRegisterCharges({...formRegisterCharges, valor: number.value})}}
+                                onValueChange={(number) => { setFormRegisterCharges({ ...formRegisterCharges, valor: number.value }) }}
                             />
                             {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}
                         </div>
                     </div>
                     <div>
                         <h1>Status</h1>
-                        <div className='testeInput mousePointer' onClick={() => statusCharges(true)}>
+                        <div className='testeInput mouse-pointer' onClick={() => statusCharges(true)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(true)}>
                                 {verifyCheckbox && <img src={checkboxGreen} alt="" />}
                             </div>
                             <h1 >Cobrança Paga</h1>
                         </div>
-                        <div className='testeInput mousePointer' onClick={() => statusCharges(false)}>
+                        <div className='testeInput mouse-pointer' onClick={() => statusCharges(false)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(false)}>
                                 {!verifyCheckbox && <img src={checkboxGreen} alt="" />}
                             </div>
