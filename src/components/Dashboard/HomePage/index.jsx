@@ -15,7 +15,14 @@ import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
 
 export default function HomePage() {
-  const { setTitle, token } = useUser();
+  const {
+    setTitle,
+    token,
+    setListClientByStatus,
+    setimageNavClient,
+    setimageNavHome,
+    setimageNavCharge,
+  } = useUser();
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
   const navigate = useNavigate();
@@ -52,13 +59,13 @@ export default function HomePage() {
       });
     }
   }
-  function errorAtived() {
-    if (errorValue > 1) {
-      return toast.error("Falha ao carregar valores", {
-        className: "customToastify-error",
-        icon: ({ theme, type }) => <img src={toastError} alt="" />,
-      });
-    }
+
+  function onClickNavLeft(event) {
+    const divs = document.querySelectorAll("div");
+    divs.forEach((element) => {
+      element.classList.remove("atived");
+    });
+    event.currentTarget.classList.add("atived");
   }
 
   useEffect(() => {
@@ -73,19 +80,34 @@ export default function HomePage() {
           IconCard={Paid}
           BackgroundColor="#eef6f6"
           TitleCard="Cobranças Pagas"
-          ValueCard={data.totalValorPagas?.[0]?.sum === '' || data.totalValorPagas?.[0]?.sum === undefined ? '' : moneyMask(data.totalValorPagas?.[0]?.sum)}
+          ValueCard={
+            data.totalValorPagas?.[0]?.sum === "" ||
+            data.totalValorPagas?.[0]?.sum === undefined
+              ? ""
+              : moneyMask(data.totalValorPagas?.[0]?.sum)
+          }
         />
         <SummaryValueCards
           IconCard={Expired}
           BackgroundColor="#ffefef"
           TitleCard="Cobranças Vencidas"
-          ValueCard={data.totalValorVencidas?.[0]?.sum === '' || data.totalValorVencidas?.[0]?.sum === undefined ? '' : moneyMask(data.totalValorVencidas?.[0]?.sum)}
+          ValueCard={
+            data.totalValorVencidas?.[0]?.sum === "" ||
+            data.totalValorVencidas?.[0]?.sum === undefined
+              ? ""
+              : moneyMask(data.totalValorVencidas?.[0]?.sum)
+          }
         />
         <SummaryValueCards
           IconCard={Pending}
           BackgroundColor="#fcf6dc"
           TitleCard="Cobranças Previstas"
-          ValueCard={data.totalValorPendentes?.[0]?.sum === '' || data.totalValorPendentes?.[0]?.sum === undefined ? '' : moneyMask(data.totalValorPendentes?.[0]?.sum)}
+          ValueCard={
+            data.totalValorPendentes?.[0]?.sum === "" ||
+            data.totalValorPendentes?.[0]?.sum === undefined
+              ? ""
+              : moneyMask(data.totalValorPendentes?.[0]?.sum)
+          }
         />
       </div>
       <div className="contentCards">
@@ -97,6 +119,15 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroVencidas?.[0]?.count}
           cardL={data.Vencidas}
+          seeAll={(event) => {
+            onClickNavLeft(event);
+            setListClientByStatus("Vencida"),
+              setimageNavClient(true),
+              setimageNavHome(true),
+              setimageNavCharge(false),
+              setTitleNameSecond(""),
+              setTitleNameTerc("");
+          }}
         />
         <SummaryCardsList
           titleCard="Cobranças Previstas"
@@ -106,6 +137,15 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroPendentes?.[0]?.count}
           cardL={data.Pendentes}
+          seeAll={(event) => {
+            onClickNavLeft(event);
+            setListClientByStatus("Pendente"),
+              setimageNavClient(true),
+              setimageNavHome(true),
+              setimageNavCharge(false),
+              setTitleNameSecond(""),
+              setTitleNameTerc("");
+          }}
         />
         <SummaryCardsList
           titleCard="Cobranças Pagas"
@@ -115,6 +155,15 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroPagas?.[0]?.count}
           cardL={data.Pagas}
+          seeAll={(event) => {
+            onClickNavLeft(event);
+            setListClientByStatus("Paga"),
+              setimageNavClient(true),
+              setimageNavHome(true),
+              setimageNavCharge(false),
+              setTitleNameSecond(""),
+              setTitleNameTerc("");
+          }}
         />
         <SummaryCardsList
           titleCard="Clientes Inadimplentes"
@@ -127,6 +176,15 @@ export default function HomePage() {
           iconCard={ClienteOverdue}
           isClientData={true}
           isLastCard={true}
+          seeAll={(event) => {
+            onClickNavLeft(event);
+            setListClientByStatus("Inadimplente"),
+              setimageNavClient(false),
+              setimageNavHome(true),
+              setimageNavCharge(true),
+              setTitleNameSecond(""),
+              setTitleNameTerc("");
+          }}
         />
         <SummaryCardsList
           titleCard="Clientes em dia"
@@ -139,6 +197,15 @@ export default function HomePage() {
           iconCard={ClienteOK}
           isClientData={true}
           isLastCard={true}
+          seeAll={(event) => {
+            onClickNavLeft(event);
+            setListClientByStatus("Em dia"),
+              setimageNavClient(false),
+              setimageNavHome(true),
+              setimageNavCharge(true),
+              setTitleNameSecond(""),
+              setTitleNameTerc("");
+          }}
         />
       </div>
     </>

@@ -146,10 +146,10 @@ export default function ClientDetail() {
     }
   }
 
-  async function informationDeleteChargesClientDetail(event){
+  async function informationDeleteChargesClientDetail(event) {
     setModalDelete({
-        status: true,
-        id_charges: event
+      status: true,
+      id_charges: event
     })
 
     /* try {
@@ -164,7 +164,7 @@ export default function ClientDetail() {
     } catch (error) {
       console.log(error);
     } */
-}
+  }
 
   useEffect(() => {
     setTitle(`Clientes`);
@@ -175,7 +175,7 @@ export default function ClientDetail() {
 
   useEffect(() => {
     backgroundSituation();
-  },[infoClientCharges])
+  }, [infoClientCharges])
 
   useEffect(() => {
     DetailCustomerData();
@@ -281,8 +281,17 @@ export default function ClientDetail() {
               <tr className="table-first-title">
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
-                  <button className="addClient">
-                    <h1
+                  <button className="addClient" onClick={() =>
+                    setOpenModalRegisterCharges({
+                      status: true,
+                      id_user: idListChargesClick.client[0].id_cliente,
+                      nome_user: idListChargesClick.client[0].nome_cliente,
+                    })
+                  }
+                  >
+                    {" "}
+                    + Nova cobrança{" "}
+                    {/* <h1
                       onClick={() =>
                         setOpenModalRegisterCharges({
                           status: true,
@@ -293,8 +302,8 @@ export default function ClientDetail() {
                     >
                       {" "}
                       + Nova cobrança{" "}
-                    </h1>{" "}
-                  </button>
+                    </h1>{" "} */}
+                  </button>{" "}
                 </th>
               </tr>
             </thead>
@@ -455,7 +464,7 @@ export default function ClientDetail() {
                     </td>
                     <td className="imagem-table-charge">
                       <img src={editCharge} alt="Editar" />
-                      <img className='mousePointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)}/>
+                      <img className='mousePointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)} />
                     </td>
                   </tr>
                 );

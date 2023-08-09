@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import chargePink from "../../assets/Charge-Pink.svg";
 import charge from "../../assets/Charge.svg";
 import clientePink from "../../assets/Client-Pink.svg";
@@ -6,6 +6,7 @@ import client from "../../assets/Client.svg";
 import homePink from "../../assets/Home-Pink.svg";
 import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
+import BottomNav from "../../components/BottomNav";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
 import DeleteCharge from "../../components/Charges/DeleteCharge";
 import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
@@ -26,13 +27,26 @@ import { UserCharges } from "../../contexts/UserChargesContext";
 
 function Main() {
   const {openModalCharges, openModalEditCharges, openModalDelete} = useCharges()
-  const [modalExit, setModalExit] = useState(false);
+  /* const [modalExit, setModalExit] = useState(false);
   const [imageNavHome, setimageNavHome] = useState(false);
   const [imageNavClient, setimageNavClient] = useState(true);
   const [imageNavCharge, setimageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
-  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false); */
+
   const {
+    modalExit,
+    setModalExit,
+    imageNavHome,
+    setimageNavHome,
+    imageNavClient,
+    setimageNavClient,
+    imageNavCharge,
+    setimageNavCharge,
+    openModalEdit,
+    setOpenModalEdit,
+    resumeName,
+    setResumeName,
     openModalRegister,
     openModalEditProfile,
     openModalEditProfileSuccess,
@@ -95,8 +109,8 @@ function Main() {
   async function verifyTextHeader(e) {
     if (title === 'Clientes') {
       setTitleNameSecond(" "),
-      setTitleNameTerc(" ")
-        setimageNavClient(false),
+        setTitleNameTerc(" ")
+      setimageNavClient(false),
         setClientDetailPage(false),
         setIdClientDetail(false)
     }
@@ -169,6 +183,28 @@ function Main() {
           <img src={imageNavCharge ? charge : chargePink} className="imageNavAnimation" alt="Cobranças" />
         </div>
       </nav>
+      {window.innerWidth <= 768 && (
+        <BottomNav
+          imageNavHome={imageNavHome}
+          imageNavClient={imageNavClient}
+          imageNavCharge={imageNavCharge}
+          onClick={(type) => {
+            if (type === 'home') {
+              setimageNavClient(true);
+              setimageNavHome(false);
+              setimageNavCharge(true);
+            } else if (type === 'client') {
+              setimageNavClient(false);
+              setimageNavHome(true);
+              setimageNavCharge(true);
+            } else if (type === 'charge') {
+              setimageNavClient(true);
+              setimageNavHome(true);
+              setimageNavCharge(false);
+            }
+          }}
+        />
+      )}
       <div className="center">
         {openModalEditClient && <div className="backgroundModal initial">
           {openModalEditClient && (<EditClientModal />)}
@@ -196,7 +232,7 @@ function Main() {
         </div>}
         <header>
           <div className="text-header-perfil">
-            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
+            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
               {title}
             </h2>
             <h3 className="detail-client-set">{titleNameSecond}</h3>
@@ -208,21 +244,23 @@ function Main() {
             </div>
             <div className="profile initial">
               <h1>{toTitleCase(nameUser)}</h1>
+            </div>
+            <div className="arrow">
               <img
                 src={setBottom}
                 alt="seta"
                 onClick={() => setModalExit(!modalExit)}
               />
+              {modalExit && (
+                <LogoutEditUserModal
+                  setModalExit={setModalExit}
+                  setOpenModalEdit={setOpenModalEdit}
+                />
+              )}
             </div>
           </div>
-          {modalExit && (
-            <LogoutEditUserModal
-              setModalExit={setModalExit}
-              setOpenModalEdit={setOpenModalEdit}
-            />
-          )}
         </header>
-        <div className="main">
+        <div className={`main ${!imageNavHome ? 'dashboard' : 'table'}`}>
           {!imageNavClient && !idClientDetail && <ClientListPage />}
           {!imageNavClient && idClientDetail && <ClientDetail />}
           {!imageNavHome && <HomePage />}

@@ -5,10 +5,22 @@
     margin: 1.9rem 0 2.4rem 0;
 }
 
+@media (max-width: 822px) {
+    .contentResume {
+        justify-content: center;
+    }
+}
+
 .contentCards {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 3.2rem;
+}
+
+@media (max-width: 822px) {
+    .contentCards {
+        justify-content: center;
+    }
 }

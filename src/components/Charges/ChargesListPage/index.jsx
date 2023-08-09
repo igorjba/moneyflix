@@ -12,8 +12,8 @@ import NotFoundCharges from '../NotFoundCharges';
 import './style.css';
 
 export default function ChargesListPage() {
-    const {backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges} = useCharges()
-    const {setTitle, token} = useUser();
+  const {backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges} = useCharges()
+  const {setTitle, token} = useUser();
     const [countOrder, setCountOrder] = useState(1)
     const [countOrderIdCharges, setcountOrderIdCharges] = useState(1)
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
@@ -22,12 +22,15 @@ export default function ChargesListPage() {
     const [corarrowBottomId, setCorArrowBottomId] = useState('#3F3F55')
     const [searchNameCharges, setSearchNameCharges] = useState('')
     const inputSearch = useRef(null)
-
+    
     function informationDeleteCharges(event){
         setModalDelete({
             status: true,
             id_charges: event
         })
+    }
+    function filterStatus(data, condition) {
+      return data.filter((client) => client.status === condition);
     }
     function orderName() {
         setCountOrder(countOrder + 1)
@@ -76,17 +79,6 @@ export default function ChargesListPage() {
             setcountOrderIdCharges(1);
         }
     }
-    function informationEditCharges(event){
-        setOpenModalEditCharges({
-            status: true,
-            id_charges: event.id_cobranca,
-            nome_user: event.cliente,
-            description: event.descricao,
-            date: event.vencimento,
-            value: event.valor,
-            statusPage: event.status
-        })
-    }
     async function searchNameChargesList(){
         const validationFunctionSearch = parseFloat(searchNameCharges);
         const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
@@ -95,7 +87,7 @@ export default function ChargesListPage() {
         try {
         const response = await api.get('cobranca',{
         headers: {
-            authorization: `${token}`,
+          authorization: `${token}`,
         },
         params: {
             ...searchInformationCharges
@@ -104,29 +96,27 @@ export default function ChargesListPage() {
         inputSearch.current.value = ''
         setInfoClientCharges(response.data)
         } catch (error) {
-            if (error.response) {
-                if (
-                  error.response.status === 401 &&
-                  error.response.data.message === "token expirado"
-                ) {
-                  clearAll();
-                  navigate("/login");
-                } else if (
-                  error.response.status === 400 &&
-                  error.response.data.message === "Não autorizado"
-                ) {
-                  clearAll();
-                  navigate("/login");
-                }
-              }
-              toast.error(error.response.data.message, {
-                className: "customToastify-error",
-                icon: ({ theme, type }) => <img src={toastError} alt="" />,
-              });
+          if (error.response) {
+            if (
+              error.response.status === 401 &&
+              error.response.data.message === "token expirado"
+            ) {
+              clearAll();
+              navigate("/login");
+            } else if (
+              error.response.status === 400 &&
+              error.response.data.message === "Não autorizado"
+            ) {
+              clearAll();
+              navigate("/login");
             }
+          }
+          toast.error(error.response.data.message, {
+            className: "customToastify-error",
+            icon: ({ theme, type }) => <img src={toastError} alt="" />,
+          });
         }
-
-
+        }
     useEffect(() => {
         backgroundSituation()
     }, [infoClientCharges])
@@ -134,6 +124,7 @@ export default function ChargesListPage() {
         ListCharges()
         setTitle('Cobranças')
     }, [])
+
 
     return (
         <>
