@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,39 +8,40 @@ import checkboxGreen from '../../../assets/Checkbox.svg';
 import IconCharge from '../../../assets/IconCharge.svg';
 import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
+import useCharges from '../../../hooks/useCharges';
 import useUser from '../../../hooks/useUser';
 import { completedName, dateDDMMYYYYMask } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
-import useCharges from '../../../hooks/useCharges';
 import './style.css';
 
-
-export default function RegisterChargesModal() {
-    const {openModalCharges, setOpenModalCharges,
-    errorDate, setErrorDate, errorDescription, setErrorDescription,
-    errorValue, setErrorValue, setVerifyDate, verifyDate} = useCharges();
-    const { token} = useUser();
+export default function EditChargesModal() {
+    const {openModalEditCharges, setOpenModalEditCharges, 
+        errorDate, setErrorDate, errorDescription, 
+        setErrorDescription, errorValue, setErrorValue, 
+        ListCharges, verifyDate, setVerifyDate} = useCharges();
+    const { token } = useUser();
     const navigate = useNavigate();
     const inputRef = useRef(null);
     let validate = 0
-    const [verifyCheckbox, setVerifyCheckbox] = useState('')
-    const [formRegisterCharges, setFormRegisterCharges] = useState({
-        descricao: '',
-        vencimento: '',
-        valor: '',
-        status: 'Paga'
+    
+    const [formEditCharges, setFormEditCharges] = useState({
+        descricao: openModalEditCharges.description,
+        vencimento: openModalEditCharges.date,
+        valor: openModalEditCharges.value,
+        status: openModalEditCharges.statusPage
     })
+    const [verifyCheckboxCharges, setVerifyCheckboxCharges] = useState(openModalEditCharges.statusPage === 'Paga' ? true : false)
     function handleSubmitCharges(event) {
-        setFormRegisterCharges({ ...formRegisterCharges, [event.target.name]: event.target.value });
+        setFormEditCharges({ ...formEditCharges, [event.target.name]: event.target.value });
     }
     function statusCharges(event) {
         if (event) {
-            setVerifyCheckbox(event)
-            return setFormRegisterCharges({ ...formRegisterCharges, status: 'Paga' })
+            setVerifyCheckboxCharges(event)
+            return setFormEditCharges({...formEditCharges, status: 'Paga'})
         }
         if (!event) {
-            setVerifyCheckbox(event)
-            return setFormRegisterCharges({ ...formRegisterCharges, status: 'Pendente' })
+            setVerifyCheckboxCharges(event)
+            return setFormEditCharges({...formEditCharges, status: 'Pendente'})
         }
     }
     function dateSendDatebase(event){
@@ -53,16 +54,16 @@ export default function RegisterChargesModal() {
         }
         return (`${year}-${month}-${day}`)
     }    
-    async function sendInformationCharges(event) {
+    async function sendInformationEditCharges(event) {
         event.preventDefault()
         setErrorDescription(''),
-            setErrorDate(''),
-            setErrorValue('')
-        if (!formRegisterCharges.descricao) {
+        setErrorDate(''),
+        setErrorValue('')
+        if (!formEditCharges.descricao) {
             setErrorDescription('Este campo deve ser preenchido');
             validate = +1
         }
-        if (!formRegisterCharges.valor) {
+        if (!formEditCharges.valor) {
             setErrorValue('Este campo deve ser preenchido')
             validate = +1
         }
@@ -71,17 +72,18 @@ export default function RegisterChargesModal() {
         }
         if (validate === 0 && verifyDate === 0) {
             try {
-                const response = await api.post(`cobranca/cadastro/${openModalCharges.id_user}`, {
-                    ...formRegisterCharges,
-                    valor: formRegisterCharges.valor.replace(/\./g, '')
+                const response = await api.put(`cobranca/editar/${openModalEditCharges.id_charges}`, {
+                    ...formEditCharges,
+                    valor: formEditCharges.valor.replace(/\./g, '')
                 }, {
                     headers: {
                         authorization: token,
                     }
                 });
-                setOpenModalCharges(() => ({ ...openModalCharges, status: false }))
+                setOpenModalEditCharges(() => ({ ...openModalEditCharges, status: false }))
+                ListCharges()
                 toast.success(
-                    'Cobrança Cadastrada com Sucesso!', {
+                    'Cobrança Atualizada com Sucesso!', {
                     className: 'customToastify-success',
                     icon: ({ theme, type }) => <img src={success} alt="" />
                 });
@@ -112,27 +114,27 @@ export default function RegisterChargesModal() {
     return (
         <div className='main-modal-flex modal-charge'>
             <div></div>
-            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalCharges(() => ({ ...openModalCharges, status: false }))} />
+            <img src={closed} className="main-modal-flex-close mousePointer" alt="fechar" onClick={() => setOpenModalEditCharges(() => ({ ...openModalEditCharges, status: false }))} />
             <div className='main-modal-flex-header initial'>
                 <img src={IconCharge} alt="" />
-                <h2>Cadastro de Cobrança</h2>
+                <h2>Editar de Cobrança</h2>
             </div>
-            <form onSubmit={sendInformationCharges}>
+            <form onSubmit={sendInformationEditCharges}>
                 <div className='container-inputs-form'>
                     <div className='container-input-name'>
                         <label htmlFor="nameInput" className='mousePointer'>Nome</label>
-                        <input className='charges-input-name' id="nameInput" ref={inputRef} type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalCharges.nome_user)} />
+                        <input className='charges-input-name' id="nameInput" ref={inputRef} type="text" placeholder='Digite o nome' name='nome' disabled value={completedName(openModalEditCharges.nome_user)} />
                     </div>
                     <div className='container-input-description'>
                         <label htmlFor="descriptionInput" className='mousePointer'>Descrição*</label>
-                        <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" ref={inputRef} placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
+                        <textarea className={`charges-input-description ${errorDescription ? 'errorChargesLine' : ' '}`} id="descriptionInput" ref={inputRef} value={formEditCharges.descricao} placeholder='Digite a descrição' name='descricao' rows="3" cols="50" onChange={(event) => handleSubmitCharges(event)}>
                         </textarea>
                         {errorDescription && <span className='errorCharges'><h1>{errorDescription}</h1></span>}
                     </div>
                     <div className='container-inputs-value-date'>
                         <div className='container-input-date'>
                             <label htmlFor="dateInput" className='mousePointer'>Vencimento*</label>
-                            <PatternFormat id="dateInput" className={`${errorDate ? 'errorChargesLine' : ''}`} displayType="input" value={dateDDMMYYYYMask(formRegisterCharges.vencimento)} placeholder='  /   /   ' format="##/##/####" name='vencimento' onBlur={(event) => setFormRegisterCharges({...formRegisterCharges, vencimento: (dateSendDatebase(event.target.defaultValue))})}/>
+                            <PatternFormat id="dateInput" className={`${errorDate ? 'errorChargesLine' : ''}`} displayType="input" value={dateDDMMYYYYMask(formEditCharges.vencimento)} format="##/##/####" name='vencimento' onBlur={(event) => setFormEditCharges({...formEditCharges, vencimento: (dateSendDatebase(event.target.defaultValue))})}/>
                             {errorDate && <span className='errorCharges'><h1>{errorDate}</h1></span>}
                         </div>
                         <div className='container-input-value'>
@@ -141,16 +143,16 @@ export default function RegisterChargesModal() {
                                 id='valueInput'
                                 ref={inputRef}
                                 className={`${errorValue ? 'errorChargesLine' : ''}`}
-                                value={formRegisterCharges.valor}
+                                value={openModalEditCharges.value/100}
                                 thousandSeparator="."
                                 prefix={'R$ '}
                                 decimalScale={2}
                                 decimalSeparator=','
-                                fixedDecimalScale={true}
-                                allowNegative={false}
                                 placeholder="0,00"
                                 name='vencimento'
-                                onValueChange={(number) => {setFormRegisterCharges({...formRegisterCharges, valor: number.value})}}
+                                allowNegative={false} //não pode numero negativo
+                                fixedDecimalScale={true} //fixar numeros decimais só 2 casas nao sei confirmar
+                                onValueChange={(number) => {setFormEditCharges({...formEditCharges, valor: number.value})}}
                             />
                             {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}
                         </div>
@@ -159,19 +161,19 @@ export default function RegisterChargesModal() {
                         <h1>Status</h1>
                         <div className='testeInput mousePointer' onClick={() => statusCharges(true)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(true)}>
-                                {verifyCheckbox && <img src={checkboxGreen} alt="" />}
+                                {verifyCheckboxCharges && <img src={checkboxGreen} alt="" />}
                             </div>
                             <h1 >Cobrança Paga</h1>
                         </div>
                         <div className='testeInput mousePointer' onClick={() => statusCharges(false)}>
                             <div className='inputParaCheck' onClick={() => statusCharges(false)}>
-                                {!verifyCheckbox && <img src={checkboxGreen} alt="" />}
+                                {!verifyCheckboxCharges && <img src={checkboxGreen} alt="" />}
                             </div>
                             <h1 >Cobrança Pendente</h1>
                         </div>
                     </div>
                     <div className='formButton initial'>
-                        <button type='button' onClick={() => setOpenModalCharges(() => ({ ...openModalCharges, status: false }))}>Cancelar</button>
+                        <button type='button' onClick={() => setOpenModalEditCharges(() => ({ ...openModalEditCharges, status: false }))}>Cancelar</button>
                         <button type='submit'>Aplicar</button>
                     </div>
                 </div>

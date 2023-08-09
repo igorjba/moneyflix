@@ -4,11 +4,13 @@ import Notification from '../../../assets/Notification.svg';
 import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
+import useCharges from '../../../hooks/useCharges';
 import useUser from '../../../hooks/useUser';
 import './style.css';
 
 export default function DeleteCharge(){
-    const { openModalDelete, setModalDelete, token, setInfoClientCharges, setGetInformationClientDetail, getInformationClientDetail } = useUser();
+    const {token } = useUser();
+    const {ListCharges, openModalDelete, setModalDelete} = useCharges()
 
     async function deleteChargesList(){
         try {
@@ -23,7 +25,6 @@ export default function DeleteCharge(){
                 className: 'customToastify-success',
                 icon: ({ theme, type }) => <img src={success} alt="" />
             });
-            setGetInformationClientDetail(!getInformationClientDetail)
             ListCharges()
         } catch (error) {
             toast.error(
@@ -31,32 +32,6 @@ export default function DeleteCharge(){
                 className: 'customToastify-error',
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
             });
-        }
-    }
-
-    async function ListCharges() {
-        try {
-            const response = await api.get('cobranca', {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            setInfoClientCharges(response.data)
-        } catch (error) {
-            if (error.response) {
-                if (error.response.status === 401 && error.response.data.message === "token expirado") {
-                    clearAll()
-                    navigate("/login");
-                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-                    clearAll()
-                    navigate("/login");
-                }
-            }
-            toast.error(error.response.data.message, {
-                className: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            })
-
         }
     }
 
