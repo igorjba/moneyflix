@@ -13,16 +13,19 @@ import { moneyMask } from "../../../utils/inputMasks.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
+import useCharges from "../../../hooks/useCharges.jsx";
 
 export default function HomePage() {
   const {
     setTitle,
     token,
-    setListClientByStatus,
+    setTitleNameSecond,
+    setTitleNameThird,
     setImageNavClient,
     setImageNavHome,
     setImageNavCharge,
   } = useUser();
+  const { setListClientByStatus } = useCharges();
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
   const navigate = useNavigate();
@@ -82,7 +85,7 @@ export default function HomePage() {
           TitleCard="Cobranças Pagas"
           ValueCard={
             data.totalValorPagas?.[0]?.sum === "" ||
-              data.totalValorPagas?.[0]?.sum === undefined
+            data.totalValorPagas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPagas?.[0]?.sum)
           }
@@ -93,7 +96,7 @@ export default function HomePage() {
           TitleCard="Cobranças Vencidas"
           ValueCard={
             data.totalValorVencidas?.[0]?.sum === "" ||
-              data.totalValorVencidas?.[0]?.sum === undefined
+            data.totalValorVencidas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorVencidas?.[0]?.sum)
           }
@@ -104,7 +107,7 @@ export default function HomePage() {
           TitleCard="Cobranças Previstas"
           ValueCard={
             data.totalValorPendentes?.[0]?.sum === "" ||
-              data.totalValorPendentes?.[0]?.sum === undefined
+            data.totalValorPendentes?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPendentes?.[0]?.sum)
           }
@@ -120,7 +123,6 @@ export default function HomePage() {
           totalClient={data.qtdRegistroVencidas?.[0]?.count}
           cardL={data.Vencidas}
           seeAll={(event) => {
-            onClickNavLeft(event);
             setListClientByStatus("Vencida"),
               setImageNavClient(true),
               setImageNavHome(true),
@@ -138,7 +140,6 @@ export default function HomePage() {
           totalClient={data.qtdRegistroPendentes?.[0]?.count}
           cardL={data.Pendentes}
           seeAll={(event) => {
-            onClickNavLeft(event);
             setListClientByStatus("Pendente"),
               setImageNavClient(true),
               setImageNavHome(true),
@@ -156,7 +157,6 @@ export default function HomePage() {
           totalClient={data.qtdRegistroPagas?.[0]?.count}
           cardL={data.Pagas}
           seeAll={(event) => {
-            onClickNavLeft(event);
             setListClientByStatus("Paga"),
               setImageNavClient(true),
               setImageNavHome(true),
@@ -177,7 +177,6 @@ export default function HomePage() {
           isClientData={true}
           isLastCard={true}
           seeAll={(event) => {
-            onClickNavLeft(event);
             setListClientByStatus("Inadimplente"),
               setImageNavClient(false),
               setImageNavHome(true),
@@ -198,7 +197,6 @@ export default function HomePage() {
           isClientData={true}
           isLastCard={true}
           seeAll={(event) => {
-            onClickNavLeft(event);
             setListClientByStatus("Em dia"),
               setImageNavClient(false),
               setImageNavHome(true),

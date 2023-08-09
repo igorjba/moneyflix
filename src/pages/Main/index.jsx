@@ -12,7 +12,7 @@ import DeleteCharge from "../../components/Charges/DeleteCharge";
 import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
 import ClientDetail from "../../components/Clients/ClientDetail";
 import ClientListPage from "../../components/Clients/ClientListPage";
-import EditClientModal from '../../components/Clients/EditClientModal';
+import EditClientModal from "../../components/Clients/EditClientModal";
 import RegisterClientModal from "../../components/Clients/RegisterClientModal";
 import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
@@ -20,14 +20,19 @@ import EditUserModal from "../../components/Users/EditUserModal";
 import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
 import useCharges from "../../hooks/useCharges";
 import "../../global/styleModal.css";
-import useUser from '../../hooks/useUser';
+import useUser from "../../hooks/useUser";
 import "./style.css";
 import EditChargesModal from "../../components/Charges/EditChargesModal";
 import { UserCharges } from "../../contexts/UserChargesContext";
 import ChargesModal from "../../components/Charges/ChargesModalDetails";
 
 function Main() {
-  const { openModalCharges, openModalEditCharges, openModalDelete, openModalDetailCharges } = useCharges()
+  const {
+    openModalCharges,
+    openModalEditCharges,
+    openModalDelete,
+    openModalDetailCharges,
+  } = useCharges();
   /* const [modalExit, setModalExit] = useState(false);
   const [imageNavHome, setImageNavHome] = useState(false);
   const [imageNavClient, setImageNavClient] = useState(true);
@@ -63,23 +68,15 @@ function Main() {
     setClientDetailPage,
     titleNameSecond,
     titleNameThird,
-    setTitleNameThird
+    setTitleNameThird,
   } = useUser();
-
-  function onClickNavLeft(event) {
-    const divs = document.querySelectorAll("div");
-    divs.forEach((element) => {
-      element.classList.remove("atived");
-    });
-    event.currentTarget.classList.add("atived");
-  }
 
   function toTitleCase(name) {
     return name == null
       ? ""
       : name.replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
   }
 
   async function fetchUserPerfil() {
@@ -90,7 +87,7 @@ function Main() {
       const lastWord = userNameWords[userNameWords.length - 1];
       return setResumeName(
         userNameWords[0].charAt(0).toUpperCase() +
-        lastWord.charAt(0).toUpperCase()
+          lastWord.charAt(0).toUpperCase()
       );
     }
   }
@@ -108,12 +105,11 @@ function Main() {
   }
 
   async function verifyTextHeader(e) {
-    if (title === 'Clientes') {
-      setTitleNameSecond(" "),
-        setTitleNameThird(" ")
+    if (title === "Clientes") {
+      setTitleNameSecond(" "), setTitleNameThird(" ");
       setImageNavClient(false),
         setClientDetailPage(false),
-        setIdClientDetail(false)
+        setIdClientDetail(false);
     }
   }
 
@@ -144,44 +140,59 @@ function Main() {
     <div className="initial mainBody">
       <nav className="initial navegation">
         <div
-          className="initial nav-icons atived mouse-pointer"
+          className={`initial nav-icons mouse-pointer ${
+            !imageNavHome && "atived"
+          }`}
           onClick={(event) => {
-            onClickNavLeft(event),
-              setImageNavClient(true),
+            setImageNavClient(true),
               setImageNavHome(false),
               setImageNavCharge(true),
-              setTitleNameSecond(''),
-              setTitleNameThird('')
+              setTitleNameSecond(""),
+              setTitleNameThird("");
           }}
         >
-          <img src={imageNavHome ? home : homePink} className="imageNavAnimation" alt="Inicio" />
+          <img
+            src={imageNavHome ? home : homePink}
+            className="imageNavAnimation"
+            alt="Inicio"
+          />
         </div>
         <div
-          className="initial nav-icons mouse-pointer"
+          className={`initial nav-icons mouse-pointer ${
+            !imageNavClient && "atived"
+          }`}
           onClick={(event) => {
-            onClickNavLeft(event),
-              setImageNavClient(false),
+            setImageNavClient(false),
               setImageNavHome(true),
               setImageNavCharge(true);
-            setTitleNameSecond('')
+            setTitleNameSecond("");
             setIdClientDetail(false);
-            setTitleNameThird('')
+            setTitleNameThird("");
           }}
         >
-          <img src={imageNavClient ? client : clientePink} className="imageNavAnimation" alt="Cliente" />
+          <img
+            src={imageNavClient ? client : clientePink}
+            className="imageNavAnimation"
+            alt="Cliente"
+          />
         </div>
         <div
-          className="initial nav-icons mouse-pointer"
+          className={`initial nav-icons mouse-pointer ${
+            !imageNavCharge && "atived"
+          }`}
           onClick={(event) => {
-            onClickNavLeft(event),
-              setImageNavClient(true),
+            setImageNavClient(true),
               setImageNavHome(true),
               setImageNavCharge(false),
-              setTitleNameSecond(''),
-              setTitleNameThird('')
+              setTitleNameSecond(""),
+              setTitleNameThird("");
           }}
         >
-          <img src={imageNavCharge ? charge : chargePink} className="imageNavAnimation" alt="Cobranças" />
+          <img
+            src={imageNavCharge ? charge : chargePink}
+            className="imageNavAnimation"
+            alt="Cobranças"
+          />
         </div>
       </nav>
       <BottomNav
@@ -189,15 +200,15 @@ function Main() {
         imageNavClient={imageNavClient}
         imageNavCharge={imageNavCharge}
         onClick={(type) => {
-          if (type === 'home') {
+          if (type === "home") {
             setImageNavClient(true);
             setImageNavHome(false);
             setImageNavCharge(true);
-          } else if (type === 'client') {
+          } else if (type === "client") {
             setImageNavClient(false);
             setImageNavHome(true);
             setImageNavCharge(true);
-          } else if (type === 'charge') {
+          } else if (type === "charge") {
             setImageNavClient(true);
             setImageNavHome(true);
             setImageNavCharge(false);
@@ -212,30 +223,50 @@ function Main() {
           {openModalRegister && (<RegisterClientModal />)}
         </div>}
         {/* Mudei esse aqui para hook separado de cobrança */}
-        {openModalCharges.status && <div className="background-modal initial">
-          {openModalCharges.status && (<RegisterChargesModal />)}
-        </div>}
+        {openModalCharges.status && (
+          <div className="background-modal initial">
+            {openModalCharges.status && <RegisterChargesModal />}
+          </div>
+        )}
         {/* Mudei esse aqui para hook separado de cobrança */}
-        {openModalEditCharges.status && <div className="background-modal initial">
-          {openModalEditCharges.status && (<EditChargesModal />)}
-        </div>}
-        {openModalEdit && <div className="background-modal initial">
-          {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
-        </div>}
-        {openModalEditProfileSuccess && (<div className="background-modal initial">
-          <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
-        </div>)}
+        {openModalEditCharges.status && (
+          <div className="background-modal initial">
+            {openModalEditCharges.status && <EditChargesModal />}
+          </div>
+        )}
+        {openModalEdit && (
+          <div className="background-modal initial">
+            {openModalEditProfile && (
+              <EditUserModal setOpenModalEdit={setOpenModalEdit} />
+            )}
+          </div>
+        )}
+        {openModalEditProfileSuccess && (
+          <div className="background-modal initial">
+            <SuccessEditUserModal
+              setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess}
+            />
+          </div>
+        )}
         {/* Mudei esse aqui para hook separado de cobrança */}
-        {openModalDelete.status && <div className="background-modal initial">
-          {openModalDelete.status && <DeleteCharge />}
-        </div>}
+        {openModalDelete.status && (
+          <div className="background-modal initial">
+            {openModalDelete.status && <DeleteCharge />}
+          </div>
+        )}
         {/* Mudei esse aqui para hook separado de cobrança */}
+
         {openModalDetailCharges.status && <div className="background-modal initial">
           {openModalDetailCharges.status && <ChargesModal />}
         </div>}
         <header>
           <div className="text-header-perfil">
-            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mouse-pointer' : ''}`} >
+            <h2
+              onClick={(e) => verifyTextHeader(e)}
+              className={`initial ${
+                title == "Resumo de Cobranças" ? "resume" : "titleSecond"
+              } ${!imageNavClient && idClientDetail ? "mouse-pointer" : ""}`}
+            >
               {title}
             </h2>
             <h3 className="detail-client-set">{titleNameSecond}</h3>
@@ -263,7 +294,7 @@ function Main() {
             </div>
           </div>
         </header>
-        <div className={`main ${!imageNavHome ? 'dashboard' : 'table'}`}>
+        <div className={`main ${!imageNavHome ? "dashboard" : "table"}`}>
           {!imageNavClient && !idClientDetail && <ClientListPage />}
           {!imageNavClient && idClientDetail && <ClientDetail />}
           {!imageNavHome && <HomePage />}
