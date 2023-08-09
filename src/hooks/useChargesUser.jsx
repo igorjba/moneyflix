@@ -45,9 +45,9 @@ function useChargesUser() {
     const [errorDate, setErrorDate] = useState('');
     const [errorDescription, setErrorDescription] = useState('');
     const [errorValue, setErrorValue] = useState('');
-    const [infoClientCharges, setInfoClientCharges] = useState([]);
     const [verifyDate, setVerifyDate] = useState(0)
     const [listClientByStatus, setListClientByStatus] = useState("");
+    const [infoClientCharges, setInfoClientCharges] = useState([]);
 
     const navigate = useNavigate();
 

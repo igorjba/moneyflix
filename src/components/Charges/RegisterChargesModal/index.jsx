@@ -22,12 +22,13 @@ export default function RegisterChargesModal() {
     const { token } = useUser();
     const navigate = useNavigate();
     const inputRef = useRef(null);
+    const [numberValueCharges, setNumberValueCharges] = useState('')
     let validate = 0
     const [verifyCheckbox, setVerifyCheckbox] = useState('')
     const [formRegisterCharges, setFormRegisterCharges] = useState({
         descricao: '',
         vencimento: '',
-        valor: '',
+        valor: numberValueCharges,
         status: 'Paga'
     })
     function handleSubmitCharges(event) {
@@ -62,7 +63,7 @@ export default function RegisterChargesModal() {
             setErrorDescription('Este campo deve ser preenchido');
             validate = +1
         }
-        if (!formRegisterCharges.valor) {
+        if (!numberValueCharges) {
             setErrorValue('Este campo deve ser preenchido')
             validate = +1
         }
@@ -73,7 +74,7 @@ export default function RegisterChargesModal() {
             try {
                 const response = await api.post(`cobranca/cadastro/${openModalCharges.id_user}`, {
                     ...formRegisterCharges,
-                    valor: formRegisterCharges.valor.replace(/\./g, '')
+                    valor: numberValueCharges.replace(/\./g, '')
                 }, {
                     headers: {
                         authorization: token,
@@ -150,7 +151,7 @@ export default function RegisterChargesModal() {
                                 allowNegative={false}
                                 placeholder="0,00"
                                 name='vencimento'
-                                onValueChange={(number) => { setFormRegisterCharges({ ...formRegisterCharges, valor: number.value }) }}
+                                onValueChange={(number) => setNumberValueCharges(number.value)}
                             />
                             {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}
                         </div>

@@ -21,6 +21,8 @@ export default function ChargesListPage() {
     const [corarrowTopId, setCorArrowTopId] = useState('#3F3F55')
     const [corarrowBottomId, setCorArrowBottomId] = useState('#3F3F55')
     const [searchNameCharges, setSearchNameCharges] = useState('')
+    const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false)
+
     const inputSearch = useRef(null)
 
     function informationDeleteCharges(event) {
@@ -103,6 +105,11 @@ export default function ChargesListPage() {
             });
             inputSearch.current.value = ''
             setInfoClientCharges(response.data)
+            if(response.data.length){
+                return setCheckListClientChargesLength(false) 
+            }else if(!response.data.length){
+                return setCheckListClientChargesLength(true) 
+            }
         } catch (error) {
             if (error.response) {
                 if (
@@ -125,6 +132,15 @@ export default function ChargesListPage() {
             });
         }
     }
+    function verifySearchNameChargesList(event){
+        if(inputSearch.current.value === ''){
+            ListCharges()
+            return setCheckListClientChargesLength(false) 
+        }else {
+            searchNameChargesList(event)
+        }
+    }
+
 
     function filterStatus(data, condition) { //função nao está sendo chamada 
         return data.filter((client) => client.status === condition);
@@ -153,12 +169,12 @@ export default function ChargesListPage() {
                     </button>
                     <div className='search-container'>
                         <input placeholder='Pesquisa' ref={inputSearch} type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
-                        <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)} />
+                        <img src={lupa} alt="Lupa" className='search' onClick={(event) => verifySearchNameChargesList(event)} />
                     </div>
                 </div>
             </div>
-            {!infoClientCharges.length && <NotFoundCharges />}
-            {infoClientCharges.length &&
+            {checkListClientChargesLength && <NotFoundCharges />}
+            {!checkListClientChargesLength &&
                 <div className='tableAll'>
                     <table>
                         <thead className='header-table-client'>
