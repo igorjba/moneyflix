@@ -143,7 +143,7 @@ function Main() {
     <div className="initial mainBody">
       <nav className="initial navegation">
         <div
-          className="initial nav-icons atived mousePointer"
+          className="initial nav-icons atived mouse-pointer"
           onClick={(event) => {
             onClickNavLeft(event),
               setImageNavClient(true),
@@ -156,7 +156,7 @@ function Main() {
           <img src={imageNavHome ? home : homePink} className="imageNavAnimation" alt="Inicio" />
         </div>
         <div
-          className="initial nav-icons mousePointer"
+          className="initial nav-icons mouse-pointer"
           onClick={(event) => {
             onClickNavLeft(event),
               setImageNavClient(false),
@@ -170,7 +170,7 @@ function Main() {
           <img src={imageNavClient ? client : clientePink} className="imageNavAnimation" alt="Cliente" />
         </div>
         <div
-          className="initial nav-icons mousePointer"
+          className="initial nav-icons mouse-pointer"
           onClick={(event) => {
             onClickNavLeft(event),
               setImageNavClient(true),
@@ -230,7 +230,7 @@ function Main() {
         </div>}
         <header>
           <div className="text-header-perfil">
-            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mousePointer' : ''}`} >
+            <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mouse-pointer' : ''}`} >
               {title}
             </h2>
             <h3 className="detail-client-set">{titleNameSecond}</h3>

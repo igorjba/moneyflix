@@ -321,7 +321,7 @@ export default function ClientDetail() {
             <thead className="header-table-client">
               <tr>
                 <th
-                  className="PageOrderID mousePointer"
+                  className="PageOrderID mouse-pointer"
                   onClick={() => orderIdCharges()}
                 >
                   <svg
@@ -381,7 +381,7 @@ export default function ClientDetail() {
                   <h1>ID Cob.</h1>
                 </th>
                 <th
-                  className="PageOrderDate mousePointer"
+                  className="PageOrderDate mouse-pointer"
                   onClick={() => orderDueDate()}
                 >
                   <svg
@@ -475,7 +475,7 @@ export default function ClientDetail() {
                     </td>
                     <td className="imagem-table-charge">
                       <img src={editCharge} alt="Editar" />
-                      <img className='mousePointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)} />
+                      <img className='mouse-pointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)} />
                     </td>
                   </tr>
                 );

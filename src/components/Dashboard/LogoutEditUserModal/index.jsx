@@ -12,7 +12,7 @@ import "./style.css";
 
 export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) {
     const navigate = useNavigate()
-    const { SetOpenModalEditProfile, token, setGetProfile, getUserDetails } = useUser();
+    const { setOpenModalEditProfile, token, setGetProfile, getUserDetails } = useUser();
 
     // async function getUserDetails() {
     //     try {
@@ -62,7 +62,7 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
     // }
 
     async function openModal() {
-        SetOpenModalEditProfile(true)
+        setOpenModalEditProfile(true)
         setModalExit(false);
         await getUserDetails();
         setOpenModalEdit(true)
@@ -76,8 +76,8 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
     return (
         <div id="modalExit" className='modalExit initial'>
             <img className='set' src={set} alt="" />
-            <img className="mousePointer" src={edit} alt="editar" onClick={openModal} />
-            <img className="mousePointer" src={exit} alt="sair" onClick={onClickExit} />
+            <img className="mouse-pointer" src={edit} alt="editar" onClick={openModal} />
+            <img className="mouse-pointer" src={exit} alt="sair" onClick={onClickExit} />
         </div>
     )
 }

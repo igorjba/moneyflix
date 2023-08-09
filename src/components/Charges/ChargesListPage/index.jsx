@@ -159,7 +159,7 @@ export default function ChargesListPage() {
                     <table>
                         <thead className='header-table-client'>
                             <tr >
-                                <th className='PageOrderClient mousePointer' onClick={() => orderName()}>
+                                <th className='PageOrderClient mouse-pointer' onClick={() => orderName()}>
                                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                         <g id="Frame" clipPath="url(#clip0_84440_3278)">
                                             <g id="Group">
@@ -177,7 +177,7 @@ export default function ChargesListPage() {
                                     </svg>
                                     <h1>Cliente</h1>
                                 </th>
-                                <th className='PageOrderID mousePointer' onClick={() => orderIdCharges()}>
+                                <th className='PageOrderID mouse-pointer' onClick={() => orderIdCharges()}>
                                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                         <g id="Frame" clipPath="url(#clip0_84440_3278)">
                                             <g id="Group">
@@ -213,8 +213,8 @@ export default function ChargesListPage() {
                                         <td onClick={() => handleChargeClick(charges)}><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
                                         <td className='description-table-charge' onClick={() => handleChargeClick(charges)}><h1>{charges.descricao}</h1></td>
                                         <td className='imagem-table-charge'>
-                                            <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" onClick={() => informationEditCharges(charges)} />
-                                            <img className='mousePointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
+                                            <img className='mouse-pointer transform-image-charges' src={editCharge} alt="Editar" onClick={() => informationEditCharges(charges)} />
+                                            <img className='mouse-pointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
                                         </td>
                                     </tr>
                                 )

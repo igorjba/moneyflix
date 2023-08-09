@@ -14,7 +14,7 @@ function useUserProvider() {
   const [titleNameSecond, setTitleNameSecond] = useState('')
   const [titleNameThird, setTitleNameThird] = useState('');
   const [openLoading, setOpenLoading] = useState(false)
-  const [openModalEditProfile, SetOpenModalEditProfile] = useState(false);
+  const [openModalEditProfile, setOpenModalEditProfile] = useState(false);
   const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);
   const [openModalRegister, setOpenModalRegister] = useState(false);
   const [resumeName, setResumeName] = useState("");
@@ -112,7 +112,7 @@ function useUserProvider() {
       getProfile,
       setGetProfile,
       openModalEditProfile,
-      SetOpenModalEditProfile,
+      setOpenModalEditProfile,
       title,
       setTitle,
       openModalRegister,

@@ -20,7 +20,9 @@ export default function BottomNav() {
         imageNavCharge,
         setImageNavCharge,
         openModalEdit,
-        setOpenModalEdit
+        setOpenModalEdit,
+        setOpenModalEditProfile,
+        getUserDetails,
     } = useUser();
 
     // Define a função onClick aqui
@@ -38,6 +40,13 @@ export default function BottomNav() {
             setImageNavHome(true);
             setImageNavCharge(false);
         }
+    }
+
+    async function openModal() {
+        setOpenModalEditProfile(true)
+        setModalExit(false);
+        await getUserDetails();
+        setOpenModalEdit(true)
     }
 
     return (
@@ -61,7 +70,7 @@ export default function BottomNav() {
                 >
                     <img src={imageNavCharge ? chargeIcon : chargeIconPink} alt="Cobranças" />
                 </div>
-                <div className="title circle-perfil">
+                <div className="title circle-perfil" onClick={openModal}>
                     <h1>{resumeName}</h1>
                 </div>
             </nav>

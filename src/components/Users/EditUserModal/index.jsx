@@ -13,7 +13,7 @@ import { validateEmail, validateName, validatePassword } from '../../../utils/va
 import './style.css';
 
 export default function EditUserModal({ setOpenModalEdit }) {
-    const { SetOpenModalEditProfile, openModalEditProfile, token, setNameUser, setGetProfile, getProfile, setOpenModalEditProfileSuccess } = useUser();
+    const { setOpenModalEditProfile, openModalEditProfile, token, setNameUser, setGetProfile, getProfile, setOpenModalEditProfileSuccess } = useUser();
     const [errorName, setErrorName] = useState('')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
@@ -33,7 +33,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
     }, []);
 
     function onclickCloseModal() {
-        SetOpenModalEditProfile(!openModalEditProfile)
+        setOpenModalEditProfile(!openModalEditProfile)
         setOpenModalEdit(false)
     }
 
@@ -79,7 +79,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
             });
             localStorage.setItem("name", getProfile.nome);
             setNameUser(getProfile.nome);
-            SetOpenModalEditProfile(false)
+            setOpenModalEditProfile(false)
             setOpenModalEdit(false)
             setOpenModalEditProfileSuccess(true)
 
@@ -156,27 +156,27 @@ export default function EditUserModal({ setOpenModalEdit }) {
                 <form onSubmit={handleSubmitEdit}>
                     <div className='divs-inputs-form'>
                         <div className='box-info'>
-                            <label htmlFor="nameEditUser" className='mousePointer'><h1>Nome*</h1></label>
+                            <label htmlFor="nameEditUser" className='mouse-pointer'><h1>Nome*</h1></label>
                             <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={getProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorName && <span className='error'><h1>{errorName}</h1></span>}
                         </div>
                         <div className='box-info'>
-                            <label htmlFor="emailEditUser" className='mousePointer'><h1>E-mail*</h1></label>
+                            <label htmlFor="emailEditUser" className='mouse-pointer'><h1>E-mail*</h1></label>
                             <input className={`${errorEmailEdit ? 'errorLine' : ''}`} id='emailEditUser' ref={inputRef} type="text" placeholder='Digite seu e-mail' name='email' value={getProfile.email} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorEmailEdit && <span className='error'><h1>{errorEmailEdit}</h1></span>}
                         </div>
                         <div className='information-ModalEdit'>
                             <div>
-                                <label htmlFor="cpfEditUser" className='mousePointer'><h1>CPF</h1></label>
+                                <label htmlFor="cpfEditUser" className='mouse-pointer'><h1>CPF</h1></label>
                                 <input id='cpfEditUser' ref={inputRef} className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={(e) => handleChangeFormCPF(e)} />
                             </div>
                             <div>
-                                <label htmlFor="phoneEditUser" className='mousePointer'><h1>Telefone</h1></label>
+                                <label htmlFor="phoneEditUser" className='mouse-pointer'><h1>Telefone</h1></label>
                                 <input id='phoneEditUser' ref={inputRef} type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={16} onChange={(e) => handleChangeFormTel(e)} />
                             </div>
                         </div>
                         <div className='box-info'>
-                            <label htmlFor="passwordEditUser" className='mousePointer'><h1>Senha Atual*</h1></label>
+                            <label htmlFor="passwordEditUser" className='mouse-pointer'><h1>Senha Atual*</h1></label>
                             <div className="password-input">
                                 <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} id='passwordEditUser' ref={inputRef} type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={getProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div
@@ -189,7 +189,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             </div>
                         </div>
                         <div className='box-info'>
-                            <label htmlFor='passwordNewEditUser' className='mousePointer'><h1>Nova Senha</h1></label>
+                            <label htmlFor='passwordNewEditUser' className='mouse-pointer'><h1>Nova Senha</h1></label>
                             <div className='password-input'>
                                 <input
                                     type={showNewPassword ? 'text' : 'password'} id='passwordNewEditUser' ref={inputRef} placeholder='Digite sua Senha' name='senha' value={getProfile.senha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
@@ -200,7 +200,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             {errorNewPasswordEdit && <span className='error'><h1>{errorNewPasswordEdit}</h1></span>}
                         </div>
                         <div className='box-info'>
-                            <label htmlFor='confPasswordNewEditUser' className='mousePointer'><h1>Confirmar a Senha</h1></label>
+                            <label htmlFor='confPasswordNewEditUser' className='mouse-pointer'><h1>Confirmar a Senha</h1></label>
                             <div className='password-input'>
                                 <input type={showConfirmPassword ? 'text' : 'password'} id='confPasswordNewEditUser' ref={inputRef} placeholder='Confirme sua senha' name='confirmeSenha' value={getProfile.confirmeSenha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div className='password-toggle-visibility' onClick={() => setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword)} style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})`, }} />

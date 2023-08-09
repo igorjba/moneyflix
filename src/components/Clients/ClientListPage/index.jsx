@@ -207,7 +207,7 @@ export default function ClientListPage() {
             <thead className="header-table-client">
               <tr>
                 <th
-                  className="ClientOrder mousePointer"
+                  className="ClientOrder mouse-pointer"
                   onClick={() => orderName()}
                 >
                   <svg
@@ -289,7 +289,7 @@ export default function ClientListPage() {
                   <tr key={client.id_cliente}>
                     <td className="testeee">
                       <h1
-                        className="mousePointer nameSelectDetail"
+                        className="mouse-pointer nameSelectDetail"
                         onClick={() => setIdClientDetail(client.id_cliente)}
                       >
                         {" "}
@@ -313,7 +313,7 @@ export default function ClientListPage() {
                     </td>
                     <td>
                       <img
-                        className="mousePointer image-Charges-Modal"
+                        className="mouse-pointer image-Charges-Modal"
                         src={defaulter}
                         alt="cobrança"
                         onClick={() => sendInformationRegisterCharges(client)}
