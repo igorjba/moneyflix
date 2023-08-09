@@ -216,16 +216,12 @@ function Main() {
         }}
       />
       <div className="center">
-        {openModalEditClient && (
-          <div className="backgroundModal initial">
-            {openModalEditClient && <EditClientModal />}
-          </div>
-        )}
-        {openModalRegister && (
-          <div className="backgroundModal initial">
-            {openModalRegister && <RegisterClientModal />}
-          </div>
-        )}
+        {openModalEditClient && <div className="background-modal initial">
+          {openModalEditClient && (<EditClientModal />)}
+        </div>}
+        {openModalRegister && <div className="background-modal initial">
+          {openModalRegister && (<RegisterClientModal />)}
+        </div>}
         {/* Mudei esse aqui para hook separado de cobrança */}
         {openModalCharges.status && (
           <div className="background-modal initial">
@@ -259,11 +255,10 @@ function Main() {
           </div>
         )}
         {/* Mudei esse aqui para hook separado de cobrança */}
-        {openModalDetailCharges.status && (
-          <div className="background-modal initial">
-            {openModalDetailCharges.status && <ChargesModal />}
-          </div>
-        )}
+
+        {openModalDetailCharges.status && <div className="background-modal initial">
+          {openModalDetailCharges.status && <ChargesModal />}
+        </div>}
         <header>
           <div className="text-header-perfil">
             <h2

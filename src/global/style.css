@@ -36,10 +36,19 @@
     display: flex;
     align-items: center;
     position: relative;
+    justify-content: flex-end;
+    gap: 1.6rem;
 
     max-width: 65.8rem;
     width: 100%;
 
+
+}
+
+@media (max-width: 768px) {
+    .search-filter-client {
+        justify-content: flex-start;
+    }
 
 }
 
