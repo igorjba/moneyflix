@@ -1,139 +1,147 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
-import api from '../api/api';
-import toastError from '../assets/toastError.svg';
+import { toast } from "react-toastify";
+import api from "../api/api";
+import toastError from "../assets/toastError.svg";
 import { clearAll } from "../utils/localStorage";
 import useUser from "./useUser";
 
 function useChargesUser() {
-    const { token } = useUser();
-    const [openModalEditCharges, setOpenModalEditCharges] = useState({
-        status: false,
-        id_charges: '',
-        nome_user: '',
-        description: '',
-        date: '',
-        value: '',
-        statusPage: ''
-    });
-    const [openModalDelete, setModalDelete] = useState({
-        status: false,
-        id_charges: ''
-    });
+  const { token } = useUser();
+  const [openModalEditCharges, setOpenModalEditCharges] = useState({
+    status: false,
+    id_charges: "",
+    nome_user: "",
+    description: "",
+    date: "",
+    value: "",
+    statusPage: "",
+  });
+  const [openModalDelete, setModalDelete] = useState({
+    status: false,
+    id_charges: "",
+  });
 
-    const [openModalCharges, setOpenModalCharges] = useState({
-        status: false,
-        id_user: '',
-        nome_user: ''
-    });
-    const [openModalDetailCharges, setOpenModalDetailCharges] = useState({
-        status: false,
-        informationDetail: []
-    })
-/*     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({ //nao tem a necessidade pois de cima ta fazendo a mesma e chamando o mesmo modal do que essa função apagar essa
+  const [openModalCharges, setOpenModalCharges] = useState({
+    status: false,
+    id_user: "",
+    nome_user: "",
+  });
+  const [openModalDetailCharges, setOpenModalDetailCharges] = useState({
+    status: false,
+    informationDetail: [],
+  });
+  /*     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({ //nao tem a necessidade pois de cima ta fazendo a mesma e chamando o mesmo modal do que essa função apagar essa
         status: false,
         id_user: "",
         nome_user: "",
     }); */
-    const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
-    const [dateValueIso, setDateValueIso] = useState('');
-    const [dateValueBr, setDateValueBr] = useState('');
-    const [verifyCheckbox, setVerifyCheckbox] = useState(true);
-    const [errorDate, setErrorDate] = useState('');
-    const [errorDescription, setErrorDescription] = useState('');
-    const [errorValue, setErrorValue] = useState('');
-    const [verifyDate, setVerifyDate] = useState(0)
-    const [listClientByStatus, setListClientByStatus] = useState("");
-    const [infoClientCharges, setInfoClientCharges] = useState([]);
-    const navigate = useNavigate();
+  const [inputTypeChargesDate, setInputTypeChargeDate] = useState("text");
+  const [dateValueIso, setDateValueIso] = useState("");
+  const [dateValueBr, setDateValueBr] = useState("");
+  const [verifyCheckbox, setVerifyCheckbox] = useState(true);
+  const [errorDate, setErrorDate] = useState("");
+  const [errorDescription, setErrorDescription] = useState("");
+  const [errorValue, setErrorValue] = useState("");
+  const [verifyDate, setVerifyDate] = useState(0);
+  const [listClientByStatus, setListClientByStatus] = useState("");
+  const [infoClientCharges, setInfoClientCharges] = useState([]);
+  const navigate = useNavigate();
 
+  function filterStatus(data, condition) {
+    return data.filter((client) => client.status === condition);
+  }
 
-    async function ListCharges() {
-        try {
-            const response = await api.get('cobranca', {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            setInfoClientCharges(response.data)
-        } catch (error) {
-            if (error.response) {
-                if (
-                    error.response.status === 401 &&
-                    error.response.data.message === "token expirado"
-                ) {
-                    clearAll();
-                    navigate("/login");
-                } else if (
-                    error.response.status === 400 &&
-                    error.response.data.message === "Não autorizado"
-                ) {
-                    clearAll();
-                    navigate("/login");
-                }
-            }
-            toast.error(error.response.data.message, {
-                className: "customToastify-error",
-                icon: ({ theme, type }) => <img src={toastError} alt="" />,
-            });
+  async function ListCharges() {
+    try {
+      const response = await api.get("cobranca", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (listClientByStatus) {
+        console.log("ola");
+        return setInfoClientCharges(
+          filterStatus(response.data, listClientByStatus)
+        );
+      }
+      setInfoClientCharges(response.data);
+    } catch (error) {
+      if (error.response) {
+        if (
+          error.response.status === 401 &&
+          error.response.data.message === "token expirado"
+        ) {
+          clearAll();
+          navigate("/login");
+        } else if (
+          error.response.status === 400 &&
+          error.response.data.message === "Não autorizado"
+        ) {
+          clearAll();
+          navigate("/login");
         }
+      }
+      toast.error(error.response.data.message, {
+        className: "customToastify-error",
+        icon: ({ theme, type }) => <img src={toastError} alt="" />,
+      });
     }
-    function backgroundSituation() {
-        const status = document.querySelectorAll('.status-text');
-        status.forEach(element => {
-            if (element.textContent === 'Vencida') {
-                element.classList.remove('statusPending')
-                element.classList.remove('statusPay')
-                return element.classList.add('statusDefeated')
-            } else if (element.textContent === 'Pendente') {
-                element.classList.remove('statusPay')
-                element.classList.remove('statusDefeated')
-                return element.classList.add('statusPending')
-            } else if (element.textContent === 'Paga') {
-                element.classList.remove('statusPending')
-                element.classList.remove('statusDefeated')
-                return element.classList.add('statusPay')
-            }
-        });
-    }
+  }
+  function backgroundSituation() {
+    const status = document.querySelectorAll(".status-text");
+    status.forEach((element) => {
+      if (element.textContent === "Vencida") {
+        element.classList.remove("statusPending");
+        element.classList.remove("statusPay");
+        return element.classList.add("statusDefeated");
+      } else if (element.textContent === "Pendente") {
+        element.classList.remove("statusPay");
+        element.classList.remove("statusDefeated");
+        return element.classList.add("statusPending");
+      } else if (element.textContent === "Paga") {
+        element.classList.remove("statusPending");
+        element.classList.remove("statusDefeated");
+        return element.classList.add("statusPay");
+      }
+    });
+  }
 
-    return (
-        {
-/*             openModalRegisterCharges,
+  return {
+    /*             openModalRegisterCharges,
             setOpenModalRegisterCharges, */
-            openModalEditCharges,
-            setOpenModalEditCharges,
-            openModalCharges,
-            setOpenModalCharges,
-            inputTypeChargesDate,
-            setInputTypeChargeDate,
-            dateValueIso,
-            setDateValueIso,
-            dateValueBr,
-            setDateValueBr,
-            verifyCheckbox,
-            setVerifyCheckbox,
-            errorDate,
-            setErrorDate,
-            errorDescription,
-            setErrorDescription,
-            errorValue,
-            setErrorValue,
-            infoClientCharges,
-            setInfoClientCharges,
-            ListCharges,
-            backgroundSituation,
-            setVerifyDate,
-            verifyDate,
-            openModalDelete,
-            setModalDelete,
-            listClientByStatus,
-            setListClientByStatus,
-            openModalDetailCharges,
-            setOpenModalDetailCharges
-        }
-    )
+    openModalEditCharges,
+    setOpenModalEditCharges,
+    openModalCharges,
+    setOpenModalCharges,
+    inputTypeChargesDate,
+    setInputTypeChargeDate,
+    dateValueIso,
+    setDateValueIso,
+    dateValueBr,
+    setDateValueBr,
+    verifyCheckbox,
+    setVerifyCheckbox,
+    errorDate,
+    setErrorDate,
+    errorDescription,
+    setErrorDescription,
+    errorValue,
+    setErrorValue,
+    infoClientCharges,
+    setInfoClientCharges,
+    ListCharges,
+    backgroundSituation,
+    setVerifyDate,
+    verifyDate,
+    openModalDelete,
+    setModalDelete,
+    listClientByStatus,
+    setListClientByStatus,
+    openModalDetailCharges,
+    setOpenModalDetailCharges,
+  };
 }
 
 export default useChargesUser;
