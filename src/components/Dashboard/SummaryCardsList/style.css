@@ -74,6 +74,10 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--font-table);
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .table-main-card thead :first-child {
