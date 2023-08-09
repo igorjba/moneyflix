@@ -14,11 +14,11 @@ export default function BottomNav() {
         imageNavHome,
         modalExit,
         setModalExit,
-        setimageNavHome,
+        setImageNavHome,
         imageNavClient,
-        setimageNavClient,
+        setImageNavClient,
         imageNavCharge,
-        setimageNavCharge,
+        setImageNavCharge,
         openModalEdit,
         setOpenModalEdit
     } = useUser();
@@ -26,17 +26,17 @@ export default function BottomNav() {
     // Define a função onClick aqui
     const onClick = (type) => {
         if (type === 'home') {
-            setimageNavClient(true);
-            setimageNavHome(false);
-            setimageNavCharge(true);
+            setImageNavClient(true);
+            setImageNavHome(false);
+            setImageNavCharge(true);
         } else if (type === 'client') {
-            setimageNavClient(false);
-            setimageNavHome(true);
-            setimageNavCharge(true);
+            setImageNavClient(false);
+            setImageNavHome(true);
+            setImageNavCharge(true);
         } else if (type === 'charge') {
-            setimageNavClient(true);
-            setimageNavHome(true);
-            setimageNavCharge(false);
+            setImageNavClient(true);
+            setImageNavHome(true);
+            setImageNavCharge(false);
         }
     }
 
