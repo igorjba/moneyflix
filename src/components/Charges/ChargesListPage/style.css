@@ -7,6 +7,13 @@
     background-color: var(--font-clr-white);
 }
 
+@media (max-width: 768px) {
+    .container-page-charges {
+        flex-direction: column;
+        gap: 3rem;
+    }
+}
+
 .description-table-header {
     width: 40% !important;
 }

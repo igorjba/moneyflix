@@ -205,10 +205,10 @@ function Main() {
         }}
       />
       <div className="center">
-        {openModalEditClient && <div className="backgroundModal initial">
+        {openModalEditClient && <div className="background-modal initial">
           {openModalEditClient && (<EditClientModal />)}
         </div>}
-        {openModalRegister && <div className="backgroundModal initial">
+        {openModalRegister && <div className="background-modal initial">
           {openModalRegister && (<RegisterClientModal />)}
         </div>}
         {/* Mudei esse aqui para hook separado de cobrança */}
@@ -232,7 +232,7 @@ function Main() {
         {/* Mudei esse aqui para hook separado de cobrança */}
         {openModalDetailCharges.status && <div className="background-modal initial">
           {openModalDetailCharges.status && <ChargesModal />}
-          </div>}
+        </div>}
         <header>
           <div className="text-header-perfil">
             <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mouse-pointer' : ''}`} >
