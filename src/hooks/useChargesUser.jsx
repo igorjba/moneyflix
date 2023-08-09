@@ -57,7 +57,6 @@ function useChargesUser() {
       });
 
       if (listClientByStatus) {
-        console.log("ola");
         return setInfoClientCharges(
           filterStatus(response.data, listClientByStatus)
         );

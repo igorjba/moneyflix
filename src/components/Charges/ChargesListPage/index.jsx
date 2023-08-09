@@ -157,11 +157,6 @@ export default function ChargesListPage() {
     }
   }
 
-  function filterStatus(data, condition) {
-    //função nao está sendo chamada
-    return data.filter((client) => client.status === condition);
-  }
-
   useEffect(() => {
     backgroundSituation();
   }, [infoClientCharges]);

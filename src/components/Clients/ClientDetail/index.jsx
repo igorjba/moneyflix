@@ -33,7 +33,8 @@ export default function ClientDetail() {
     setTitleNameThird,
   } = useUser();
 
-  const { setOpenModalCharges, setModalDelete } = useCharges();
+  const { setOpenModalCharges, setModalDelete, setOpenModalEditCharges } =
+    useCharges();
 
   const [detailsData, setDetailsData] = useState({});
   const [countOrderDueDate, setcountOrderDueDate] = useState(1);
@@ -43,7 +44,6 @@ export default function ClientDetail() {
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
   const [corarrowTopDue, setCorArrowTopDue] = useState("#3F3F55");
   const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
-  const space = "  ";
   const navigate = useNavigate();
 
   async function DetailCustomerData() {
@@ -118,6 +118,8 @@ export default function ClientDetail() {
   }
 
   function orderIdCharges() {
+    setCorArrowTopDue("#3F3F55");
+    setCorArrowBottomDue("#3F3F55");
     setcountOrderIdCharges(countOrderIdCharges + 1);
     if (countOrderIdCharges === 1) {
       const orderId = infoClientCharges.slice().sort(function (a, b) {
@@ -128,27 +130,39 @@ export default function ClientDetail() {
       setInfoClientCharges(orderId);
     }
     if (countOrderIdCharges === 2) {
-      ListCharges();
-      setCorArrowBottomId("#3F3F55");
+      const orderId = infoClientCharges.slice().sort(function (a, b) {
+        return a.id_cobranca - b.id_cobranca;
+      });
       setCorArrowTopId("#3F3F55");
+      setCorArrowBottomId("#DA0175");
+      setInfoClientCharges(orderId);
       setcountOrderIdCharges(1);
     }
   }
 
   function orderDueDate() {
+    setCorArrowTopId("#3F3F55");
+    setCorArrowBottomId("#3F3F55");
     setcountOrderDueDate(countOrderDueDate + 1);
     if (countOrderDueDate === 1) {
       const orderDue = infoClientCharges.slice().sort(function (a, b) {
-        return b.id_cobranca - a.id_cobranca;
+        const dateA = new Date(a.vencimento);
+        const dateB = new Date(b.vencimento);
+        return dateB - dateA;
       });
       setCorArrowTopDue("#DA0175");
       setCorArrowBottomDue("#3F3F55");
       setInfoClientCharges(orderDue);
     }
     if (countOrderDueDate === 2) {
-      ListCharges();
-      setCorArrowBottomDue("#3F3F55");
+      const orderDue = infoClientCharges.slice().sort(function (a, b) {
+        const dateA = new Date(a.vencimento);
+        const dateB = new Date(b.vencimento);
+        return dateA - dateB;
+      });
+      setCorArrowBottomDue("#DA0175");
       setCorArrowTopDue("#3F3F55");
+      setInfoClientCharges(orderDue);
       setcountOrderDueDate(1);
     }
   }
@@ -170,6 +184,17 @@ export default function ClientDetail() {
     setSelectedCharge(null);
   };
 
+  function informationEditCharges(event) {
+    setOpenModalEditCharges({
+      status: true,
+      id_charges: event.id_cobranca,
+      nome_user: event.cliente,
+      description: event.descricao,
+      date: event.vencimento,
+      value: event.valor,
+      statusPage: event.status,
+    });
+  }
   useEffect(() => {
     setTitle(`Clientes`);
     setTitleNameSecond(`>`);
@@ -470,7 +495,12 @@ export default function ClientDetail() {
                       <h1>{charges.descricao}</h1>
                     </td>
                     <td className="imagem-table-charge">
-                      <img src={editCharge} alt="Editar" />
+                      <img
+                        className="mouse-pointer transform-image-charges"
+                        src={editCharge}
+                        alt="Editar"
+                        onClick={() => informationEditCharges(charges)}
+                      />
                       <img
                         className="mouse-pointer"
                         src={deleteCharge}
