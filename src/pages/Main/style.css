@@ -98,8 +98,8 @@ header {
 
 @media (max-width: 768px) {
 
-  .center{
-    margin-left: none;
+  .center {
+    margin-left: 0;
   }
 
   .navegation {
@@ -267,7 +267,7 @@ header h2 {
 .bottom-nav {
   display: none;
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   bottom: 0;
   left: 0;
   width: 100%;
