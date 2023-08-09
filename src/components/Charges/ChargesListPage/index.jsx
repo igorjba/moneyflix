@@ -125,6 +125,12 @@ export default function ChargesListPage() {
             });
         }
     }
+
+    function filterStatus(data, condition) { //função nao está sendo chamada 
+        return data.filter((client) => client.status === condition);
+    }
+
+
     useEffect(() => {
         backgroundSituation()
     }, [infoClientCharges])
@@ -145,7 +151,7 @@ export default function ChargesListPage() {
                     <button className='button-filter'>
                         <img src={filter} alt="Filtrar" />
                     </button>
-                    <div>
+                    <div className='search-container'>
                         <input placeholder='Pesquisa' ref={inputSearch} type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
                         <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)} />
                     </div>
