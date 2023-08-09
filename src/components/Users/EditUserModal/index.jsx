@@ -52,14 +52,15 @@ export default function EditUserModal({ setOpenModalEdit }) {
         if (!validationEmail.isValid) {
             setErrorEmailEdit(`${validationName.message}`)
         }
-        const validationPassword = validatePassword(getProfile.email)
+        const validationPassword = validatePassword(getProfile.senhaAtual)
         if (!validationPassword.isValid) {
             setErrorPasswordEdit(`${validationPassword.message}`)
         }
         if (getProfile.senha !== getProfile.confirmeSenha) {
             setErrorPasswordAgainEdit('As senhas não coincidem');
         }
-        if (!getProfile.senha) {
+        if (!getProfile.senhaAtual) {
+            console.log('chamou aqui campo de senha vazio');
             setErrorPasswordEdit('Digite sua senha')
         }
 
