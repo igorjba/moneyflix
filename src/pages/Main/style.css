@@ -85,6 +85,10 @@ header {
 
 @media (max-width: 768px) {
 
+  .center{
+    margin-left: none;
+  }
+
   .navegation {
     display: none;
   }

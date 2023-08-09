@@ -280,34 +280,6 @@ export default function EditClientModal() {
                 )}
               </div>
             </div>
-            <div className="formAndress">
-              <div className="AdressEditClientModal">
-                <label htmlFor="inputAdress" className="mouse-pointer">
-                  <h1>Endereço</h1>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Digite o endereço"
-                  id="inputAdress"
-                  ref={inputRef}
-                  name="logradouro"
-                  value={formAdressEditClient.logradouro}
-                  onChange={(event) => handleChangeFormAdress(event)}
-                />
-              </div>
-            </div>
-            <label htmlFor="inputCompl" className="mouse-pointer">
-              <h1>Complemento</h1>
-            </label>
-            <input
-              type="text"
-              placeholder="Digite o complemento"
-              id="inputCompl"
-              ref={inputRef}
-              name="complemento"
-              value={formAdressEditClient.complemento}
-              onChange={(event) => handleChangeFormAdress(event)}
-            />
             <div className="formInformation">
               <div>
                 <label htmlFor="inputCEP" className="mouse-pointer">
@@ -340,7 +312,33 @@ export default function EditClientModal() {
                 />
               </div>
             </div>
-            <div className="formAndress">
+                <div className="AdressEditClientModal">
+                <label htmlFor="inputCompl" className="mouse-pointer">
+                <h1>Complemento</h1>
+                </label>
+                <input
+                type="text"
+                placeholder="Digite o complemento"
+                id="inputCompl"
+                ref={inputRef}
+                name="complemento"
+                value={formAdressEditClient.complemento}
+                onChange={(event) => handleChangeFormAdress(event)}
+                />
+                <label htmlFor="inputAdress" className="mouse-pointer">
+                  <h1>Endereço</h1>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Digite o endereço"
+                  id="inputAdress"
+                  ref={inputRef}
+                  name="logradouro"
+                  value={formAdressEditClient.logradouro}
+                  onChange={(event) => handleChangeFormAdress(event)}
+                />
+              </div>
+              <div className="formAndress">
               <div>
                 <label htmlFor="inputCity" className="mouse-pointer">
                   <h1>Cidade</h1>

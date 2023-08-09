@@ -50,8 +50,6 @@ export default function RegisterClientModal() {
       return setForm({ ...form, [event.target.name]: cpfMask(event.target.value) });
     }
     if (event.target.name === 'telefone') {
-      console.log(event.target);
-
       const inputNumberTel = event.target.value.replace(/\D/g, '')
 
       if (inputNumberTel.length > 11) {
@@ -81,16 +79,16 @@ export default function RegisterClientModal() {
     if (event.target.name === 'cep') {
       return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value) });
     }
-    if (event.target.name === 'numero') {
+    /* if (event.target.name === 'numero') {
       const inputNumberTel = event.target.value.replace(/\D/g, '')
       setNumberHouse(inputNumberTel)
-    }
+    } */
   }
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${cepUnmask(event.target.value)}/json/`)
       setFormAdress({
-        logradouro: (response.data.logradouro).concat(),
+        logradouro: (response.data.logradouro)/* .concat() */,
         bairro: response.data.bairro,
         cep: cepUnmask(response.data.cep),
         cidade: response.data.localidade,
@@ -234,28 +232,24 @@ export default function RegisterClientModal() {
               {errorPhone && <span className='error'><h1>{errorPhone}</h1></span>}
             </div>
           </div>
-          <div className='formAndress'>
+          <div className='formInformation'>
             <div>
               <label htmlFor="inputCEP" className='mouse-pointer'><h1>CEP</h1></label>
               <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={formAdress.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              <label htmlFor="inputNumber" className='mouse-pointer'><h1>Número da Residência</h1></label>
-              <input type="text" maxLength={4} placeholder='Digite número da residência' id='inputNumber' ref={inputRef} name='numero' value={numberHouse} onChange={(event) => handleChangeForm(event)} />
-            </div>
-          </div>
-          <label htmlFor="inputCompl" className='mouse-pointer'><h1>Complemento</h1></label>
-          <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
-          <div className='formInformation'>
-            <div>
-              <label htmlFor="inputAdress" className='mouse-pointer'><h1>Endereço</h1></label>
-              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' disabled={validationInputDisabled} value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
-            </div>
-            <div>
+              {/* <label htmlFor="inputNumber" className='mouse-pointer'><h1>Número da Residência</h1></label>
+              <input type="text" maxLength={4} placeholder='Digite número da residência' id='inputNumber' ref={inputRef} name='numero' value={numberHouse} onChange={(event) => handleChangeForm(event)} /> */}
               <label htmlFor="inputNeighborhood" className='mouse-pointer'><h1>Bairro</h1></label>
               <input type="text" placeholder='Digite o Bairro' name='bairro' id='inputNeighborhood' ref={inputRef} value={formAdress.bairro} disabled={validationInputDisabled} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
+          <label htmlFor="inputCompl" className='mouse-pointer'><h1>Complemento</h1></label>
+          <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
+            <div>
+              <label htmlFor="inputAdress" className='mouse-pointer'><h1>Endereço</h1></label>
+              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' disabled={validationInputDisabled} value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
+            </div>
           <div className='formAndress'>
             <div>
               <label htmlFor="inputCity" className='mouse-pointer'><h1>Cidade</h1></label>
