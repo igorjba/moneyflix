@@ -82,9 +82,9 @@ function useUserProvider() {
 
 
 
-  const [getInformationClientDetail, setGetInformationClientDetail] = useState(true)
+  const [getInformationClientDetail, setGetInformationClientDetail] = useState(true) //geazi porém da pra entrelacar todos
 
-  const [idListChargesClick, setIdListChargesClick] = useState([]);
+  const [idListChargesClick, setIdListChargesClick] = useState([]); //detalhes do cliente, pode ser reutilizado outros
 
   const [loggedInUser, setLoggedInUser] = useState({
     nome: '',

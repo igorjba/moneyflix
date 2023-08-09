@@ -17,20 +17,27 @@ function useChargesUser() {
         value: '',
         statusPage: ''
     });
+    const [openModalDelete, setModalDelete] = useState({
+        status: false,
+        id_charges: ''
+    });
+
+
+
     const [openModalCharges, setOpenModalCharges] = useState({
         status: false,
         id_user: '',
         nome_user: ''
     });
-    const [openModalDelete, setModalDelete] = useState({
+    const [openModalDetailCharges, setOpenModalDetailCharges] = useState({
         status: false,
-        id_charges: ''
-    });
-    const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
+        informationDetail: []
+    })
+/*     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({ //nao tem a necessidade pois de cima ta fazendo a mesma e chamando o mesmo modal do que essa função apagar essa
         status: false,
         id_user: "",
         nome_user: "",
-    });
+    }); */
     const [inputTypeChargesDate, setInputTypeChargeDate] = useState('text');
     const [dateValueIso, setDateValueIso] = useState('');
     const [dateValueBr, setDateValueBr] = useState('');
@@ -41,6 +48,7 @@ function useChargesUser() {
     const [infoClientCharges, setInfoClientCharges] = useState([]);
     const [verifyDate, setVerifyDate] = useState(0)
     const [listClientByStatus, setListClientByStatus] = useState("");
+
     const navigate = useNavigate();
 
 
@@ -95,8 +103,8 @@ function useChargesUser() {
 
     return (
         {
-            openModalRegisterCharges,
-            setOpenModalRegisterCharges,
+/*             openModalRegisterCharges,
+            setOpenModalRegisterCharges, */
             openModalEditCharges,
             setOpenModalEditCharges,
             openModalCharges,
@@ -124,7 +132,9 @@ function useChargesUser() {
             openModalDelete,
             setModalDelete,
             listClientByStatus,
-            setListClientByStatus
+            setListClientByStatus,
+            openModalDetailCharges,
+            setOpenModalDetailCharges
         }
     )
 }

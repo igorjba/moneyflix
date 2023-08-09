@@ -9,11 +9,10 @@ import useCharges from '../../../hooks/useCharges';
 import useUser from '../../../hooks/useUser';
 import { completedName, dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
 import NotFoundCharges from '../NotFoundCharges';
-import ChargesModal from '../ChargesModalDetails/index.jsx';
 import './style.css';
 
 export default function ChargesListPage() {
-    const { backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges } = useCharges()
+    const { backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges, openModalDetailCharges } = useCharges()
     const { setTitle, token } = useUser();
     const [countOrder, setCountOrder] = useState(1)
     const [countOrderIdCharges, setcountOrderIdCharges] = useState(1)
@@ -29,9 +28,6 @@ export default function ChargesListPage() {
             status: true,
             id_charges: event
         })
-    }
-    function filterStatus(data, condition) {
-        return data.filter((client) => client.status === condition);
     }
     function orderName() {
         setCountOrder(countOrder + 1)
@@ -80,6 +76,17 @@ export default function ChargesListPage() {
             setcountOrderIdCharges(1);
         }
     }
+    function informationEditCharges(event){
+        setOpenModalEditCharges({
+            status: true,
+            id_charges: event.id_cobranca,
+            nome_user: event.cliente,
+            description: event.descricao,
+            date: event.vencimento,
+            value: event.valor,
+            statusPage: event.status
+        })
+    }
     async function searchNameChargesList() {
         const validationFunctionSearch = parseFloat(searchNameCharges);
         const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
@@ -118,15 +125,6 @@ export default function ChargesListPage() {
             });
         }
     }
-    const [selectedCharge, setSelectedCharge] = useState(null);
-
-    const handleChargeClick = (charge) => {
-        setSelectedCharge(charge);
-    };
-
-    const closeModal = () => {
-        setSelectedCharge(null);
-    };
     useEffect(() => {
         backgroundSituation()
     }, [infoClientCharges])
@@ -147,7 +145,7 @@ export default function ChargesListPage() {
                     <button className='button-filter'>
                         <img src={filter} alt="Filtrar" />
                     </button>
-                    <div className='search-container'>
+                    <div>
                         <input placeholder='Pesquisa' ref={inputSearch} type="text" name="Filter nome" onChange={(e) => setSearchNameCharges(e.target.value)} />
                         <img src={lupa} alt="Lupa" className='search' onClick={(event) => searchNameChargesList(event)} />
                     </div>
@@ -206,12 +204,12 @@ export default function ChargesListPage() {
                             {infoClientCharges.map((charges) => {
                                 return (
                                     <tr className='extract-table' key={charges.id_cobranca}>
-                                        <td onClick={() => handleChargeClick(charges)}><h1 >{completedName(charges.cliente) === undefined ? '' : completedName(charges.cliente)} </h1></td>
-                                        <td onClick={() => handleChargeClick(charges)}><h1>{charges.id_cobranca}</h1></td>
-                                        <td onClick={() => handleChargeClick(charges)}><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
-                                        <td onClick={() => handleChargeClick(charges)}><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
-                                        <td onClick={() => handleChargeClick(charges)}><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
-                                        <td className='description-table-charge' onClick={() => handleChargeClick(charges)}><h1>{charges.descricao}</h1></td>
+                                        <td className='mouse-pointer' onClick={() => setOpenModalDetailCharges({...openModalDetailCharges, status: true, informationDetail: {charges}})}><h1 >{completedName(charges.cliente) === undefined ? '' : completedName(charges.cliente)} </h1></td>
+                                        <td><h1>{charges.id_cobranca}</h1></td>
+                                        <td><h1 className='number-table'>{moneyMask(charges.valor)}</h1></td>
+                                        <td><h1>{dateDDMMYYYYMask(charges.vencimento)}</h1></td>
+                                        <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
+                                        <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
                                         <td className='imagem-table-charge'>
                                             <img className='mouse-pointer transform-image-charges' src={editCharge} alt="Editar" onClick={() => informationEditCharges(charges)} />
                                             <img className='mouse-pointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
@@ -219,9 +217,6 @@ export default function ChargesListPage() {
                                     </tr>
                                 )
                             })}
-                            {selectedCharge && (
-                                <ChargesModal chargeDetails={selectedCharge} closeModal={closeModal} />
-                            )}
                         </tbody>
                     </table>
                 </div>

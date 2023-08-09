@@ -1,15 +1,9 @@
 .charges-modal-container {
-    position: fixed;
     display: flex;
     align-items: center;
-    top: 0;
     justify-content: center;
-    left: 10.80rem;
     width: calc(100% - 10.80rem);
     height: 100%;
-
-    background-color: rgba(145, 154, 150, 0.30);
-    backdrop-filter: blur(2px);
 
     z-index: 3;
 }
@@ -105,10 +99,9 @@ h2.modal-title {
     gap: 8px;
 }
 
-.description-detail {
+/* .description-detail {
     width: 100%;
-    /* Outros estilos que você possa querer adicionar */
-}
+} */
 
 .status-text {
     text-align: center;

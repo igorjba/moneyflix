@@ -24,9 +24,10 @@ import useUser from '../../hooks/useUser';
 import "./style.css";
 import EditChargesModal from "../../components/Charges/EditChargesModal";
 import { UserCharges } from "../../contexts/UserChargesContext";
+import ChargesModal from "../../components/Charges/ChargesModalDetails";
 
 function Main() {
-  const { openModalCharges, openModalEditCharges, openModalDelete } = useCharges()
+  const { openModalCharges, openModalEditCharges, openModalDelete, openModalDetailCharges } = useCharges()
   /* const [modalExit, setModalExit] = useState(false);
   const [imageNavHome, setImageNavHome] = useState(false);
   const [imageNavClient, setImageNavClient] = useState(true);
@@ -228,6 +229,10 @@ function Main() {
         {openModalDelete.status && <div className="background-modal initial">
           {openModalDelete.status && <DeleteCharge />}
         </div>}
+        {/* Mudei esse aqui para hook separado de cobrança */}
+        {openModalDetailCharges.status && <div className="background-modal initial">
+          {openModalDetailCharges.status && <ChargesModal />}
+          </div>}
         <header>
           <div className="text-header-perfil">
             <h2 onClick={(e) => verifyTextHeader(e)} className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"} ${!imageNavClient && idClientDetail ? 'mouse-pointer' : ''}`} >
