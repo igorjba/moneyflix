@@ -10,6 +10,7 @@ import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser";
 import { cepMask, cpfMask, dateDDMMYYYYMask, moneyMask, phoneAndCelMask2 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
+import ChargesModal from '../../Charges/ChargesModalDetails/index.jsx';
 import "./style.css";
 
 export default function ClientDetail() {
@@ -165,6 +166,16 @@ export default function ClientDetail() {
       console.log(error);
     } */
   }
+
+  const [selectedCharge, setSelectedCharge] = useState(null);
+
+  const handleChargeClick = (charge) => {
+    setSelectedCharge(charge);
+  };
+
+  const closeModal = () => {
+    setSelectedCharge(null);
+  };
 
   useEffect(() => {
     setTitle(`Clientes`);
@@ -445,21 +456,21 @@ export default function ClientDetail() {
               {infoClientCharges.map((charges) => {
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
-                    <td>
+                    <td onClick={() => handleChargeClick(charges)}>
                       <h1>{charges.id_cobranca}</h1>
                     </td>
-                    <td>
+                    <td onClick={() => handleChargeClick(charges)}>
                       <h1>{dateDDMMYYYYMask(charges.vencimento)}</h1>
                     </td>
-                    <td>
+                    <td onClick={() => handleChargeClick(charges)}>
                       <h1>{moneyMask(charges.valor)}</h1>
                     </td>
-                    <td>
+                    <td onClick={() => handleChargeClick(charges)}>
                       <div className="div-status-charge">
                         <h1 className="status-text">{charges.status}</h1>
                       </div>
                     </td>
-                    <td className="description-table description-table-charge">
+                    <td className="description-table description-table-charge" onClick={() => handleChargeClick(charges)}>
                       <h1>{charges.descricao}</h1>
                     </td>
                     <td className="imagem-table-charge">
@@ -469,6 +480,9 @@ export default function ClientDetail() {
                   </tr>
                 );
               })}
+              {selectedCharge && (
+                <ChargesModal chargeDetails={selectedCharge} closeModal={closeModal} />
+              )}
             </tbody>
           </table>
         </div>
