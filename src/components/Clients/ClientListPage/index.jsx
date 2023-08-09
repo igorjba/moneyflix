@@ -20,22 +20,13 @@ import NotFoundCharges from "../../Charges/NotFoundCharges/index.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-  /* const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setOpenModalRegisterCharges,setIdClientDetail} = useUser(); */
-  const { setOpenModalCharges,
+  const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setIdClientDetail, imageNavClient} = useUser();
+  const { 
+    setOpenModalCharges,
     listClientByStatus,
-    setListClientByStatus,
+    setListClientByStatus
   } = useCharges()
-  const {
-    setOpenModalRegister,
-    setClientRegisters,
-    clientRegisters,
-    setTitle,
-    token,
-    setOpenModalRegisterCharges,
-    setIdClientDetail,
 
-    imageNavClient,
-  } = useUser();
   const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
@@ -171,15 +162,7 @@ export default function ClientListPage() {
           <h2>Clientes</h2>
         </div>
         <div className="initial search-filter-client">
-          {/* <div className="container-add-client"> */}
-          <button
-            className="addClient"
-            onClick={() => setOpenModalRegister(true)}
-          >
-            + Adicionar Cliente
-            {/* <h1> + Adicionar Cliente </h1> */}
-          </button>
-          {/* </div> */}
+          <button className="addClient" onClick={() => setOpenModalRegister(true)}> + Adicionar Cliente </button>
           <button className="button-filter">
             <img src={filter} alt="Filtrar" />
           </button>

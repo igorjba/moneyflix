@@ -22,8 +22,6 @@ function useChargesUser() {
         id_charges: ''
     });
 
-
-
     const [openModalCharges, setOpenModalCharges] = useState({
         status: false,
         id_user: '',
@@ -48,7 +46,6 @@ function useChargesUser() {
     const [verifyDate, setVerifyDate] = useState(0)
     const [listClientByStatus, setListClientByStatus] = useState("");
     const [infoClientCharges, setInfoClientCharges] = useState([]);
-
     const navigate = useNavigate();
 
 
