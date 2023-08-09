@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
 import { NumericFormat, PatternFormat } from 'react-number-format';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,7 +24,7 @@ export default function RegisterChargesModal() {
     const inputRef = useRef(null);
     const [numberValueCharges, setNumberValueCharges] = useState('')
     let validate = 0
-    const [verifyCheckbox, setVerifyCheckbox] = useState('')
+    const [verifyCheckbox, setVerifyCheckbox] = useState(true)
     const [formRegisterCharges, setFormRegisterCharges] = useState({
         descricao: '',
         vencimento: '',
@@ -69,6 +69,10 @@ export default function RegisterChargesModal() {
         }
         if (verifyDate > 0) {
             setErrorDate('Este campo deve ser preenchido')
+        }
+        if(!formRegisterCharges.vencimento){
+            setErrorDate('Este campo deve ser preenchido')
+            validate = +1
         }
         if (validate === 0 && verifyDate === 0) {
             try {

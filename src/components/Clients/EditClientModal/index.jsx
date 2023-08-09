@@ -40,18 +40,18 @@ export default function EditClientModal() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    nome: idListChargesClick.client[0].nome_cliente,
-    email: idListChargesClick.client[0].email,
-    cpf: cpfMask(idListChargesClick.client[0].cpf),
-    telefone: cellPhoneMask(idListChargesClick.client[0].telefone),
+    nome: idListChargesClick.client[0].nome_cliente === null ? '' : idListChargesClick.client[0].nome_cliente,
+    email: idListChargesClick.client[0].email === null ? '' : idListChargesClick.client[0].email,
+    cpf: idListChargesClick.client[0].cpf === null ? '' : cpfMask(idListChargesClick.client[0].cpf),
+    telefone: idListChargesClick.client[0].telefone === null ? '' : cellPhoneMask(idListChargesClick.client[0].telefone),
   });
   const [formAdressEditClient, setFormAdressEditClient] = useState({
-    logradouro: idListChargesClick.client[0].endereco,
-    bairro: idListChargesClick.client[0].bairro,
+    logradouro: idListChargesClick.client[0].endereco === null ? '' : idListChargesClick.client[0].endereco,
+    bairro: idListChargesClick.client[0].bairro === null ? '' : idListChargesClick.client[0].bairro,
     cep: idListChargesClick.client[0].cep == null ? "" : idListChargesClick.client[0].cep,
-    cidade: idListChargesClick.client[0].cidade,
-    estado: idListChargesClick.client[0].estado,
-    complemento: idListChargesClick.client[0].complemento,
+    cidade: idListChargesClick.client[0].cidade === null ? '' : idListChargesClick.client[0].cidade,
+    estado: idListChargesClick.client[0].estado === null ? '' : idListChargesClick.client[0].estado,
+    complemento: idListChargesClick.client[0].complemento === null ? '' : idListChargesClick.client[0].complemento,
   });
   let validate = 0;
   function handleChangeForm(event) {
