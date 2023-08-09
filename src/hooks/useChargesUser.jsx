@@ -31,11 +31,7 @@ function useChargesUser() {
     status: false,
     informationDetail: [],
   });
-  /*     const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({ //nao tem a necessidade pois de cima ta fazendo a mesma e chamando o mesmo modal do que essa função apagar essa
-        status: false,
-        id_user: "",
-        nome_user: "",
-    }); */
+
   const [inputTypeChargesDate, setInputTypeChargeDate] = useState("text");
   const [dateValueIso, setDateValueIso] = useState("");
   const [dateValueBr, setDateValueBr] = useState("");
@@ -109,8 +105,6 @@ function useChargesUser() {
   }
 
   return {
-    /*             openModalRegisterCharges,
-            setOpenModalRegisterCharges, */
     openModalEditCharges,
     setOpenModalEditCharges,
     openModalCharges,

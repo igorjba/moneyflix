@@ -8,10 +8,17 @@ import EditGreen from "../../../assets/Edit-green.svg";
 import editCharge from "../../../assets/Edit.svg";
 import toastError from "../../../assets/toastError.svg";
 import useUser from "../../../hooks/useUser";
-import { cepMask, cpfMask, dateDDMMYYYYMask, moneyMask, phoneAndCelMask2 } from "../../../utils/inputMasks";
+import {
+  cepMask,
+  cpfMask,
+  dateDDMMYYYYMask,
+  moneyMask,
+  phoneAndCelMask2,
+} from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
-import ChargesModal from '../../Charges/ChargesModalDetails/index.jsx';
+import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
 import "./style.css";
+import useCharges from "../../../hooks/useCharges.jsx";
 
 export default function ClientDetail() {
   const {
@@ -20,13 +27,13 @@ export default function ClientDetail() {
     idListChargesClick,
     setOpenModalEditClient,
     idClientDetail,
-    setOpenModalRegisterCharges,
     setIdListChargesClick,
     setTitleNameSecond,
     getInformationClientDetail,
-    setModalDelete,
-    setTitleNameThird
+    setTitleNameThird,
   } = useUser();
+
+  const { setOpenModalCharges, setModalDelete } = useCharges();
 
   const [detailsData, setDetailsData] = useState({});
   const [countOrderDueDate, setcountOrderDueDate] = useState(1);
@@ -36,12 +43,11 @@ export default function ClientDetail() {
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
   const [corarrowTopDue, setCorArrowTopDue] = useState("#3F3F55");
   const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
-  const space = '  '
+  const space = "  ";
   const navigate = useNavigate();
 
   async function DetailCustomerData() {
     try {
-
       const response = await api.get(`cliente/${idClientDetail}`, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -150,21 +156,8 @@ export default function ClientDetail() {
   async function informationDeleteChargesClientDetail(event) {
     setModalDelete({
       status: true,
-      id_charges: event
-    })
-
-    /* try {
-      const response = await api.get(`cliente/${idClientDetail}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log(idListChargesClick);
-      return setIdListChargesClick(response.data);
-    } catch (error) {
-      console.log(error);
-    } */
+      id_charges: event,
+    });
   }
 
   const [selectedCharge, setSelectedCharge] = useState(null);
@@ -180,17 +173,17 @@ export default function ClientDetail() {
   useEffect(() => {
     setTitle(`Clientes`);
     setTitleNameSecond(`>`);
-    setTitleNameThird('Detalhes do cliente')
+    setTitleNameThird("Detalhes do cliente");
     DetailCustomerData();
   }, []);
 
   useEffect(() => {
     backgroundSituation();
-  }, [infoClientCharges])
+  }, [infoClientCharges]);
 
   useEffect(() => {
     DetailCustomerData();
-  }, [getInformationClientDetail])
+  }, [getInformationClientDetail]);
 
   return (
     <>
@@ -209,9 +202,7 @@ export default function ClientDetail() {
                 <th>
                   <button
                     className="button-edit-client"
-                    onClick={() =>
-                      setOpenModalEditClient(true)
-                    }
+                    onClick={() => setOpenModalEditClient(true)}
                   >
                     <img src={EditGreen} alt="editar cliente" />
                     <h4>Editar Cliente</h4>
@@ -232,14 +223,23 @@ export default function ClientDetail() {
                 </td>
               </tr>
               <tr className="extract-table">
-                <td className='detail-text-line-detail-client'>
+                <td className="detail-text-line-detail-client">
                   <h1>{detailsData.email}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.telefone === null || detailsData.telefone === undefined ? '' : phoneAndCelMask2(detailsData.telefone)}</h1>
+                  <h1>
+                    {detailsData.telefone === null ||
+                    detailsData.telefone === undefined
+                      ? ""
+                      : phoneAndCelMask2(detailsData.telefone)}
+                  </h1>
                 </td>
                 <td>
-                  <h1>{detailsData.cpf === undefined ? '' : cpfMask(detailsData.cpf)}</h1>
+                  <h1>
+                    {detailsData.cpf === undefined
+                      ? ""
+                      : cpfMask(detailsData.cpf)}
+                  </h1>
                 </td>
               </tr>
               <tr className="header-table-client subtitle-bottom">
@@ -263,17 +263,21 @@ export default function ClientDetail() {
                 </td>
               </tr>
               <tr className="extract-table">
-                <td className='detail-text-line-detail-client'>
+                <td className="detail-text-line-detail-client">
                   <h1>{detailsData.endereco}</h1>
                 </td>
-                <td className='detail-text-line-detail-client'>
+                <td className="detail-text-line-detail-client">
                   <h1>{detailsData.bairro}</h1>
                 </td>
                 <td>
                   <h1>{detailsData.complemento}</h1>
                 </td>
                 <td>
-                  <h1>{detailsData.cep === undefined ? '' : cepMask(detailsData.cep)}</h1>
+                  <h1>
+                    {detailsData.cep === undefined
+                      ? ""
+                      : cepMask(detailsData.cep)}
+                  </h1>
                 </td>
                 <td>
                   <h1>{detailsData.cidade}</h1>
@@ -292,29 +296,18 @@ export default function ClientDetail() {
               <tr className="table-first-title">
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
-                  <button className="addClient" onClick={() =>
-                    setOpenModalRegisterCharges({
-                      status: true,
-                      id_user: idListChargesClick.client[0].id_cliente,
-                      nome_user: idListChargesClick.client[0].nome_cliente,
-                    })
-                  }
+                  <button
+                    className="addClient"
+                    onClick={() =>
+                      setOpenModalCharges({
+                        status: true,
+                        id_user: idListChargesClick.client[0].id_cliente,
+                        nome_user: idListChargesClick.client[0].nome_cliente,
+                      })
+                    }
                   >
-                    {" "}
-                    + Nova cobrança{" "}
-                    {/* <h1
-                      onClick={() =>
-                        setOpenModalRegisterCharges({
-                          status: true,
-                          id_user: idListChargesClick.client[0].id_cliente,
-                          nome_user: idListChargesClick.client[0].nome_cliente,
-                        })
-                      }
-                    >
-                      {" "}
-                      + Nova cobrança{" "}
-                    </h1>{" "} */}
-                  </button>{" "}
+                    + Nova cobrança
+                  </button>
                 </th>
               </tr>
             </thead>
@@ -470,18 +463,33 @@ export default function ClientDetail() {
                         <h1 className="status-text">{charges.status}</h1>
                       </div>
                     </td>
-                    <td className="description-table description-table-charge" onClick={() => handleChargeClick(charges)}>
+                    <td
+                      className="description-table description-table-charge"
+                      onClick={() => handleChargeClick(charges)}
+                    >
                       <h1>{charges.descricao}</h1>
                     </td>
                     <td className="imagem-table-charge">
                       <img src={editCharge} alt="Editar" />
-                      <img className='mouse-pointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)} />
+                      <img
+                        className="mouse-pointer"
+                        src={deleteCharge}
+                        alt="Deletar"
+                        onClick={() =>
+                          informationDeleteChargesClientDetail(
+                            charges.id_cobranca
+                          )
+                        }
+                      />
                     </td>
                   </tr>
                 );
               })}
               {selectedCharge && (
-                <ChargesModal chargeDetails={selectedCharge} closeModal={closeModal} />
+                <ChargesModal
+                  chargeDetails={selectedCharge}
+                  closeModal={closeModal}
+                />
               )}
             </tbody>
           </table>
