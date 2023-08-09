@@ -16,16 +16,7 @@ import NotFoundCharges from "../NotFoundCharges";
 import "./style.css";
 
 export default function ChargesListPage() {
-  const {
-    backgroundSituation,
-    ListCharges,
-    infoClientCharges,
-    setInfoClientCharges,
-    setModalDelete,
-    setOpenModalEditCharges,
-    setOpenModalDetailCharges,
-    openModalDetailCharges,
-  } = useCharges();
+  const { backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges, openModalDetailCharges} = useCharges();
   const { setTitle, token, imageNavClient } = useUser();
   const [countOrder, setCountOrder] = useState(1);
   const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
@@ -34,9 +25,7 @@ export default function ChargesListPage() {
   const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
   const [searchNameCharges, setSearchNameCharges] = useState("");
-  const [checkListClientChargesLength, setCheckListClientChargesLength] =
-    useState(false);
-
+  const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
   const inputSearch = useRef(null);
 
   function informationDeleteCharges(event) {
@@ -338,8 +327,7 @@ export default function ChargesListPage() {
               {infoClientCharges.map((charges) => {
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
-                    <td
-                      className="mouse-pointer"
+                    <td className="view-detail-mouse-over-effect"
                       onClick={() =>
                         setOpenModalDetailCharges({
                           ...openModalDetailCharges,
@@ -348,7 +336,7 @@ export default function ChargesListPage() {
                         })
                       }
                     >
-                      <h1>
+                      <h1 className="mouse-pointer nameSelectDetail">
                         {completedName(charges.cliente) === undefined
                           ? ""
                           : completedName(charges.cliente)}{" "}
