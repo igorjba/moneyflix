@@ -61,7 +61,6 @@ function Main() {
     setTitle,
     nameUser,
     openModalEditClient,
-    /*     openModalRegisterCharges, */
     idClientDetail,
     setIdClientDetail,
     setTitleNameSecond,
