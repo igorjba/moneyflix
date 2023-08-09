@@ -2,31 +2,37 @@ import { useState } from "react";
 import { getItem } from "../utils/localStorage";
 
 function useUserProvider() {
-    const [openModalEditProfile, SetOpenModalEditProfile] = useState(false);
-    const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);
-    const [title, setTitle] = useState("Resumo de Cobranças");
-    const [openModalRegister, setOpenModalRegister] = useState(false);
-    const [clientRegisters, setClientRegisters] = useState([]);
     const token = getItem("token");
     const [nameUser, setNameUser] = useState(getItem("name"));
-    const [idListChargesClick, setIdListChargesClick] = useState([]);
-    const [openModalEditClient, setOpenModalEditClient] = useState(false)
-    const [clientDetailPage, setClientDetailPage] = useState(false)
-    const [idClientDetail, setIdClientDetail] = useState(null);
+
+    const [title, setTitle] = useState("Resumo de Cobranças");
     const [titleNameSecond, setTitleNameSecond] = useState('')
     const [titleNameTerc, setTitleNameTerc] = useState('');
     const [openLoading, setOpenLoading] = useState(false)
+    const [openModalEditProfile, SetOpenModalEditProfile] = useState(false);
+    const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);  
+    const [openModalRegister, setOpenModalRegister] = useState(false);
+
+
+    //fazer hook so de client agora
+    const [openModalEditClient, setOpenModalEditClient] = useState(false)
+    const [clientDetailPage, setClientDetailPage] = useState(false)
+    const [idClientDetail, setIdClientDetail] = useState(null);
+    const [clientRegisters, setClientRegisters] = useState([]);
+
+
+
+
+
+
     const [getInformationClientDetail, setGetInformationClientDetail] = useState(true)
-    const [infoClientCharges, setInfoClientCharges] = useState([])
-    const [openModalDelete, setModalDelete] = useState({
-        status: false,
-        id_charges: ''
-    })
-    const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
+    
+    /* const [idListChargesClick, setIdListChargesClick] = useState([]); */
+    /* const [openModalRegisterCharges, setOpenModalRegisterCharges] = useState({
         status: false,
         id_user: '',
         nome_user: ''
-    })
+    }) */
     const [loggedInUser, setLoggedInUser] = useState({
         nome: '',
         email: '',
@@ -52,8 +58,8 @@ function useUserProvider() {
             openModalEditProfileSuccess,
             GetProfile,
             setGetProfile,
-            setOpenModalRegisterCharges,
-            openModalRegisterCharges,
+/*             setOpenModalRegisterCharges,
+            openModalRegisterCharges, */
             openModalEditProfile,
             SetOpenModalEditProfile,
             title,
@@ -67,8 +73,8 @@ function useUserProvider() {
             setNameUser,
             loggedInUser,
             setLoggedInUser,
-            idListChargesClick,
-            setIdListChargesClick,
+/*             idListChargesClick,
+            setIdListChargesClick, */
             openModalEditClient,
             setOpenModalEditClient,
             idClientDetail,
@@ -81,10 +87,10 @@ function useUserProvider() {
             setOpenLoading,
             getInformationClientDetail,
             setGetInformationClientDetail,
-            openModalDelete,
-            setModalDelete,
-            infoClientCharges,
-            setInfoClientCharges,
+/*             openModalDelete,
+            setModalDelete, */
+/*             infoClientCharges,
+            setInfoClientCharges, */
             setTitleNameTerc,
             titleNameTerc
         }

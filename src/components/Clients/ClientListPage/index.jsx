@@ -8,14 +8,25 @@ import filter from "../../../assets/Filter.svg";
 import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
 import toastError from "../../../assets/toastError.svg";
+import useCharges from "../../../hooks/useCharges.jsx";
 import useUser from "../../../hooks/useUser.jsx";
 import { completedName, cpfMask, phoneAndCelMask2 } from "../../../utils/inputMasks.jsx";
 import { clearAll } from "../../../utils/localStorage.jsx";
-import "./style.css";
 import NotFoundCharges from "../../Charges/NotFoundCharges/index.jsx";
+import "./style.css";
 
 export default function ClientListPage() {
   const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setOpenModalRegisterCharges,setIdClientDetail} = useUser();
+
+
+
+  const {setOpenModalCharges} = useCharges()
+
+
+
+
+
+
   const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
@@ -100,7 +111,7 @@ export default function ClientListPage() {
     }
   }
   function sendInformationRegisterCharges(event) {
-    setOpenModalRegisterCharges({
+    setOpenModalCharges({
       status: true,
       id_user: event.id_cliente,
       nome_user: event.nome_cliente,

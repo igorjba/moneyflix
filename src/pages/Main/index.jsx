@@ -17,11 +17,15 @@ import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
 import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
+import useCharges from "../../hooks/useCharges";
 import "../../global/styleModal.css";
 import useUser from '../../hooks/useUser';
 import "./style.css";
+import EditChargesModal from "../../components/Charges/EditChargesModal";
+import { UserCharges } from "../../contexts/UserChargesContext";
 
 function Main() {
+  const {openModalCharges, openModalEditCharges, openModalDelete} = useCharges()
   const [modalExit, setModalExit] = useState(false);
   const [imageNavHome, setimageNavHome] = useState(false);
   const [imageNavClient, setimageNavClient] = useState(true);
@@ -37,13 +41,12 @@ function Main() {
     setTitle,
     nameUser,
     openModalEditClient,
-    openModalRegisterCharges,
+/*     openModalRegisterCharges, */
     idClientDetail,
     setIdClientDetail,
     setTitleNameSecond,
     setClientDetailPage,
     titleNameSecond,
-    openModalDelete,
     titleNameTerc,
     setTitleNameTerc
   } = useUser();
@@ -173,15 +176,21 @@ function Main() {
         {openModalRegister && <div className="backgroundModal initial">
           {openModalRegister && (<RegisterClientModal />)}
         </div>}
-        {openModalRegisterCharges.status && <div className="background-modal initial">
-          {openModalRegisterCharges.status && (<RegisterChargesModal />)}
+        {/* Mudei esse aqui para hook separado de cobrança */}
+        {openModalCharges.status && <div className="background-modal initial">
+          {openModalCharges.status && (<RegisterChargesModal />)}
         </div>}
+        {/* Mudei esse aqui para hook separado de cobrança */}
+          {openModalEditCharges.status && <div className="background-modal initial">
+            {openModalEditCharges.status && (<EditChargesModal />)}
+            </div>}
         {openModalEdit && <div className="background-modal initial">
           {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
         </div>}
         {openModalEditProfileSuccess && (<div className="background-modal initial">
           <SuccessEditUserModal setOpenModalEditProfileSuccess={setOpenModalEditProfileSuccess} />
         </div>)}
+        {/* Mudei esse aqui para hook separado de cobrança */}
         {openModalDelete.status && <div className="background-modal initial">
           {openModalDelete.status && <DeleteCharge />}
         </div>}

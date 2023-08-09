@@ -1,21 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import api from '../../../api/api';
 import deleteCharge from '../../../assets/DeleteCharge.svg';
 import editCharge from '../../../assets/Edit.svg';
 import filter from '../../../assets/Filter.svg';
 import iconCharge from '../../../assets/IconCharge.svg';
 import lupa from '../../../assets/Lupa.svg';
-import toastError from '../../../assets/toastError.svg';
+import useCharges from '../../../hooks/useCharges';
 import useUser from '../../../hooks/useUser';
 import { completedName, dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
-import { clearAll } from '../../../utils/localStorage';
-import './style.css';
 import NotFoundCharges from '../NotFoundCharges';
+import './style.css';
 
 export default function ChargesListPage() {
-    const { setTitle, token, openModalDelete, setModalDelete, setInfoClientCharges, infoClientCharges } = useUser();
+    const {backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges} = useCharges()
+    const {setTitle, token} = useUser();
     const [countOrder, setCountOrder] = useState(1)
     const [countOrderIdCharges, setcountOrderIdCharges] = useState(1)
     const [corarrowTop, setCorArrowTop] = useState('#3F3F55')
@@ -24,50 +22,12 @@ export default function ChargesListPage() {
     const [corarrowBottomId, setCorArrowBottomId] = useState('#3F3F55')
     const [searchNameCharges, setSearchNameCharges] = useState('')
     const inputSearch = useRef(null)
-    const navigate = useNavigate()
-    function backgroundSituation() {
-        const status = document.querySelectorAll('.status-text');
-        status.forEach(element => {
-            if (element.textContent === 'Vencida') {
-                return element.classList.add('statusDefeated')
-            }
-            else if (element.textContent === 'Pendente') {
-                return element.classList.add('statusPending')
-            } else if (element.textContent === 'Paga') {
-                return element.classList.add('statusPay')
-            }
-        });
-    }
+
     function informationDeleteCharges(event){
         setModalDelete({
             status: true,
             id_charges: event
         })
-    }
-    async function ListCharges() {
-        try {
-            const response = await api.get('cobranca', {
-                headers: {
-                    authorization: `Bearer ${token}`
-                }
-            });
-            setInfoClientCharges(response.data)
-        } catch (error) {
-            if (error.response) {
-                if (error.response.status === 401 && error.response.data.message === "token expirado") {
-                    clearAll()
-                    navigate("/login");
-                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-                    clearAll()
-                    navigate("/login");
-                }
-            }
-            toast.error(error.response.data.message, {
-                className: 'customToastify-error',
-                icon: ({ theme, type }) => <img src={toastError} alt="" />
-            })
-
-        }
     }
     function orderName() {
         setCountOrder(countOrder + 1)
@@ -116,6 +76,17 @@ export default function ChargesListPage() {
             setcountOrderIdCharges(1);
         }
     }
+    function informationEditCharges(event){
+        setOpenModalEditCharges({
+            status: true,
+            id_charges: event.id_cobranca,
+            nome_user: event.cliente,
+            description: event.descricao,
+            date: event.vencimento,
+            value: event.valor,
+            statusPage: event.status
+        })
+    }
     async function searchNameChargesList(){
         const validationFunctionSearch = parseFloat(searchNameCharges);
         const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
@@ -133,18 +104,36 @@ export default function ChargesListPage() {
         inputSearch.current.value = ''
         setInfoClientCharges(response.data)
         } catch (error) {
-        console.log(error);
+            if (error.response) {
+                if (
+                  error.response.status === 401 &&
+                  error.response.data.message === "token expirado"
+                ) {
+                  clearAll();
+                  navigate("/login");
+                } else if (
+                  error.response.status === 400 &&
+                  error.response.data.message === "Não autorizado"
+                ) {
+                  clearAll();
+                  navigate("/login");
+                }
+              }
+              toast.error(error.response.data.message, {
+                className: "customToastify-error",
+                icon: ({ theme, type }) => <img src={toastError} alt="" />,
+              });
+            }
         }
-    }
+
+
     useEffect(() => {
         backgroundSituation()
     }, [infoClientCharges])
     useEffect(() => {
         ListCharges()
         setTitle('Cobranças')
-        backgroundSituation()
     }, [])
-
 
     return (
         <>
@@ -223,7 +212,7 @@ export default function ChargesListPage() {
                                     <td><div className='div-status-charge'><h1 className='status-text'>{charges.status}</h1></div></td>
                                     <td className='description-table-charge'><h1>{charges.descricao}</h1></td>
                                     <td className='imagem-table-charge'>
-                                        <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" />
+                                        <img className='mousePointer transform-image-charges' src={editCharge} alt="Editar" onClick={() => informationEditCharges(charges)} />
                                         <img className='mousePointer transform-image-charges' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteCharges(charges.id_cobranca)} />
                                     </td>
                                 </tr>
@@ -232,7 +221,7 @@ export default function ChargesListPage() {
                     </tbody>
                 </table>
             </div>
-}
+            }
         </>
     )
 }
