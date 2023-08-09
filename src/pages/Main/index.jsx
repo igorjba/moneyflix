@@ -26,11 +26,11 @@ import EditChargesModal from "../../components/Charges/EditChargesModal";
 import { UserCharges } from "../../contexts/UserChargesContext";
 
 function Main() {
-  const {openModalCharges, openModalEditCharges, openModalDelete} = useCharges()
+  const { openModalCharges, openModalEditCharges, openModalDelete } = useCharges()
   /* const [modalExit, setModalExit] = useState(false);
-  const [imageNavHome, setimageNavHome] = useState(false);
-  const [imageNavClient, setimageNavClient] = useState(true);
-  const [imageNavCharge, setimageNavCharge] = useState(true);
+  const [imageNavHome, setImageNavHome] = useState(false);
+  const [imageNavClient, setImageNavClient] = useState(true);
+  const [imageNavCharge, setImageNavCharge] = useState(true);
   const [resumeName, setResumeName] = useState("");
   const [openModalEdit, setOpenModalEdit] = useState(false); */
 
@@ -38,11 +38,11 @@ function Main() {
     modalExit,
     setModalExit,
     imageNavHome,
-    setimageNavHome,
+    setImageNavHome,
     imageNavClient,
-    setimageNavClient,
+    setImageNavClient,
     imageNavCharge,
-    setimageNavCharge,
+    setImageNavCharge,
     openModalEdit,
     setOpenModalEdit,
     resumeName,
@@ -55,14 +55,14 @@ function Main() {
     setTitle,
     nameUser,
     openModalEditClient,
-/*     openModalRegisterCharges, */
+    /*     openModalRegisterCharges, */
     idClientDetail,
     setIdClientDetail,
     setTitleNameSecond,
     setClientDetailPage,
     titleNameSecond,
-    titleNameTerc,
-    setTitleNameTerc
+    titleNameThird,
+    setTitleNameThird
   } = useUser();
 
   function onClickNavLeft(event) {
@@ -109,8 +109,8 @@ function Main() {
   async function verifyTextHeader(e) {
     if (title === 'Clientes') {
       setTitleNameSecond(" "),
-        setTitleNameTerc(" ")
-      setimageNavClient(false),
+        setTitleNameThird(" ")
+      setImageNavClient(false),
         setClientDetailPage(false),
         setIdClientDetail(false)
     }
@@ -146,11 +146,11 @@ function Main() {
           className="initial nav-icons atived mousePointer"
           onClick={(event) => {
             onClickNavLeft(event),
-              setimageNavClient(true),
-              setimageNavHome(false),
-              setimageNavCharge(true),
+              setImageNavClient(true),
+              setImageNavHome(false),
+              setImageNavCharge(true),
               setTitleNameSecond(''),
-              setTitleNameTerc('')
+              setTitleNameThird('')
           }}
         >
           <img src={imageNavHome ? home : homePink} className="imageNavAnimation" alt="Inicio" />
@@ -159,12 +159,12 @@ function Main() {
           className="initial nav-icons mousePointer"
           onClick={(event) => {
             onClickNavLeft(event),
-              setimageNavClient(false),
-              setimageNavHome(true),
-              setimageNavCharge(true);
+              setImageNavClient(false),
+              setImageNavHome(true),
+              setImageNavCharge(true);
             setTitleNameSecond('')
             setIdClientDetail(false);
-            setTitleNameTerc('')
+            setTitleNameThird('')
           }}
         >
           <img src={imageNavClient ? client : clientePink} className="imageNavAnimation" alt="Cliente" />
@@ -173,38 +173,36 @@ function Main() {
           className="initial nav-icons mousePointer"
           onClick={(event) => {
             onClickNavLeft(event),
-              setimageNavClient(true),
-              setimageNavHome(true),
-              setimageNavCharge(false),
+              setImageNavClient(true),
+              setImageNavHome(true),
+              setImageNavCharge(false),
               setTitleNameSecond(''),
-              setTitleNameTerc('')
+              setTitleNameThird('')
           }}
         >
           <img src={imageNavCharge ? charge : chargePink} className="imageNavAnimation" alt="Cobranças" />
         </div>
       </nav>
-      {window.innerWidth <= 768 && (
-        <BottomNav
-          imageNavHome={imageNavHome}
-          imageNavClient={imageNavClient}
-          imageNavCharge={imageNavCharge}
-          onClick={(type) => {
-            if (type === 'home') {
-              setimageNavClient(true);
-              setimageNavHome(false);
-              setimageNavCharge(true);
-            } else if (type === 'client') {
-              setimageNavClient(false);
-              setimageNavHome(true);
-              setimageNavCharge(true);
-            } else if (type === 'charge') {
-              setimageNavClient(true);
-              setimageNavHome(true);
-              setimageNavCharge(false);
-            }
-          }}
-        />
-      )}
+      <BottomNav
+        imageNavHome={imageNavHome}
+        imageNavClient={imageNavClient}
+        imageNavCharge={imageNavCharge}
+        onClick={(type) => {
+          if (type === 'home') {
+            setImageNavClient(true);
+            setImageNavHome(false);
+            setImageNavCharge(true);
+          } else if (type === 'client') {
+            setImageNavClient(false);
+            setImageNavHome(true);
+            setImageNavCharge(true);
+          } else if (type === 'charge') {
+            setImageNavClient(true);
+            setImageNavHome(true);
+            setImageNavCharge(false);
+          }
+        }}
+      />
       <div className="center">
         {openModalEditClient && <div className="backgroundModal initial">
           {openModalEditClient && (<EditClientModal />)}
@@ -217,9 +215,9 @@ function Main() {
           {openModalCharges.status && (<RegisterChargesModal />)}
         </div>}
         {/* Mudei esse aqui para hook separado de cobrança */}
-          {openModalEditCharges.status && <div className="background-modal initial">
-            {openModalEditCharges.status && (<EditChargesModal />)}
-            </div>}
+        {openModalEditCharges.status && <div className="background-modal initial">
+          {openModalEditCharges.status && (<EditChargesModal />)}
+        </div>}
         {openModalEdit && <div className="background-modal initial">
           {openModalEditProfile && (<EditUserModal setOpenModalEdit={setOpenModalEdit} />)}
         </div>}
@@ -236,7 +234,7 @@ function Main() {
               {title}
             </h2>
             <h3 className="detail-client-set">{titleNameSecond}</h3>
-            <h3 className="detail-cliente-title-second">{titleNameTerc}</h3>
+            <h3 className="detail-cliente-title-second">{titleNameThird}</h3>
           </div>
           <div className="initial header-perfil">
             <div className="title circle-perfil">

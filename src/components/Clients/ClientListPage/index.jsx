@@ -21,7 +21,10 @@ import "./style.css";
 
 export default function ClientListPage() {
   /* const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setOpenModalRegisterCharges,setIdClientDetail} = useUser(); */
-  const {setOpenModalCharges} = useCharges()
+  const { setOpenModalCharges,
+    listClientByStatus,
+    setListClientByStatus,
+  } = useCharges()
   const {
     setOpenModalRegister,
     setClientRegisters,
@@ -30,8 +33,7 @@ export default function ClientListPage() {
     token,
     setOpenModalRegisterCharges,
     setIdClientDetail,
-    listClientByStatus,
-    setListClientByStatus,
+
     imageNavClient,
   } = useUser();
   const navigate = useNavigate();
@@ -293,7 +295,7 @@ export default function ClientListPage() {
                         {" "}
                         {client.nome_cliente &&
                           completedName(client.nome_cliente)}{" "}
-                      </h1>{" "}
+                      </h1>
                     </td>
                     <td>
                       <h1>{cpfMask(client.cpf)}</h1>

@@ -19,9 +19,9 @@ export default function HomePage() {
     setTitle,
     token,
     setListClientByStatus,
-    setimageNavClient,
-    setimageNavHome,
-    setimageNavCharge,
+    setImageNavClient,
+    setImageNavHome,
+    setImageNavCharge,
   } = useUser();
   const [data, setData] = useState({});
   const [errorValue, setErrorValue] = useState(0);
@@ -82,7 +82,7 @@ export default function HomePage() {
           TitleCard="Cobranças Pagas"
           ValueCard={
             data.totalValorPagas?.[0]?.sum === "" ||
-            data.totalValorPagas?.[0]?.sum === undefined
+              data.totalValorPagas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPagas?.[0]?.sum)
           }
@@ -93,7 +93,7 @@ export default function HomePage() {
           TitleCard="Cobranças Vencidas"
           ValueCard={
             data.totalValorVencidas?.[0]?.sum === "" ||
-            data.totalValorVencidas?.[0]?.sum === undefined
+              data.totalValorVencidas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorVencidas?.[0]?.sum)
           }
@@ -104,7 +104,7 @@ export default function HomePage() {
           TitleCard="Cobranças Previstas"
           ValueCard={
             data.totalValorPendentes?.[0]?.sum === "" ||
-            data.totalValorPendentes?.[0]?.sum === undefined
+              data.totalValorPendentes?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPendentes?.[0]?.sum)
           }
@@ -122,11 +122,11 @@ export default function HomePage() {
           seeAll={(event) => {
             onClickNavLeft(event);
             setListClientByStatus("Vencida"),
-              setimageNavClient(true),
-              setimageNavHome(true),
-              setimageNavCharge(false),
+              setImageNavClient(true),
+              setImageNavHome(true),
+              setImageNavCharge(false),
               setTitleNameSecond(""),
-              setTitleNameTerc("");
+              setTitleNameThird("");
           }}
         />
         <SummaryCardsList
@@ -140,11 +140,11 @@ export default function HomePage() {
           seeAll={(event) => {
             onClickNavLeft(event);
             setListClientByStatus("Pendente"),
-              setimageNavClient(true),
-              setimageNavHome(true),
-              setimageNavCharge(false),
+              setImageNavClient(true),
+              setImageNavHome(true),
+              setImageNavCharge(false),
               setTitleNameSecond(""),
-              setTitleNameTerc("");
+              setTitleNameThird("");
           }}
         />
         <SummaryCardsList
@@ -158,11 +158,11 @@ export default function HomePage() {
           seeAll={(event) => {
             onClickNavLeft(event);
             setListClientByStatus("Paga"),
-              setimageNavClient(true),
-              setimageNavHome(true),
-              setimageNavCharge(false),
+              setImageNavClient(true),
+              setImageNavHome(true),
+              setImageNavCharge(false),
               setTitleNameSecond(""),
-              setTitleNameTerc("");
+              setTitleNameThird("");
           }}
         />
         <SummaryCardsList
@@ -179,11 +179,11 @@ export default function HomePage() {
           seeAll={(event) => {
             onClickNavLeft(event);
             setListClientByStatus("Inadimplente"),
-              setimageNavClient(false),
-              setimageNavHome(true),
-              setimageNavCharge(true),
+              setImageNavClient(false),
+              setImageNavHome(true),
+              setImageNavCharge(true),
               setTitleNameSecond(""),
-              setTitleNameTerc("");
+              setTitleNameThird("");
           }}
         />
         <SummaryCardsList
@@ -200,11 +200,11 @@ export default function HomePage() {
           seeAll={(event) => {
             onClickNavLeft(event);
             setListClientByStatus("Em dia"),
-              setimageNavClient(false),
-              setimageNavHome(true),
-              setimageNavCharge(true),
+              setImageNavClient(false),
+              setImageNavHome(true),
+              setImageNavCharge(true),
               setTitleNameSecond(""),
-              setTitleNameTerc("");
+              setTitleNameThird("");
           }}
         />
       </div>

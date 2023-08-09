@@ -13,7 +13,7 @@ import { validateEmail, validateName, validatePassword } from '../../../utils/va
 import './style.css';
 
 export default function EditUserModal({ setOpenModalEdit }) {
-    const { SetOpenModalEditProfile, openModalEditProfile, token, setNameUser, setGetProfile, GetProfile, setOpenModalEditProfileSuccess } = useUser();
+    const { SetOpenModalEditProfile, openModalEditProfile, token, setNameUser, setGetProfile, getProfile, setOpenModalEditProfileSuccess } = useUser();
     const [errorName, setErrorName] = useState('')
     const [errorEmailEdit, setErrorEmailEdit] = useState('');
     const [errorPasswordEdit, setErrorPasswordEdit] = useState('');
@@ -28,8 +28,8 @@ export default function EditUserModal({ setOpenModalEdit }) {
     const inputRef = useRef(null);
 
     useEffect(() => {
-        setNumberCPF(cpfMask(GetProfile.cpf));
-        setNumberTel(cellPhoneMask(GetProfile.telefone));
+        setNumberCPF(cpfMask(getProfile.cpf));
+        setNumberTel(cellPhoneMask(getProfile.telefone));
     }, []);
 
     function onclickCloseModal() {
@@ -44,41 +44,41 @@ export default function EditUserModal({ setOpenModalEdit }) {
         setErrorEmailEdit('')
         setErrorPasswordAgainEdit('')
 
-        const validationName = validateName(GetProfile.nome)
+        const validationName = validateName(getProfile.nome)
         if (!validationName.isValid) {
             setErrorName(`${validationName.message}`)
         }
-        const validationEmail = validateEmail(GetProfile.email)
+        const validationEmail = validateEmail(getProfile.email)
         if (!validationEmail.isValid) {
             setErrorEmailEdit(`${validationName.message}`)
         }
-        const validationPassword = validatePassword(GetProfile.email)
+        const validationPassword = validatePassword(getProfile.email)
         if (!validationPassword.isValid) {
             setErrorPasswordEdit(`${validationPassword.message}`)
         }
-        if (GetProfile.senha !== GetProfile.confirmeSenha) {
+        if (getProfile.senha !== getProfile.confirmeSenha) {
             setErrorPasswordAgainEdit('As senhas não coincidem');
         }
-        if (!GetProfile.senha) {
+        if (!getProfile.senha) {
             setErrorPasswordEdit('Digite sua senha')
         }
 
         try {
             const response = await api.put('usuario/atualizar', {
-                nome: GetProfile.nome,
+                nome: getProfile.nome,
                 cpf: cpfUnmask(numberCPF),
-                email: GetProfile.email,
+                email: getProfile.email,
                 telefone: numberTel === '' || numberTel === null ? '' : cellPhoneUnmask(numberTel),
-                senhaAtual: GetProfile.senhaAtual,
-                senha: GetProfile.senha,
-                confirmeSenha: GetProfile.confirmeSenha
+                senhaAtual: getProfile.senhaAtual,
+                senha: getProfile.senha,
+                confirmeSenha: getProfile.confirmeSenha
             }, {
                 headers: {
                     authorization: token,
                 }
             });
-            localStorage.setItem("name", GetProfile.nome);
-            setNameUser(GetProfile.nome);
+            localStorage.setItem("name", getProfile.nome);
+            setNameUser(getProfile.nome);
             SetOpenModalEditProfile(false)
             setOpenModalEdit(false)
             setOpenModalEditProfileSuccess(true)
@@ -143,7 +143,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
         setNumberCPF(formattedValue);
     }
     function handleChangeForm(e) {
-        setGetProfile({ ...GetProfile, [e.target.name]: e.target.value });
+        setGetProfile({ ...getProfile, [e.target.name]: e.target.value });
     }
 
     return (
@@ -157,12 +157,12 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     <div className='divs-inputs-form'>
                         <div className='box-info'>
                             <label htmlFor="nameEditUser" className='mousePointer'><h1>Nome*</h1></label>
-                            <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={GetProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                            <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={getProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorName && <span className='error'><h1>{errorName}</h1></span>}
                         </div>
                         <div className='box-info'>
                             <label htmlFor="emailEditUser" className='mousePointer'><h1>E-mail*</h1></label>
-                            <input className={`${errorEmailEdit ? 'errorLine' : ''}`} id='emailEditUser' ref={inputRef} type="text" placeholder='Digite seu e-mail' name='email' value={GetProfile.email} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                            <input className={`${errorEmailEdit ? 'errorLine' : ''}`} id='emailEditUser' ref={inputRef} type="text" placeholder='Digite seu e-mail' name='email' value={getProfile.email} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorEmailEdit && <span className='error'><h1>{errorEmailEdit}</h1></span>}
                         </div>
                         <div className='information-ModalEdit'>
@@ -178,7 +178,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                         <div className='box-info'>
                             <label htmlFor="passwordEditUser" className='mousePointer'><h1>Senha Atual*</h1></label>
                             <div className="password-input">
-                                <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} id='passwordEditUser' ref={inputRef} type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={GetProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                                <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} id='passwordEditUser' ref={inputRef} type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={getProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div
                                     className='password-toggle-visibility'
                                     onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
@@ -192,7 +192,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                             <label htmlFor='passwordNewEditUser' className='mousePointer'><h1>Nova Senha</h1></label>
                             <div className='password-input'>
                                 <input
-                                    type={showNewPassword ? 'text' : 'password'} id='passwordNewEditUser' ref={inputRef} placeholder='Digite sua Senha' name='senha' value={GetProfile.senha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                                    type={showNewPassword ? 'text' : 'password'} id='passwordNewEditUser' ref={inputRef} placeholder='Digite sua Senha' name='senha' value={getProfile.senha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div
                                     className='password-toggle-visibility' onClick={() => setShowNewPassword((prevShowNewPassword) => !prevShowNewPassword)}
                                     style={{ backgroundImage: `url(${showNewPassword ? openEye : closedEye})`, }} />
@@ -202,7 +202,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                         <div className='box-info'>
                             <label htmlFor='confPasswordNewEditUser' className='mousePointer'><h1>Confirmar a Senha</h1></label>
                             <div className='password-input'>
-                                <input type={showConfirmPassword ? 'text' : 'password'} id='confPasswordNewEditUser' ref={inputRef} placeholder='Confirme sua senha' name='confirmeSenha' value={GetProfile.confirmeSenha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                                <input type={showConfirmPassword ? 'text' : 'password'} id='confPasswordNewEditUser' ref={inputRef} placeholder='Confirme sua senha' name='confirmeSenha' value={getProfile.confirmeSenha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                                 <div className='password-toggle-visibility' onClick={() => setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword)} style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})`, }} />
                             </div>
                             {errorPasswordAgainEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
