@@ -62,3 +62,8 @@
 .transform-image-charges:hover {
     transform: scale(1.1);
 }
+
+.number-table {
+    word-wrap: break-word;
+    white-space: normal;
+}
