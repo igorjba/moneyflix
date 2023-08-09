@@ -16,16 +16,15 @@ import './style.css';
 
 export default function RegisterClientModal() {
   const navigate = useNavigate();
-  const { setOpenModalRegister, setClientRegisters, token, setCorArrowBottom, setCorArrowTop } = useUser();
+  const { setOpenModalRegister, setClientRegisters, token } = useUser();
   const [form, setForm] = useState({
     nome: '',
     email: '',
     cpf: '',
     telefone: '',
   });
-  const [numberHouse, setNumberHouse] = useState('')
   const [formAdress, setFormAdress] = useState({
-    logradouro: ''.concat(numberHouse),
+    logradouro: '',
     complemento: '',
     cep: '',
     bairro: '',
@@ -79,21 +78,18 @@ export default function RegisterClientModal() {
     if (event.target.name === 'cep') {
       return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value) });
     }
-    /* if (event.target.name === 'numero') {
-      const inputNumberTel = event.target.value.replace(/\D/g, '')
-      setNumberHouse(inputNumberTel)
-    } */
   }
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${cepUnmask(event.target.value)}/json/`)
-      setFormAdress({
-        logradouro: (response.data.logradouro)/* .concat() */,
-        bairro: response.data.bairro,
-        cep: cepUnmask(response.data.cep),
-        cidade: response.data.localidade,
-        estado: response.data.uf
-      })
+      if(response && response.data){
+        setFormAdress({
+          logradouro: response.data.logradouro || '',
+          bairro: response.data.bairro || '',
+          cidade: response.data.localidade || '',
+          estado: response.data.uf || ''
+        })
+      }
       setValidationInputDisabled(true)
       if (response.data.erro) {
         toast.error("CEP não encontrado", {
@@ -103,13 +99,10 @@ export default function RegisterClientModal() {
         setValidationInputDisabled(false)
       }
     } catch (error) {
-      toast.error("CEP inválido", {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={toastError} alt="" />
-      });
-      setValidationInputDisabled(false)
-    }
+    setValidationInputDisabled(false)
   }
+}
+  
   function handleSubmit(event) {
     event.preventDefault();
     setErrorName('')
@@ -139,8 +132,6 @@ export default function RegisterClientModal() {
       sendInformation()
       setOpenModalRegister(false)
     }
-    setCorArrowBottom('#3F3F55')
-    setCorArrowTop('#3F3F55')
   }
   async function sendInformation() {
     try {
@@ -238,17 +229,15 @@ export default function RegisterClientModal() {
               <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={formAdress.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
-              {/* <label htmlFor="inputNumber" className='mouse-pointer'><h1>Número da Residência</h1></label>
-              <input type="text" maxLength={4} placeholder='Digite número da residência' id='inputNumber' ref={inputRef} name='numero' value={numberHouse} onChange={(event) => handleChangeForm(event)} /> */}
               <label htmlFor="inputNeighborhood" className='mouse-pointer'><h1>Bairro</h1></label>
-              <input type="text" placeholder='Digite o Bairro' name='bairro' id='inputNeighborhood' ref={inputRef} value={formAdress.bairro} disabled={validationInputDisabled} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" placeholder='Digite o Bairro' name='bairro' id='inputNeighborhood' ref={inputRef} value={formAdress.bairro} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
           <label htmlFor="inputCompl" className='mouse-pointer'><h1>Complemento</h1></label>
           <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
             <div>
               <label htmlFor="inputAdress" className='mouse-pointer'><h1>Endereço</h1></label>
-              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' disabled={validationInputDisabled} value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
             </div>
           <div className='formAndress'>
             <div>
