@@ -270,7 +270,7 @@ export default function ClientListPage() {
               {clientRegisters.map((client) => {
                 return (
                   <tr key={client.id_cliente}>
-                    <td className="testeee">
+                    <td className="view-detail-mouse-over-effect">
                       <h1
                         className="mouse-pointer nameSelectDetail"
                         onClick={() => setIdClientDetail(client.id_cliente)}
