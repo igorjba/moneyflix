@@ -17,6 +17,7 @@ import {
   phoneAndCelMask2,
 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
+import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
 import "./style.css";
 
 export default function ClientDetail() {
@@ -29,7 +30,7 @@ export default function ClientDetail() {
     setIdListChargesClick,
     setTitleNameSecond,
     getInformationClientDetail,
-    setTitleNameThird,
+    setTitleNameThird
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
