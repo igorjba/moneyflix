@@ -6,4 +6,4 @@ function useCharges() {
     return (useContext(UserChargesContext));
 }
 
-export default useCharges
+export default useCharges;

@@ -9,24 +9,18 @@ import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
 import toastError from "../../../assets/toastError.svg";
 import useCharges from "../../../hooks/useCharges.jsx";
+import useClient from "../../../hooks/useClient.jsx";
 import useUser from "../../../hooks/useUser.jsx";
-import {
-  completedName,
-  cpfMask,
-  phoneAndCelMask2,
-} from "../../../utils/inputMasks.jsx";
+import { completedName, cpfMask, phoneAndCelMask2 } from "../../../utils/inputMasks.jsx";
 import { clearAll } from "../../../utils/localStorage.jsx";
 import NotFoundCharges from "../../Charges/NotFoundCharges/index.jsx";
-import "./style.css";
 import FilterDataClient from "../FilterDataClient/index.jsx";
+import "./style.css";
 
 export default function ClientListPage() {
-  const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setIdClientDetail, imageNavClient} = useUser();
-  const { 
-    setOpenModalCharges,
-    listClientByStatus,
-    setListClientByStatus
-  } = useCharges()
+  const {setTitle,token,imageNavClient} = useUser();
+  const {setOpenModalCharges, listClientByStatus, setListClientByStatus } = useCharges();
+  const {setOpenModalRegister, setClientRegisters, clientRegisters, setIdClientDetail, openModalRegister, ClientCadaster} = useClient();
 
   const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
@@ -37,20 +31,18 @@ export default function ClientListPage() {
   const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false)
   const inputSearch = useRef(null);
 
-  async function ClientCadaster() {
+  /* async function ClientCadaster() {
     try {
       const response = await api.get("cliente", {
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
-
       if (listClientByStatus) {
         return setClientRegisters(
           filterStatus(response.data, listClientByStatus)
         );
       }
-
       setClientRegisters(response.data);
     } catch (error) {
       if (error.response) {
@@ -73,7 +65,7 @@ export default function ClientListPage() {
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
       });
     }
-  }
+  } */
   function filterStatus(data, condition) {
     return data.filter((client) => client.status === condition);
   }

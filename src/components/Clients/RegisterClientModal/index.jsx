@@ -13,10 +13,12 @@ import { cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask, phoneAndCelMas
 import { clearAll } from '../../../utils/localStorage';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
+import useClient from '../../../hooks/useClient';
 
 export default function RegisterClientModal() {
   const navigate = useNavigate();
-  const { setOpenModalRegister, setClientRegisters, token } = useUser();
+  const {setOpenModalRegister, ClientCadaster} = useClient()
+  const {token } = useUser();
   const [form, setForm] = useState({
     nome: '',
     email: '',
@@ -87,7 +89,8 @@ export default function RegisterClientModal() {
           logradouro: response.data.logradouro || '',
           bairro: response.data.bairro || '',
           cidade: response.data.localidade || '',
-          estado: response.data.uf || ''
+          estado: response.data.uf || '',
+          cep: cepUnmask(formAdress.cep) || ''
         })
       }
       setValidationInputDisabled(true)
@@ -169,7 +172,7 @@ export default function RegisterClientModal() {
       });
     }
   }
-  async function ClientCadaster() {
+/*   async function ClientCadaster() {
     try {
       const response = await api.get('cliente', {
         headers: {
@@ -193,7 +196,7 @@ export default function RegisterClientModal() {
         icon: ({ theme, type }) => <img src={error} alt="" />
       });
     }
-  }
+  } */
   return (
     <div className='main-Modal Modal-Register'>
       <img className='mouse-pointer closed-Modal-Register-Client' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
@@ -226,7 +229,7 @@ export default function RegisterClientModal() {
           <div className='formInformation'>
             <div>
               <label htmlFor="inputCEP" className='mouse-pointer'><h1>CEP</h1></label>
-              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={formAdress.cep} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={cepMask(formAdress.cep)} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
               <label htmlFor="inputNeighborhood" className='mouse-pointer'><h1>Bairro</h1></label>
