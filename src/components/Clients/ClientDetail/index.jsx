@@ -17,7 +17,7 @@ import {
   phoneAndCelMask2,
 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
-import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
+// import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
 import "./style.css";
 
 export default function ClientDetail() {
@@ -27,6 +27,8 @@ export default function ClientDetail() {
     setModalDelete,
     setOpenModalDetailCharges,
     openModalDetailCharges,
+    infoClientCharges,
+    setInfoClientCharges,
   } = useCharges();
   const {
     setTitle,
@@ -41,7 +43,6 @@ export default function ClientDetail() {
 
   const [detailsData, setDetailsData] = useState({});
   const [countOrderDueDate, setcountOrderDueDate] = useState(1);
-  const [infoClientCharges, setInfoClientCharges] = useState([]);
   const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
   const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
@@ -199,7 +200,7 @@ export default function ClientDetail() {
 
   useEffect(() => {
     DetailCustomerData();
-  }, [getInformationClientDetail]);
+  }, [getInformationClientDetail, infoClientCharges]);
 
   return (
     <>
