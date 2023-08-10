@@ -103,7 +103,8 @@ function useChargesUser() {
     });
   }
 
-  return {
+  return (
+    {
     openModalEditCharges,
     setOpenModalEditCharges,
     openModalCharges,
@@ -134,7 +135,8 @@ function useChargesUser() {
     setListClientByStatus,
     openModalDetailCharges,
     setOpenModalDetailCharges,
-  };
+  }
+  )
 }
 
 export default useChargesUser;

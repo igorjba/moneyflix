@@ -8,7 +8,9 @@ import home from "../../assets/Home.svg";
 import setBottom from "../../assets/chevron-down.svg";
 import BottomNav from "../../components/BottomNav";
 import ChargesListPage from "../../components/Charges/ChargesListPage";
+import ChargesModal from "../../components/Charges/ChargesModalDetails";
 import DeleteCharge from "../../components/Charges/DeleteCharge";
+import EditChargesModal from "../../components/Charges/EditChargesModal";
 import RegisterChargesModal from "../../components/Charges/RegisterChargesModal";
 import ClientDetail from "../../components/Clients/ClientDetail";
 import ClientListPage from "../../components/Clients/ClientListPage";
@@ -18,15 +20,14 @@ import HomePage from "../../components/Dashboard/HomePage";
 import LogoutEditUserModal from "../../components/Dashboard/LogoutEditUserModal";
 import EditUserModal from "../../components/Users/EditUserModal";
 import SuccessEditUserModal from "../../components/Users/SuccessEditUserModal";
-import useCharges from "../../hooks/useCharges";
 import "../../global/styleModal.css";
+import useCharges from "../../hooks/useCharges";
+import useClient from "../../hooks/useClient";
 import useUser from "../../hooks/useUser";
 import "./style.css";
-import EditChargesModal from "../../components/Charges/EditChargesModal";
-import { UserCharges } from "../../contexts/UserChargesContext";
-import ChargesModal from "../../components/Charges/ChargesModalDetails";
 
 function Main() {
+  const {openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail} = useClient()
   const {
     openModalCharges,
     openModalEditCharges,
@@ -47,18 +48,14 @@ function Main() {
     setOpenModalEdit,
     resumeName,
     setResumeName,
-    openModalRegister,
     openModalEditProfile,
     openModalEditProfileSuccess,
     setOpenModalEditProfileSuccess,
     title,
     setTitle,
     nameUser,
-    openModalEditClient,
-    idClientDetail,
-    setIdClientDetail,
     setTitleNameSecond,
-    setClientDetailPage,
+    setClientDetailPage, //era pra ta em client ??
     titleNameSecond,
     titleNameThird,
     setTitleNameThird,

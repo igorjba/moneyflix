@@ -8,6 +8,7 @@ import EditGreen from "../../../assets/Edit-green.svg";
 import editCharge from "../../../assets/Edit.svg";
 import toastError from "../../../assets/toastError.svg";
 import useCharges from "../../../hooks/useCharges.jsx";
+import useClient from "../../../hooks/useClient.jsx";
 import useUser from "../../../hooks/useUser";
 import {
   cepMask,
@@ -17,7 +18,6 @@ import {
   phoneAndCelMask2,
 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
-// import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
 import "./style.css";
 
 export default function ClientDetail() {
@@ -30,11 +30,10 @@ export default function ClientDetail() {
     infoClientCharges,
     setInfoClientCharges,
   } = useCharges();
+  const { setOpenModalEditClient, idClientDetail } = useClient();
   const {
     setTitle,
     token,
-    setOpenModalEditClient,
-    idClientDetail,
     setIdListChargesClick,
     setTitleNameSecond,
     getInformationClientDetail,
