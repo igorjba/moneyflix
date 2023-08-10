@@ -27,7 +27,7 @@ import useUser from "../../hooks/useUser";
 import "./style.css";
 
 function Main() {
-  const {openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail} = useClient()
+  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail } = useClient()
   const {
     openModalCharges,
     openModalEditCharges,
@@ -253,36 +253,38 @@ function Main() {
           {openModalDetailCharges.status && <ChargesModal />}
         </div>}
         <header>
-          <div className="text-header-perfil">
-            <h2
-              onClick={(e) => verifyTextHeader(e)}
-              className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"
-                } ${!imageNavClient && idClientDetail ? "mouse-pointer" : ""}`}
-            >
-              {title}
-            </h2>
-            <h3 className="detail-client-set">{titleNameSecond}</h3>
-            <h3 className="detail-cliente-title-second">{titleNameThird}</h3>
-          </div>
-          <div className="initial header-perfil">
-            <div className="title circle-perfil">
-              <h1>{resumeName}</h1>
+          <div className="texts-header-container">
+            <div className="text-header-perfil">
+              <h2
+                onClick={(e) => verifyTextHeader(e)}
+                className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"
+                  } ${!imageNavClient && idClientDetail ? "mouse-pointer" : ""}`}
+              >
+                {title}
+              </h2>
+              <h3 className="detail-client-set">{titleNameSecond}</h3>
+              <h3 className="detail-cliente-title-second">{titleNameThird}</h3>
             </div>
-            <div className="profile initial">
-              <h1>{toTitleCase(nameUser)}</h1>
-            </div>
-            <div className="arrow">
-              <img
-                src={setBottom}
-                alt="seta"
-                onClick={() => setModalExit(!modalExit)}
-              />
-              {modalExit && (
-                <LogoutEditUserModal
-                  setModalExit={setModalExit}
-                  setOpenModalEdit={setOpenModalEdit}
+            <div className="initial header-perfil">
+              <div className="title circle-perfil">
+                <h1>{resumeName}</h1>
+              </div>
+              <div className="profile initial">
+                <h1>{toTitleCase(nameUser)}</h1>
+              </div>
+              <div className="arrow">
+                <img
+                  src={setBottom}
+                  alt="seta"
+                  onClick={() => setModalExit(!modalExit)}
                 />
-              )}
+                {modalExit && (
+                  <LogoutEditUserModal
+                    setModalExit={setModalExit}
+                    setOpenModalEdit={setOpenModalEdit}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </header>
