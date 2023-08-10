@@ -14,6 +14,7 @@ import {
 } from "../../../utils/inputMasks";
 import NotFoundCharges from "../NotFoundCharges";
 import "./style.css";
+import FilterData from "../FilterData";
 
 export default function ChargesListPage() {
   const { backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges, openModalDetailCharges} = useCharges();
@@ -26,6 +27,7 @@ export default function ChargesListPage() {
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
   const [searchNameCharges, setSearchNameCharges] = useState("");
   const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
+  const [openModalFilterData, setOpenModalFilterData] = useState(false)
   const inputSearch = useRef(null);
 
   function informationDeleteCharges(event) {
@@ -163,7 +165,10 @@ export default function ChargesListPage() {
         </div>
         <div className="initial search-filter-client">
           <button className="button-filter">
-            <img src={filter} alt="Filtrar" />
+            <img src={filter} alt="Filtrar" onClick={() => setOpenModalFilterData(true)}/>
+            {openModalFilterData && 
+            <FilterData 
+            setOpenModalFilterData={setOpenModalFilterData} />}
           </button>
           <div className="search-container">
             <input

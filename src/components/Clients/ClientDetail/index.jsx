@@ -17,9 +17,7 @@ import {
   phoneAndCelMask2,
 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
-import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
 import "./style.css";
-import useCharges from "../../../hooks/useCharges.jsx";
 
 export default function ClientDetail() {
   const { setOpenModalCharges, setOpenModalEditCharges, setModalDelete, setOpenModalDetailCharges, openModalDetailCharges } = useCharges()

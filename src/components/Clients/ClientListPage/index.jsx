@@ -18,6 +18,7 @@ import {
 import { clearAll } from "../../../utils/localStorage.jsx";
 import NotFoundCharges from "../../Charges/NotFoundCharges/index.jsx";
 import "./style.css";
+import FilterDataClient from "../FilterDataClient/index.jsx";
 
 export default function ClientListPage() {
   const {setOpenModalRegister,setClientRegisters,clientRegisters,setTitle,token,setIdClientDetail, imageNavClient} = useUser();
@@ -33,6 +34,7 @@ export default function ClientListPage() {
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
   const [searchNameClient, setSearchNameClient] = useState("");
   const [openNotFoundClient, setOpenNotFoundClient] = useState(true);
+  const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false)
   const inputSearch = useRef(null);
 
   async function ClientCadaster() {
@@ -164,7 +166,10 @@ export default function ClientListPage() {
         <div className="initial search-filter-client">
           <button className="addClient" onClick={() => setOpenModalRegister(true)}> + Adicionar Cliente </button>
           <button className="button-filter">
-            <img src={filter} alt="Filtrar" />
+            <img src={filter} alt="Filtrar" onClick={() => setOpenModalFilterDataClient(true)} />
+            {openModalFilterDataClient && <FilterDataClient
+            setOpenModalFilterDataClient = {setOpenModalFilterDataClient}
+            />}
           </button>
           <div className="search-container">
             <input
