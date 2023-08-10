@@ -21,13 +21,27 @@ import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
 
 export default function ClientDetail() {
-  const { setOpenModalCharges, setOpenModalEditCharges, setModalDelete, setOpenModalDetailCharges, openModalDetailCharges } = useCharges()
-  const {setOpenModalEditClient, idClientDetail} = useClient()
-  const {setTitle, token, setIdListChargesClick, setTitleNameSecond, getInformationClientDetail, setTitleNameThird } = useUser();
+  const {
+    setOpenModalCharges,
+    setOpenModalEditCharges,
+    setModalDelete,
+    setOpenModalDetailCharges,
+    openModalDetailCharges,
+    infoClientCharges,
+    setInfoClientCharges,
+  } = useCharges();
+  const { setOpenModalEditClient, idClientDetail } = useClient();
+  const {
+    setTitle,
+    token,
+    setIdListChargesClick,
+    setTitleNameSecond,
+    getInformationClientDetail,
+    setTitleNameThird,
+  } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
   const [countOrderDueDate, setcountOrderDueDate] = useState(1);
-  const [infoClientCharges, setInfoClientCharges] = useState([]);
   const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
   const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
@@ -46,15 +60,6 @@ export default function ClientDetail() {
       setIdListChargesClick(response.data);
       setInfoClientCharges(response.data.billing);
 
-      const fullName =
-        response.data.client.length > 0
-          ? response.data.client[0].nome_cliente
-          : "";
-      const partsName = fullName.split(" ");
-      const nameClientCapitalized = partsName
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-        .join(" ");
-
       const replaceNullWithDefault = (obj, defaultValue = "--") => {
         return Object.fromEntries(
           Object.entries(obj).map(([key, value]) => [
@@ -66,10 +71,7 @@ export default function ClientDetail() {
 
       const formattedData = replaceNullWithDefault(response.data.client[0]);
 
-      setDetailsData({
-        ...formattedData,
-        nome_cliente: nameClientCapitalized,
-      });
+      setDetailsData({ ...formattedData });
     } catch (error) {
       if (error.response) {
         if (
@@ -180,26 +182,14 @@ export default function ClientDetail() {
     setSelectedCharge(charge);
   }; */
 
-/*   const closeModal = () => {
+  /*   const closeModal = () => {
     setSelectedCharge(null);
   }; */
 
-  function informationEditCharges(event) {
-    setOpenModalEditCharges({
-      status: true,
-      id_charges: event.id_cobranca,
-      nome_user: event.cliente,
-      description: event.descricao,
-      date: event.vencimento,
-      value: event.valor,
-      statusPage: event.status,
-    });
-  }
   useEffect(() => {
     setTitle(`Clientes`);
     setTitleNameSecond(`>`);
     setTitleNameThird("Detalhes do cliente");
-    DetailCustomerData();
   }, []);
 
   useEffect(() => {
@@ -215,7 +205,7 @@ export default function ClientDetail() {
       <div className="initial header">
         <div className="initial client-header">
           <img src={clientSFont} alt="Client" />
-          <h2>{detailsData.nome_cliente}</h2>
+          <h2 className="name-client">{detailsData.nome_cliente}</h2>
         </div>
       </div>
       <div className="tables">
@@ -320,7 +310,16 @@ export default function ClientDetail() {
               <tr className="table-first-title">
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
-                  <button className="addClient" onClick={() => setOpenModalCharges({status: true, id_user: detailsData.id_cliente, nome_user: detailsData.nome_cliente})}>
+                  <button
+                    className="addClient"
+                    onClick={() =>
+                      setOpenModalCharges({
+                        status: true,
+                        id_user: detailsData.id_cliente,
+                        nome_user: detailsData.nome_cliente,
+                      })
+                    }
+                  >
                     + Nova cobrança
                   </button>
                 </th>
@@ -464,16 +463,25 @@ export default function ClientDetail() {
               {infoClientCharges.map((charges) => {
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
-                    <td className="mouse-pointer" onClick={() => setOpenModalDetailCharges({...openModalDetailCharges, status: true, informationDetail: { charges }})} >
+                    <td
+                      className="mouse-pointer"
+                      onClick={() =>
+                        setOpenModalDetailCharges({
+                          ...openModalDetailCharges,
+                          status: true,
+                          informationDetail: { charges },
+                        })
+                      }
+                    >
                       <h1>{charges.id_cobranca}</h1>
                     </td>
-                    <td >
+                    <td>
                       <h1>{dateDDMMYYYYMask(charges.vencimento)}</h1>
                     </td>
-                    <td >
+                    <td>
                       <h1>{moneyMask(charges.valor)}</h1>
                     </td>
-                    <td >
+                    <td>
                       <div className="div-status-charge">
                         <h1 className="status-text">{charges.status}</h1>
                       </div>
@@ -485,8 +493,23 @@ export default function ClientDetail() {
                       <h1>{charges.descricao}</h1>
                     </td>
                     <td className="imagem-table-charge">
-                      <img src={editCharge} alt="Editar" onClick={() => informationEditChargesClienteDetail(charges)} />
-                      <img className='mouse-pointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)} />
+                      <img
+                        src={editCharge}
+                        alt="Editar"
+                        onClick={() =>
+                          informationEditChargesClienteDetail(charges)
+                        }
+                      />
+                      <img
+                        className="mouse-pointer"
+                        src={deleteCharge}
+                        alt="Deletar"
+                        onClick={() =>
+                          informationDeleteChargesClientDetail(
+                            charges.id_cobranca
+                          )
+                        }
+                      />
                     </td>
                   </tr>
                 );
