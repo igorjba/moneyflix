@@ -14,6 +14,7 @@ import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
 import useCharges from "../../../hooks/useCharges.jsx";
+import home from "../../../assets/homeIconBlack.svg";
 
 export default function HomePage() {
   const {
@@ -63,7 +64,7 @@ export default function HomePage() {
     }
   }
 
-  function onClickNavLeft(event) {
+  function onClickNavLeft(event) {//não está sendo utilizada
     const divs = document.querySelectorAll("div");
     divs.forEach((element) => {
       element.classList.remove("atived");
@@ -78,6 +79,10 @@ export default function HomePage() {
 
   return (
     <>
+      <div className="initial dashboard-secondary-header">
+        <img src={home} alt="home" />
+        <h2>Resumo das cobranças</h2>
+      </div>
       <div className="contentResume initial">
         <SummaryValueCards
           IconCard={Paid}
@@ -85,7 +90,7 @@ export default function HomePage() {
           TitleCard="Cobranças Pagas"
           ValueCard={
             data.totalValorPagas?.[0]?.sum === "" ||
-            data.totalValorPagas?.[0]?.sum === undefined
+              data.totalValorPagas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPagas?.[0]?.sum)
           }
@@ -96,7 +101,7 @@ export default function HomePage() {
           TitleCard="Cobranças Vencidas"
           ValueCard={
             data.totalValorVencidas?.[0]?.sum === "" ||
-            data.totalValorVencidas?.[0]?.sum === undefined
+              data.totalValorVencidas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorVencidas?.[0]?.sum)
           }
@@ -107,7 +112,7 @@ export default function HomePage() {
           TitleCard="Cobranças Previstas"
           ValueCard={
             data.totalValorPendentes?.[0]?.sum === "" ||
-            data.totalValorPendentes?.[0]?.sum === undefined
+              data.totalValorPendentes?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPendentes?.[0]?.sum)
           }
