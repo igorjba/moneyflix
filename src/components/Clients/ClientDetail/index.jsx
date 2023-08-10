@@ -191,7 +191,6 @@ export default function ClientDetail() {
     setTitle(`Clientes`);
     setTitleNameSecond(`>`);
     setTitleNameThird("Detalhes do cliente");
-    DetailCustomerData();
   }, []);
 
   useEffect(() => {
@@ -200,7 +199,7 @@ export default function ClientDetail() {
 
   useEffect(() => {
     DetailCustomerData();
-  }, [getInformationClientDetail, infoClientCharges]);
+  }, [getInformationClientDetail]);
 
   return (
     <>
