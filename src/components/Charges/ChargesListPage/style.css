@@ -14,6 +14,10 @@
     }
 }
 
+.charge-header {
+    color: var(--font-clr-gray-text-modal);
+}
+
 .description-table-header {
     width: 40% !important;
 }

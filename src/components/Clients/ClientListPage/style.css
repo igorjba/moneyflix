@@ -15,7 +15,7 @@
     font-weight: var(--fw-medium);
     line-height: var(--lineh-130);
 
-    color: var(--font);
+    color: var(--font-clr-gray-text-modal);
 }
 
 @media (max-width: 768px) {
@@ -45,6 +45,7 @@
     height: 3.3rem;
     border-radius: 1rem;
     gap: 4rem;
+    margin-left: 2rem;
 
     font-size: var(--fz-18);
     font-weight: var(--fw-regular);

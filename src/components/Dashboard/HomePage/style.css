@@ -24,3 +24,25 @@
         justify-content: center;
     }
 }
+
+.dashboard-secondary-header {
+    justify-content: center;
+    display: none;
+    margin-top: 3rem;
+}
+
+.dashboard-secondary-header h2 {
+    font-size: var(--fz-26);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-130);
+    color: var(--font-clr-gray-title);
+    font-style: normal;
+}
+
+
+@media (max-width: 768px) {
+    .dashboard-secondary-header {
+        display: flex;
+    }
+
+}

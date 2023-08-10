@@ -74,8 +74,8 @@ function Main() {
     return name == null
       ? ""
       : name.replace(/\w\S*/g, function (txt) {
-          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        });
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
   }
 
   async function fetchUserPerfil() {
@@ -86,7 +86,7 @@ function Main() {
       const lastWord = userNameWords[userNameWords.length - 1];
       return setResumeName(
         userNameWords[0].charAt(0).toUpperCase() +
-          lastWord.charAt(0).toUpperCase()
+        lastWord.charAt(0).toUpperCase()
       );
     }
   }
@@ -139,9 +139,8 @@ function Main() {
     <div className="initial mainBody">
       <nav className="initial navegation">
         <div
-          className={`initial nav-icons mouse-pointer ${
-            !imageNavHome && "atived"
-          }`}
+          className={`initial nav-icons mouse-pointer ${!imageNavHome && "atived"
+            }`}
           onClick={(event) => {
             setImageNavClient(true),
               setImageNavHome(false),
@@ -157,9 +156,8 @@ function Main() {
           />
         </div>
         <div
-          className={`initial nav-icons mouse-pointer ${
-            !imageNavClient && "atived"
-          }`}
+          className={`initial nav-icons mouse-pointer ${!imageNavClient && "atived"
+            }`}
           onClick={(event) => {
             setImageNavClient(false),
               setImageNavHome(true),
@@ -176,9 +174,8 @@ function Main() {
           />
         </div>
         <div
-          className={`initial nav-icons mouse-pointer ${
-            !imageNavCharge && "atived"
-          }`}
+          className={`initial nav-icons mouse-pointer ${!imageNavCharge && "atived"
+            }`}
           onClick={(event) => {
             setImageNavClient(true),
               setImageNavHome(true),
@@ -202,7 +199,7 @@ function Main() {
           if (type === "home") {
             setImageNavClient(true);
             setImageNavHome(false);
-            setImageNavCharge(true);
+            setImageNavCharge(true)
           } else if (type === "client") {
             setImageNavClient(false);
             setImageNavHome(true);
@@ -262,9 +259,8 @@ function Main() {
           <div className="text-header-perfil">
             <h2
               onClick={(e) => verifyTextHeader(e)}
-              className={`initial ${
-                title == "Resumo de Cobranças" ? "resume" : "titleSecond"
-              } ${!imageNavClient && idClientDetail ? "mouse-pointer" : ""}`}
+              className={`initial ${title == "Resumo de Cobranças" ? "resume" : "titleSecond"
+                } ${!imageNavClient && idClientDetail ? "mouse-pointer" : ""}`}
             >
               {title}
             </h2>

@@ -23,9 +23,9 @@ export default function BottomNav() {
         setOpenModalEdit,
         setOpenModalEditProfile,
         getUserDetails,
+        setIdClientDetail,
     } = useUser();
 
-    // Define a função onClick aqui
     const onClick = (type) => {
         if (type === 'home') {
             setImageNavClient(true);
@@ -34,6 +34,7 @@ export default function BottomNav() {
         } else if (type === 'client') {
             setImageNavClient(false);
             setImageNavHome(true);
+            setIdClientDetail(false);
             setImageNavCharge(true);
         } else if (type === 'charge') {
             setImageNavClient(true);
