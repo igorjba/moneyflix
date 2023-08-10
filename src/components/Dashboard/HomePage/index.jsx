@@ -28,7 +28,6 @@ export default function HomePage() {
   } = useUser();
   const { setListClientByStatus } = useCharges();
   const [data, setData] = useState({});
-  const [errorValue, setErrorValue] = useState(0);
   const navigate = useNavigate();
 
   async function fetchData() {
@@ -64,14 +63,6 @@ export default function HomePage() {
     }
   }
 
-  function onClickNavLeft(event) {//não está sendo utilizada
-    const divs = document.querySelectorAll("div");
-    divs.forEach((element) => {
-      element.classList.remove("atived");
-    });
-    event.currentTarget.classList.add("atived");
-  }
-
   useEffect(() => {
     fetchData();
     setTitle("Resumo de Cobranças");
@@ -90,7 +81,7 @@ export default function HomePage() {
           TitleCard="Cobranças Pagas"
           ValueCard={
             data.totalValorPagas?.[0]?.sum === "" ||
-              data.totalValorPagas?.[0]?.sum === undefined
+            data.totalValorPagas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPagas?.[0]?.sum)
           }
@@ -101,7 +92,7 @@ export default function HomePage() {
           TitleCard="Cobranças Vencidas"
           ValueCard={
             data.totalValorVencidas?.[0]?.sum === "" ||
-              data.totalValorVencidas?.[0]?.sum === undefined
+            data.totalValorVencidas?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorVencidas?.[0]?.sum)
           }
@@ -112,7 +103,7 @@ export default function HomePage() {
           TitleCard="Cobranças Previstas"
           ValueCard={
             data.totalValorPendentes?.[0]?.sum === "" ||
-              data.totalValorPendentes?.[0]?.sum === undefined
+            data.totalValorPendentes?.[0]?.sum === undefined
               ? ""
               : moneyMask(data.totalValorPendentes?.[0]?.sum)
           }

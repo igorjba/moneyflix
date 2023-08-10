@@ -9,15 +9,28 @@ import defaulter from "../../../assets/defaulter.svg";
 import useCharges from "../../../hooks/useCharges.jsx";
 import useClient from "../../../hooks/useClient.jsx";
 import useUser from "../../../hooks/useUser.jsx";
-import { completedName, cpfMask, phoneAndCelMask2 } from "../../../utils/inputMasks.jsx";
+import {
+  completedName,
+  cpfMask,
+  phoneAndCelMask2,
+} from "../../../utils/inputMasks.jsx";
+import { clearAll } from "../../../utils/localStorage.jsx";
 import NotFoundCharges from "../../Charges/NotFoundCharges/index.jsx";
 import FilterDataClient from "../FilterDataClient/index.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-  const {setTitle,token,imageNavClient} = useUser();
-  const {setOpenModalCharges, listClientByStatus, setListClientByStatus } = useCharges();
-  const {setOpenModalRegister, setClientRegisters, clientRegisters, setIdClientDetail, openModalRegister, ClientCadaster} = useClient();
+  const { setTitle, token, imageNavClient } = useUser();
+  const { setOpenModalCharges, listClientByStatus, setListClientByStatus } =
+    useCharges();
+  const {
+    setOpenModalRegister,
+    setClientRegisters,
+    clientRegisters,
+    setIdClientDetail,
+    openModalRegister,
+    ClientCadaster,
+  } = useClient();
 
   //const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
@@ -25,7 +38,8 @@ export default function ClientListPage() {
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
   const [searchNameClient, setSearchNameClient] = useState("");
   const [openNotFoundClient, setOpenNotFoundClient] = useState(true);
-  const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false)
+  const [openModalFilterDataClient, setOpenModalFilterDataClient] =
+    useState(false);
   const inputSearch = useRef(null);
 
   /* async function ClientCadaster() {
@@ -142,6 +156,12 @@ export default function ClientListPage() {
   }, [imageNavClient]);
 
   useEffect(() => {
+    if (!openModalFilterDataClient) {
+      ClientCadaster();
+      backgroundSituation();
+    }
+  }, [openModalFilterDataClient]);
+  useEffect(() => {
     backgroundSituation();
   }, [clientRegisters]);
 
@@ -153,12 +173,24 @@ export default function ClientListPage() {
           <h2>Clientes</h2>
         </div>
         <div className="initial search-filter-client">
-          <button className="addClient" onClick={() => setOpenModalRegister(true)}> + Adicionar Cliente </button>
+          <button
+            className="addClient"
+            onClick={() => setOpenModalRegister(true)}
+          >
+            {" "}
+            + Adicionar Cliente{" "}
+          </button>
           <button className="button-filter">
-            <img src={filter} alt="Filtrar" onClick={() => setOpenModalFilterDataClient(true)} />
-            {openModalFilterDataClient && <FilterDataClient
-            setOpenModalFilterDataClient = {setOpenModalFilterDataClient}
-            />}
+            <img
+              src={filter}
+              alt="Filtrar"
+              onClick={() => setOpenModalFilterDataClient(true)}
+            />
+            {openModalFilterDataClient && (
+              <FilterDataClient
+                setOpenModalFilterDataClient={setOpenModalFilterDataClient}
+              />
+            )}
           </button>
           <div className="search-container">
             <input
