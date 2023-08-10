@@ -10,6 +10,7 @@ import success from "../../../assets/Success-Toast.svg";
 import closed from "../../../assets/close.svg";
 import useCharges from "../../../hooks/useCharges";
 import useUser from "../../../hooks/useUser";
+import useClientUser from "../../../hooks/useClientUser";
 import { completedName, dateDDMMYYYYMask } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
@@ -28,7 +29,9 @@ export default function EditChargesModal() {
     verifyDate,
     setVerifyDate,
   } = useCharges();
-  const { toke } = useUser();
+  const { token, setGetInformationClientDetail, getInformationClientDetail } =
+    useUser();
+  const { idClientDetail } = useClientUser();
   const navigate = useNavigate();
   const inputRef = useRef(null);
   let validate = 0;
@@ -100,7 +103,8 @@ export default function EditChargesModal() {
           ...openModalEditCharges,
           status: false,
         }));
-        !idClientDetail && ListCharges();
+        idClientDetail && ListCharges();
+        setGetInformationClientDetail(!getInformationClientDetail);
 
         toast.success("Cobrança Atualizada com Sucesso!", {
           className: "customToastify-success",
