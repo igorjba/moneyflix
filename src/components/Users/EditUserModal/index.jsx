@@ -26,12 +26,11 @@ export default function EditUserModal({ setOpenModalEdit }) {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
     const inputRef = useRef(null);
-    let validate = 0
 
     useEffect(() => {
         setNumberCPF(cpfMask(getProfile.cpf));
         setNumberTel(cellPhoneMask(getProfile.telefone));
-        setGetProfile({...getProfile, nome: completedName(getProfile.nome)})
+        setGetProfile({ ...getProfile, nome: completedName(getProfile.nome) })
     }, []);
 
     function onclickCloseModal() {
@@ -60,20 +59,10 @@ export default function EditUserModal({ setOpenModalEdit }) {
         }
         if (getProfile.senha !== getProfile.confirmeSenha) {
             setErrorPasswordAgainEdit('As senhas não coincidem');
-            validate = validate + 1;
         }
         if (!getProfile.senhaAtual) {
             setErrorPasswordEdit('Digite sua senha')
-            validate = validate + 1
         }
-
-        const validationPasswordNew = validatePassword(getProfile.confirmeSenha)
-        if (!validationPasswordNew.isValid) {
-            setErrorPasswordAgainEdit(`${validationPasswordNew.message}`)
-        }
-
-        if(validate === 0){
-
 
         try {
             const response = await api.put('usuario/atualizar', {
@@ -110,7 +99,6 @@ export default function EditUserModal({ setOpenModalEdit }) {
                 icon: ({ theme, type }) => <img src={toastError} alt="" />
             })
         }
-    }
     }
 
     function handleChangeFormTel(e) {
@@ -160,72 +148,68 @@ export default function EditUserModal({ setOpenModalEdit }) {
     }
 
     return (
-        <div className="main-modal-flex Modal-Edit">
+        <div className="edit-user-modal Modal-Edit">
             <div className='header-ModalEdit initial'>
                 <h2>Edite seu cadastro</h2>
-                <img className='main-modal-flex-close mouse-pointer' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
+                <img className='main-modal-flex-close' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
             </div>
-            <div className='main-ModalEdit'>
-                <form onSubmit={handleSubmitEdit}>
-                    <div className='divs-inputs-form'>
-                        <div className='box-info'>
-                            <label htmlFor="nameEditUser" className='mouse-pointer'><h1>Nome*</h1></label>
-                            <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={getProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
-                            {errorName && <span className='error'><h1>{errorName}</h1></span>}
-                        </div>
-                        <div className='box-info'>
-                            <label htmlFor="emailEditUser" className='mouse-pointer'><h1>E-mail*</h1></label>
-                            <input className={`${errorEmailEdit ? 'errorLine' : ''}`} id='emailEditUser' ref={inputRef} type="text" placeholder='Digite seu e-mail' name='email' value={getProfile.email} maxLength={200} onChange={(e) => handleChangeForm(e)} />
-                            {errorEmailEdit && <span className='error'><h1>{errorEmailEdit}</h1></span>}
-                        </div>
-                        <div className='information-ModalEdit'>
-                            <div>
-                                <label htmlFor="cpfEditUser" className='mouse-pointer'><h1>CPF</h1></label>
-                                <input id='cpfEditUser' ref={inputRef} className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={(e) => handleChangeFormCPF(e)} />
-                            </div>
-                            <div>
-                                <label htmlFor="phoneEditUser" className='mouse-pointer'><h1>Telefone</h1></label>
-                                <input id='phoneEditUser' ref={inputRef} type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={16} onChange={(e) => handleChangeFormTel(e)} />
-                            </div>
-                        </div>
-                        <div className='box-info'>
-                            <label htmlFor="passwordEditUser" className='mouse-pointer'><h1>Senha Atual*</h1></label>
-                            <div className="password-input">
-                                <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} id='passwordEditUser' ref={inputRef} type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={getProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
-                                <div
-                                    className='password-toggle-visibility'
-                                    onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
-                                    style={{
-                                        backgroundImage: `url(${showPassword ? openEye : closedEye})`,
-                                    }}
-                                />
-                            </div>
-                        </div>
-                        <div className='box-info'>
-                            <label htmlFor='passwordNewEditUser' className='mouse-pointer'><h1>Nova Senha</h1></label>
-                            <div className='password-input'>
-                                <input
-                                    type={showNewPassword ? 'text' : 'password'} className={`${errorPasswordAgainEdit ? 'errorLine' : ''}`} id='passwordNewEditUser' ref={inputRef} placeholder='Digite sua Senha' name='senha' value={getProfile.senha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
-                                <div
-                                    className='password-toggle-visibility' onClick={() => setShowNewPassword((prevShowNewPassword) => !prevShowNewPassword)}
-                                    style={{ backgroundImage: `url(${showNewPassword ? openEye : closedEye})`, }} />
-                            </div>
-                            {errorPasswordAgainEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
-                        </div>
-                        <div className='box-info'>
-                            <label htmlFor='confPasswordNewEditUser' className='mouse-pointer'><h1>Confirmar a Senha</h1></label>
-                            <div className='password-input'>
-                                <input type={showConfirmPassword ? 'text' : 'password'} className={`${errorPasswordAgainEdit ? 'errorLine' : ''}`} id='confPasswordNewEditUser' ref={inputRef} placeholder='Confirme sua senha' name='confirmeSenha' value={getProfile.confirmeSenha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
-                                <div className='password-toggle-visibility' onClick={() => setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword)} style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})`, }} />
-                            </div>
-                            {errorPasswordAgainEdit && <span className='error'><h1>{errorPasswordAgainEdit}</h1></span>}
-                        </div>
-                        <div className='ModalDiv-Button'>
-                            <button className='ModalEdit-Button'>Continuar</button>
-                        </div>
+            <form className="edit-user-modal-form" onSubmit={handleSubmitEdit}>
+                <div className='box-info'>
+                    <label htmlFor="nameEditUser" className='mouse-pointer'><h1>Nome*</h1></label>
+                    <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={getProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                    {errorName && <span className='error'>{errorName}</span>}
+                </div>
+                <div className='box-info'>
+                    <label htmlFor="emailEditUser" className='mouse-pointer'><h1>E-mail*</h1></label>
+                    <input className={`${errorEmailEdit ? 'errorLine' : ''}`} id='emailEditUser' ref={inputRef} type="text" placeholder='Digite seu e-mail' name='email' value={getProfile.email} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                    {errorEmailEdit && <span className='error'>{errorEmailEdit}</span>}
+                </div>
+                <div className='information-ModalEdit'>
+                    <div>
+                        <label htmlFor="cpfEditUser" className='mouse-pointer'><h1>CPF</h1></label>
+                        <input id='cpfEditUser' ref={inputRef} className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={(e) => handleChangeFormCPF(e)} />
                     </div>
-                </form>
-            </div >
+                    <div>
+                        <label htmlFor="phoneEditUser" className='mouse-pointer'><h1>Telefone</h1></label>
+                        <input id='phoneEditUser' ref={inputRef} type="text" placeholder='Digite seu telefone' name='telefone' value={numberTel} maxLength={16} onChange={(e) => handleChangeFormTel(e)} />
+                    </div>
+                </div>
+                <div className='box-info'>
+                    <label htmlFor="passwordEditUser" className='mouse-pointer'><h1>Senha Atual*</h1></label>
+                    <div className="password-input">
+                        <input className={`${errorPasswordEdit ? 'errorLine' : ''}`} id='passwordEditUser' ref={inputRef} type={showPassword ? "text" : "password"} placeholder='Digite sua Senha' name='senhaAtual' value={getProfile.senhaAtual} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                        <div
+                            className='password-toggle-visibility'
+                            onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
+                            style={{
+                                backgroundImage: `url(${showPassword ? openEye : closedEye})`,
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className='box-info'>
+                    <label htmlFor='passwordNewEditUser' className='mouse-pointer'><h1>Nova Senha</h1></label>
+                    <div className='password-input'>
+                        <input
+                            className={`${errorNewPasswordEdit ? 'errorLine' : ''}`} type={showNewPassword ? 'text' : 'password'} id='passwordNewEditUser' ref={inputRef} placeholder='Digite sua Senha' name='senha' value={getProfile.senha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                        <div
+                            className='password-toggle-visibility' onClick={() => setShowNewPassword((prevShowNewPassword) => !prevShowNewPassword)}
+                            style={{ backgroundImage: `url(${showNewPassword ? openEye : closedEye})`, }} />
+                    </div>
+                    {errorNewPasswordEdit && <span className='error'>{errorNewPasswordEdit}</span>}
+                </div>
+                <div className='box-info'>
+                    <label htmlFor='confPasswordNewEditUser' className='mouse-pointer'><h1>Confirmar a Senha</h1></label>
+                    <div className='password-input'>
+                        <input className={`${errorPasswordAgainEdit ? 'errorLine' : ''}`} type={showConfirmPassword ? 'text' : 'password'} id='confPasswordNewEditUser' ref={inputRef} placeholder='Confirme sua senha' name='confirmeSenha' value={getProfile.confirmeSenha} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                        <div className='password-toggle-visibility' onClick={() => setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword)} style={{ backgroundImage: `url(${showConfirmPassword ? openEye : closedEye})`, }} />
+                    </div>
+                    {errorPasswordAgainEdit && <span className='error'>{errorPasswordAgainEdit}</span>}
+                </div>
+                <div className='ModalDiv-Button'>
+                    <button className='ModalEdit-Button'>Continuar</button>
+                </div>
+            </form>
         </div >
     )
 }

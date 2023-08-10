@@ -27,7 +27,7 @@ import useUser from "../../hooks/useUser";
 import "./style.css";
 
 function Main() {
-  const {openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail} = useClient()
+  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail } = useClient()
   const {
     openModalCharges,
     openModalEditCharges,
@@ -275,18 +275,26 @@ function Main() {
             <div className="profile initial">
               <h1>{toTitleCase(nameUser)}</h1>
             </div>
-            <div className="arrow">
-              <img
-                src={setBottom}
-                alt="seta"
-                onClick={() => setModalExit(!modalExit)}
-              />
-              {modalExit && (
-                <LogoutEditUserModal
-                  setModalExit={setModalExit}
-                  setOpenModalEdit={setOpenModalEdit}
+            <div className="initial header-perfil">
+              <div className="title circle-perfil">
+                <h1>{resumeName}</h1>
+              </div>
+              <div className="profile initial">
+                <h1>{toTitleCase(nameUser)}</h1>
+              </div>
+              <div className="arrow">
+                <img
+                  src={setBottom}
+                  alt="seta"
+                  onClick={() => setModalExit(!modalExit)}
                 />
-              )}
+                {modalExit && (
+                  <LogoutEditUserModal
+                    setModalExit={setModalExit}
+                    setOpenModalEdit={setOpenModalEdit}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </header>
