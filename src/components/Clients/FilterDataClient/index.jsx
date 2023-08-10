@@ -49,17 +49,7 @@ export default function FilterDataClient({ setOpenModalFilterDataClient }) {
         </div>
       </div>
       <div className="container-button-filter-data">
-        <button
-          onClick={() => {
-            verifyCheckboxFilterData
-              ? setListClientByStatus("Inadimplente")
-              : setListClientByStatus("Em dia");
-            setOpenModalFilterDataClient(false);
-            setImageNavClient(false);
-          }}
-        >
-          Aplicar
-        </button>
+        <button>Aplicar</button>
         <button onClick={() => setOpenModalFilterDataClient(false)}>
           Cancelar
         </button>

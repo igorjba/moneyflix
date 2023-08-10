@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../../../api/api.jsx";
 import clientSFont from "../../../assets/Client(2).svg";
 import filter from "../../../assets/Filter.svg";
 import lupa from "../../../assets/Lupa.svg";
 import defaulter from "../../../assets/defaulter.svg";
-import toastError from "../../../assets/toastError.svg";
 import useCharges from "../../../hooks/useCharges.jsx";
 import useClient from "../../../hooks/useClient.jsx";
 import useUser from "../../../hooks/useUser.jsx";
@@ -34,7 +32,7 @@ export default function ClientListPage() {
     ClientCadaster,
   } = useClient();
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
