@@ -24,8 +24,8 @@ export default function FilterData({setOpenModalFilterData}){
         </div>
         </div>
         <div className='container-button-filter-data'>
-     <button>Aplicar</button>
-     <button onClick={() => setOpenModalFilterData(false)}>Cancelar</button>
+        <button>Aplicar</button>
+        <button onClick={() => setOpenModalFilterData(false)}>Cancelar</button>
      </div>
      </div>
     )
