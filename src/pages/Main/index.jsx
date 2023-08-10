@@ -32,7 +32,7 @@ function Main() {
     openModalCharges,
     openModalEditCharges,
     openModalDelete,
-    openModalDetailCharges,
+    openModalDetailCharges
   } = useCharges();
   /* const [modalExit, setModalExit] = useState(false);
   const [imageNavHome, setImageNavHome] = useState(false);
