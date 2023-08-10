@@ -139,9 +139,8 @@ export default function EditChargesModal() {
                         </div>
                         <div className='container-input-value'>
                             <label htmlFor="valueInput" className='mouse-pointer'>Valor*</label>
-                            <NumericFormat
+                             <NumericFormat
                                 id='valueInput'
-                                ref={inputRef}
                                 className={`${errorValue ? 'errorChargesLine' : ''}`}
                                 value={openModalEditCharges.value / 100}
                                 thousandSeparator="."
@@ -150,8 +149,8 @@ export default function EditChargesModal() {
                                 decimalSeparator=','
                                 placeholder="0,00"
                                 name='vencimento'
-                                allowNegative={false} //não pode numero negativo
-                                fixedDecimalScale={true} //fixar numeros decimais só 2 casas nao sei confirmar
+                                allowNegative={false} 
+                                fixedDecimalScale={true} 
                                 onValueChange={(number) => { setFormEditCharges({ ...formEditCharges, valor: number.value }) }}
                             />
                             {errorValue && <span className='errorCharges'><h1>{errorValue}</h1></span>}

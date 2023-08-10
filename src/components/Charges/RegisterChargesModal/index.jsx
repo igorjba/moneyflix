@@ -144,7 +144,6 @@ export default function RegisterChargesModal() {
                             <label htmlFor="valueInput" className='mouse-pointer'>Valor*</label>
                             <NumericFormat
                                 id='valueInput'
-                                ref={inputRef}
                                 className={`${errorValue ? 'errorChargesLine' : ''}`}
                                 value={formRegisterCharges.valor}
                                 thousandSeparator="."
