@@ -16,7 +16,7 @@ function useUserProvider() {
   const [openLoading, setOpenLoading] = useState(false)
   const [openModalEditProfile, setOpenModalEditProfile] = useState(false);
   const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);
-  const [openModalRegister, setOpenModalRegister] = useState(false);
+  
   const [resumeName, setResumeName] = useState("");
   const [imageNavClient, setImageNavClient] = useState(true);
   const [imageNavHome, setImageNavHome] = useState(false);
@@ -72,19 +72,20 @@ function useUserProvider() {
   }
 
   //fazer hook so de client agora
-  const [openModalEditClient, setOpenModalEditClient] = useState(false)
+  
   const [clientDetailPage, setClientDetailPage] = useState(false)
-  const [idClientDetail, setIdClientDetail] = useState(null);
-  const [clientRegisters, setClientRegisters] = useState([]);
+  
+   const [idClientDetail, setIdClientDetail] = useState(null);
+  /*const [clientRegisters, setClientRegisters] = useState([]);
+  const [openModalRegister, setOpenModalRegister] = useState(false);
+  const [openModalEditClient, setOpenModalEditClient] = useState(false) */
 
 
 
 
+  const [getInformationClientDetail, setGetInformationClientDetail] = useState(true) //geazi porém da pra entrelacar todos - posso joga no user de client ?
 
-
-  const [getInformationClientDetail, setGetInformationClientDetail] = useState(true) //geazi porém da pra entrelacar todos
-
-  const [idListChargesClick, setIdListChargesClick] = useState([]); //detalhes do cliente, pode ser reutilizado outros
+  const [idListChargesClick, setIdListChargesClick] = useState([]); //detalhes do cliente, pode ser reutilizado outros - posso joga no user de client ?
 
   const [loggedInUser, setLoggedInUser] = useState({
     nome: '',
@@ -115,10 +116,6 @@ function useUserProvider() {
       setOpenModalEditProfile,
       title,
       setTitle,
-      openModalRegister,
-      setOpenModalRegister,
-      clientRegisters,
-      setClientRegisters,
       token,
       nameUser,
       setNameUser,
@@ -126,10 +123,8 @@ function useUserProvider() {
       setLoggedInUser,
       idListChargesClick,
       setIdListChargesClick,
-      openModalEditClient,
-      setOpenModalEditClient,
       idClientDetail,
-      setIdClientDetail,
+      setIdClientDetail, 
       clientDetailPage,
       setClientDetailPage,
       titleNameSecond,

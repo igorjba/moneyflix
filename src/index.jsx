@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
-import { UserProvider } from './contexts/UserContext';
 import './global/style.css';
 import './index.css';
 import AppRoutes from './routes/routes';

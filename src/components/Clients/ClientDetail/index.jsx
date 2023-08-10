@@ -8,6 +8,7 @@ import EditGreen from "../../../assets/Edit-green.svg";
 import editCharge from "../../../assets/Edit.svg";
 import toastError from "../../../assets/toastError.svg";
 import useCharges from "../../../hooks/useCharges.jsx";
+import useClient from "../../../hooks/useClient.jsx";
 import useUser from "../../../hooks/useUser";
 import {
   cepMask,
@@ -17,21 +18,12 @@ import {
   phoneAndCelMask2,
 } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
-import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
 import "./style.css";
 
 export default function ClientDetail() {
   const { setOpenModalCharges, setOpenModalEditCharges, setModalDelete, setOpenModalDetailCharges, openModalDetailCharges } = useCharges()
-  const {
-    setTitle,
-    token,
-    setOpenModalEditClient,
-    idClientDetail,
-    setIdListChargesClick,
-    setTitleNameSecond,
-    getInformationClientDetail,
-    setTitleNameThird
-  } = useUser();
+  const {setOpenModalEditClient, idClientDetail} = useClient()
+  const {setTitle, token, setIdListChargesClick, setTitleNameSecond, getInformationClientDetail, setTitleNameThird } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
   const [countOrderDueDate, setcountOrderDueDate] = useState(1);

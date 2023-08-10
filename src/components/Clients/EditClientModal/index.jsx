@@ -7,6 +7,7 @@ import clientSFont from "../../../assets/Client(2).svg";
 import success from "../../../assets/Success-Toast.svg";
 import closed from "../../../assets/close.svg";
 import toastError from "../../../assets/toastError.svg";
+import useClient from "../../../hooks/useClient";
 import useUser from "../../../hooks/useUser";
 import {
   cellPhoneMask,
@@ -26,13 +27,8 @@ import {
 import "./style.css";
 
 export default function EditClientModal() {
-  const {
-    setOpenModalEditClient,
-    idListChargesClick,
-    token,
-    getInformationClientDetail,
-    setGetInformationClientDetail
-  } = useUser();
+  const { idListChargesClick, token, getInformationClientDetail, setGetInformationClientDetail} = useUser();
+  const {setOpenModalEditClient} = useClient();
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorCPF, setErrorCPF] = useState("");
