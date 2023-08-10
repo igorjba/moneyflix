@@ -1,3 +1,7 @@
+.name-client {
+    text-transform: capitalize;
+}
+
 .table-client-data tr {
     border: unset !important;
 }
