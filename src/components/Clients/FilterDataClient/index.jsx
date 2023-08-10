@@ -24,9 +24,9 @@ export default function FilterDataClient({setOpenModalFilterDataClient}){
         </div>
         </div>
         <div className='container-button-filter-data'>
-     <button>Aplicar</button>
-     <button onClick={() => setOpenModalFilterDataClient(false)}>Cancelar</button>
-     </div>
-     </div>
+        <button>Aplicar</button>
+        <button onClick={() => setOpenModalFilterDataClient(false)}>Cancelar</button>
+        </div>
+         </div>
     )
 }

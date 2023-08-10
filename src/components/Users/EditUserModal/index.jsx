@@ -30,6 +30,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
     useEffect(() => {
         setNumberCPF(cpfMask(getProfile.cpf));
         setNumberTel(cellPhoneMask(getProfile.telefone));
+        setGetProfile({...getProfile, nome: completedName(getProfile.nome)})
     }, []);
 
     function onclickCloseModal() {
@@ -157,7 +158,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     <div className='divs-inputs-form'>
                         <div className='box-info'>
                             <label htmlFor="nameEditUser" className='mouse-pointer'><h1>Nome*</h1></label>
-                            <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={completedName(getProfile.nome)} maxLength={200} onChange={(e) => handleChangeForm(e)} />
+                            <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={getProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                             {errorName && <span className='error'><h1>{errorName}</h1></span>}
                         </div>
                         <div className='box-info'>
