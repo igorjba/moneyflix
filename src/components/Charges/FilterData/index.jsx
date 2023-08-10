@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import './style.css'
-import checkboxGreenFilter from '../../../assets/checkboxFilterData.svg';
+import { useState } from 'react';
 import set from "../../../assets/Set.svg";
+import checkboxGreenFilter from '../../../assets/checkboxFilterData.svg';
+import './style.css';
 
 export default function FilterData({setOpenModalFilterData}){
     const [verifyCheckboxFilterData, setVerifyCheckboxFilterData] = useState(true)
