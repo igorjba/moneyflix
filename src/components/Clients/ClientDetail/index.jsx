@@ -7,6 +7,7 @@ import deleteCharge from "../../../assets/DeleteCharge.svg";
 import EditGreen from "../../../assets/Edit-green.svg";
 import editCharge from "../../../assets/Edit.svg";
 import toastError from "../../../assets/toastError.svg";
+import useCharges from "../../../hooks/useCharges.jsx";
 import useUser from "../../../hooks/useUser";
 import {
   cepMask,
@@ -18,23 +19,19 @@ import {
 import { clearAll } from "../../../utils/localStorage";
 import ChargesModal from "../../Charges/ChargesModalDetails/index.jsx";
 import "./style.css";
-import useCharges from "../../../hooks/useCharges.jsx";
 
 export default function ClientDetail() {
+  const { setOpenModalCharges, setOpenModalEditCharges, setModalDelete, setOpenModalDetailCharges, openModalDetailCharges } = useCharges()
   const {
     setTitle,
     token,
-    idListChargesClick,
     setOpenModalEditClient,
     idClientDetail,
     setIdListChargesClick,
     setTitleNameSecond,
     getInformationClientDetail,
-    setTitleNameThird,
+    setTitleNameThird
   } = useUser();
-
-  const { setOpenModalCharges, setModalDelete, setOpenModalEditCharges } =
-    useCharges();
 
   const [detailsData, setDetailsData] = useState({});
   const [countOrderDueDate, setcountOrderDueDate] = useState(1);
@@ -174,15 +171,26 @@ export default function ClientDetail() {
     });
   }
 
-  const [selectedCharge, setSelectedCharge] = useState(null);
+  function informationEditChargesClienteDetail(event) {
+    setOpenModalEditCharges({
+      status: true,
+      id_charges: event.id_cobranca,
+      nome_user: event.nome_cliente,
+      description: event.descricao,
+      date: event.vencimento,
+      value: event.valor,
+      statusPage: event.status,
+    });
+  }
 
+  /* const [selectedCharge, setSelectedCharge] = useState(null);
   const handleChargeClick = (charge) => {
     setSelectedCharge(charge);
-  };
+  }; */
 
-  const closeModal = () => {
+/*   const closeModal = () => {
     setSelectedCharge(null);
-  };
+  }; */
 
   function informationEditCharges(event) {
     setOpenModalEditCharges({
@@ -314,23 +322,13 @@ export default function ClientDetail() {
             </tbody>
           </table>
         </div>
-
         <div className="table-charge-data tableAll ">
           <table>
             <thead>
               <tr className="table-first-title">
                 <th className="table-title">Cobranças do Cliente</th>
                 <th>
-                  <button
-                    className="addClient"
-                    onClick={() =>
-                      setOpenModalCharges({
-                        status: true,
-                        id_user: idListChargesClick.client[0].id_cliente,
-                        nome_user: idListChargesClick.client[0].nome_cliente,
-                      })
-                    }
-                  >
+                  <button className="addClient" onClick={() => setOpenModalCharges({status: true, id_user: detailsData.id_cliente, nome_user: detailsData.nome_cliente})}>
                     + Nova cobrança
                   </button>
                 </th>
@@ -474,16 +472,16 @@ export default function ClientDetail() {
               {infoClientCharges.map((charges) => {
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
-                    <td onClick={() => handleChargeClick(charges)}>
+                    <td className="mouse-pointer" onClick={() => setOpenModalDetailCharges({...openModalDetailCharges, status: true, informationDetail: { charges }})} >
                       <h1>{charges.id_cobranca}</h1>
                     </td>
-                    <td onClick={() => handleChargeClick(charges)}>
+                    <td >
                       <h1>{dateDDMMYYYYMask(charges.vencimento)}</h1>
                     </td>
-                    <td onClick={() => handleChargeClick(charges)}>
+                    <td >
                       <h1>{moneyMask(charges.valor)}</h1>
                     </td>
-                    <td onClick={() => handleChargeClick(charges)}>
+                    <td >
                       <div className="div-status-charge">
                         <h1 className="status-text">{charges.status}</h1>
                       </div>
@@ -495,32 +493,12 @@ export default function ClientDetail() {
                       <h1>{charges.descricao}</h1>
                     </td>
                     <td className="imagem-table-charge">
-                      <img
-                        className="mouse-pointer transform-image-charges"
-                        src={editCharge}
-                        alt="Editar"
-                        onClick={() => informationEditCharges(charges)}
-                      />
-                      <img
-                        className="mouse-pointer"
-                        src={deleteCharge}
-                        alt="Deletar"
-                        onClick={() =>
-                          informationDeleteChargesClientDetail(
-                            charges.id_cobranca
-                          )
-                        }
-                      />
+                      <img src={editCharge} alt="Editar" onClick={() => informationEditChargesClienteDetail(charges)} />
+                      <img className='mouse-pointer' src={deleteCharge} alt="Deletar" onClick={() => informationDeleteChargesClientDetail(charges.id_cobranca)} />
                     </td>
                   </tr>
                 );
               })}
-              {selectedCharge && (
-                <ChargesModal
-                  chargeDetails={selectedCharge}
-                  closeModal={closeModal}
-                />
-              )}
             </tbody>
           </table>
         </div>

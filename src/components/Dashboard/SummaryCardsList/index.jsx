@@ -48,11 +48,12 @@ export default function SummaryCardsList({
           {totalClient}
         </div>
       </div>
+      <div className="table-container">
       <table className="table-main-card">
         <thead className="titlesTable">
           <tr>
             <th>Clientes</th>
-            <th>{isClientData ? "ID do Cliente" : "ID da cob."}</th>
+            <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
             <th>{isClientData ? "CPF" : "Valor"}</th>
           </tr>
         </thead>
@@ -81,6 +82,7 @@ export default function SummaryCardsList({
           </tbody>
         }
       </table>
+      </div>
       <div className="footerTable initial">
         <span onClick={seeAll}>Ver todos</span>
       </div>

@@ -117,3 +117,21 @@
 .footerTable span {
   cursor: pointer;
 }
+/* Para aplicar o scroll quando pequeno a tabela no tamanho de celular*/
+.table-main-card{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-main-card th, .table-main-card td{
+  white-space: nowrap;
+}
+
+.table-container{
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.titlesTable th{
+  white-space: break-spaces; /* Deixar o ID Cliente quebrado */
+}
