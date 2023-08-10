@@ -19,7 +19,7 @@ export default function ChargesModal() {
                 <div className="charges-details">
                     <div className="info-detail">
                         <p><strong>Nome</strong></p>
-                        <p>{openModalDetailCharges.informationDetail.charges.cliente}</p>
+                        <p>{openModalDetailCharges.informationDetail.charges.cliente || openModalDetailCharges.informationDetail.charges.nome_cliente}</p>
                     </div>
                     <div className="description-detail">
                         <p><strong>Descrição</strong></p>
