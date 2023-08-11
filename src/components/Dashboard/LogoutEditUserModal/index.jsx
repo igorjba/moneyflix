@@ -10,9 +10,9 @@ import useUser from "../../../hooks/useUser";
 import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
 
-export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) {
+export default function LogoutEditUserModal() {
     const navigate = useNavigate()
-    const { setOpenModalEditProfile, token, setGetProfile, getUserDetails } = useUser();
+    const { setOpenModalEditProfile, token, setGetProfile, getUserDetails, setModalExit, setOpenModalEdit } = useUser();
 
     // async function getUserDetails() {
     //     try {
@@ -69,6 +69,7 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
     }
 
     function onClickExit() {
+        setModalExit(false)
         localStorage.clear();
         navigate('/Login')
     }
