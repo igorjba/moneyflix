@@ -56,16 +56,15 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
   async function login() {
     try {
+      setOpenLoading(true);
       const response = await api.post("/login", {
         email: localForm.email,
         senha: localForm.password,
       });
-
       if (response && response.data.id_usuario) {
         localStorage.setItem("token", `${response.data.token}`);
         localStorage.setItem("id", response.data.id_usuario);
         localStorage.setItem("name", response.data.nome_usuario);
-
         setNameUser(response.data.nome_usuario);
         setLoggedInUser({
           nome: response.data.nome_usuario,
@@ -73,24 +72,30 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           cpf: response.data.cpf,
           telefone: response.data.telefone,
         });
-
+      }
+      setTimeout(() => {
+        setOpenLoading(false);
+        navigate("/home");
         toast.success("Login bem sucedido", {
           className: "customToastify-success",
           icon: ({ theme, type }) => <img src={success} alt="" />,
         });
-        navigate("/home");
-      }
+      }, 2000);
+      
     } catch (error) {
-      toast.error(error.response.data.message, {
-        className: "customToastify-error",
-        icon: ({ theme, type }) => <img src={toastError} alt="" />,
-      });
+      
+      setTimeout(() => {
+        setOpenLoading(false);
+        toast.error(error.response.data.message, {
+          className: "customToastify-error",
+          icon: ({ theme, type }) => <img src={toastError} alt="" />,
+        });
+      }, 1500)
     }
   }
 
   const handleSubmitSignIn = (event) => {
     event.preventDefault();
-    setOpenLoading(true);
     setErrorEmail("");
     setErrorPassword("");
 
@@ -114,10 +119,10 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
     }
 
     if (!localForm.password || !localForm.email) {
-      return toast.error("Por favor preencha todos os campos", {
+      return (toast.error("Por favor preencha todos os campos", {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={toastError} alt="" />,
-      });
+      }));
     }
 
     setSignInForm({
@@ -125,15 +130,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       ...localForm,
     });
 
-    setTimeout(() => {
       login();
-      setOpenLoading(false);
-    }, 2000);
   };
-
-  function teste(e) {
-    handleSubmitSignIn(e);
-  }
 
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -210,7 +208,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       </form>
 
       <div className="container-sign-in-form-button">
-        <button className="sign-in-button" onClick={(e) => teste(e)}>
+        <button className="sign-in-button" onClick={(e) => handleSubmitSignIn(e)}>
           Entrar
         </button>
       </div>
