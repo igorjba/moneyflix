@@ -80,8 +80,8 @@ export default function HomePage() {
           TitleCard="Cobranças Pagas"
           ValueCard={
             data.totalValorPagas?.[0]?.sum === "" ||
-            data.totalValorPagas?.[0]?.sum === undefined
-              ? ""
+              data.totalValorPagas?.[0]?.sum === undefined ||
+              data.totalValorPagas?.[0]?.sum === null ? moneyMask("000")
               : moneyMask(data.totalValorPagas?.[0]?.sum)
           }
         />
@@ -91,8 +91,9 @@ export default function HomePage() {
           TitleCard="Cobranças Vencidas"
           ValueCard={
             data.totalValorVencidas?.[0]?.sum === "" ||
-            data.totalValorVencidas?.[0]?.sum === undefined
-              ? ""
+              data.totalValorVencidas?.[0]?.sum === undefined ||
+              data.totalValorVencidas?.[0]?.sum === null
+              ? moneyMask("000")
               : moneyMask(data.totalValorVencidas?.[0]?.sum)
           }
         />
@@ -102,8 +103,9 @@ export default function HomePage() {
           TitleCard="Cobranças Previstas"
           ValueCard={
             data.totalValorPendentes?.[0]?.sum === "" ||
-            data.totalValorPendentes?.[0]?.sum === undefined
-              ? ""
+              data.totalValorPendentes?.[0]?.sum === undefined ||
+              data.totalValorPendentes?.[0]?.sum === null
+              ? moneyMask("000")
               : moneyMask(data.totalValorPendentes?.[0]?.sum)
           }
         />

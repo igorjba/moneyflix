@@ -26,6 +26,7 @@ body {
 
   --border-input: #D0D5DD;
 
+  --font-clr-black: #000000;
   --font-clr-white: #F8F8F9;
   --font-clr-green: #0E8750;
   --font-clr-gray-title: #343447;
@@ -44,7 +45,7 @@ body {
   --font-clr-text-error-delete: #CC7800;
   --font-clr-text-aproved-delete: #034A2A;
   --font-clr-text-notfound-charges: #F08889;
-  
+
   --fw-regular: 400;
   --fw-medium: 600;
   --fw-bold: 700;
