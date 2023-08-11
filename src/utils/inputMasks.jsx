@@ -66,6 +66,9 @@ function cellPhoneUnmask(value) {
 }
 
 function moneyMask(value) {
+    if (!value) {
+        return
+    }
     value = value.replace(/\D/g, '');
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100);
 }
