@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import chargePink from "../../assets/Charge-Pink.svg";
 import charge from "../../assets/Charge.svg";
 import clientePink from "../../assets/Client-Pink.svg";
@@ -27,6 +27,7 @@ import useUser from "../../hooks/useUser";
 import "./style.css";
 
 function Main() {
+  const [maxWidthTextHeader, setMaxWidthTextHeader] = useState('113.8rem');
   const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail } = useClient()
   const {
     openModalCharges,
@@ -99,7 +100,7 @@ function Main() {
       setTitleNameSecond(" "), setTitleNameThird(" ");
       setImageNavClient(false),
         setClientDetailPage(false),
-        setIdClientDetail({...idClientDetail, status: false});
+        setIdClientDetail({ ...idClientDetail, status: false });
     }
   }
 
@@ -125,6 +126,14 @@ function Main() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [modalExit]);
+
+  useEffect(() => {
+    if (!imageNavHome) {
+      setMaxWidthTextHeader('113.8rem');
+    } else if (!imageNavCharge || (!imageNavClient && !idClientDetail.status) || (!imageNavClient && idClientDetail.status)) {
+      setMaxWidthTextHeader('223.4rem');
+    }
+  }, [imageNavHome, imageNavCharge, imageNavClient, idClientDetail]);
 
   return (
     <div className="initial mainBody">
@@ -154,7 +163,7 @@ function Main() {
               setImageNavHome(true),
               setImageNavCharge(true);
             setTitleNameSecond("");
-            setIdClientDetail({...idClientDetail, status: false});
+            setIdClientDetail({ ...idClientDetail, status: false });
             setTitleNameThird("");
           }}
         >
@@ -253,7 +262,7 @@ function Main() {
           </div>
         )}
         <header>
-          <div className="texts-header-container">
+          <div className="texts-header-container" style={{ maxWidth: maxWidthTextHeader }}>
             <div className="text-header-perfil">
               <h2
                 onClick={(e) => verifyTextHeader(e)}
@@ -279,7 +288,7 @@ function Main() {
                   alt="seta"
                   onClick={() => setModalExit(!modalExit)}
                 />
-                {modalExit && (<LogoutEditUserModal/>)}
+                {modalExit && (<LogoutEditUserModal />)}
               </div>
             </div>
           </div>
