@@ -100,6 +100,10 @@
     flex-direction: row;
 }
 
+.default-double-buttons-modal.register-charge-button-container {
+    margin-top: 13.6rem;
+}
+
 .button-form button {
     margin-top: 5rem;
     width: 50%;

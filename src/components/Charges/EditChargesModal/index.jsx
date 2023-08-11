@@ -70,9 +70,9 @@ export default function EditChargesModal() {
   }
   async function sendInformationEditCharges(event) {
     event.preventDefault();
-    setErrorDescription(""), 
-    setErrorDate(""), 
-    setErrorValue("");
+    setErrorDescription(""),
+      setErrorDate(""),
+      setErrorValue("");
     if (!formEditCharges.descricao) {
       setErrorDescription("Este campo deve ser preenchido");
       validate = +1;
@@ -105,9 +105,9 @@ export default function EditChargesModal() {
           className: "customToastify-success",
           icon: ({ theme, type }) => <img src={success} alt="" />,
         });
-        if(imageNavCharge){
+        if (imageNavCharge) {
           return setGetInformationClientDetail(!getInformationClientDetail);
-        }else {
+        } else {
           ListCharges()
         }
       } catch (error) {
@@ -134,12 +134,12 @@ export default function EditChargesModal() {
     }
   }
   useEffect(() => {
-    setErrorDescription(""), 
-    setErrorDate(""), 
-    setErrorValue("");
+    setErrorDescription(""),
+      setErrorDate(""),
+      setErrorValue("");
   }, []);
   return (
-    <div className="main-modal-flex modal-charge">
+    <div className="main-modal-flex modal-charge edit-charge-modal">
       <div></div>
       <img
         src={closed}
@@ -178,9 +178,8 @@ export default function EditChargesModal() {
               Descrição*
             </label>
             <textarea
-              className={`charges-input-description ${
-                errorDescription ? "errorChargesLine" : " "
-              }`}
+              className={`charges-input-description ${errorDescription ? "errorChargesLine" : " "
+                }`}
               id="descriptionInput"
               ref={inputRef}
               value={formEditCharges.descricao}
@@ -278,7 +277,7 @@ export default function EditChargesModal() {
               <h1>Cobrança Pendente</h1>
             </div>
           </div>
-          <div className="button-form initial">
+          <div className="default-double-buttons-modal edit-charges-double-buttons-modal initial">
             <button
               type="button"
               onClick={() =>
