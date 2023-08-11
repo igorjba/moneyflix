@@ -17,8 +17,8 @@ import useClient from '../../../hooks/useClient';
 
 export default function RegisterClientModal() {
   const navigate = useNavigate();
-  const {setOpenModalRegister, ClientCadaster} = useClient()
-  const {token } = useUser();
+  const { setOpenModalRegister, ClientCadaster } = useClient()
+  const { token } = useUser();
   const [form, setForm] = useState({
     nome: '',
     email: '',
@@ -84,7 +84,7 @@ export default function RegisterClientModal() {
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${cepUnmask(event.target.value)}/json/`)
-      if(response && response.data){
+      if (response && response.data) {
         setFormAdress({
           logradouro: response.data.logradouro || '',
           bairro: response.data.bairro || '',
@@ -102,9 +102,10 @@ export default function RegisterClientModal() {
         setValidationInputDisabled(false)
       }
     } catch (error) {
-    setValidationInputDisabled(false)
+      setValidationInputDisabled(false)
+    }
   }
-  }
+//   }
   function handleSubmit(event) {
     event.preventDefault();
     setErrorName('')
@@ -177,14 +178,13 @@ export default function RegisterClientModal() {
       });
     }
   }
+
   return (
-    <div className='main-Modal Modal-Register'>
-      <img className='mouse-pointer closed-Modal-Register-Client' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
-      <div className='headerModal initial'>
-        <div className='initial'>
-          <img src={clientSFont} alt="" />
-          <h2>Cadastro do Cliente</h2>
-        </div>
+    <div className='default-modal edit-client-modal'>
+      <img className='mouse-pointer default-modal-close' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
+      <div className='header-modal initial'>
+        <img src={clientSFont} alt="" />
+        <h2>Cadastro do Cliente</h2>
       </div>
       <form onSubmit={handleSubmit}>
         <div className='divs-inputs-form'>
@@ -218,10 +218,10 @@ export default function RegisterClientModal() {
           </div>
           <label htmlFor="inputCompl" className='mouse-pointer'><h1>Complemento</h1></label>
           <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
-            <div>
-              <label htmlFor="inputAdress" className='mouse-pointer'><h1>Endereço</h1></label>
-              <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
-            </div>
+          <div>
+            <label htmlFor="inputAdress" className='mouse-pointer'><h1>Endereço</h1></label>
+            <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
+          </div>
           <div className='formAndress'>
             <div>
               <label htmlFor="inputCity" className='mouse-pointer'><h1>Cidade</h1></label>
@@ -233,7 +233,7 @@ export default function RegisterClientModal() {
             </div>
           </div>
         </div>
-        <div className='formButton initial'>
+        <div className='default-double-buttons-modal initial'>
           <button type='button' onClick={() => setOpenModalRegister(false)}>Cancelar</button>
           <button type='submit'>Aplicar</button>
         </div>

@@ -100,14 +100,14 @@
     flex-direction: row;
 }
 
-.formButton button {
+.button-form button {
     margin-top: 5rem;
     width: 50%;
     height: 3.4rem;
     border-radius: 1rem;
 }
 
-.formButton button:first-child {
+.button-form button:first-child {
     margin-right: 2.4rem;
     border: 1px solid var(--bg-white-gray);
 
@@ -115,7 +115,7 @@
     color: var(--font-clr-green);
 }
 
-.formButton button:last-child {
+.button-form button:last-child {
     color: var(--font-clr-white);
     background-color: var(--bg-pink);
 }

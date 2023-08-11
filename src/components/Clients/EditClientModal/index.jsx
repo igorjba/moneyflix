@@ -27,8 +27,8 @@ import {
 import "./style.css";
 
 export default function EditClientModal() {
-  const { idListChargesClick, token, getInformationClientDetail, setGetInformationClientDetail} = useUser();
-  const {setOpenModalEditClient} = useClient();
+  const { idListChargesClick, token, getInformationClientDetail, setGetInformationClientDetail } = useUser();
+  const { setOpenModalEditClient } = useClient();
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorCPF, setErrorCPF] = useState("");
@@ -179,7 +179,7 @@ export default function EditClientModal() {
   return (
     <>
       <div className="main-Modal Modal-Register">
-        <div className="initial headerModal">
+        <div className="initial header-modal">
           <div className="initial">
             <img src={clientSFont} alt="" />
             <h2>Editar Cliente</h2>
@@ -308,11 +308,11 @@ export default function EditClientModal() {
                 />
               </div>
             </div>
-                <div className="AdressEditClientModal">
-                <label htmlFor="inputCompl" className="mouse-pointer">
+            <div className="AdressEditClientModal">
+              <label htmlFor="inputCompl" className="mouse-pointer">
                 <h1>Complemento</h1>
-                </label>
-                <input
+              </label>
+              <input
                 type="text"
                 placeholder="Digite o complemento"
                 id="inputCompl"
@@ -320,21 +320,21 @@ export default function EditClientModal() {
                 name="complemento"
                 value={formAdressEditClient.complemento}
                 onChange={(event) => handleChangeFormAdress(event)}
-                />
-                <label htmlFor="inputAdress" className="mouse-pointer">
-                  <h1>Endereço</h1>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Digite o endereço"
-                  id="inputAdress"
-                  ref={inputRef}
-                  name="logradouro"
-                  value={formAdressEditClient.logradouro}
-                  onChange={(event) => handleChangeFormAdress(event)}
-                />
-              </div>
-              <div className="formAndress">
+              />
+              <label htmlFor="inputAdress" className="mouse-pointer">
+                <h1>Endereço</h1>
+              </label>
+              <input
+                type="text"
+                placeholder="Digite o endereço"
+                id="inputAdress"
+                ref={inputRef}
+                name="logradouro"
+                value={formAdressEditClient.logradouro}
+                onChange={(event) => handleChangeFormAdress(event)}
+              />
+            </div>
+            <div className="formAndress">
               <div>
                 <label htmlFor="inputCity" className="mouse-pointer">
                   <h1>Cidade</h1>
@@ -365,7 +365,7 @@ export default function EditClientModal() {
               </div>
             </div>
           </div>
-          <div className="formButton initial">
+          <div className="button-form initial">
             <button type="button" onClick={() => setOpenModalEditClient(false)}>
               Cancelar
             </button>

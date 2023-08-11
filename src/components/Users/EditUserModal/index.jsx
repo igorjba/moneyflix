@@ -206,7 +206,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     </div>
                     {errorPasswordAgainEdit && <span className='error'>{errorPasswordAgainEdit}</span>}
                 </div>
-                <div className='modal-button-cotainer'>
+                <div className='modal-button-container'>
                     <button className='default-modal-button'>Aplicar</button>
                 </div>
             </form>
