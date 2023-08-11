@@ -279,12 +279,7 @@ function Main() {
                   alt="seta"
                   onClick={() => setModalExit(!modalExit)}
                 />
-                {modalExit && (
-                  <LogoutEditUserModal
-                    setModalExit={setModalExit}
-                    setOpenModalEdit={setOpenModalEdit}
-                  />
-                )}
+                {modalExit && (<LogoutEditUserModal/>)}
               </div>
             </div>
           </div>
