@@ -18,8 +18,8 @@ import FilterDataClient from "../FilterDataClient/index.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-  const { setTitle, token, imageNavClient } = useUser();
-  const { setOpenModalCharges, setListClientByStatus } = useCharges();
+  const { setTitle, token, imageNavClient, setListClientByStatus } = useUser();
+  const { setOpenModalCharges } = useCharges();
   const {
     setOpenModalRegister,
     setClientRegisters,
@@ -36,9 +36,6 @@ export default function ClientListPage() {
   const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false);
   const inputSearch = useRef(null);
 
-  function filterStatus(data, condition) {
-    return data.filter((client) => client.status === condition);
-  }
   function backgroundSituation() {
     const situation = document.querySelectorAll(".situation");
     situation.forEach((element) => {
@@ -107,7 +104,6 @@ export default function ClientListPage() {
     }
   }
   useEffect(() => {
-    ClientCadaster();
     backgroundSituation();
     setTitle("Clientes");
     setOpenNotFoundClient(true);

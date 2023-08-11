@@ -13,7 +13,6 @@ import { moneyMask } from "../../../utils/inputMasks.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
-import useCharges from "../../../hooks/useCharges.jsx";
 import home from "../../../assets/homeIconBlack.svg";
 
 export default function HomePage() {
@@ -25,8 +24,8 @@ export default function HomePage() {
     setImageNavClient,
     setImageNavHome,
     setImageNavCharge,
+    setListClientByStatus,
   } = useUser();
-  const { setListClientByStatus } = useCharges();
   const [data, setData] = useState({});
   const navigate = useNavigate();
 
