@@ -177,15 +177,6 @@ export default function ClientDetail() {
     });
   }
 
-  /* const [selectedCharge, setSelectedCharge] = useState(null);
-  const handleChargeClick = (charge) => {
-    setSelectedCharge(charge);
-  }; */
-
-  /*   const closeModal = () => {
-    setSelectedCharge(null);
-  }; */
-
   useEffect(() => {
     setTitle(`Clientes`);
     setTitleNameSecond(`>`);
@@ -456,7 +447,7 @@ export default function ClientDetail() {
                 <th className="description-table-header">
                   <h1>Descrição</h1>
                 </th>
-                <th className="imagem-table-header"></th>{" "}
+                <th className="imagem-table-header"></th>
               </tr>
             </thead>
             <tbody>
@@ -494,6 +485,7 @@ export default function ClientDetail() {
                     </td>
                     <td className="imagem-table-charge">
                       <img
+                        className="mouse-pointer transform-image-charges"
                         src={editCharge}
                         alt="Editar"
                         onClick={() =>

@@ -17,7 +17,16 @@ import "./style.css";
 import FilterData from "../FilterData";
 
 export default function ChargesListPage() {
-  const { backgroundSituation, ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges, openModalDetailCharges} = useCharges();
+  const {
+    backgroundSituation,
+    ListCharges,
+    infoClientCharges,
+    setInfoClientCharges,
+    setModalDelete,
+    setOpenModalEditCharges,
+    setOpenModalDetailCharges,
+    openModalDetailCharges,
+  } = useCharges();
   const { setTitle, token, imageNavClient } = useUser();
   const [countOrder, setCountOrder] = useState(1);
   const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
@@ -26,8 +35,9 @@ export default function ChargesListPage() {
   const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
   const [searchNameCharges, setSearchNameCharges] = useState("");
-  const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
-  const [openModalFilterData, setOpenModalFilterData] = useState(false)
+  const [checkListClientChargesLength, setCheckListClientChargesLength] =
+    useState(false);
+  const [openModalFilterData, setOpenModalFilterData] = useState(false);
   const inputSearch = useRef(null);
 
   function informationDeleteCharges(event) {
@@ -149,13 +159,19 @@ export default function ChargesListPage() {
   }
 
   useEffect(() => {
-    backgroundSituation();
-  }, [infoClientCharges]);
-  useEffect(() => {
-    ListCharges();
     setTitle("Cobranças");
   }, [imageNavClient]);
 
+  useEffect(() => {
+    if (!openModalFilterData) {
+      ListCharges();
+      backgroundSituation();
+    }
+  }, [openModalFilterData]);
+
+  useEffect(() => {
+    backgroundSituation();
+  }, [infoClientCharges]);
   return (
     <>
       <div className="container-page-charges initial">
@@ -165,10 +181,14 @@ export default function ChargesListPage() {
         </div>
         <div className="initial search-filter-client">
           <button className="button-filter">
-            <img src={filter} alt="Filtrar" onClick={() => setOpenModalFilterData(true)}/>
-            {openModalFilterData && 
-            <FilterData 
-            setOpenModalFilterData={setOpenModalFilterData} />}
+            <img
+              src={filter}
+              alt="Filtrar"
+              onClick={() => setOpenModalFilterData(true)}
+            />
+            {openModalFilterData && (
+              <FilterData setOpenModalFilterData={setOpenModalFilterData} />
+            )}
           </button>
           <div className="search-container">
             <input
@@ -332,7 +352,8 @@ export default function ChargesListPage() {
               {infoClientCharges.map((charges) => {
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
-                    <td className="view-detail-mouse-over-effect"
+                    <td
+                      className="view-detail-mouse-over-effect"
                       onClick={() =>
                         setOpenModalDetailCharges({
                           ...openModalDetailCharges,
@@ -344,7 +365,7 @@ export default function ChargesListPage() {
                       <h1 className="mouse-pointer nameSelectDetail">
                         {completedName(charges.cliente) === undefined
                           ? ""
-                          : completedName(charges.cliente)}{" "}
+                          : completedName(charges.cliente)}
                       </h1>
                     </td>
                     <td>

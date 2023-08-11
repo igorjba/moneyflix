@@ -1,15 +1,13 @@
 import { useState } from "react";
-import "./style.css";
 import checkboxGreenFilter from "../../../assets/checkboxFilterData.svg";
 import set from "../../../assets/Set.svg";
-import useCharges from "../../../hooks/useCharges";
 import useUser from "../../../hooks/useUser";
+import "./style.css";
 
 export default function FilterDataClient({ setOpenModalFilterDataClient }) {
   const [verifyCheckboxFilterData, setVerifyCheckboxFilterData] =
     useState(true);
-  const { setImageNavClient } = useUser();
-  const { setListClientByStatus } = useCharges();
+  const { setImageNavClient, setListClientByStatus } = useUser();
   return (
     <div className="container-modal-filter-data">
       <img className="set-Filter-Data" src={set} alt="" />
@@ -49,7 +47,17 @@ export default function FilterDataClient({ setOpenModalFilterDataClient }) {
         </div>
       </div>
       <div className="container-button-filter-data">
-        <button>Aplicar</button>
+        <button
+          onClick={() => {
+            verifyCheckboxFilterData
+              ? setListClientByStatus("Inadimplente")
+              : setListClientByStatus("Em dia");
+            setOpenModalFilterDataClient(false);
+            setImageNavClient(false);
+          }}
+        >
+          Aplicar
+        </button>
         <button onClick={() => setOpenModalFilterDataClient(false)}>
           Cancelar
         </button>
