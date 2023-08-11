@@ -7,7 +7,10 @@ function useClientUser(){
     const {token} = useUser()
     const [clientRegisters, setClientRegisters] = useState([]);
     const [openModalRegister, setOpenModalRegister] = useState(false);
-    const [idClientDetail, setIdClientDetail] = useState(null);
+    const [idClientDetail, setIdClientDetail] = useState({
+      status: false,
+      id_client: ''
+    });
     const [openModalEditClient, setOpenModalEditClient] = useState(false)
 
     async function ClientCadaster() {

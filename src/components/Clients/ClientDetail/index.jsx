@@ -51,7 +51,7 @@ export default function ClientDetail() {
 
   async function DetailCustomerData() {
     try {
-      const response = await api.get(`cliente/${idClientDetail}`, {
+      const response = await api.get(`cliente/${idClientDetail.id_client}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -190,6 +190,7 @@ export default function ClientDetail() {
     setTitle(`Clientes`);
     setTitleNameSecond(`>`);
     setTitleNameThird("Detalhes do cliente");
+    console.log(idClientDetail);
   }, []);
 
   useEffect(() => {

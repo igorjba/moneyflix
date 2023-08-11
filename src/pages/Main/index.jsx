@@ -99,7 +99,7 @@ function Main() {
       setTitleNameSecond(" "), setTitleNameThird(" ");
       setImageNavClient(false),
         setClientDetailPage(false),
-        setIdClientDetail(false);
+        setIdClientDetail({...idClientDetail, status: false});
     }
   }
 
@@ -156,7 +156,7 @@ function Main() {
               setImageNavHome(true),
               setImageNavCharge(true);
             setTitleNameSecond("");
-            setIdClientDetail(false);
+            setIdClientDetail({...idClientDetail, status: false});
             setTitleNameThird("");
           }}
         >
@@ -261,7 +261,7 @@ function Main() {
               onClick={(e) => verifyTextHeader(e)}
               className={`initial ${
                 title == "Resumo de Cobranças" ? "resume" : "titleSecond"
-              } ${!imageNavClient && idClientDetail ? "mouse-pointer" : ""}`}
+              } ${!imageNavClient && idClientDetail.status ? "mouse-pointer" : ""}`}
             >
               {title}
             </h2>
@@ -299,8 +299,8 @@ function Main() {
           </div>
         </header>
         <div className={`main ${!imageNavHome ? "dashboard" : "table"}`}>
-          {!imageNavClient && !idClientDetail && <ClientListPage />}
-          {!imageNavClient && idClientDetail && <ClientDetail />}
+          {!imageNavClient && !idClientDetail.status && <ClientListPage />}
+          {!imageNavClient && idClientDetail.status && <ClientDetail />}
           {!imageNavHome && <HomePage />}
           {!imageNavCharge && <ChargesListPage />}
         </div>

@@ -75,7 +75,7 @@ function useUserProvider() {
   
   const [clientDetailPage, setClientDetailPage] = useState(false)
   
-   const [idClientDetail, setIdClientDetail] = useState(null);
+/*    const [idClientDetail, setIdClientDetail] = useState(null); */
   /*const [clientRegisters, setClientRegisters] = useState([]);
   const [openModalRegister, setOpenModalRegister] = useState(false);
   const [openModalEditClient, setOpenModalEditClient] = useState(false) */
@@ -123,8 +123,8 @@ function useUserProvider() {
       setLoggedInUser,
       idListChargesClick,
       setIdListChargesClick,
-      idClientDetail,
-      setIdClientDetail, 
+/*       idClientDetail,
+      setIdClientDetail,  */
       clientDetailPage,
       setClientDetailPage,
       titleNameSecond,

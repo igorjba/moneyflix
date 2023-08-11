@@ -8,6 +8,7 @@ import homePinkIcon from "../../assets/homeIconPink.svg";
 import useUser from '../../hooks/useUser';
 import setBottom from "../../assets/chevron-up.svg";
 import './style.css';
+import useClient from '../../hooks/useClient';
 
 export default function BottomNav() {
     const { resumeName,
@@ -23,8 +24,9 @@ export default function BottomNav() {
         setOpenModalEdit,
         setOpenModalEditProfile,
         getUserDetails,
-        setIdClientDetail,
     } = useUser();
+
+    const {idClientDetail, setIdClientDetail } = useClient()
 
     const onClick = (type) => {
         if (type === 'home') {
@@ -34,7 +36,7 @@ export default function BottomNav() {
         } else if (type === 'client') {
             setImageNavClient(false);
             setImageNavHome(true);
-            setIdClientDetail(false);
+            setIdClientDetail({...idClientDetail, status: false});
             setImageNavCharge(true);
         } else if (type === 'charge') {
             setImageNavClient(true);

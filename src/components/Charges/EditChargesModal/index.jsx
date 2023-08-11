@@ -10,7 +10,6 @@ import success from "../../../assets/Success-Toast.svg";
 import closed from "../../../assets/close.svg";
 import useCharges from "../../../hooks/useCharges";
 import useUser from "../../../hooks/useUser";
-import useClientUser from "../../../hooks/useClientUser";
 import { completedName, dateDDMMYYYYMask } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
@@ -29,9 +28,7 @@ export default function EditChargesModal() {
     verifyDate,
     setVerifyDate,
   } = useCharges();
-  const { token, setGetInformationClientDetail, getInformationClientDetail } =
-    useUser();
-  const { idClientDetail } = useClientUser();
+  const { token, setGetInformationClientDetail, getInformationClientDetail, imageNavCharge } = useUser();
   const navigate = useNavigate();
   const inputRef = useRef(null);
   let validate = 0;
@@ -73,7 +70,9 @@ export default function EditChargesModal() {
   }
   async function sendInformationEditCharges(event) {
     event.preventDefault();
-    setErrorDescription(""), setErrorDate(""), setErrorValue("");
+    setErrorDescription(""), 
+    setErrorDate(""), 
+    setErrorValue("");
     if (!formEditCharges.descricao) {
       setErrorDescription("Este campo deve ser preenchido");
       validate = +1;
@@ -87,8 +86,7 @@ export default function EditChargesModal() {
     }
     if (validate === 0 && verifyDate === 0) {
       try {
-        const response = await api.put(
-          `cobranca/editar/${openModalEditCharges.id_charges}`,
+        const response = await api.put(`cobranca/editar/${openModalEditCharges.id_charges}`,
           {
             ...formEditCharges,
             valor: formEditCharges.valor.replace(/\./g, ""),
@@ -103,13 +101,15 @@ export default function EditChargesModal() {
           ...openModalEditCharges,
           status: false,
         }));
-        idClientDetail && ListCharges();
-        setGetInformationClientDetail(!getInformationClientDetail);
-
         toast.success("Cobrança Atualizada com Sucesso!", {
           className: "customToastify-success",
           icon: ({ theme, type }) => <img src={success} alt="" />,
         });
+        if(imageNavCharge){
+          return setGetInformationClientDetail(!getInformationClientDetail);
+        }else {
+          ListCharges()
+        }
       } catch (error) {
         if (error.response) {
           if (
@@ -134,7 +134,9 @@ export default function EditChargesModal() {
     }
   }
   useEffect(() => {
-    setErrorDescription(""), setErrorDate(""), setErrorValue("");
+    setErrorDescription(""), 
+    setErrorDate(""), 
+    setErrorValue("");
   }, []);
   return (
     <div className="main-modal-flex modal-charge">
@@ -225,7 +227,6 @@ export default function EditChargesModal() {
               </label>
               <NumericFormat
                 id="valueInput"
-                ref={inputRef}
                 className={`${errorValue ? "errorChargesLine" : ""}`}
                 value={openModalEditCharges.value / 100}
                 thousandSeparator="."

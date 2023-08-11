@@ -71,7 +71,9 @@ export default function RegisterChargesModal() {
   }
   async function sendInformationCharges(event) {
     event.preventDefault();
-    setErrorDescription(""), setErrorDate(""), setErrorValue("");
+    setErrorDescription(""), 
+    setErrorDate(""), 
+    setErrorValue("");
     if (!formRegisterCharges.descricao) {
       setErrorDescription("Este campo deve ser preenchido");
       validate = +1;
@@ -131,11 +133,13 @@ export default function RegisterChargesModal() {
     }
   }
   useEffect(() => {
-    setErrorDescription(""), setErrorDate(""), setErrorValue("");
+    setErrorDescription(""), 
+    setErrorDate(""), 
+    setErrorValue("");
   }, []);
   return (
     <div className="main-modal-flex modal-charge">
-      <div></div>
+{/*       <div></div> */}
       <img
         src={closed}
         className="main-modal-flex-close mouse-pointer"
@@ -170,9 +174,7 @@ export default function RegisterChargesModal() {
               Descrição*
             </label>
             <textarea
-              className={`charges-input-description ${
-                errorDescription ? "errorChargesLine" : " "
-              }`}
+              className={`charges-input-description ${errorDescription ? "errorChargesLine" : " "}`}
               id="descriptionInput"
               ref={inputRef}
               placeholder="Digite a descrição"
@@ -203,15 +205,8 @@ export default function RegisterChargesModal() {
                 onBlur={(event) =>
                   setFormRegisterCharges({
                     ...formRegisterCharges,
-                    vencimento: dateSendDatebase(event.target.defaultValue),
-                  })
-                }
-              />
-              {errorDate && (
-                <span className="errorCharges">
-                  <h1>{errorDate}</h1>
-                </span>
-              )}
+                    vencimento: dateSendDatebase(event.target.defaultValue),})}/>
+              {errorDate && (<span className="errorCharges"><h1>{errorDate}</h1></span>)}
             </div>
             <div className="container-input-value">
               <label htmlFor="valueInput" className="mouse-pointer">
@@ -219,7 +214,6 @@ export default function RegisterChargesModal() {
               </label>
               <NumericFormat
                 id="valueInput"
-                ref={inputRef}
                 className={`${errorValue ? "errorChargesLine" : ""}`}
                 value={formRegisterCharges.valor}
                 thousandSeparator="."
@@ -241,26 +235,14 @@ export default function RegisterChargesModal() {
           </div>
           <div>
             <h1>Status</h1>
-            <div
-              className="testeInput mouse-pointer"
-              onClick={() => statusCharges(true)}
-            >
-              <div
-                className="inputParaCheck"
-                onClick={() => statusCharges(true)}
-              >
+            <div className="testeInput mouse-pointer" onClick={() => statusCharges(true)}>
+              <div className="inputParaCheck mouse-pointer" onClick={() => statusCharges(true)}>
                 {verifyCheckbox && <img src={checkboxGreen} alt="" />}
               </div>
               <h1>Cobrança Paga</h1>
             </div>
-            <div
-              className="testeInput mouse-pointer"
-              onClick={() => statusCharges(false)}
-            >
-              <div
-                className="inputParaCheck"
-                onClick={() => statusCharges(false)}
-              >
+            <div className="testeInput mouse-pointer" onClick={() => statusCharges(false)}>
+              <div className="inputParaCheck mouse-pointer" onClick={() => statusCharges(false)}>
                 {!verifyCheckbox && <img src={checkboxGreen} alt="" />}
               </div>
               <h1>Cobrança Pendente</h1>
