@@ -131,17 +131,17 @@ export default function ClientListPage() {
         <div className="initial search-filter-client">
           <button className="addClient" onClick={() => setOpenModalRegister(true)}> + Adicionar Cliente </button>
           <button className="button-filter">
-            <img
+            <img 
               src={filter}
               alt="Filtrar"
               onClick={() => setOpenModalFilterDataClient(true)}
             />
+            </button>
             {openModalFilterDataClient && (
               <FilterDataClient
                 setOpenModalFilterDataClient={setOpenModalFilterDataClient}
               />
             )}
-          </button>
           <div className="search-container">
             <input
               placeholder="Pesquisa"

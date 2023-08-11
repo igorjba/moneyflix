@@ -186,10 +186,10 @@ export default function ChargesListPage() {
               alt="Filtrar"
               onClick={() => setOpenModalFilterData(true)}
             />
+            </button>
             {openModalFilterData && (
               <FilterData setOpenModalFilterData={setOpenModalFilterData} />
             )}
-          </button>
           <div className="search-container">
             <input
               placeholder="Pesquisa"
