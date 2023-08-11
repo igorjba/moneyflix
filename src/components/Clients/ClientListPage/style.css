@@ -62,7 +62,9 @@
 } */
 
 .header-table-client {
-    display: block;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-modal);
 }
 
 .header-table-client h1 {
