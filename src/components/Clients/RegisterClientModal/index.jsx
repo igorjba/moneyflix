@@ -104,8 +104,7 @@ export default function RegisterClientModal() {
     } catch (error) {
     setValidationInputDisabled(false)
   }
-}
-  
+  }
   function handleSubmit(event) {
     event.preventDefault();
     setErrorName('')
@@ -133,7 +132,6 @@ export default function RegisterClientModal() {
     }
     if (validate === 0) {
       sendInformation()
-      setOpenModalRegister(false)
     }
   }
   async function sendInformation() {
@@ -150,6 +148,7 @@ export default function RegisterClientModal() {
         }
       });
       ClientCadaster()
+      setOpenModalRegister(false)
       toast.success(
         'Cliente Cadastro com Sucesso!', {
         className: 'customToastify-success',
@@ -165,30 +164,11 @@ export default function RegisterClientModal() {
           navigate("/login");
         }
       }
-      toast.error(
-        error.response.data.message, {
-        className: 'customToastify-error',
-        icon: ({ theme, type }) => <img src={error} alt="" />
-      });
-    }
-  }
-/*   async function ClientCadaster() {
-    try {
-      const response = await api.get('cliente', {
-        headers: {
-          authorization: `Bearer ${token}`,
-        }
-      });
-      setClientRegisters((response.data));
-    } catch (error) {
-      if (error.response) {
-        if (error.response.status === 401 && error.response.data.message === "token expirado") {
-          clearAll()
-          navigate("/login");
-        } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-          clearAll()
-          navigate("/login");
-        }
+      if(error.response.data.message === "E-email já cadastrado!"){
+        setErrorEmail(error.response.data.message)
+      }
+      if(error.response.data.message === "CPF já cadastrado!"){
+        setErrorCPF(error.response.data.message)
       }
       toast.error(
         error.response.data.message, {
@@ -196,7 +176,7 @@ export default function RegisterClientModal() {
         icon: ({ theme, type }) => <img src={error} alt="" />
       });
     }
-  } */
+  }
   return (
     <div className='main-Modal Modal-Register'>
       <img className='mouse-pointer closed-Modal-Register-Client' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
