@@ -151,7 +151,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
         <div className="default-modal edit-user-modal">
             <div className='header-edit-modal initial'>
                 <h2>Edite seu cadastro</h2>
-                <img className='main-modal-flex-close' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
+                <img className='default-modal-close' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
             </div>
             <form className="default-modal-form" onSubmit={handleSubmitEdit}>
                 <div className='box-info'>
@@ -206,8 +206,8 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     </div>
                     {errorPasswordAgainEdit && <span className='error'>{errorPasswordAgainEdit}</span>}
                 </div>
-                <div className='ModalDiv-Button'>
-                    <button className='edit-modal-button'>Aplicar</button>
+                <div className='modal-button-cotainer'>
+                    <button className='default-modal-button'>Aplicar</button>
                 </div>
             </form>
         </div >
