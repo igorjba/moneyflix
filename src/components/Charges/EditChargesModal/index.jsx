@@ -278,7 +278,7 @@ export default function EditChargesModal() {
               <h1>Cobrança Pendente</h1>
             </div>
           </div>
-          <div className="formButton initial">
+          <div className="button-form initial">
             <button
               type="button"
               onClick={() =>

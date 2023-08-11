@@ -71,9 +71,9 @@ export default function RegisterChargesModal() {
   }
   async function sendInformationCharges(event) {
     event.preventDefault();
-    setErrorDescription(""), 
-    setErrorDate(""), 
-    setErrorValue("");
+    setErrorDescription(""),
+      setErrorDate(""),
+      setErrorValue("");
     if (!formRegisterCharges.descricao) {
       setErrorDescription("Este campo deve ser preenchido");
       validate = +1;
@@ -133,13 +133,13 @@ export default function RegisterChargesModal() {
     }
   }
   useEffect(() => {
-    setErrorDescription(""), 
-    setErrorDate(""), 
-    setErrorValue("");
+    setErrorDescription(""),
+      setErrorDate(""),
+      setErrorValue("");
   }, []);
   return (
     <div className="main-modal-flex modal-charge">
-{/*       <div></div> */}
+      {/*       <div></div> */}
       <img
         src={closed}
         className="main-modal-flex-close mouse-pointer"
@@ -205,7 +205,8 @@ export default function RegisterChargesModal() {
                 onBlur={(event) =>
                   setFormRegisterCharges({
                     ...formRegisterCharges,
-                    vencimento: dateSendDatebase(event.target.defaultValue),})}/>
+                    vencimento: dateSendDatebase(event.target.defaultValue),
+                  })} />
               {errorDate && (<span className="errorCharges"><h1>{errorDate}</h1></span>)}
             </div>
             <div className="container-input-value">
@@ -248,7 +249,7 @@ export default function RegisterChargesModal() {
               <h1>Cobrança Pendente</h1>
             </div>
           </div>
-          <div className="formButton initial">
+          <div className="button-form initial">
             <button
               type="button"
               onClick={() =>
