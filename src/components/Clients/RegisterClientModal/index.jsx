@@ -85,13 +85,14 @@ export default function RegisterClientModal() {
     try {
       const response = await apiCep.get(`${cepUnmask(event.target.value)}/json/`)
       if (response && response.data) {
-        setFormAdress({
+        setFormAdress(formAdress => ({
+          ...formAdress,
           logradouro: response.data.logradouro || '',
           bairro: response.data.bairro || '',
           cidade: response.data.localidade || '',
           estado: response.data.uf || '',
-          cep: cepUnmask(formAdress.cep) || ''
-        })
+          cep: cepUnmask(event.target.value) || ''
+        }))
       }
       setValidationInputDisabled(true)
       if (response.data.erro) {
@@ -105,7 +106,6 @@ export default function RegisterClientModal() {
       setValidationInputDisabled(false)
     }
   }
-//   }
   function handleSubmit(event) {
     event.preventDefault();
     setErrorName('')
