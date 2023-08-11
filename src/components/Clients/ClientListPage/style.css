@@ -127,3 +127,30 @@
 .image-Charges-Modal:hover {
     transform: scale(1.1);
 }
+
+.tableAll{
+    animation-duration: 1s;
+    animation-name: slidein;
+    /* animation: bounce 1s ease-in-out; */
+}
+
+@keyframes slidein {
+    from{
+        margin-right: 100%;
+        width: 300%;
+    }
+
+    to{
+        margin-right: 0%;
+        width: 100%;
+    }
+}
+
+/* @keyframes bounce {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+} */

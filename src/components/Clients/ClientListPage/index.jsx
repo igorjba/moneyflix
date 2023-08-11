@@ -120,6 +120,10 @@ export default function ClientListPage() {
   useEffect(() => {
     backgroundSituation();
   }, [clientRegisters]);
+/* 
+  useEffect(() => {
+    ClientCadaster()
+  }, []) */
 
   return (
     <>

@@ -75,20 +75,11 @@ function useUserProvider() {
     }
   }
 
-  //fazer hook so de client agora
-
-
   const [clientDetailPage, setClientDetailPage] = useState(false);
-
   const [idClientDetail, setIdClientDetail] = useState(null);
-  /*const [clientRegisters, setClientRegisters] = useState([]);
-  const [openModalRegister, setOpenModalRegister] = useState(false);
-  const [openModalEditClient, setOpenModalEditClient] = useState(false) */
-
   const [getInformationClientDetail, setGetInformationClientDetail] =
-    useState(true); //geazi porém da pra entrelacar todos - posso joga no user de client ?
-
-  const [idListChargesClick, setIdListChargesClick] = useState([]); //detalhes do cliente, pode ser reutilizado outros - posso joga no user de client ?
+    useState(true);
+  const [idListChargesClick, setIdListChargesClick] = useState([]);
 
   const [loggedInUser, setLoggedInUser] = useState({
     nome: "",

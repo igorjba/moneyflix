@@ -27,7 +27,7 @@ import useUser from "../../hooks/useUser";
 import "./style.css";
 
 function Main() {
-  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail } = useClient()
+  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail, ClientCadaster } = useClient()
   const {
     openModalCharges,
     openModalEditCharges,
@@ -156,6 +156,7 @@ function Main() {
             setTitleNameSecond("");
             setIdClientDetail({...idClientDetail, status: false});
             setTitleNameThird("");
+            /* ClientCadaster() */
           }}
         >
           <img
@@ -275,6 +276,7 @@ function Main() {
               </div>
               <div className="arrow">
                 <img
+                  className="mouse-pointer"
                   src={setBottom}
                   alt="seta"
                   onClick={() => setModalExit(!modalExit)}
