@@ -144,3 +144,7 @@
   white-space: break-spaces;
   /* Deixar o ID Cliente quebrado */
 }
+
+.extract-table-dashbord:hover{
+  background-color: rgba(237, 237, 235, 0.395);
+}
