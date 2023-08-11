@@ -1,4 +1,4 @@
-.header-ModalEdit {
+.header-edit-modal {
     justify-content: center;
     margin-bottom: 3.2rem;
 }
@@ -15,7 +15,11 @@
     border: none;
 }
 
-.Modal-Edit form input {
+.edit-user-modal.default-modal {
+    width: 49.1rem;
+}
+
+.default-modal form input {
     gap: 0.6rem;
 
     width: 100%;
@@ -29,20 +33,20 @@
     box-shadow: 0 0.1rem 0.2rem 0px rgba(16, 24, 40, 0.05);
 }
 
-.main-ModalEdit span h1 {
+.main-edit-modal span h1 {
     padding-bottom: 2rem;
 }
 
-.information-ModalEdit {
+.information-edit-modal {
     display: flex;
 }
 
-.information-ModalEdit div:first-child {
+.information-edit-modal div:first-child {
     width: 50%;
     margin-right: 2.4rem;
 }
 
-.information-ModalEdit div:last-child {
+.information-edit-modal div:last-child {
     width: 50%;
 }
 

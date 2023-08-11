@@ -148,12 +148,12 @@ export default function EditUserModal({ setOpenModalEdit }) {
     }
 
     return (
-        <div className="edit-user-modal Modal-Edit">
-            <div className='header-ModalEdit initial'>
+        <div className="default-modal edit-user-modal">
+            <div className='header-edit-modal initial'>
                 <h2>Edite seu cadastro</h2>
                 <img className='main-modal-flex-close' src={closed} alt="Fechar" onClick={(onclickCloseModal)} />
             </div>
-            <form className="edit-user-modal-form" onSubmit={handleSubmitEdit}>
+            <form className="default-modal-form" onSubmit={handleSubmitEdit}>
                 <div className='box-info'>
                     <label htmlFor="nameEditUser" className='mouse-pointer'><h1>Nome*</h1></label>
                     <input className={`${errorName ? 'errorLine' : ''}`} id='nameEditUser' ref={inputRef} type="text" placeholder='Digite seu nome' name='nome' value={getProfile.nome} maxLength={200} onChange={(e) => handleChangeForm(e)} />
@@ -164,7 +164,7 @@ export default function EditUserModal({ setOpenModalEdit }) {
                     <input className={`${errorEmailEdit ? 'errorLine' : ''}`} id='emailEditUser' ref={inputRef} type="text" placeholder='Digite seu e-mail' name='email' value={getProfile.email} maxLength={200} onChange={(e) => handleChangeForm(e)} />
                     {errorEmailEdit && <span className='error'>{errorEmailEdit}</span>}
                 </div>
-                <div className='information-ModalEdit'>
+                <div className='information-edit-modal'>
                     <div>
                         <label htmlFor="cpfEditUser" className='mouse-pointer'><h1>CPF</h1></label>
                         <input id='cpfEditUser' ref={inputRef} className='cpf' type="text" placeholder='Digite seu CPF' name='cpf' value={numberCPF} maxLength={14} onChange={(e) => handleChangeFormCPF(e)} />
