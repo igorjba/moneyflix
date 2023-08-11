@@ -79,6 +79,7 @@ function useUserProvider() {
 
   //fazer hook so de client agora
 
+
   const [clientDetailPage, setClientDetailPage] = useState(false);
 
   const [idClientDetail, setIdClientDetail] = useState(null);
@@ -110,7 +111,9 @@ function useUserProvider() {
     confirmeSenha: "",
   });
   const [listClientByStatus, setListClientByStatus] = useState("");
-  return {
+
+  return (
+    {
     setOpenModalEditProfileSuccess,
     openModalEditProfileSuccess,
     getProfile,
@@ -153,7 +156,8 @@ function useUserProvider() {
     getUserDetails,
     listClientByStatus,
     setListClientByStatus,
-  };
+  }
+  )
 }
 
 export default useUserProvider;

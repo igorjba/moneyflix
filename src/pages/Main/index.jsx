@@ -99,7 +99,7 @@ function Main() {
       setTitleNameSecond(" "), setTitleNameThird(" ");
       setImageNavClient(false),
         setClientDetailPage(false),
-        setIdClientDetail(false);
+        setIdClientDetail({...idClientDetail, status: false});
     }
   }
 
@@ -154,7 +154,7 @@ function Main() {
               setImageNavHome(true),
               setImageNavCharge(true);
             setTitleNameSecond("");
-            setIdClientDetail(false);
+            setIdClientDetail({...idClientDetail, status: false});
             setTitleNameThird("");
           }}
         >
@@ -264,6 +264,7 @@ function Main() {
               </h2>
               <h3 className="detail-client-set">{titleNameSecond}</h3>
               <h3 className="detail-cliente-title-second">{titleNameThird}</h3>
+
             </div>
             <div className="initial header-perfil">
               <div className="title circle-perfil">
@@ -289,8 +290,8 @@ function Main() {
           </div>
         </header>
         <div className={`main ${!imageNavHome ? "dashboard" : "table"}`}>
-          {!imageNavClient && !idClientDetail && <ClientListPage />}
-          {!imageNavClient && idClientDetail && <ClientDetail />}
+          {!imageNavClient && !idClientDetail.status && <ClientListPage />}
+          {!imageNavClient && idClientDetail.status && <ClientDetail />}
           {!imageNavHome && <HomePage />}
           {!imageNavCharge && <ChargesListPage />}
         </div>

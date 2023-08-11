@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import api from "../../../api/api.jsx";
 import clientSFont from "../../../assets/Client(2).svg";
@@ -14,7 +13,6 @@ import {
   cpfMask,
   phoneAndCelMask2,
 } from "../../../utils/inputMasks.jsx";
-import { clearAll } from "../../../utils/localStorage.jsx";
 import NotFoundCharges from "../../Charges/NotFoundCharges/index.jsx";
 import FilterDataClient from "../FilterDataClient/index.jsx";
 import "./style.css";
@@ -35,8 +33,7 @@ export default function ClientListPage() {
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
   const [searchNameClient, setSearchNameClient] = useState("");
   const [openNotFoundClient, setOpenNotFoundClient] = useState(true);
-  const [openModalFilterDataClient, setOpenModalFilterDataClient] =
-    useState(false);
+  const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false);
   const inputSearch = useRef(null);
 
   function backgroundSituation() {
@@ -119,6 +116,7 @@ export default function ClientListPage() {
       backgroundSituation();
     }
   }, [openModalFilterDataClient]);
+
   useEffect(() => {
     backgroundSituation();
   }, [clientRegisters]);
@@ -131,12 +129,7 @@ export default function ClientListPage() {
           <h2>Clientes</h2>
         </div>
         <div className="initial search-filter-client">
-          <button
-            className="addClient"
-            onClick={() => setOpenModalRegister(true)}
-          >
-            + Adicionar Cliente
-          </button>
+          <button className="addClient" onClick={() => setOpenModalRegister(true)}> + Adicionar Cliente </button>
           <button className="button-filter">
             <img
               src={filter}
@@ -256,11 +249,8 @@ export default function ClientListPage() {
                     <td className="view-detail-mouse-over-effect">
                       <h1
                         className="mouse-pointer nameSelectDetail"
-                        onClick={() => setIdClientDetail(client.id_cliente)}
-                      >
-                        {client.nome_cliente &&
-                          completedName(client.nome_cliente)}
-                      </h1>
+                        onClick={() => setIdClientDetail({status: true, id_client: client.id_cliente})}>
+                        {client.nome_cliente && completedName(client.nome_cliente)}</h1>
                     </td>
                     <td>
                       <h1>{cpfMask(client.cpf)}</h1>

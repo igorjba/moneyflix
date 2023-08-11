@@ -3,13 +3,15 @@ import { toast } from "react-toastify";
 import api from "../api/api";
 import useUser from "./useUser";
 
-function useClientUser() {
-  const { token, listClientByStatus } = useUser();
-  const [clientRegisters, setClientRegisters] = useState([]);
-  const [openModalRegister, setOpenModalRegister] = useState(false);
-  const [idClientDetail, setIdClientDetail] = useState(null);
-  const [openModalEditClient, setOpenModalEditClient] = useState(false);
-
+function useClientUser(){
+    const {token, listClientByStatus} = useUser()
+    const [clientRegisters, setClientRegisters] = useState([]);
+    const [openModalRegister, setOpenModalRegister] = useState(false);
+    const [idClientDetail, setIdClientDetail] = useState({
+      status: false,
+      id_client: ''
+    });
+    const [openModalEditClient, setOpenModalEditClient] = useState(false)
   function filterStatus(data, condition) {
     return data.filter((client) => client.status === condition);
   }
