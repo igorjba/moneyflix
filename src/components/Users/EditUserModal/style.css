@@ -1,21 +1,32 @@
-.header-ModalEdit {
+.header-edit-modal {
     justify-content: center;
     margin-bottom: 3.2rem;
 }
 
-.main-modal-flex-close {
+.header-edit-modal h2 {
+    font-family: var(--ff-montserrat);
+    font-style: normal;
+    font-size: var(--fz-24);
+    font-weight: var(--fw-bold);
+}
+
+/* .main-modal-flex-close {
     position: absolute;
     top: 2.4rem;
     right: 2.89rem;
 
     width: 3.2rem;
     height: 3.5512rem;
+    border: none;
 
     background-color: transparent;
-    border: none;
+} */
+
+.edit-user-modal.default-modal {
+    width: 49.1rem;
 }
 
-.Modal-Edit form input {
+/* .default-modal form input {
     gap: 0.6rem;
 
     width: 100%;
@@ -27,42 +38,34 @@
 
     background-color: var(--bg-modal);
     box-shadow: 0 0.1rem 0.2rem 0px rgba(16, 24, 40, 0.05);
-}
+} */
 
-.main-ModalEdit span h1 {
+/* .main-edit-modal span h1 {
     padding-bottom: 2rem;
-}
+} */
 
-.information-ModalEdit {
+.information-edit-modal {
     display: flex;
 }
 
-.information-ModalEdit div:first-child {
+.information-edit-modal div:first-child {
     width: 50%;
     margin-right: 2.4rem;
 }
 
-.information-ModalEdit div:last-child {
+.information-edit-modal div:last-child {
     width: 50%;
 }
 
-.ModalDiv-Button {
+.modal-button-container {
     display: flex;
     justify-content: center;
 
     width: 100%;
 }
 
-.ModalEdit-Button {
-    align-self: center;
-
-    width: 16rem;
+.default-modal-button.edit-modal-button {
     height: 3.3rem;
-    margin-top: 3rem;
-    border-radius: 1rem;
-
-    background-color: var(--bg-pink);
-    color: var(--font-clr-white);
 }
 
 .password-input {
@@ -74,10 +77,12 @@
 
 .password-toggle-visibility {
     position: absolute;
+
     right: 1.4rem;
-    transform: translateY(-50%);
     width: 20px;
     height: 20px;
+    transform: translateY(-50%);
     background-repeat: no-repeat;
+
     cursor: pointer;
 }

@@ -7,6 +7,7 @@ import clientSFont from "../../../assets/Client(2).svg";
 import success from "../../../assets/Success-Toast.svg";
 import closed from "../../../assets/close.svg";
 import toastError from "../../../assets/toastError.svg";
+import useClient from "../../../hooks/useClient";
 import useUser from "../../../hooks/useUser";
 import {
   cellPhoneMask,
@@ -26,13 +27,8 @@ import {
 import "./style.css";
 
 export default function EditClientModal() {
-  const {
-    setOpenModalEditClient,
-    idListChargesClick,
-    token,
-    getInformationClientDetail,
-    setGetInformationClientDetail
-  } = useUser();
+  const { idListChargesClick, token, getInformationClientDetail, setGetInformationClientDetail } = useUser();
+  const { setOpenModalEditClient } = useClient();
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorCPF, setErrorCPF] = useState("");
@@ -40,18 +36,18 @@ export default function EditClientModal() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    nome: idListChargesClick.client[0].nome_cliente,
-    email: idListChargesClick.client[0].email,
-    cpf: cpfMask(idListChargesClick.client[0].cpf),
-    telefone: cellPhoneMask(idListChargesClick.client[0].telefone),
+    nome: idListChargesClick.client[0].nome_cliente === null ? '' : idListChargesClick.client[0].nome_cliente,
+    email: idListChargesClick.client[0].email === null ? '' : idListChargesClick.client[0].email,
+    cpf: idListChargesClick.client[0].cpf === null ? '' : cpfMask(idListChargesClick.client[0].cpf),
+    telefone: idListChargesClick.client[0].telefone === null ? '' : cellPhoneMask(idListChargesClick.client[0].telefone),
   });
   const [formAdressEditClient, setFormAdressEditClient] = useState({
-    logradouro: idListChargesClick.client[0].endereco,
-    bairro: idListChargesClick.client[0].bairro,
+    logradouro: idListChargesClick.client[0].endereco === null ? '' : idListChargesClick.client[0].endereco,
+    bairro: idListChargesClick.client[0].bairro === null ? '' : idListChargesClick.client[0].bairro,
     cep: idListChargesClick.client[0].cep == null ? "" : idListChargesClick.client[0].cep,
-    cidade: idListChargesClick.client[0].cidade,
-    estado: idListChargesClick.client[0].estado,
-    complemento: idListChargesClick.client[0].complemento,
+    cidade: idListChargesClick.client[0].cidade === null ? '' : idListChargesClick.client[0].cidade,
+    estado: idListChargesClick.client[0].estado === null ? '' : idListChargesClick.client[0].estado,
+    complemento: idListChargesClick.client[0].complemento === null ? '' : idListChargesClick.client[0].complemento,
   });
   let validate = 0;
   function handleChangeForm(event) {
@@ -182,14 +178,14 @@ export default function EditClientModal() {
 
   return (
     <>
-      <div className="main-Modal Modal-Register">
-        <div className="initial headerModal">
+      <div className="default-modal edit-client-modal">
+        <div className="initial default-header-modal">
           <div className="initial">
             <img src={clientSFont} alt="" />
             <h2>Editar Cliente</h2>
           </div>
           <img
-            className="mousePointer"
+            className="default-modal-close mouse-pointer"
             src={closed}
             alt="fechar"
             onClick={() => setOpenModalEditClient(false)}
@@ -197,11 +193,11 @@ export default function EditClientModal() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="divs-inputs-form">
-            <label htmlFor="inputName" className="mousePointer">
-              <h1>Nome*</h1>
+            <label htmlFor="inputName" className="mouse-pointer">
+              <h1>Nome</h1>
             </label>
             <input
-              className={`${errorName ? "errorLine" : ""}`}
+              className={`${errorName ? "errorLine" : ""} disable-name`}
               type="text"
               id="inputName"
               ref={inputRef}
@@ -217,7 +213,7 @@ export default function EditClientModal() {
                 <h1>{errorName}</h1>
               </span>
             )}
-            <label htmlFor="inputEmail" className="mousePointer">
+            <label htmlFor="inputEmail" className="mouse-pointer">
               <h1>E-mail*</h1>
             </label>
             <input
@@ -238,7 +234,7 @@ export default function EditClientModal() {
             )}
             <div className="formInformation">
               <div>
-                <label htmlFor="inputCPF" className="mousePointer">
+                <label htmlFor="inputCPF" className="mouse-pointer">
                   <h1>CPF*</h1>
                 </label>
                 <input
@@ -259,7 +255,7 @@ export default function EditClientModal() {
                 )}
               </div>
               <div>
-                <label htmlFor="inputPhone" className="mousePointer">
+                <label htmlFor="inputPhone" className="mouse-pointer">
                   <h1>Telefone*</h1>
                 </label>
                 <input
@@ -280,37 +276,9 @@ export default function EditClientModal() {
                 )}
               </div>
             </div>
-            <div className="formAndress">
-              <div className="AdressEditClientModal">
-                <label htmlFor="inputAdress" className="mousePointer">
-                  <h1>Endereço</h1>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Digite o endereço"
-                  id="inputAdress"
-                  ref={inputRef}
-                  name="logradouro"
-                  value={formAdressEditClient.logradouro}
-                  onChange={(event) => handleChangeFormAdress(event)}
-                />
-              </div>
-            </div>
-            <label htmlFor="inputCompl" className="mousePointer">
-              <h1>Complemento</h1>
-            </label>
-            <input
-              type="text"
-              placeholder="Digite o complemento"
-              id="inputCompl"
-              ref={inputRef}
-              name="complemento"
-              value={formAdressEditClient.complemento}
-              onChange={(event) => handleChangeFormAdress(event)}
-            />
             <div className="formInformation">
               <div>
-                <label htmlFor="inputCEP" className="mousePointer">
+                <label htmlFor="inputCEP" className="mouse-pointer">
                   <h1>CEP</h1>
                 </label>
                 <input
@@ -326,7 +294,7 @@ export default function EditClientModal() {
                 />
               </div>
               <div>
-                <label htmlFor="inputNeighborhood" className="mousePointer">
+                <label htmlFor="inputNeighborhood" className="mouse-pointer">
                   <h1>Bairro</h1>
                 </label>
                 <input
@@ -340,9 +308,35 @@ export default function EditClientModal() {
                 />
               </div>
             </div>
+            <div className="AdressEditClientModal">
+              <label htmlFor="inputCompl" className="mouse-pointer">
+                <h1>Complemento</h1>
+              </label>
+              <input
+                type="text"
+                placeholder="Digite o complemento"
+                id="inputCompl"
+                ref={inputRef}
+                name="complemento"
+                value={formAdressEditClient.complemento}
+                onChange={(event) => handleChangeFormAdress(event)}
+              />
+              <label htmlFor="inputAdress" className="mouse-pointer">
+                <h1>Endereço</h1>
+              </label>
+              <input
+                type="text"
+                placeholder="Digite o endereço"
+                id="inputAdress"
+                ref={inputRef}
+                name="logradouro"
+                value={formAdressEditClient.logradouro}
+                onChange={(event) => handleChangeFormAdress(event)}
+              />
+            </div>
             <div className="formAndress">
               <div>
-                <label htmlFor="inputCity" className="mousePointer">
+                <label htmlFor="inputCity" className="mouse-pointer">
                   <h1>Cidade</h1>
                 </label>
                 <input
@@ -356,7 +350,7 @@ export default function EditClientModal() {
                 />
               </div>
               <div>
-                <label htmlFor="inputUF" className="mousePointer">
+                <label htmlFor="inputUF" className="mouse-pointer">
                   <h1>UF</h1>
                 </label>
                 <input
@@ -371,7 +365,7 @@ export default function EditClientModal() {
               </div>
             </div>
           </div>
-          <div className="formButton initial">
+          <div className="default-double-buttons-modal edit-client-double-buttons-modal initial">
             <button type="button" onClick={() => setOpenModalEditClient(false)}>
               Cancelar
             </button>

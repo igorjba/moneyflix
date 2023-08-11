@@ -34,3 +34,10 @@
     font-weight: var(--fw-bold);
     line-height: 130%
 }
+
+@media (max-width: 425px) {
+    .edit-user-modal-success{
+        text-align: center;
+        margin: 0 3rem;
+    }
+}

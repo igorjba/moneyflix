@@ -36,10 +36,19 @@
     display: flex;
     align-items: center;
     position: relative;
+    justify-content: flex-end;
+    gap: 1.6rem;
 
     max-width: 65.8rem;
     width: 100%;
 
+
+}
+
+@media (max-width: 768px) {
+    .search-filter-client {
+        justify-content: flex-start;
+    }
 
 }
 
@@ -50,13 +59,13 @@
 } */
 
 .button-filter {
+    
     border-radius: 1rem;
 
     background-color: var(--bg-modal);
 }
 
 .search-filter-client input {
-    /* min-width: 32.2rem; */
     flex: 1;
     max-width: 32.2rem;
     width: 100%;
@@ -114,7 +123,7 @@
     height: 0.5rem;
 }
 
-::-webkit-scrollbar-track-piece{
+::-webkit-scrollbar-track-piece {
     margin: 20px;
 }
 
@@ -170,6 +179,11 @@
     white-space: normal !important;
 }
 
+.extract-table tr:hover{
+    background-color: rgba(237, 237, 235, 0.395);
+}
+
+
 /* .description-table {
     overflow: hidden;
 } */
@@ -196,6 +210,6 @@
     margin-bottom: 0.4rem !important;
 }
 
-.mousePointer {
+.mouse-pointer {
     cursor: pointer;
 }

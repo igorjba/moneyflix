@@ -112,6 +112,10 @@ function removeSpace(value) {
 }
 
 function completedName(value) {
+    if (!value) {
+        return
+    }
+
     value = value.split(' ')
 
     let noSpace = ''
@@ -139,58 +143,58 @@ function completedName(value) {
     return nameCompleted.trimEnd()
 }
 
-function phoneAndCelMask(event){
+function phoneAndCelMask(event) {
     const inputNumberTel = event.target.value.replace(/\D/g, '')
 
-      if (inputNumberTel.length > 11) {
+    if (inputNumberTel.length > 11) {
         return;
-      }
+    }
 
-      let value = inputNumberTel;
-      let phone = '';
-      if (value.length > 0) {
+    let value = inputNumberTel;
+    let phone = '';
+    if (value.length > 0) {
         phone += '(' + value.slice(0, 2);
-      }
-      if (value.length > 2) {
+    }
+    if (value.length > 2) {
         if (value.length <= 10) {
-          phone += ') ' + value.slice(2, 6);
+            phone += ') ' + value.slice(2, 6);
         } else if (value.length === 11) {
-          phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
+            phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
         }
-      }
-      if (value.length > 6 && value.length <= 10) {
+    }
+    if (value.length > 6 && value.length <= 10) {
         phone += '-' + value.slice(6);
-      } else if (value.length === 11) {
+    } else if (value.length === 11) {
         phone += '-' + value.slice(7);
-      }
+    }
 }
 
-function phoneAndCelMask2(event){
+function phoneAndCelMask2(event) {
     const inputNumberTel = event
 
-      if (inputNumberTel.length > 11) {
+    if (inputNumberTel.length > 11) {
         return;
-      }
+    }
 
-      let value = inputNumberTel;
-      let phone = '';
-      if (value.length > 0) {
+    let value = inputNumberTel;
+    let phone = '';
+    if (value.length > 0) {
         phone += '(' + value.slice(0, 2);
-      }
-      if (value.length > 2) {
+    }
+    if (value.length > 2) {
         if (value.length <= 10) {
-          phone += ') ' + value.slice(2, 6);
+            phone += ') ' + value.slice(2, 6);
         } else if (value.length === 11) {
-          phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
+            phone += ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7);
         }
-      }
-      if (value.length > 6 && value.length <= 10) {
+    }
+    if (value.length > 6 && value.length <= 10) {
         phone += '-' + value.slice(6);
-      } else if (value.length === 11) {
+    } else if (value.length === 11) {
         phone += '-' + value.slice(7);
-      }
+    }
 
-      return phone
+    return phone
 }
 
 

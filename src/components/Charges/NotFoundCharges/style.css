@@ -12,11 +12,15 @@
     background-color: var(--bg-modal);
 }
 
+.div-error-image{
+    position: relative;
+}
+
 .modal-Not-Charges img:last-child{
     position: absolute;
 
-    top: 25rem;
-    left: 110rem
+    top: 5rem;
+    left: 35rem
 }
 
 .container-text-notfound-charges{

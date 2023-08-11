@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
-import { UserProvider } from './contexts/UserContext';
 import './global/style.css';
 import './index.css';
 import AppRoutes from './routes/routes';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <UserProvider>
       <AppRoutes
       />
       <ToastContainer
@@ -27,6 +24,5 @@ root.render(
         delay={1000}
         limit={1}
       />
-    </UserProvider>
   </>
 );

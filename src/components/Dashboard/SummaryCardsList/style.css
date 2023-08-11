@@ -13,6 +13,12 @@
   filter: drop-shadow(0px 4px 4px rgba(172, 217, 197, 0.25));
 }
 
+@media (max-width: 768px) {
+  .card {
+    max-width: 55.6rem;
+  }
+}
+
 .last-card {
   max-width: 55.6rem;
   width: 100%;
@@ -74,6 +80,10 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--font-table);
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .table-main-card thead :first-child {
@@ -106,4 +116,31 @@
 
 .footerTable span {
   cursor: pointer;
+}
+
+/* Para aplicar o scroll quando pequeno a tabela no tamanho de celular*/
+.table-main-card {
+  width: 100%;
+  border-collapse: collapse;
+
+  color: var(--font-clr-text-card);
+}
+
+.table-main-card th,
+.table-main-card td {
+  white-space: nowrap;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.titlesTable {
+  color: var(--font-clr-gray-text-modal);
+}
+
+.titlesTable th {
+  white-space: break-spaces;
+  /* Deixar o ID Cliente quebrado */
 }

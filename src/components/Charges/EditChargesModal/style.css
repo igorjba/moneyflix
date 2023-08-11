@@ -1,0 +1,168 @@
+.main-modal-flex.edit-charge-modal {
+    max-width: 57.6rem;
+}
+
+.main-modal-flex form label {
+    font-size: var(--fz-14);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-20);
+    font-family: var(--ff-nunito);
+
+    color: var(--font-clr-gray-text-modal);
+}
+
+.main-modal-flex form input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    max-width: 48.5rem;
+    width: 100%;
+    max-height: 4.4rem;
+    height: 100%;
+    margin-bottom: 1.6rem;
+    padding: 1rem 1.6rem;
+
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--border-input);
+
+    font-size: var(--fz-18);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-20);
+    font-family: var(--ff-nunito);
+
+    background-color: var(--bg-modal);
+    color: var(--font-clr-gray-text-modal);
+}
+
+.container-input-name::placeholder,
+.main-modal-flex form textarea::placeholder {
+    font-size: var(--fz-18);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-24);
+    font-family: var(--ff-nunito);
+
+    color: var(--font-clr-gray-extract-client);
+}
+
+.container-input-name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    margin-bottom: 0.8rem;
+}
+
+.container-input-name input.charges-input-name {
+    background-color: var(--bg-nav);
+}
+
+.main-modal-flex form textarea {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    max-width: 48.5rem;
+    width: 100%;
+    max-height: 8.8rem;
+    height: 100%;
+    margin-bottom: 1.6rem;
+    padding: 1rem 1.6rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--border-input);
+
+    font-size: var(--fz-16);
+    font-weight: var(--fw-regular);
+    line-height: var(--lineh-24);
+    font-family: var(--ff-nunito);
+
+    background-color: var(--bg-modal);
+    outline-color: var(--bg-pink);
+
+    color: var(--font-clr-gray-text-modal);
+}
+
+.container-inputs-value-date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.4rem;
+}
+
+.container-input-value {
+    max-width: 23.2rem;
+    width: 100%;
+}
+
+.container-input-date {
+    max-width: 23.2rem;
+    width: 100%;
+}
+
+.container-inputs-value-date input.charges-input-date {
+    display: flex;
+    flex-direction: row;
+}
+
+.default-double-buttons-modal.edit-charges-double-buttons-modal {
+    margin-top: 13.6rem;
+}
+
+.button-form button {
+    margin-top: 5rem;
+    width: 50%;
+    height: 3.4rem;
+    border-radius: 1rem;
+}
+
+.button-form button:first-child {
+    margin-right: 2.4rem;
+    border: 1px solid var(--bg-white-gray);
+
+    background-color: var(--font-clr-white);
+    color: var(--font-clr-green);
+}
+
+.button-form button:last-child {
+    color: var(--font-clr-white);
+    background-color: var(--bg-pink);
+}
+
+.testeInput {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 4.8rem;
+    padding-left: 1.6rem;
+    margin-top: 8px;
+
+    border-radius: 1rem;
+    background-color: var(--bg-nav);
+}
+
+.inputParaCheck {
+    background-color: #C8C8D7;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+
+.testeInput h1 {
+    margin-left: 8px;
+}
+
+.inputParaCheck input[type='checkbox'] {
+    display: none;
+}
+
+.errorCharges h1 {
+    color: var(--font-clr-text-error) !important;
+    margin: 4px 0 8px 0;
+}
+
+.errorChargesLine {
+    margin-bottom: 0px !important;
+    border: 1px solid var(--font-clr-text-error) !important;
+}

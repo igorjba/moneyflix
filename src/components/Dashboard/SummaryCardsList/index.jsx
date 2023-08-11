@@ -1,3 +1,4 @@
+import useCharges from "../../../hooks/useCharges";
 import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
 
@@ -9,6 +10,7 @@ export default function SummaryCardsList({
   backgroundColorTotalClient,
   isClientData = false,
   isLastCard,
+  seeAll,
 }) {
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
@@ -29,6 +31,17 @@ export default function SummaryCardsList({
     }
     return formattedValue;
   }
+  const {setOpenModalDetailCharges, openModalDetailCharges} = useCharges();
+
+  function modalDetailDashbordCharges(client){
+    if(!isClientData){
+      setOpenModalDetailCharges({ status: true, informationDetail: {charges: client}})
+    }
+    else {
+      console.log(client.id_cliente);
+    }
+  }
+
 
   return (
     <div className={`card ${isLastCard ? "last-card" : "initial-card"}`}>
@@ -47,11 +60,12 @@ export default function SummaryCardsList({
           {totalClient}
         </div>
       </div>
+      <div className="table-container">
       <table className="table-main-card">
         <thead className="titlesTable">
           <tr>
             <th>Clientes</th>
-            <th>{isClientData ? "ID do Cliente" : "ID da cob."}</th>
+            <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
             <th>{isClientData ? "CPF" : "Valor"}</th>
           </tr>
         </thead>
@@ -61,10 +75,10 @@ export default function SummaryCardsList({
               cardL.map((client) => {
                 return (
                   <tr key={client.id_cobranca || client.id_cliente}>
-                    <td>
+                    <td className="mouse-pointer" onClick={() => modalDetailDashbordCharges(client)}>
                       {client.cliente || completedName(client.nome_cliente)}
                     </td>
-                    <td>
+                    <td >
                       {isClientData
                         ? client.id_cliente
                         : client.id_cobranca || "-"}
@@ -80,8 +94,9 @@ export default function SummaryCardsList({
           </tbody>
         }
       </table>
+      </div>
       <div className="footerTable initial">
-        <span>Ver todos</span>
+        <span onClick={seeAll}>Ver todos</span>
       </div>
     </div>
   );

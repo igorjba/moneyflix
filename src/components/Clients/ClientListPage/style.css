@@ -4,6 +4,8 @@
     margin: 1.1rem 0;
 }
 
+
+
 .client-header img {
     padding-right: 1.6rem;
 }
@@ -13,7 +15,19 @@
     font-weight: var(--fw-medium);
     line-height: var(--lineh-130);
 
-    color: var(--font);
+    color: var(--font-clr-gray-text-modal);
+}
+
+@media (max-width: 768px) {
+
+    .header {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .client-header {
+        align-self: center;
+    }
 }
 
 .ClientOrder svg {
@@ -31,6 +45,7 @@
     height: 3.3rem;
     border-radius: 1rem;
     gap: 4rem;
+    margin-left: 2rem;
 
     font-size: var(--fz-18);
     font-weight: var(--fw-regular);
@@ -47,13 +62,15 @@
 } */
 
 .header-table-client {
-    display: block;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-modal);
 }
 
 .header-table-client h1 {
     font-size: var(--fz-16);
     font-weight: var(--fw-bold);
-    line-height: var(--lineh-50);
+    /* line-height: var(--lineh-50); */
     letter-spacing: 0.008rem;
 
     color: var(--font-clr-gray-text-modal);
@@ -70,7 +87,7 @@
     z-index: 4;
 }
 
-.testeee {
+.view-detail-mouse-over-effect {
     padding-left: 1rem;
 }
 
@@ -110,3 +127,30 @@
 .image-Charges-Modal:hover {
     transform: scale(1.1);
 }
+
+.tableAll{
+    animation-duration: 1s;
+    animation-name: slidein;
+    /* animation: bounce 1s ease-in-out; */
+}
+
+@keyframes slidein {
+    from{
+        margin-right: 100%;
+        width: 300%;
+    }
+
+    to{
+        margin-right: 0%;
+        width: 100%;
+    }
+}
+
+/* @keyframes bounce {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+} */

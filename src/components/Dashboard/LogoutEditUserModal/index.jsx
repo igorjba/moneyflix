@@ -10,65 +10,66 @@ import useUser from "../../../hooks/useUser";
 import { clearAll } from "../../../utils/localStorage";
 import "./style.css";
 
-export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) {
+export default function LogoutEditUserModal() {
     const navigate = useNavigate()
-    const { SetOpenModalEditProfile, token, setGetProfile } = useUser();
+    const { setOpenModalEditProfile, token, setGetProfile, getUserDetails, setModalExit, setOpenModalEdit } = useUser();
 
-    async function getUserDetails() {
-        try {
-            const response = await api.get("/usuario", {
-                headers: {
-                    authorization: token,
-                }
-            });
+    // async function getUserDetails() {
+    //     try {
+    //         const response = await api.get("/usuario", {
+    //             headers: {
+    //                 authorization: token,
+    //             }
+    //         });
 
-            if (response && response.data) {
-                setGetProfile({
-                    nome: response.data.nome_usuario || "",
-                    email: response.data.email || "",
-                    cpf: response.data.cpf || "",
-                    telefone: response.data.telefone || "",
-                    senhaAtual: "",
-                    senha: "",
-                    confirmeSenha: ""
-                });
-            } else {
-                setGetProfile({
-                    nome: '',
-                    email: '',
-                    cpf: '',
-                    telefone: '',
-                    senhaAtual: '',
-                    senha: '',
-                    confirmeSenha: ''
-                });
-            }
-        } catch (error) {
-            if (error.response) {
-                if (error.response.status === 401 && error.response.data.message === "token expirado") {
-                    clearAll()
-                    navigate("/login");
-                } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
-                    clearAll()
-                    navigate("/login");
-                }
-            }
-            toast.error(error.response.data.message, {
-                className: "customToastify-error",
-                icon: ({ theme, type }) => <img src={toastError} alt="" />,
-            });
+    //         if (response && response.data) {
+    //             setGetProfile({
+    //                 nome: response.data.nome_usuario || "",
+    //                 email: response.data.email || "",
+    //                 cpf: response.data.cpf || "",
+    //                 telefone: response.data.telefone || "",
+    //                 senhaAtual: "",
+    //                 senha: "",
+    //                 confirmeSenha: ""
+    //             });
+    //         } else {
+    //             setGetProfile({
+    //                 nome: '',
+    //                 email: '',
+    //                 cpf: '',
+    //                 telefone: '',
+    //                 senhaAtual: '',
+    //                 senha: '',
+    //                 confirmeSenha: ''
+    //             });
+    //         }
+    //     } catch (error) {
+    //         if (error.response) {
+    //             if (error.response.status === 401 && error.response.data.message === "token expirado") {
+    //                 clearAll()
+    //                 navigate("/login");
+    //             } else if (error.response.status === 400 && error.response.data.message === "Não autorizado") {
+    //                 clearAll()
+    //                 navigate("/login");
+    //             }
+    //         }
+    //         toast.error(error.response.data.message, {
+    //             className: "customToastify-error",
+    //             icon: ({ theme, type }) => <img src={toastError} alt="" />,
+    //         });
 
-        }
-    }
+    //     }
+    // }
 
     async function openModal() {
-        SetOpenModalEditProfile(true)
+        setOpenModalEditProfile(true)
         setModalExit(false);
         await getUserDetails();
         setOpenModalEdit(true)
     }
 
     function onClickExit() {
+        setModalExit(false)
         localStorage.clear();
         navigate('/Login')
     }
@@ -76,8 +77,8 @@ export default function LogoutEditUserModal({ setModalExit, setOpenModalEdit }) 
     return (
         <div id="modalExit" className='modalExit initial'>
             <img className='set' src={set} alt="" />
-            <img className="mousePointer" src={edit} alt="editar" onClick={openModal} />
-            <img className="mousePointer" src={exit} alt="sair" onClick={onClickExit} />
+            <img className="mouse-pointer" src={edit} alt="editar" onClick={openModal} />
+            <img className="mouse-pointer" src={exit} alt="sair" onClick={onClickExit} />
         </div>
     )
 }
