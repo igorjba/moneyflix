@@ -1,16 +1,16 @@
-.container-modal-filter-data {
+.container-modal-filter-data-charges {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border-radius: 3rem;
-    padding: 4rem 3.5rem;
+    padding: 3.5rem;
 
     position: absolute;
-    top: 7rem;
-    left: 8rem;
+    top: 5.5rem;
+    left: 11rem;
 
-    width: 33rem;
-    height: 33.1rem;
+    max-width: 30rem;
+    width: 100%;
     background-color: var(--bg-modal);
     box-shadow: 0px 4px 42px 0px rgba(0, 0, 0, 0.20);
 }
@@ -26,7 +26,7 @@
     z-index: 10;
 }
 
-.container-modal-filter-data label h1{
+.container-modal-filter-data-charges label h1{
     text-align: start;
     font-size: var(--fz-14);
     font-weight: var(--fw-medium);
@@ -63,19 +63,23 @@
     cursor: pointer;
 }
 
-.container-button-filter-data{
+.container-button-filter-data-charges{
     display: flex;
     flex-direction: column;
 }
 
-.container-button-filter-data :last-child{
-    margin-top: 0.5rem;
+.container-button-filter-data-charges :first-child{
+    margin-top: 3.5rem;
+}
+
+.container-button-filter-data-charges :last-child{
+    margin-top: 0.8rem;
 
     background-color: var(--bg-white-gray);
     color: var(--font-clr-green);
 }
 
-.container-modal-filter-data button {
+.container-modal-filter-data-charges button {
     height: 3.8rem;
 
     border-radius: 1rem;

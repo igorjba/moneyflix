@@ -348,7 +348,7 @@ export default function ChargesListPage() {
                 <th className="imagem-table-header"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="extract-table">
               {infoClientCharges.map((charges) => {
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>

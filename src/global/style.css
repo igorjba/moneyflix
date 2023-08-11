@@ -179,6 +179,11 @@
     white-space: normal !important;
 }
 
+.extract-table tr:hover{
+    background-color: rgba(237, 237, 235, 0.395);
+}
+
+
 /* .description-table {
     overflow: hidden;
 } */
