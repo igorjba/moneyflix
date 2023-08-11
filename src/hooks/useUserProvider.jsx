@@ -15,9 +15,7 @@ function useUserProvider() {
   const [titleNameThird, setTitleNameThird] = useState("");
   const [openLoading, setOpenLoading] = useState(false);
   const [openModalEditProfile, setOpenModalEditProfile] = useState(false);
-  const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] =
-    useState(false);
-
+  const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);
   const [resumeName, setResumeName] = useState("");
   const [imageNavClient, setImageNavClient] = useState(true);
   const [imageNavHome, setImageNavHome] = useState(false);
