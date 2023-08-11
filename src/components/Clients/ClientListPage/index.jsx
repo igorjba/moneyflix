@@ -135,8 +135,7 @@ export default function ClientListPage() {
             className="addClient"
             onClick={() => setOpenModalRegister(true)}
           >
-            {" "}
-            + Adicionar Cliente{" "}
+            + Adicionar Cliente
           </button>
           <button className="button-filter">
             <img
@@ -259,9 +258,8 @@ export default function ClientListPage() {
                         className="mouse-pointer nameSelectDetail"
                         onClick={() => setIdClientDetail(client.id_cliente)}
                       >
-                        {" "}
                         {client.nome_cliente &&
-                          completedName(client.nome_cliente)}{" "}
+                          completedName(client.nome_cliente)}
                       </h1>
                     </td>
                     <td>

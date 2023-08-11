@@ -365,7 +365,7 @@ export default function ChargesListPage() {
                       <h1 className="mouse-pointer nameSelectDetail">
                         {completedName(charges.cliente) === undefined
                           ? ""
-                          : completedName(charges.cliente)}{" "}
+                          : completedName(charges.cliente)}
                       </h1>
                     </td>
                     <td>
