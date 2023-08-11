@@ -121,8 +121,10 @@
 }
 
 .default-double-buttons-modal button {
-    width: 50%;
-    height: 3.4rem;
+    max-width: 23.15rem;
+    width: 100%;
+    /* width: 50%; */
+    height: 3.3rem;
     border-radius: 1rem;
     transform: scale(1);
 }
