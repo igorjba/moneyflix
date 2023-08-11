@@ -83,6 +83,11 @@ export default function ClientListPage() {
       nome_user: event.nome_cliente,
     });
   }
+  const handleOk = (event) => {
+    if(event.key === 'Enter'){
+      searchNameChargesList()
+    }
+  }
   async function searchNameChargesList() {
     try {
       const response = await api.get("cliente", {
@@ -103,6 +108,9 @@ export default function ClientListPage() {
       inputSearch.current.value = "";
     }
   }
+
+
+
   useEffect(() => {
     backgroundSituation();
     setTitle("Clientes");
@@ -153,6 +161,7 @@ export default function ClientListPage() {
               type="text"
               name="Filter nome"
               onChange={(e) => setSearchNameClient(e.target.value)}
+              onKeyDown={handleOk}
             />
             <img
               src={lupa}
