@@ -20,19 +20,16 @@ import FilterDataClient from "../FilterDataClient/index.jsx";
 import "./style.css";
 
 export default function ClientListPage() {
-  const { setTitle, token, imageNavClient } = useUser();
-  const { setOpenModalCharges, listClientByStatus, setListClientByStatus } =
-    useCharges();
+  const { setTitle, token, imageNavClient, setListClientByStatus } = useUser();
+  const { setOpenModalCharges } = useCharges();
   const {
     setOpenModalRegister,
     setClientRegisters,
     clientRegisters,
     setIdClientDetail,
-    openModalRegister,
     ClientCadaster,
   } = useClient();
 
-  //const navigate = useNavigate();
   const [countOrder, setCountOrder] = useState(1);
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
@@ -42,44 +39,6 @@ export default function ClientListPage() {
     useState(false);
   const inputSearch = useRef(null);
 
-  /* async function ClientCadaster() {
-    try {
-      const response = await api.get("cliente", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      if (listClientByStatus) {
-        return setClientRegisters(
-          filterStatus(response.data, listClientByStatus)
-        );
-      }
-      setClientRegisters(response.data);
-    } catch (error) {
-      if (error.response) {
-        if (
-          error.response.status === 401 &&
-          error.response.data.message === "token expirado"
-        ) {
-          clearAll();
-          navigate("/login");
-        } else if (
-          error.response.status === 400 &&
-          error.response.data.message === "Não autorizado"
-        ) {
-          clearAll();
-          navigate("/login");
-        }
-      }
-      toast.error(error.response.data.message, {
-        className: "customToastify-error",
-        icon: ({ theme, type }) => <img src={toastError} alt="" />,
-      });
-    }
-  } */
-  function filterStatus(data, condition) {
-    return data.filter((client) => client.status === condition);
-  }
   function backgroundSituation() {
     const situation = document.querySelectorAll(".situation");
     situation.forEach((element) => {
@@ -148,7 +107,6 @@ export default function ClientListPage() {
     }
   }
   useEffect(() => {
-    ClientCadaster();
     backgroundSituation();
     setTitle("Clientes");
     setOpenNotFoundClient(true);

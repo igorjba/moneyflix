@@ -40,9 +40,10 @@ function useChargesUser() {
   const [errorDescription, setErrorDescription] = useState("");
   const [errorValue, setErrorValue] = useState("");
   const [verifyDate, setVerifyDate] = useState(0);
-  const [listClientByStatus, setListClientByStatus] = useState("");
   const [infoClientCharges, setInfoClientCharges] = useState([]);
   const navigate = useNavigate();
+
+  const { listClientByStatus, setListClientByStatus } = useUser("");
 
   function filterStatus(data, condition) {
     return data.filter((client) => client.status === condition);
@@ -103,8 +104,7 @@ function useChargesUser() {
     });
   }
 
-  return (
-    {
+  return {
     openModalEditCharges,
     setOpenModalEditCharges,
     openModalCharges,
@@ -135,8 +135,7 @@ function useChargesUser() {
     setListClientByStatus,
     openModalDetailCharges,
     setOpenModalDetailCharges,
-  }
-  )
+  };
 }
 
 export default useChargesUser;
