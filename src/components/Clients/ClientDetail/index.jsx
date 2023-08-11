@@ -29,6 +29,7 @@ export default function ClientDetail() {
     openModalDetailCharges,
     infoClientCharges,
     setInfoClientCharges,
+    backgroundSituation,
   } = useCharges();
   const { setOpenModalEditClient, idClientDetail } = useClient();
   const {
@@ -95,18 +96,18 @@ export default function ClientDetail() {
     }
   }
 
-  function backgroundSituation() {
-    const status = document.querySelectorAll(".status-text");
-    status.forEach((element) => {
-      if (element.textContent === "Vencida") {
-        return element.classList.add("statusDefeated");
-      } else if (element.textContent === "Pendente") {
-        return element.classList.add("statusPending");
-      } else if (element.textContent === "Paga") {
-        return element.classList.add("statusPay");
-      }
-    });
-  }
+  // function backgroundSituation() {
+  //   const status = document.querySelectorAll(".status-text");
+  //   status.forEach((element) => {
+  //     if (element.textContent === "Vencida") {
+  //       return element.classList.add("statusDefeated");
+  //     } else if (element.textContent === "Pendente") {
+  //       return element.classList.add("statusPending");
+  //     } else if (element.textContent === "Paga") {
+  //       return element.classList.add("statusPay");
+  //     }
+  //   });
+  // }
 
   function orderIdCharges() {
     setCorArrowTopDue("#3F3F55");
@@ -181,15 +182,13 @@ export default function ClientDetail() {
     setTitle(`Clientes`);
     setTitleNameSecond(`>`);
     setTitleNameThird("Detalhes do cliente");
-    console.log(idClientDetail);
   }, []);
 
   useEffect(() => {
-    backgroundSituation();
-  }, [infoClientCharges]);
-
-  useEffect(() => {
     DetailCustomerData();
+    setTimeout(() => {
+      backgroundSituation();
+    }, 300);
   }, [getInformationClientDetail]);
 
   return (
