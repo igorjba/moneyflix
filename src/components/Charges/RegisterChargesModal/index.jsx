@@ -138,7 +138,7 @@ export default function RegisterChargesModal() {
       setErrorValue("");
   }, []);
   return (
-    <div className="main-modal-flex modal-charge">
+    <div className="main-modal-flex modal-charge register-charge-modal">
       {/*       <div></div> */}
       <img
         src={closed}
@@ -249,7 +249,7 @@ export default function RegisterChargesModal() {
               <h1>Cobrança Pendente</h1>
             </div>
           </div>
-          <div className="button-form initial">
+          <div className="default-double-buttons-modal register-charge-button-container initial">
             <button
               type="button"
               onClick={() =>
