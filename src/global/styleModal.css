@@ -56,6 +56,22 @@
     border: none;
 
     cursor: pointer;
+
+}
+
+.default-header-modal {
+    margin-bottom: 1.6rem;
+}
+
+.default-header-modal h2 {
+    margin-left: 1.6rem;
+
+    font-size: var(--fz-26);
+    font-weight: var(--fw-medium);
+    line-height: var(--lineh-130);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .default-modal form {
