@@ -165,10 +165,10 @@ export default function RegisterClientModal() {
           navigate("/login");
         }
       }
-      if(error.response.data.message === "E-email já cadastrado!"){
+      if (error.response.data.message === "E-email já cadastrado!") {
         setErrorEmail(error.response.data.message)
       }
-      if(error.response.data.message === "CPF já cadastrado!"){
+      if (error.response.data.message === "CPF já cadastrado!") {
         setErrorCPF(error.response.data.message)
       }
       toast.error(
@@ -182,7 +182,7 @@ export default function RegisterClientModal() {
   return (
     <div className='default-modal edit-client-modal'>
       <img className='mouse-pointer default-modal-close' src={closed} alt="fechar" onClick={() => setOpenModalRegister(false)} />
-      <div className='header-modal initial'>
+      <div className='default-header-modal initial'>
         <img src={clientSFont} alt="" />
         <h2>Cadastro do Cliente</h2>
       </div>

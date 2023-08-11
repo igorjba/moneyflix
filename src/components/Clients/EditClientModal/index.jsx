@@ -178,14 +178,14 @@ export default function EditClientModal() {
 
   return (
     <>
-      <div className="main-Modal Modal-Register">
-        <div className="initial header-modal">
+      <div className="default-modal edit-client-modal">
+        <div className="initial default-header-modal">
           <div className="initial">
             <img src={clientSFont} alt="" />
             <h2>Editar Cliente</h2>
           </div>
           <img
-            className="mouse-pointer"
+            className="default-modal-close mouse-pointer"
             src={closed}
             alt="fechar"
             onClick={() => setOpenModalEditClient(false)}
@@ -194,10 +194,10 @@ export default function EditClientModal() {
         <form onSubmit={handleSubmit}>
           <div className="divs-inputs-form">
             <label htmlFor="inputName" className="mouse-pointer">
-              <h1>Nome*</h1>
+              <h1>Nome</h1>
             </label>
             <input
-              className={`${errorName ? "errorLine" : ""}`}
+              className={`${errorName ? "errorLine" : ""} disable-name`}
               type="text"
               id="inputName"
               ref={inputRef}
@@ -365,7 +365,7 @@ export default function EditClientModal() {
               </div>
             </div>
           </div>
-          <div className="button-form initial">
+          <div className="default-double-buttons-modal edit-client-double-buttons-modal initial">
             <button type="button" onClick={() => setOpenModalEditClient(false)}>
               Cancelar
             </button>
