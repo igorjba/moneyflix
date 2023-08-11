@@ -74,8 +74,8 @@ export default function SummaryCardsList({
             {cardL &&
               cardL.map((client) => {
                 return (
-                  <tr key={client.id_cobranca || client.id_cliente}>
-                    <td className="mouse-pointer" onClick={() => modalDetailDashbordCharges(client)}>
+                  <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
+                    <td  >
                       {client.cliente || completedName(client.nome_cliente)}
                     </td>
                     <td >
