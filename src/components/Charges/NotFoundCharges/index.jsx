@@ -6,7 +6,7 @@ export default function NotFoundCharges(){
 
     return(
         <div className='modal-Not-Charges'>
-            <div>
+            <div className='div-error-image'>
             <img src={imageErrorNot} alt="" />
             <img src={imageErrorNot1} alt="" />
             </div>

@@ -165,7 +165,7 @@ export default function RegisterClientModal() {
           navigate("/login");
         }
       }
-      if (error.response.data.message === "E-email já cadastrado!") {
+      if (error.response.data.message === "E-mail já cadastrado!") {
         setErrorEmail(error.response.data.message)
       }
       if (error.response.data.message === "CPF já cadastrado!") {

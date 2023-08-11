@@ -157,6 +157,11 @@ export default function ChargesListPage() {
       searchNameChargesList(event);
     }
   }
+  const handleOk = (event) => {
+    if(event.key === 'Enter'){
+      searchNameChargesList()
+    }
+  }
 
   useEffect(() => {
     setTitle("Cobranças");
@@ -197,6 +202,7 @@ export default function ChargesListPage() {
               type="text"
               name="Filter nome"
               onChange={(e) => setSearchNameCharges(e.target.value)}
+              onKeyDown={handleOk}
             />
             <img
               src={lupa}
