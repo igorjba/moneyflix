@@ -21,7 +21,6 @@ function useChargesUser() {
     status: false,
     id_charges: "",
   });
-
   const [openModalCharges, setOpenModalCharges] = useState({
     status: false,
     id_user: "",
@@ -43,27 +42,29 @@ function useChargesUser() {
   const [infoClientCharges, setInfoClientCharges] = useState([]);
   const navigate = useNavigate();
 
-  const { listClientByStatus, setListClientByStatus } = useUser("");
+  /* const { listClientByStatus, setListClientByStatus } = useUser(""); */
+  /* let arrayFilter = [] */
 
-  function filterStatus(data, condition) {
-    return data.filter((client) => client.status === condition);
-  }
+  const [filterName, setFilterName] = useState('')
+
+
+
 
   async function ListCharges() {
+
+    console.log('chamo o get da api');
+
     try {
       const response = await api.get("cobranca", {
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
-
-      if (listClientByStatus) {
-        return setInfoClientCharges(
-          filterStatus(response.data, listClientByStatus)
-        );
-      }
+      
       setInfoClientCharges(response.data);
+
     } catch (error) {
+      console.log(error);
       if (error.response) {
         if (
           error.response.status === 401 &&
@@ -85,6 +86,7 @@ function useChargesUser() {
       });
     }
   }
+  
   function backgroundSituation() {
     const status = document.querySelectorAll(".status-text");
     status.forEach((element) => {
@@ -131,10 +133,16 @@ function useChargesUser() {
     verifyDate,
     openModalDelete,
     setModalDelete,
-    listClientByStatus,
-    setListClientByStatus,
+/*     listClientByStatus,
+    setListClientByStatus, */
     openModalDetailCharges,
     setOpenModalDetailCharges,
+/*     setInfoChargesFilterHome,
+    infoChargesFilterHome, */
+    /* arrayFilter, */
+    //infoChargesFilter,
+    filterName,
+    setFilterName,
   };
 }
 

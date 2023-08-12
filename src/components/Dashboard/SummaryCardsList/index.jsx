@@ -1,17 +1,15 @@
+import { useEffect } from "react";
 import useCharges from "../../../hooks/useCharges";
 import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
+import useUser from "../../../hooks/useUser";
 
-export default function SummaryCardsList({
-  iconCard,
-  titleCard,
-  totalClient,
-  cardL,
-  backgroundColorTotalClient,
-  isClientData = false,
-  isLastCard,
-  seeAll,
-}) {
+export default function SummaryCardsList({iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
+  navclient, navcharge,}) {
+
+const {ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges} = useCharges();
+const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
+
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
     let formattedValue = e;
@@ -31,7 +29,26 @@ export default function SummaryCardsList({
     }
     return formattedValue;
   }
-  const {setOpenModalDetailCharges, openModalDetailCharges} = useCharges();
+
+  async function filterAtivedInformationHome(){
+
+    if(infoClientCharges.length){
+    return (setFilterName(search),
+    setImageNavClient(navclient),
+    setImageNavHome(true),
+    setImageNavCharge(navcharge),
+    setTitleNameSecond(""),
+    setTitleNameThird(""))}
+
+    await ListCharges()
+     setFilterName(search)
+
+    setImageNavClient(navclient)
+    setImageNavHome(true)
+    setImageNavCharge(navcharge)
+    setTitleNameSecond("")
+    setTitleNameThird("")
+  }
 
   function modalDetailDashbordCharges(client){
     if(!isClientData){
@@ -41,7 +58,6 @@ export default function SummaryCardsList({
       console.log(client.id_cliente);
     }
   }
-
 
   return (
     <div className={`card ${isLastCard ? "last-card" : "initial-card"}`}>
@@ -96,7 +112,7 @@ export default function SummaryCardsList({
       </table>
       </div>
       <div className="footerTable initial">
-        <span onClick={seeAll}>Ver todos</span>
+        <span onClick={filterAtivedInformationHome}>Ver todos</span>
       </div>
     </div>
   );

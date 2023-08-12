@@ -17,28 +17,29 @@ import "./style.css";
 import FilterData from "../FilterData";
 
 export default function ChargesListPage() {
-  const {
-    backgroundSituation,
-    ListCharges,
-    infoClientCharges,
-    setInfoClientCharges,
-    setModalDelete,
-    setOpenModalEditCharges,
-    setOpenModalDetailCharges,
-    openModalDetailCharges,
-  } = useCharges();
+  const {ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges,
+    openModalDetailCharges, filterName } = useCharges();
+
   const { setTitle, token, imageNavClient } = useUser();
+
   const [countOrder, setCountOrder] = useState(1);
   const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
+
   const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
   const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
   const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
   const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
+
   const [searchNameCharges, setSearchNameCharges] = useState("");
-  const [checkListClientChargesLength, setCheckListClientChargesLength] =
-    useState(false);
+  const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
+
   const [openModalFilterData, setOpenModalFilterData] = useState(false);
   const inputSearch = useRef(null);
+
+ 
+  const [arrayFilterChargesList, setArrayFilterChargesList] = useState([])
+  let informationTableVier = filterName ? arrayFilterChargesList : infoClientCharges;
+
 
   function informationDeleteCharges(event) {
     setModalDelete({
@@ -168,15 +169,19 @@ export default function ChargesListPage() {
   }, [imageNavClient]);
 
   useEffect(() => {
-    if (!openModalFilterData) {
+    if(filterName){
+      setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+    }else if (infoClientCharges.length){
       ListCharges();
-      backgroundSituation();
+    }else if (!infoClientCharges.length){
+      ListCharges();
     }
-  }, [openModalFilterData]);
+  }, [])
 
   useEffect(() => {
-    backgroundSituation();
-  }, [infoClientCharges]);
+    setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+  },[filterName])
+
   return (
     <>
       <div className="container-page-charges initial">
@@ -193,7 +198,8 @@ export default function ChargesListPage() {
             />
             </button>
             {openModalFilterData && (
-              <FilterData setOpenModalFilterData={setOpenModalFilterData} />
+              <FilterData 
+              setOpenModalFilterData={setOpenModalFilterData} />
             )}
           <div className="search-container">
             <input
@@ -355,7 +361,10 @@ export default function ChargesListPage() {
               </tr>
             </thead>
             <tbody className="extract-table">
-              {infoClientCharges.map((charges) => {
+              {informationTableVier.map((charges) => { 
+                const statusClass = charges.status === "Vencida" ? "statusDefeated" :
+                charges.status === "Pendente" ? "statusPending" :
+                charges.status === "Paga" ? "statusPay" : ""
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
                     <td
@@ -387,7 +396,7 @@ export default function ChargesListPage() {
                     </td>
                     <td>
                       <div className="div-status-charge">
-                        <h1 className="status-text">{charges.status}</h1>
+                        <h1 className={`status-text ${statusClass}`}>{charges.status}</h1>
                       </div>
                     </td>
                     <td className="description-table-charge">
@@ -412,6 +421,7 @@ export default function ChargesListPage() {
                   </tr>
                 );
               })}
+              
             </tbody>
           </table>
         </div>

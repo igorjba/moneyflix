@@ -1,22 +1,27 @@
 import { useState } from "react";
 import set from "../../../assets/Set.svg";
 import checkboxGreenFilter from "../../../assets/checkboxFilterData.svg";
+import useCharges from "../../../hooks/useCharges";
 import useUser from "../../../hooks/useUser";
 import "./style.css";
 
 export default function FilterData({ setOpenModalFilterData }) {
   const [verifyCheckboxFilterData, setVerifyCheckboxFilterData] = useState(1);
   const { setImageNavCharge, setListClientByStatus } = useUser();
-
+  const {setFilterName} = useCharges();
+  
   function ativedFilterDataCharges(){
     if(verifyCheckboxFilterData === 1){
-      setListClientByStatus("Vencida")
+      setFilterName("Vencida")
+      
     }
     if(verifyCheckboxFilterData === 2){
-      setListClientByStatus("Pendente")
+      setFilterName("Pendente")
+     
     }
     if(verifyCheckboxFilterData === 3){
-      setListClientByStatus("Paga")
+      setFilterName("Paga")
+       
     }
     setOpenModalFilterData(false);
     setImageNavCharge(false);
