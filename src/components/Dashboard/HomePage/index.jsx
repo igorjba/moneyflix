@@ -14,6 +14,7 @@ import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
 import home from "../../../assets/homeIconBlack.svg";
+import useClient from "../../../hooks/useClient.jsx";
 
 export default function HomePage() {
   const {
@@ -26,6 +27,7 @@ export default function HomePage() {
     setImageNavCharge,
     setListClientByStatus,
   } = useUser();
+  const { idClientDetail } = useClient();
   const [data, setData] = useState({});
   const navigate = useNavigate();
 
@@ -80,8 +82,9 @@ export default function HomePage() {
           TitleCard="Cobranças Pagas"
           ValueCard={
             data.totalValorPagas?.[0]?.sum === "" ||
-              data.totalValorPagas?.[0]?.sum === undefined ||
-              data.totalValorPagas?.[0]?.sum === null ? moneyMask("000")
+            data.totalValorPagas?.[0]?.sum === undefined ||
+            data.totalValorPagas?.[0]?.sum === null
+              ? moneyMask("000")
               : moneyMask(data.totalValorPagas?.[0]?.sum)
           }
         />
@@ -91,8 +94,8 @@ export default function HomePage() {
           TitleCard="Cobranças Vencidas"
           ValueCard={
             data.totalValorVencidas?.[0]?.sum === "" ||
-              data.totalValorVencidas?.[0]?.sum === undefined ||
-              data.totalValorVencidas?.[0]?.sum === null
+            data.totalValorVencidas?.[0]?.sum === undefined ||
+            data.totalValorVencidas?.[0]?.sum === null
               ? moneyMask("000")
               : moneyMask(data.totalValorVencidas?.[0]?.sum)
           }
@@ -103,8 +106,8 @@ export default function HomePage() {
           TitleCard="Cobranças Previstas"
           ValueCard={
             data.totalValorPendentes?.[0]?.sum === "" ||
-              data.totalValorPendentes?.[0]?.sum === undefined ||
-              data.totalValorPendentes?.[0]?.sum === null
+            data.totalValorPendentes?.[0]?.sum === undefined ||
+            data.totalValorPendentes?.[0]?.sum === null
               ? moneyMask("000")
               : moneyMask(data.totalValorPendentes?.[0]?.sum)
           }
@@ -176,6 +179,7 @@ export default function HomePage() {
           seeAll={(event) => {
             setListClientByStatus("Inadimplente"),
               setImageNavClient(false),
+              (idClientDetail.status = false),
               setImageNavHome(true),
               setImageNavCharge(true),
               setTitleNameSecond(""),
@@ -196,6 +200,7 @@ export default function HomePage() {
           seeAll={(event) => {
             setListClientByStatus("Em dia"),
               setImageNavClient(false),
+              (idClientDetail.status = false),
               setImageNavHome(true),
               setImageNavCharge(true),
               setTitleNameSecond(""),
