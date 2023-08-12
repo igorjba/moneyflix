@@ -33,7 +33,8 @@ function Main() {
     openModalCharges,
     openModalEditCharges,
     openModalDelete,
-    openModalDetailCharges
+    openModalDetailCharges,
+    setFilterName
   } = useCharges();
 
   const {
@@ -183,6 +184,7 @@ function Main() {
               setImageNavCharge(false),
               setTitleNameSecond(""),
               setTitleNameThird("");
+              setFilterName("")
           }}
         >
           <img
