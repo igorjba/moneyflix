@@ -17,7 +17,7 @@ import useClient from '../../../hooks/useClient';
 
 export default function RegisterClientModal() {
   const navigate = useNavigate();
-  const { setOpenModalRegister, ClientCadaster, filterNameClient, setArrayFilterClientList, clientRegisters } = useClient()
+  const { setOpenModalRegister, ClientCadaster, filterNameClient, setArrayFilterClientList, clientRegisters, arrayFilterClientList } = useClient()
   const { token } = useUser();
   const [form, setForm] = useState({
     nome: '',
@@ -148,8 +148,20 @@ export default function RegisterClientModal() {
           authorization: token,
         }
       });
-      ClientCadaster()
+      await ClientCadaster()
+      if(filterNameClient){
+        await setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+      }
       setOpenModalRegister(false)
+      /* console.log(arrayFilterClientList);
+      if(filterNameClient){
+        return (arrayFilterClientList.unshift({ nome: form.nome,
+          cpf: cpfUnmask(form.cpf),
+          email: form.email,
+          telefone: cellPhoneUnmask(form.telefone),
+          status: "Em dia",
+          ...formAdress}));
+      } */
       toast.success(
         'Cliente Cadastro com Sucesso!', {
         className: 'customToastify-success',
@@ -189,7 +201,7 @@ export default function RegisterClientModal() {
       <form onSubmit={handleSubmit}>
         <div className='divs-inputs-form'>
           <label htmlFor="inputName" className='mouse-pointer'><h1>Nome*</h1></label>
-          <input className={`${errorName ? 'errorLine' : ''}`} type="text" id='inputName' ref={inputRef} placeholder='Digite o nome' name='nome' value={form.name} maxLength={200} onChange={(event) => handleChangeForm(event)} />
+          <input className={`${errorName ? 'errorLine' : ''}`} type="text" id='inputName' ref={inputRef} placeholder='Digite o nome' name='nome' value={form.nome} maxLength={200} onChange={(event) => handleChangeForm(event)} />
           {errorName && <span className='mainModalRegister error'><h1>{errorName}</h1></span>}
           <label htmlFor="inputEmail" className='mouse-pointer'><h1>E-mail*</h1></label>
           <input className={`${errorEmail ? 'errorLine' : ''}`} type="email" id='inputEmail' ref={inputRef} placeholder='Digite o e-mail' name='email' value={form.email} maxLength={200} onChange={(event) => handleChangeForm(event)} />
