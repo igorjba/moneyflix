@@ -43,7 +43,6 @@ function useClientUser(){
           navigate("/login");
         }
       }
-      console.log(error);
       toast.error(error.response.data.message, {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={error} alt="" />,

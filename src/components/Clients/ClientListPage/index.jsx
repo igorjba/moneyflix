@@ -32,8 +32,8 @@ export default function ClientListPage() {
   } = useClient();
 
   const [countOrder, setCountOrder] = useState(1);
-  const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
-  const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
+  const [colorArrowTop, setColorArrowTop] = useState("#3F3F55");
+  const [colorArrowBottom, setColorArrowBottom] = useState("#3F3F55");
   const [searchNameClient, setSearchNameClient] = useState("");
   const [openNotFoundClient, setOpenNotFoundClient] = useState(true);
   const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false);
@@ -84,7 +84,7 @@ export default function ClientListPage() {
     });
   }
   const handleOk = (event) => {
-    if(event.key === 'Enter'){
+    if (event.key === 'Enter') {
       searchNameChargesList()
     }
   }
@@ -155,17 +155,17 @@ export default function ClientListPage() {
         <div className="initial search-filter-client">
           <button className="addClient" onClick={() => setOpenModalRegister(true)}> + Adicionar Cliente </button>
           <button className="button-filter">
-            <img 
+            <img
               src={filter}
               alt="Filtrar"
               onClick={() => setOpenModalFilterDataClient(true)}
             />
-            </button>
-            {openModalFilterDataClient && (
-              <FilterDataClient
-                setOpenModalFilterDataClient={setOpenModalFilterDataClient}
-              />
-            )}
+          </button>
+          {openModalFilterDataClient && (
+            <FilterDataClient
+              setOpenModalFilterDataClient={setOpenModalFilterDataClient}
+            />
+          )}
           <div className="search-container">
             <input
               placeholder="Pesquisa"
@@ -206,7 +206,7 @@ export default function ClientListPage() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottom}
+                          stroke={colorArrowBottom}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -214,7 +214,7 @@ export default function ClientListPage() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottom}
+                          stroke={colorArrowBottom}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -222,7 +222,7 @@ export default function ClientListPage() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTop}
+                          stroke={colorArrowTop}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -230,7 +230,7 @@ export default function ClientListPage() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTop}
+                          stroke={colorArrowTop}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -276,7 +276,7 @@ export default function ClientListPage() {
                     <td className="view-detail-mouse-over-effect">
                       <h1
                         className="mouse-pointer nameSelectDetail"
-                        onClick={() => setIdClientDetail({status: true, id_client: client.id_cliente})}>
+                        onClick={() => setIdClientDetail({ status: true, id_client: client.id_cliente })}>
                         {client.nome_cliente && completedName(client.nome_cliente)}</h1>
                     </td>
                     <td>

@@ -34,11 +34,6 @@
     align-self: center;
 }
 
-/* .container-add-client {
-    max-width: 26.4rem;
-    width: 100%;
-} */
-
 .addClient {
     max-width: 26.4rem;
     width: 100%;
@@ -55,12 +50,6 @@
     color: var(--font-clr-white);
 }
 
-/* .addClient h1 {
-    font-size: var(--fz-18);
-    font-weight: var(--fw-regular);
-    line-height: normal;
-} */
-
 .header-table-client {
     position: sticky;
     top: 0;
@@ -70,7 +59,6 @@
 .header-table-client h1 {
     font-size: var(--fz-16);
     font-weight: var(--fw-bold);
-    /* line-height: var(--lineh-50); */
     letter-spacing: 0.008rem;
 
     color: var(--font-clr-gray-text-modal);
@@ -128,29 +116,19 @@
     transform: scale(1.1);
 }
 
-.tableAll{
+.tableAll {
     animation-duration: 1s;
     animation-name: slidein;
-    /* animation: bounce 1s ease-in-out; */
 }
 
 @keyframes slidein {
-    from{
+    from {
         margin-right: 100%;
         width: 300%;
     }
 
-    to{
+    to {
         margin-right: 0%;
         width: 100%;
     }
 }
-
-/* @keyframes bounce {
-    0% {
-        transform: translateY(-100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
-} */

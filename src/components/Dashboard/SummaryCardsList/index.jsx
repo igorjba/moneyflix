@@ -5,8 +5,8 @@ import "./style.css";
 import useUser from "../../../hooks/useUser";
 import useClientUser from "../../../hooks/useClient";
 
-export default function SummaryCardsList({iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
-  navclient, navcharge,}) {
+export default function SummaryCardsList({ iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
+  navclient, navcharge, }) {
 
 const {ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges} = useCharges();
 const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
@@ -32,18 +32,19 @@ const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
     return formattedValue;
   }
 
-  async function filterAtivedInformationHome(){
+  async function filterAtivedInformationHome() {
 
-    if(infoClientCharges.length){
-    return (setFilterName(search),
-    setImageNavClient(navclient),
-    setImageNavHome(true),
-    setImageNavCharge(navcharge),
-    setTitleNameSecond(""),
-    setTitleNameThird(""))}
+    if (infoClientCharges.length) {
+      return (setFilterName(search),
+        setImageNavClient(navclient),
+        setImageNavHome(true),
+        setImageNavCharge(navcharge),
+        setTitleNameSecond(""),
+        setTitleNameThird(""))
+    }
 
     await ListCharges()
-     setFilterName(search)
+    setFilterName(search)
 
     setImageNavClient(navclient)
     setImageNavHome(true)
@@ -53,7 +54,6 @@ const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
   }
 
   async function filterAtivedInformationHomeClient(){
-    console.log('chamou a funcao aqui ???');
 
     if(clientRegisters.length){
       return(
@@ -102,39 +102,39 @@ const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
         </div>
       </div>
       <div className="table-container">
-      <table className="table-main-card">
-        <thead className="titlesTable">
-          <tr>
-            <th>Clientes</th>
-            <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
-            <th>{isClientData ? "CPF" : "Valor"}</th>
-          </tr>
-        </thead>
-        {
-          <tbody>
-            {cardL &&
-              cardL.map((client) => {
-                return (
-                  <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
-                    <td  >
-                      {client.cliente || completedName(client.nome_cliente)}
-                    </td>
-                    <td >
-                      {isClientData
-                        ? client.id_cliente
-                        : client.id_cobranca || "-"}
-                    </td>
-                    <td>
-                      {isClientData
-                        ? maskCPF(client.cpf)
-                        : moneyMask(client.valor || "-")}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        }
-      </table>
+        <table className="table-main-card">
+          <thead className="titlesTable">
+            <tr>
+              <th>Clientes</th>
+              <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
+              <th>{isClientData ? "CPF" : "Valor"}</th>
+            </tr>
+          </thead>
+          {
+            <tbody>
+              {cardL &&
+                cardL.map((client) => {
+                  return (
+                    <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
+                      <td  >
+                        {client.cliente || completedName(client.nome_cliente)}
+                      </td>
+                      <td >
+                        {isClientData
+                          ? client.id_cliente
+                          : client.id_cobranca || "-"}
+                      </td>
+                      <td>
+                        {isClientData
+                          ? maskCPF(client.cpf)
+                          : moneyMask(client.valor || "-")}
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          }
+        </table>
       </div>
       <div className="footerTable initial">
         <span onClick={isLastCard ? filterAtivedInformationHomeClient : filterAtivedInformationHome}>Ver todos</span>
