@@ -3,13 +3,15 @@ import checkboxGreenFilter from "../../../assets/checkboxFilterData.svg";
 import set from "../../../assets/Set.svg";
 import useUser from "../../../hooks/useUser";
 import "./style.css";
+import useClient from "../../../hooks/useClient";
 
 export default function FilterDataClient({ setOpenModalFilterDataClient }) {
   const [verifyCheckboxFilterData, setVerifyCheckboxFilterData] = useState(true);
   const { setImageNavClient, setListClientByStatus } = useUser();
+  const {setFilterNameClient} = useClient();
 
   function submitButtonFilterClient(){
-    (verifyCheckboxFilterData ? setListClientByStatus("Inadimplente") : setListClientByStatus("Em dia"))
+    (verifyCheckboxFilterData ? setFilterNameClient("Inadimplente") : setFilterNameClient("Em dia"))
     setOpenModalFilterDataClient(false)
     setImageNavClient(false)
   }
