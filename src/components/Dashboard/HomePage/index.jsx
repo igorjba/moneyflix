@@ -14,6 +14,7 @@ import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
 import home from "../../../assets/homeIconBlack.svg";
+import { clearAll } from "../../../utils/localStorage.jsx";
 
 export default function HomePage() {
   const {
@@ -122,6 +123,8 @@ export default function HomePage() {
           search = {"Vencida"}
           navclient = {true}
           navcharge = {false}
+          isClientData={false}
+          isLastCard={false}
           />
         <SummaryCardsList
           titleCard="Cobranças Previstas"
@@ -134,6 +137,8 @@ export default function HomePage() {
           search = {"Pendente"}
           navclient = {true}
           navcharge = {false}
+          isClientData={false}
+          isLastCard={false}
           />
         <SummaryCardsList
           titleCard="Cobranças Pagas"
@@ -146,6 +151,8 @@ export default function HomePage() {
           search = {"Paga"}
           navclient = {true}
           navcharge = {false}
+          isClientData={false}
+          isLastCard={false}
         />
         <SummaryCardsList
           titleCard="Clientes Inadimplentes"
@@ -158,14 +165,17 @@ export default function HomePage() {
           iconCard={ClienteOverdue}
           isClientData={true}
           isLastCard={true}
-          seeAll={(event) => {
+          search={"Inadimplente"}
+          navclient = {false}
+          navcharge = {true}
+          /* seeAll={(event) => {
             setListClientByStatus("Inadimplente"),
               setImageNavClient(false),
               setImageNavHome(true),
               setImageNavCharge(true),
               setTitleNameSecond(""),
               setTitleNameThird("");
-          }}
+          }} */
         />
         <SummaryCardsList
           titleCard="Clientes em dia"
@@ -178,16 +188,17 @@ export default function HomePage() {
           iconCard={ClienteOK}
           isClientData={true}
           isLastCard={true}
-          seeAll={(event) => {
-            //esses 3 faz abrir componente e nav pro cobrança
+          search={"Em dia"}
+          navclient={false}
+          navcharge={true}
+/*           seeAll={(event) => {
               setImageNavClient(false),
               setImageNavHome(true),
               setImageNavCharge(true),
               setTitleNameSecond(""),
               setTitleNameThird(""),
-              //muda para ativar o filter
               setListClientByStatus("Em dia")
-          }}
+          }} */
         />
       </div>
     </>

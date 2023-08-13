@@ -17,7 +17,7 @@ import useClient from '../../../hooks/useClient';
 
 export default function RegisterClientModal() {
   const navigate = useNavigate();
-  const { setOpenModalRegister, ClientCadaster } = useClient()
+  const { setOpenModalRegister, ClientCadaster, filterNameClient, setArrayFilterClientList, clientRegisters } = useClient()
   const { token } = useUser();
   const [form, setForm] = useState({
     nome: '',

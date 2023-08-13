@@ -28,7 +28,7 @@ import "./style.css";
 
 function Main() {
   const [maxWidthTextHeader, setMaxWidthTextHeader] = useState('113.8rem');
-  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail } = useClient()
+  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail, setFilterNameClient } = useClient()
   const {
     openModalCharges,
     openModalEditCharges,
@@ -166,7 +166,7 @@ function Main() {
             setTitleNameSecond("");
             setIdClientDetail({ ...idClientDetail, status: false });
             setTitleNameThird("");
-            /* ClientCadaster() */
+            setFilterNameClient("")
           }}
         >
           <img

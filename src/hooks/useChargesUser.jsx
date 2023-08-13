@@ -52,8 +52,6 @@ function useChargesUser() {
 
   async function ListCharges() {
 
-    console.log('chamo o get da api');
-
     try {
       const response = await api.get("cobranca", {
         headers: {

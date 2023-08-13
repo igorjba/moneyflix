@@ -3,12 +3,14 @@ import useCharges from "../../../hooks/useCharges";
 import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
 import useUser from "../../../hooks/useUser";
+import useClientUser from "../../../hooks/useClient";
 
 export default function SummaryCardsList({iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
   navclient, navcharge,}) {
 
 const {ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges} = useCharges();
 const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
+const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
 
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
@@ -48,6 +50,29 @@ const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond
     setImageNavCharge(navcharge)
     setTitleNameSecond("")
     setTitleNameThird("")
+  }
+
+  async function filterAtivedInformationHomeClient(){
+    console.log('chamou a funcao aqui ???');
+
+    if(clientRegisters.length){
+      return(
+        setFilterNameClient(search),
+        setImageNavClient(navclient),
+        setImageNavHome(true),
+        setImageNavCharge(navcharge),
+        setTitleNameSecond(""),
+        setTitleNameThird("")
+      )}
+
+      await ClientCadaster()
+      setFilterNameClient(search)
+
+        setImageNavClient(navclient),
+        setImageNavHome(true),
+        setImageNavCharge(navcharge),
+        setTitleNameSecond(""),
+        setTitleNameThird("")
   }
 
   function modalDetailDashbordCharges(client){
@@ -112,7 +137,7 @@ const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond
       </table>
       </div>
       <div className="footerTable initial">
-        <span onClick={filterAtivedInformationHome}>Ver todos</span>
+        <span onClick={isLastCard ? filterAtivedInformationHomeClient : filterAtivedInformationHome}>Ver todos</span>
       </div>
     </div>
   );
