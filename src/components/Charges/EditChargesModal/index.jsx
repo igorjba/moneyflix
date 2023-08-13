@@ -126,7 +126,7 @@ export default function EditChargesModal() {
             navigate("/login");
           }
         }
-        toast.error(console.log(error), error.response.data.message, {
+        toast.error(error.response.data.message, {
           className: "customToastify-error",
           icon: ({ theme, type }) => <img src={error} alt="" />,
         });
@@ -234,8 +234,8 @@ export default function EditChargesModal() {
                 decimalSeparator=","
                 placeholder="0,00"
                 name="vencimento"
-                allowNegative={false} //não pode numero negativo
-                fixedDecimalScale={true} //fixar numeros decimais só 2 casas nao sei confirmar
+                allowNegative={false}
+                fixedDecimalScale={true}
                 onValueChange={(number) => {
                   setFormEditCharges({
                     ...formEditCharges,

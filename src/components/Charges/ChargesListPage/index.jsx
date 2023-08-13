@@ -23,12 +23,12 @@ export default function ChargesListPage() {
   const { setTitle, token, imageNavClient } = useUser();
 
   const [countOrder, setCountOrder] = useState(1);
-  const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
+  const [countOrderIdCharges, setCountOrderIdCharges] = useState(1);
 
-  const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
-  const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
-  const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
-  const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
+  const [colorArrowTop, setColorArrowTop] = useState("#3F3F55");
+  const [colorArrowBottom, setColorArrowBottom] = useState("#3F3F55");
+  const [colorArrowTopId, setColorArrowTopId] = useState("#3F3F55");
+  const [colorArrowBottomId, setColorArrowBottomId] = useState("#3F3F55");
 
   const [searchNameCharges, setSearchNameCharges] = useState("");
   const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
@@ -56,8 +56,8 @@ export default function ChargesListPage() {
 
         return x == y ? 0 : x > y ? 1 : -1;
       });
-      setCorArrowTop("#3F3F55");
-      setCorArrowBottom("#DA0175");
+      setColorArrowTop("#3F3F55");
+      setColorArrowBottom("#DA0175");
       setInfoClientCharges(order);
     }
     if (countOrder === 2) {
@@ -66,32 +66,32 @@ export default function ChargesListPage() {
         let y = b.cliente.toUpperCase();
         return x == y ? 0 : x < y ? 1 : -1;
       });
-      setCorArrowBottom("#3F3F55");
-      setCorArrowTop("#DA0175");
+      setColorArrowBottom("#3F3F55");
+      setColorArrowTop("#DA0175");
       setInfoClientCharges(order);
     }
     if (countOrder === 3) {
       ListCharges();
-      setCorArrowBottom("#3F3F55");
-      setCorArrowTop("#3F3F55");
+      setColorArrowBottom("#3F3F55");
+      setColorArrowTop("#3F3F55");
       setCountOrder(1);
     }
   }
   function orderIdCharges() {
-    setcountOrderIdCharges(countOrderIdCharges + 1);
+    setCountOrderIdCharges(countOrderIdCharges + 1);
     if (countOrderIdCharges === 1) {
       const orderId = infoClientCharges.slice().sort(function (a, b) {
         return a.id_cobranca - b.id_cobranca;
       });
-      setCorArrowTopId("#3F3F55");
-      setCorArrowBottomId("#DA0175");
+      setColorArrowTopId("#3F3F55");
+      setColorArrowBottomId("#DA0175");
       setInfoClientCharges(orderId);
     }
     if (countOrderIdCharges === 2) {
       ListCharges();
-      setCorArrowBottomId("#3F3F55");
-      setCorArrowTopId("#3F3F55");
-      setcountOrderIdCharges(1);
+      setColorArrowBottomId("#3F3F55");
+      setColorArrowTopId("#3F3F55");
+      setCountOrderIdCharges(1);
     }
   }
   function informationEditCharges(event) {
@@ -246,7 +246,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottom}
+                          stroke={colorArrowBottom}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -254,7 +254,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottom}
+                          stroke={colorArrowBottom}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -262,7 +262,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTop}
+                          stroke={colorArrowTop}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -270,7 +270,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTop}
+                          stroke={colorArrowTop}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -306,7 +306,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottomId}
+                          stroke={colorArrowBottomId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -314,7 +314,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottomId}
+                          stroke={colorArrowBottomId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -322,7 +322,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTopId}
+                          stroke={colorArrowTopId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -330,7 +330,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTopId}
+                          stroke={colorArrowTopId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"

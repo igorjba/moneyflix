@@ -21,7 +21,6 @@
     }
 }
 
-/* ============================================================= */
 .default-modal {
     position: relative;
 
@@ -139,7 +138,6 @@
 .default-double-buttons-modal button {
     max-width: 23.15rem;
     width: 100%;
-    /* width: 50%; */
     height: 3.3rem;
     border-radius: 1rem;
     transform: scale(1);
@@ -161,15 +159,11 @@
     transform: scale(0.9);
 }
 
-/* ============================================================= */
-
 .main-modal-flex {
     position: relative;
 
     max-width: 60rem;
     width: 100%;
-    /* max-height: 76.7rem;
-    height: 100%; */
     padding: 5.1rem 5.8rem 4rem 5.7rem;
     border-radius: 3rem;
 

@@ -16,7 +16,6 @@ export default function SummaryValueCards({
       maximumFractionDigits: 0,
     });
   }
-  //const valueCardFormated = formatValue(parseInt(ValueCard));
 
   return (
     <div

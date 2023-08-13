@@ -4,11 +4,11 @@ import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
 import useUser from "../../../hooks/useUser";
 
-export default function SummaryCardsList({iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
-  navclient, navcharge,}) {
+export default function SummaryCardsList({ iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
+  navclient, navcharge, }) {
 
-const {ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges} = useCharges();
-const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
+  const { ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges } = useCharges();
+  const { setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
 
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
@@ -30,18 +30,19 @@ const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond
     return formattedValue;
   }
 
-  async function filterAtivedInformationHome(){
+  async function filterAtivedInformationHome() {
 
-    if(infoClientCharges.length){
-    return (setFilterName(search),
-    setImageNavClient(navclient),
-    setImageNavHome(true),
-    setImageNavCharge(navcharge),
-    setTitleNameSecond(""),
-    setTitleNameThird(""))}
+    if (infoClientCharges.length) {
+      return (setFilterName(search),
+        setImageNavClient(navclient),
+        setImageNavHome(true),
+        setImageNavCharge(navcharge),
+        setTitleNameSecond(""),
+        setTitleNameThird(""))
+    }
 
     await ListCharges()
-     setFilterName(search)
+    setFilterName(search)
 
     setImageNavClient(navclient)
     setImageNavHome(true)
@@ -50,12 +51,9 @@ const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond
     setTitleNameThird("")
   }
 
-  function modalDetailDashbordCharges(client){
-    if(!isClientData){
-      setOpenModalDetailCharges({ status: true, informationDetail: {charges: client}})
-    }
-    else {
-      console.log(client.id_cliente);
+  function modalDetailDashbordCharges(client) {
+    if (!isClientData) {
+      setOpenModalDetailCharges({ status: true, informationDetail: { charges: client } })
     }
   }
 
@@ -77,39 +75,39 @@ const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond
         </div>
       </div>
       <div className="table-container">
-      <table className="table-main-card">
-        <thead className="titlesTable">
-          <tr>
-            <th>Clientes</th>
-            <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
-            <th>{isClientData ? "CPF" : "Valor"}</th>
-          </tr>
-        </thead>
-        {
-          <tbody>
-            {cardL &&
-              cardL.map((client) => {
-                return (
-                  <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
-                    <td  >
-                      {client.cliente || completedName(client.nome_cliente)}
-                    </td>
-                    <td >
-                      {isClientData
-                        ? client.id_cliente
-                        : client.id_cobranca || "-"}
-                    </td>
-                    <td>
-                      {isClientData
-                        ? maskCPF(client.cpf)
-                        : moneyMask(client.valor || "-")}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        }
-      </table>
+        <table className="table-main-card">
+          <thead className="titlesTable">
+            <tr>
+              <th>Clientes</th>
+              <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
+              <th>{isClientData ? "CPF" : "Valor"}</th>
+            </tr>
+          </thead>
+          {
+            <tbody>
+              {cardL &&
+                cardL.map((client) => {
+                  return (
+                    <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
+                      <td  >
+                        {client.cliente || completedName(client.nome_cliente)}
+                      </td>
+                      <td >
+                        {isClientData
+                          ? client.id_cliente
+                          : client.id_cobranca || "-"}
+                      </td>
+                      <td>
+                        {isClientData
+                          ? maskCPF(client.cpf)
+                          : moneyMask(client.valor || "-")}
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          }
+        </table>
       </div>
       <div className="footerTable initial">
         <span onClick={filterAtivedInformationHome}>Ver todos</span>

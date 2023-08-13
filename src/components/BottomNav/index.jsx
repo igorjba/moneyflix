@@ -5,28 +5,24 @@ import clientIcon from "../../assets/clientsIconBlack.svg";
 import clientIconPink from "../../assets/clientsIconPink.svg";
 import homeIcon from "../../assets/homeIconBlack.svg";
 import homePinkIcon from "../../assets/homeIconPink.svg";
-import useUser from '../../hooks/useUser';
-import setBottom from "../../assets/chevron-up.svg";
-import './style.css';
 import useClient from '../../hooks/useClient';
+import useUser from '../../hooks/useUser';
 
 export default function BottomNav() {
     const { resumeName,
         imageNavHome,
-        modalExit,
         setModalExit,
         setImageNavHome,
         imageNavClient,
         setImageNavClient,
         imageNavCharge,
         setImageNavCharge,
-        openModalEdit,
         setOpenModalEdit,
         setOpenModalEditProfile,
         getUserDetails,
     } = useUser();
 
-    const {idClientDetail, setIdClientDetail } = useClient()
+    const { idClientDetail, setIdClientDetail } = useClient()
 
     const onClick = (type) => {
         if (type === 'home') {
@@ -36,7 +32,7 @@ export default function BottomNav() {
         } else if (type === 'client') {
             setImageNavClient(false);
             setImageNavHome(true);
-            setIdClientDetail({...idClientDetail, status: false});
+            setIdClientDetail({ ...idClientDetail, status: false });
             setImageNavCharge(true);
         } else if (type === 'charge') {
             setImageNavClient(true);

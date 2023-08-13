@@ -43,11 +43,11 @@ export default function ClientDetail() {
 
   const [detailsData, setDetailsData] = useState({});
   const [countOrderDueDate, setcountOrderDueDate] = useState(1);
-  const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
-  const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
-  const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
-  const [corarrowTopDue, setCorArrowTopDue] = useState("#3F3F55");
-  const [corarrowBottomDue, setCorArrowBottomDue] = useState("#3F3F55");
+  const [countOrderIdCharges, setCountOrderIdCharges] = useState(1);
+  const [colorArrowTopId, setColorArrowTopId] = useState("#3F3F55");
+  const [colorArrowBottomId, setColorArrowBottomId] = useState("#3F3F55");
+  const [colorArrowTopDue, setColorArrowTopDue] = useState("#3F3F55");
+  const [colorArrowBottomDue, setColorArrowBottomDue] = useState("#3F3F55");
   const navigate = useNavigate();
 
   async function DetailCustomerData() {
@@ -96,45 +96,32 @@ export default function ClientDetail() {
     }
   }
 
-  // function backgroundSituation() {
-  //   const status = document.querySelectorAll(".status-text");
-  //   status.forEach((element) => {
-  //     if (element.textContent === "Vencida") {
-  //       return element.classList.add("statusDefeated");
-  //     } else if (element.textContent === "Pendente") {
-  //       return element.classList.add("statusPending");
-  //     } else if (element.textContent === "Paga") {
-  //       return element.classList.add("statusPay");
-  //     }
-  //   });
-  // }
-
   function orderIdCharges() {
-    setCorArrowTopDue("#3F3F55");
-    setCorArrowBottomDue("#3F3F55");
-    setcountOrderIdCharges(countOrderIdCharges + 1);
+    setColorArrowTopDue("#3F3F55");
+    setColorArrowBottomDue("#3F3F55");
+    setCountOrderIdCharges(countOrderIdCharges + 1);
     if (countOrderIdCharges === 1) {
       const orderId = infoClientCharges.slice().sort(function (a, b) {
         return b.id_cobranca - a.id_cobranca;
       });
-      setCorArrowTopId("#DA0175");
-      setCorArrowBottomId("#3F3F55");
+      setColorArrowTopId("#DA0175");
+      setColorArrowBottomId("#3F3F55");
       setInfoClientCharges(orderId);
     }
     if (countOrderIdCharges === 2) {
       const orderId = infoClientCharges.slice().sort(function (a, b) {
         return a.id_cobranca - b.id_cobranca;
       });
-      setCorArrowTopId("#3F3F55");
-      setCorArrowBottomId("#DA0175");
+      setColorArrowTopId("#3F3F55");
+      setColorArrowBottomId("#DA0175");
       setInfoClientCharges(orderId);
-      setcountOrderIdCharges(1);
+      setCountOrderIdCharges(1);
     }
   }
 
   function orderDueDate() {
-    setCorArrowTopId("#3F3F55");
-    setCorArrowBottomId("#3F3F55");
+    setColorArrowTopId("#3F3F55");
+    setColorArrowBottomId("#3F3F55");
     setcountOrderDueDate(countOrderDueDate + 1);
     if (countOrderDueDate === 1) {
       const orderDue = infoClientCharges.slice().sort(function (a, b) {
@@ -142,8 +129,8 @@ export default function ClientDetail() {
         const dateB = new Date(b.vencimento);
         return dateB - dateA;
       });
-      setCorArrowTopDue("#DA0175");
-      setCorArrowBottomDue("#3F3F55");
+      setColorArrowTopDue("#DA0175");
+      setColorArrowBottomDue("#3F3F55");
       setInfoClientCharges(orderDue);
     }
     if (countOrderDueDate === 2) {
@@ -152,8 +139,8 @@ export default function ClientDetail() {
         const dateB = new Date(b.vencimento);
         return dateA - dateB;
       });
-      setCorArrowBottomDue("#DA0175");
-      setCorArrowTopDue("#3F3F55");
+      setColorArrowBottomDue("#DA0175");
+      setColorArrowTopDue("#3F3F55");
       setInfoClientCharges(orderDue);
       setcountOrderDueDate(1);
     }
@@ -235,7 +222,7 @@ export default function ClientDetail() {
                 <td>
                   <h1>
                     {detailsData.telefone === null ||
-                    detailsData.telefone === undefined
+                      detailsData.telefone === undefined
                       ? ""
                       : phoneAndCelMask2(detailsData.telefone)}
                   </h1>
@@ -334,7 +321,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottomId}
+                          stroke={colorArrowBottomId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -342,7 +329,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottomId}
+                          stroke={colorArrowBottomId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -350,7 +337,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTopId}
+                          stroke={colorArrowTopId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -358,7 +345,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTopId}
+                          stroke={colorArrowTopId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -394,7 +381,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottomDue}
+                          stroke={colorArrowBottomDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -402,7 +389,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottomDue}
+                          stroke={colorArrowBottomDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -410,7 +397,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTopDue}
+                          stroke={colorArrowTopDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -418,7 +405,7 @@ export default function ClientDetail() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTopDue}
+                          stroke={colorArrowTopDue}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
