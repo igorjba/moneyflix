@@ -17,7 +17,7 @@ import "./style.css";
 import FilterData from "../FilterData";
 
 export default function ChargesListPage() {
-  const {ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges,
+  const { ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges,
     openModalDetailCharges, filterName } = useCharges();
 
   const { setTitle, token, imageNavClient } = useUser();
@@ -36,7 +36,7 @@ export default function ChargesListPage() {
   const [openModalFilterData, setOpenModalFilterData] = useState(false);
   const inputSearch = useRef(null);
 
- 
+
   const [arrayFilterChargesList, setArrayFilterChargesList] = useState([])
   let informationTableVier = filterName ? arrayFilterChargesList : infoClientCharges;
 
@@ -159,8 +159,13 @@ export default function ChargesListPage() {
     }
   }
   const handleOk = (event) => {
-    if(event.key === 'Enter'){
-      searchNameChargesList()
+    if (event.key === 'Enter') {
+      if (inputSearch.current.value === "") {
+        ListCharges();
+        return setCheckListClientChargesLength(false);
+      } else {
+        searchNameChargesList();
+      }
     }
   }
 
@@ -169,18 +174,18 @@ export default function ChargesListPage() {
   }, [imageNavClient]);
 
   useEffect(() => {
-    if(filterName){
+    if (filterName) {
       setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
-    }else if (infoClientCharges.length){
+    } else if (infoClientCharges.length) {
       ListCharges();
-    }else if (!infoClientCharges.length){
+    } else if (!infoClientCharges.length) {
       ListCharges();
     }
   }, [])
 
   useEffect(() => {
     setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
-  },[filterName])
+  }, [filterName])
 
   return (
     <>
@@ -196,11 +201,11 @@ export default function ChargesListPage() {
               alt="Filtrar"
               onClick={() => setOpenModalFilterData(true)}
             />
-            </button>
-            {openModalFilterData && (
-              <FilterData 
+          </button>
+          {openModalFilterData && (
+            <FilterData
               setOpenModalFilterData={setOpenModalFilterData} />
-            )}
+          )}
           <div className="search-container">
             <input
               placeholder="Pesquisa"
@@ -361,10 +366,10 @@ export default function ChargesListPage() {
               </tr>
             </thead>
             <tbody className="extract-table">
-              {informationTableVier.map((charges) => { 
+              {informationTableVier.map((charges) => {
                 const statusClass = charges.status === "Vencida" ? "statusDefeated" :
-                charges.status === "Pendente" ? "statusPending" :
-                charges.status === "Paga" ? "statusPay" : ""
+                  charges.status === "Pendente" ? "statusPending" :
+                    charges.status === "Paga" ? "statusPay" : ""
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
                     <td
@@ -421,7 +426,7 @@ export default function ChargesListPage() {
                   </tr>
                 );
               })}
-              
+
             </tbody>
           </table>
         </div>
