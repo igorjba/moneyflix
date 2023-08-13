@@ -119,10 +119,10 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroVencidas?.[0]?.count}
           cardL={data.Vencidas}
-          search = {"Vencida"}
-          navclient = {true}
-          navcharge = {false}
-          />
+          search={"Vencida"}
+          navclient={true}
+          navcharge={false}
+        />
         <SummaryCardsList
           titleCard="Cobranças Previstas"
           backgroundColorTotalClient={{
@@ -131,10 +131,10 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroPendentes?.[0]?.count}
           cardL={data.Pendentes}
-          search = {"Pendente"}
-          navclient = {true}
-          navcharge = {false}
-          />
+          search={"Pendente"}
+          navclient={true}
+          navcharge={false}
+        />
         <SummaryCardsList
           titleCard="Cobranças Pagas"
           backgroundColorTotalClient={{
@@ -143,9 +143,9 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroPagas?.[0]?.count}
           cardL={data.Pagas}
-          search = {"Paga"}
-          navclient = {true}
-          navcharge = {false}
+          search={"Paga"}
+          navclient={true}
+          navcharge={false}
         />
         <SummaryCardsList
           titleCard="Clientes Inadimplentes"
@@ -179,13 +179,11 @@ export default function HomePage() {
           isClientData={true}
           isLastCard={true}
           seeAll={(event) => {
-            //esses 3 faz abrir componente e nav pro cobrança
-              setImageNavClient(false),
+            setImageNavClient(false),
               setImageNavHome(true),
               setImageNavCharge(true),
               setTitleNameSecond(""),
               setTitleNameThird(""),
-              //muda para ativar o filter
               setListClientByStatus("Em dia")
           }}
         />

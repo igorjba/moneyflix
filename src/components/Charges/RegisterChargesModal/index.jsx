@@ -125,7 +125,7 @@ export default function RegisterChargesModal() {
             navigate("/login");
           }
         }
-        toast.error(console.log(error), error.response.data.message, {
+        toast.error(error.response.data.message, {
           className: "customToastify-error",
           icon: ({ theme, type }) => <img src={error} alt="" />,
         });
@@ -139,7 +139,6 @@ export default function RegisterChargesModal() {
   }, []);
   return (
     <div className="main-modal-flex modal-charge register-charge-modal">
-      {/*       <div></div> */}
       <img
         src={closed}
         className="main-modal-flex-close mouse-pointer"
