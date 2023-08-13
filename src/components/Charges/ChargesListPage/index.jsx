@@ -105,7 +105,7 @@ export default function ChargesListPage() {
       statusPage: event.status,
     });
   }
-  async function searchNameChargesList() {
+  async function searchNameChargesList(e) {
     const validationFunctionSearch = parseFloat(searchNameCharges);
     const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
     let searchInformationCharges = {};

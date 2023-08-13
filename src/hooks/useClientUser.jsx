@@ -3,20 +3,21 @@ import { toast } from "react-toastify";
 import api from "../api/api";
 import useUser from "./useUser";
 
+function useClientUser(){
+    const {token, listClientByStatus} = useUser()
+    const [clientRegisters, setClientRegisters] = useState([]);
+    const [openModalRegister, setOpenModalRegister] = useState(false);
+    const [idClientDetail, setIdClientDetail] = useState({
+      status: false,
+      id_client: ''
+    });
+    const [openModalEditClient, setOpenModalEditClient] = useState(false)
 
-function useClientUser() {
-  const { token, listClientByStatus } = useUser()
-  const [clientRegisters, setClientRegisters] = useState([]);
-  const [openModalRegister, setOpenModalRegister] = useState(false);
-  const [idClientDetail, setIdClientDetail] = useState({
-    status: false,
-    id_client: ''
-  });
-  const [openModalEditClient, setOpenModalEditClient] = useState(false)
-  function filterStatus(data, condition) {
-    return data.filter((client) => client.status === condition);
-  }
+    const [filterNameClient, setFilterNameClient] = useState('')
 
+    const [arrayFilterClientList, setArrayFilterClientList] = useState([])
+
+  
   async function ClientCadaster() {
     try {
       const response = await api.get("cliente", {
@@ -25,11 +26,6 @@ function useClientUser() {
         },
       });
 
-      if (listClientByStatus) {
-        return setClientRegisters(
-          filterStatus(response.data, listClientByStatus)
-        );
-      }
       setClientRegisters(response.data);
     } catch (error) {
       if (error.response) {
@@ -64,6 +60,10 @@ function useClientUser() {
     openModalEditClient,
     setOpenModalEditClient,
     ClientCadaster,
+    filterNameClient,
+    setFilterNameClient,
+    arrayFilterClientList,
+    setArrayFilterClientList
   };
 }
 

@@ -26,6 +26,9 @@ export default function ClientListPage() {
     clientRegisters,
     setIdClientDetail,
     ClientCadaster,
+    filterNameClient,
+    arrayFilterClientList,
+    setArrayFilterClientList
   } = useClient();
 
   const [countOrder, setCountOrder] = useState(1);
@@ -36,44 +39,41 @@ export default function ClientListPage() {
   const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false);
   const inputSearch = useRef(null);
 
-  function backgroundSituation() {
-    const situation = document.querySelectorAll(".situation");
-    situation.forEach((element) => {
-      if (element.textContent == "Inadimplente") {
-        element.classList.remove("situationOk");
-        return element.classList.add("situationDefaulter");
-      }
-      element.classList.remove("situationDefaulter");
-      return element.classList.add("situationOk");
-    });
-  }
+  /* const [arrayFilterClientList, setArrayFilterClientList] = useState([]) */
+  let informationTableViewClient = filterNameClient ? arrayFilterClientList : clientRegisters
+
+
   function orderName() {
     setCountOrder(countOrder + 1);
     if (countOrder === 1) {
-      const order = clientRegisters.slice().sort(function (a, b) {
+      const order = (filterNameClient ? arrayFilterClientList : clientRegisters).slice().sort(function (a, b) {
         let x = a.nome_cliente.toUpperCase();
         let y = b.nome_cliente.toUpperCase();
         return x == y ? 0 : x > y ? 1 : -1;
       });
-      setColorArrowTop("#3F3F55");
-      setColorArrowBottom("#DA0175");
-      setClientRegisters(order);
+      setCorArrowTop("#3F3F55");
+      setCorArrowBottom("#DA0175");
+      filterNameClient ? setArrayFilterClientList(order) : setClientRegisters(order);
     }
     if (countOrder === 2) {
-      const order = clientRegisters.slice().sort(function (a, b) {
+      const order = (filterNameClient ? arrayFilterClientList : clientRegisters).slice().sort(function (a, b) {
         let x = a.nome_cliente.toUpperCase();
         let y = b.nome_cliente.toUpperCase();
         return x == y ? 0 : x < y ? 1 : -1;
       });
-      setColorArrowBottom("#3F3F55");
-      setColorArrowTop("#DA0175");
-      setClientRegisters(order);
+      setCorArrowBottom("#3F3F55");
+      setCorArrowTop("#DA0175");
+      filterNameClient ? setArrayFilterClientList(order) : setClientRegisters(order);
     }
     if (countOrder === 3) {
-      ClientCadaster();
-      setColorArrowBottom("#3F3F55");
-      setColorArrowTop("#3F3F55");
+      setCorArrowBottom("#3F3F55");
+      setCorArrowTop("#3F3F55");
       setCountOrder(1);
+      if(filterNameClient){
+        return setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+      }else {
+        return ClientCadaster()
+      }
     }
   }
   function sendInformationRegisterCharges(event) {
@@ -100,19 +100,23 @@ export default function ClientListPage() {
       });
       inputSearch.current.value = "";
       setSearchNameClient("");
-      setClientRegisters(response.data);
+      await setClientRegisters(response.data);
       setOpenNotFoundClient(true);
+
+      if(filterNameClient){
+        return setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+        }
+
     } catch (error) {
       setOpenNotFoundClient(false);
       setSearchNameClient("");
       inputSearch.current.value = "";
     }
-  }
-
+    
+}
 
 
   useEffect(() => {
-    backgroundSituation();
     setTitle("Clientes");
     setOpenNotFoundClient(true);
     setListClientByStatus("");
@@ -121,13 +125,25 @@ export default function ClientListPage() {
   useEffect(() => {
     if (!openModalFilterDataClient) {
       ClientCadaster();
-      backgroundSituation();
     }
   }, [openModalFilterDataClient]);
 
   useEffect(() => {
-    backgroundSituation();
-  }, [clientRegisters]);
+    setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+  }, [filterNameClient])
+
+  useEffect(() => {
+    if(filterNameClient){
+      setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+    }else {
+      ClientCadaster();
+    } 
+  }, [])
+
+/*   useEffect(() => {
+    setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+  }, [!setOpenModalRegister]) */
+
 
   return (
     <>
@@ -252,7 +268,9 @@ export default function ClientListPage() {
               </tr>
             </thead>
             <tbody className="extract-table">
-              {clientRegisters.map((client) => {
+              {informationTableViewClient.map((client) => {
+                const statusClassClient = client.status === "Inadimplente" ? "situationDefaulter" :
+                client.status === "Em dia" ? "situationOk" : ""
                 return (
                   <tr key={client.id_cliente}>
                     <td className="view-detail-mouse-over-effect">
@@ -272,7 +290,7 @@ export default function ClientListPage() {
                     </td>
                     <td>
                       <div className="div-status">
-                        <h1 className="situation">{client.status}</h1>
+                        <h1 className={`situation ${statusClassClient} `}>{client.status}</h1>
                       </div>
                     </td>
                     <td>
