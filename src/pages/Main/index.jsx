@@ -33,7 +33,8 @@ function Main() {
     openModalCharges,
     openModalEditCharges,
     openModalDelete,
-    openModalDetailCharges
+    openModalDetailCharges,
+    setFilterName
   } = useCharges();
 
   const {
@@ -56,7 +57,7 @@ function Main() {
     setTitle,
     nameUser,
     setTitleNameSecond,
-    setClientDetailPage, //era pra ta em client ??
+    setClientDetailPage,
     titleNameSecond,
     titleNameThird,
     setTitleNameThird,
@@ -165,7 +166,6 @@ function Main() {
             setTitleNameSecond("");
             setIdClientDetail({ ...idClientDetail, status: false });
             setTitleNameThird("");
-            /* ClientCadaster() */
           }}
         >
           <img
@@ -183,6 +183,7 @@ function Main() {
               setImageNavCharge(false),
               setTitleNameSecond(""),
               setTitleNameThird("");
+            setFilterName("")
           }}
         >
           <img
@@ -223,13 +224,11 @@ function Main() {
             {openModalRegister && <RegisterClientModal />}
           </div>
         )}
-        {/* Mudei esse aqui para hook separado de cobrança */}
         {openModalCharges.status && (
           <div className="background-modal initial">
             {openModalCharges.status && <RegisterChargesModal />}
           </div>
         )}
-        {/* Mudei esse aqui para hook separado de cobrança */}
         {openModalEditCharges.status && (
           <div className="background-modal initial">
             {openModalEditCharges.status && <EditChargesModal />}
@@ -249,13 +248,11 @@ function Main() {
             />
           </div>
         )}
-        {/* Mudei esse aqui para hook separado de cobrança */}
         {openModalDelete.status && (
           <div className="background-modal initial">
             {openModalDelete.status && <DeleteCharge />}
           </div>
         )}
-        {/* Mudei esse aqui para hook separado de cobrança */}
 
         {openModalDetailCharges.status && (
           <div className="background-modal initial">

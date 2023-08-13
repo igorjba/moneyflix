@@ -1,17 +1,15 @@
+import { useEffect } from "react";
 import useCharges from "../../../hooks/useCharges";
 import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
+import useUser from "../../../hooks/useUser";
 
-export default function SummaryCardsList({
-  iconCard,
-  titleCard,
-  totalClient,
-  cardL,
-  backgroundColorTotalClient,
-  isClientData = false,
-  isLastCard,
-  seeAll,
-}) {
+export default function SummaryCardsList({ iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
+  navclient, navcharge, }) {
+
+  const { ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges } = useCharges();
+  const { setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
+
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
     let formattedValue = e;
@@ -31,17 +29,33 @@ export default function SummaryCardsList({
     }
     return formattedValue;
   }
-  const {setOpenModalDetailCharges, openModalDetailCharges} = useCharges();
 
-  function modalDetailDashbordCharges(client){
-    if(!isClientData){
-      setOpenModalDetailCharges({ status: true, informationDetail: {charges: client}})
+  async function filterAtivedInformationHome() {
+
+    if (infoClientCharges.length) {
+      return (setFilterName(search),
+        setImageNavClient(navclient),
+        setImageNavHome(true),
+        setImageNavCharge(navcharge),
+        setTitleNameSecond(""),
+        setTitleNameThird(""))
     }
-    else {
-      console.log(client.id_cliente);
-    }
+
+    await ListCharges()
+    setFilterName(search)
+
+    setImageNavClient(navclient)
+    setImageNavHome(true)
+    setImageNavCharge(navcharge)
+    setTitleNameSecond("")
+    setTitleNameThird("")
   }
 
+  function modalDetailDashbordCharges(client) {
+    if (!isClientData) {
+      setOpenModalDetailCharges({ status: true, informationDetail: { charges: client } })
+    }
+  }
 
   return (
     <div className={`card ${isLastCard ? "last-card" : "initial-card"}`}>
@@ -61,42 +75,42 @@ export default function SummaryCardsList({
         </div>
       </div>
       <div className="table-container">
-      <table className="table-main-card">
-        <thead className="titlesTable">
-          <tr>
-            <th>Clientes</th>
-            <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
-            <th>{isClientData ? "CPF" : "Valor"}</th>
-          </tr>
-        </thead>
-        {
-          <tbody>
-            {cardL &&
-              cardL.map((client) => {
-                return (
-                  <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
-                    <td  >
-                      {client.cliente || completedName(client.nome_cliente)}
-                    </td>
-                    <td >
-                      {isClientData
-                        ? client.id_cliente
-                        : client.id_cobranca || "-"}
-                    </td>
-                    <td>
-                      {isClientData
-                        ? maskCPF(client.cpf)
-                        : moneyMask(client.valor || "-")}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        }
-      </table>
+        <table className="table-main-card">
+          <thead className="titlesTable">
+            <tr>
+              <th>Clientes</th>
+              <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
+              <th>{isClientData ? "CPF" : "Valor"}</th>
+            </tr>
+          </thead>
+          {
+            <tbody>
+              {cardL &&
+                cardL.map((client) => {
+                  return (
+                    <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
+                      <td  >
+                        {client.cliente || completedName(client.nome_cliente)}
+                      </td>
+                      <td >
+                        {isClientData
+                          ? client.id_cliente
+                          : client.id_cobranca || "-"}
+                      </td>
+                      <td>
+                        {isClientData
+                          ? maskCPF(client.cpf)
+                          : moneyMask(client.valor || "-")}
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          }
+        </table>
       </div>
       <div className="footerTable initial">
-        <span onClick={seeAll}>Ver todos</span>
+        <span onClick={filterAtivedInformationHome}>Ver todos</span>
       </div>
     </div>
   );

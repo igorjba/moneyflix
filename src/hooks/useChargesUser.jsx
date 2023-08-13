@@ -21,7 +21,6 @@ function useChargesUser() {
     status: false,
     id_charges: "",
   });
-
   const [openModalCharges, setOpenModalCharges] = useState({
     status: false,
     id_user: "",
@@ -43,13 +42,13 @@ function useChargesUser() {
   const [infoClientCharges, setInfoClientCharges] = useState([]);
   const navigate = useNavigate();
 
-  const { listClientByStatus, setListClientByStatus } = useUser("");
+  const [filterName, setFilterName] = useState('')
 
-  function filterStatus(data, condition) {
-    return data.filter((client) => client.status === condition);
-  }
+
+
 
   async function ListCharges() {
+
     try {
       const response = await api.get("cobranca", {
         headers: {
@@ -57,12 +56,8 @@ function useChargesUser() {
         },
       });
 
-      if (listClientByStatus) {
-        return setInfoClientCharges(
-          filterStatus(response.data, listClientByStatus)
-        );
-      }
       setInfoClientCharges(response.data);
+
     } catch (error) {
       if (error.response) {
         if (
@@ -85,6 +80,7 @@ function useChargesUser() {
       });
     }
   }
+
   function backgroundSituation() {
     const status = document.querySelectorAll(".status-text");
     status.forEach((element) => {
@@ -131,10 +127,10 @@ function useChargesUser() {
     verifyDate,
     openModalDelete,
     setModalDelete,
-    listClientByStatus,
-    setListClientByStatus,
     openModalDetailCharges,
     setOpenModalDetailCharges,
+    filterName,
+    setFilterName,
   };
 }
 
