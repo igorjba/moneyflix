@@ -85,10 +85,10 @@ export default function ClientListPage() {
   }
   const handleOk = (event) => {
     if (event.key === 'Enter') {
-      searchNameChargesList()
+      searchNameClientList()
     }
   }
-  async function searchNameChargesList() {
+  async function searchNameClientList() {
     try {
       const response = await api.get("cliente", {
         headers: {
@@ -111,10 +111,6 @@ export default function ClientListPage() {
         }
         }
         
-
-
-
-
     } catch (error) {
       setOpenNotFoundClient(false);
       setSearchNameClient("");
@@ -187,7 +183,7 @@ export default function ClientListPage() {
               src={lupa}
               alt="Lupa"
               className="search"
-              onClick={(event) => searchNameChargesList(event)}
+              onClick={(event) => searchNameClientList(event)}
             />
           </div>
         </div>

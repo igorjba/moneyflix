@@ -27,8 +27,11 @@ export default function EditChargesModal() {
     ListCharges,
     verifyDate,
     setVerifyDate,
+    filterName,
+    arrayFilterChargesList,
+    setArrayFilterChargesList
   } = useCharges();
-  const { token, setGetInformationClientDetail, getInformationClientDetail, imageNavCharge } = useUser();
+  const { token, setGetInformationClientDetail, getInformationClientDetail, imageNavCharge, search } = useUser();
   const navigate = useNavigate();
   const inputRef = useRef(null);
   let validate = 0;
@@ -101,6 +104,13 @@ export default function EditChargesModal() {
           ...openModalEditCharges,
           status: false,
         }));
+        if(filterName || search){
+        const indiceArrayCharges = arrayFilterChargesList.find(cobranca =>  cobranca.id_cobranca === openModalEditCharges.id_charges);
+        indiceArrayCharges.descricao = formEditCharges.descricao
+        indiceArrayCharges.valor = formEditCharges.valor.replace(/\./g, "")
+        indiceArrayCharges.vencimento = formEditCharges.vencimento
+        indiceArrayCharges.status = formEditCharges.status
+        }
         toast.success("Cobrança Atualizada com Sucesso!", {
           className: "customToastify-success",
           icon: ({ theme, type }) => <img src={success} alt="" />,
