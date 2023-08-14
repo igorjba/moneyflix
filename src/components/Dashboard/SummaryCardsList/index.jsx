@@ -1,16 +1,15 @@
-import { useEffect } from "react";
 import useCharges from "../../../hooks/useCharges";
+import useClientUser from "../../../hooks/useClient";
+import useUser from "../../../hooks/useUser";
 import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
-import useUser from "../../../hooks/useUser";
-import useClientUser from "../../../hooks/useClient";
 
 export default function SummaryCardsList({ iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
-  navclient, navcharge, }) {
+  navClient, navCharge, }) {
 
-const {ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges} = useCharges();
-const {setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
-const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
+  const { ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges } = useCharges();
+  const { setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
+  const { setFilterNameClient, clientRegisters, ClientCadaster } = useClientUser()
 
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
@@ -32,13 +31,13 @@ const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
     return formattedValue;
   }
 
-  async function filterAtivedInformationHome() {
+  async function filterActiveInformationHome() {
 
     if (infoClientCharges.length) {
       return (setFilterName(search),
-        setImageNavClient(navclient),
+        setImageNavClient(navClient),
         setImageNavHome(true),
-        setImageNavCharge(navcharge),
+        setImageNavCharge(navCharge),
         setTitleNameSecond(""),
         setTitleNameThird(""))
     }
@@ -46,41 +45,39 @@ const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
     await ListCharges()
     setFilterName(search)
 
-    setImageNavClient(navclient)
+    setImageNavClient(navClient)
     setImageNavHome(true)
-    setImageNavCharge(navcharge)
+    setImageNavCharge(navCharge)
     setTitleNameSecond("")
     setTitleNameThird("")
   }
 
-  async function filterAtivedInformationHomeClient(){
+  async function filterActiveInformationHomeClient() {
 
-    if(clientRegisters.length){
-      return(
+    if (clientRegisters.length) {
+      return (
         setFilterNameClient(search),
-        setImageNavClient(navclient),
+        setImageNavClient(navClient),
         setImageNavHome(true),
-        setImageNavCharge(navcharge),
+        setImageNavCharge(navCharge),
         setTitleNameSecond(""),
         setTitleNameThird("")
-      )}
+      )
+    }
 
-      await ClientCadaster()
-      setFilterNameClient(search)
+    await ClientCadaster()
+    setFilterNameClient(search)
 
-        setImageNavClient(navclient),
-        setImageNavHome(true),
-        setImageNavCharge(navcharge),
-        setTitleNameSecond(""),
-        setTitleNameThird("")
+    setImageNavClient(navClient),
+      setImageNavHome(true),
+      setImageNavCharge(navCharge),
+      setTitleNameSecond(""),
+      setTitleNameThird("")
   }
 
-  function modalDetailDashbordCharges(client){
-    if(!isClientData){
-      setOpenModalDetailCharges({ status: true, informationDetail: {charges: client}})
-    }
-    else {
-      console.log(client.id_cliente);
+  function modalDetailDashbordCharges(client) {
+    if (!isClientData) {
+      setOpenModalDetailCharges({ status: true, informationDetail: { charges: client } })
     }
   }
 
@@ -137,7 +134,7 @@ const {setFilterNameClient, clientRegisters, ClientCadaster} = useClientUser()
         </table>
       </div>
       <div className="footerTable initial">
-        <span onClick={isLastCard ? filterAtivedInformationHomeClient : filterAtivedInformationHome}>Ver todos</span>
+        <span onClick={isLastCard ? filterActiveInformationHomeClient : filterActiveInformationHome}>Ver todos</span>
       </div>
     </div>
   );

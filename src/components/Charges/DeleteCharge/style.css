@@ -1,4 +1,4 @@
-.container-delete-main{
+.container-delete-main {
     position: absolute;
 
     display: flex;
@@ -13,7 +13,7 @@
 
     background-color: var(--bg-modal);
     border-radius: 3rem;
-    box-shadow: 0px 0px 1rem var( --font-clr-gray-title);
+    box-shadow: 0px 0px 1rem var(--font-clr-gray-title);
 }
 
 .container-delete-main h2 {
@@ -27,49 +27,52 @@
     line-height: var(--lineh-130);
 }
 
-.closer-container-delete{
+.closer-container-delete {
     position: absolute;
     top: 2.47rem;
     right: 2.47rem;
 }
 
-.container-button{
+.container-button {
     display: flex;
     justify-content: space-between;
+
     padding-top: 2.8rem;
-    width: 100%;
     max-width: 21.6rem;
+    width: 100%;
 }
 
-.container-button button{
+.container-button button {
     width: 10rem;
     border-radius: 0.4rem;
 }
 
-.container-button button :hover{
-   background-color: rgba(255, 255, 255, 0.50);
+.container-button button :hover {
+    background-color: rgba(255, 255, 255, 0.50);
 }
 
-.container-delete-no{
+.container-delete-no {
     background-color: var(--bg-toastfy-error);
 }
 
-.container-delete-no h1{
-    color: var(--font-clr-toast-error);
+.container-delete-no h1 {
     font-size: var(--fz-18);
-    font-style: var(-fstyle-normal);
+    font-style: var(--fstyle-normal);
     font-weight: var(--fw-regular);
     line-height: normal;
+
+    color: var(--font-clr-toast-error);
 }
 
-.container-delete-yes{
+.container-delete-yes {
     background-color: var(--bg-line-green);
 }
 
-.container-delete-yes h1{
-    color: var(--font-clr-text-aproved-delete);
+.container-delete-yes h1 {
     font-size: var(--fz-18);
-    font-style: var(-fstyle-normal);
+    font-style: var(--fstyle-normal);
     font-weight: var(--fw-regular);
     line-height: normal;
+
+    color: var(--font-clr-text-aproved-delete);
 }

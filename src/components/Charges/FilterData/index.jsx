@@ -7,21 +7,21 @@ import "./style.css";
 
 export default function FilterData({ setOpenModalFilterData }) {
   const [verifyCheckboxFilterData, setVerifyCheckboxFilterData] = useState(1);
-  const { setImageNavCharge, setListClientByStatus } = useUser();
-  const {setFilterName} = useCharges();
-  
-  function ativedFilterDataCharges(){
-    if(verifyCheckboxFilterData === 1){
+  const { setImageNavCharge } = useUser();
+  const { setFilterName } = useCharges();
+
+  function activeFilterDataCharges() {
+    if (verifyCheckboxFilterData === 1) {
       setFilterName("Vencida")
-      
+
     }
-    if(verifyCheckboxFilterData === 2){
+    if (verifyCheckboxFilterData === 2) {
       setFilterName("Pendente")
-     
+
     }
-    if(verifyCheckboxFilterData === 3){
+    if (verifyCheckboxFilterData === 3) {
       setFilterName("Paga")
-       
+
     }
     setOpenModalFilterData(false);
     setImageNavCharge(false);
@@ -80,7 +80,7 @@ export default function FilterData({ setOpenModalFilterData }) {
       </div>
       <div className="container-button-filter-data-charges">
         <button
-          onClick={() => {ativedFilterDataCharges()}}>
+          onClick={() => { activeFilterDataCharges() }}>
           Aplicar
         </button>
         <button onClick={() => setOpenModalFilterData(false)}>Cancelar</button>

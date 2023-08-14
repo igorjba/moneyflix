@@ -78,7 +78,6 @@
 
     background-color: var(--bg-modal);
     outline-color: var(--bg-pink);
-
     color: var(--font-clr-gray-text-modal);
 }
 
@@ -142,11 +141,13 @@
 }
 
 .inputParaCheck {
-    background-color: #C8C8D7;
     border-radius: 50%;
-    cursor: pointer;
     height: 24px;
     width: 24px;
+
+    cursor: pointer;
+
+    background-color: #C8C8D7;
 }
 
 .testeInput h1 {
@@ -158,8 +159,9 @@
 }
 
 .errorCharges h1 {
-    color: var(--font-clr-text-error) !important;
     margin: 4px 0 8px 0;
+
+    color: var(--font-clr-text-error) !important;
 }
 
 .errorChargesLine {
