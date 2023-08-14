@@ -8,12 +8,12 @@ import clientSFont from '../../../assets/Client(2).svg';
 import success from '../../../assets/Success-Toast.svg';
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
+import useClient from '../../../hooks/useClient';
 import useUser from '../../../hooks/useUser';
-import { cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask, phoneAndCelMask } from '../../../utils/inputMasks';
+import { cellPhoneUnmask, cepMask, cepUnmask, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import { validateCPF, validateEmail, validateName } from '../../../utils/validation';
 import './style.css';
-import useClient from '../../../hooks/useClient';
 
 export default function RegisterClientModal() {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function RegisterClientModal() {
     cpf: '',
     telefone: '',
   });
-  const [formAdress, setFormAdress] = useState({
+  const [formAddress, setFormAddress] = useState({
     logradouro: '',
     complemento: '',
     cep: '',
@@ -45,7 +45,7 @@ export default function RegisterClientModal() {
       return setForm({ ...form, [event.target.name]: event.target.value });
     }
     if (event.target.name === 'logradouro' || event.target.name === 'complemento' || event.target.name === 'bairro' || event.target.name === 'cidade' || event.target.name === 'estado') {
-      return setFormAdress({ ...formAdress, [event.target.name]: event.target.value })
+      return setFormAddress({ ...formAddress, [event.target.name]: event.target.value })
     }
     if (event.target.name === 'cpf') {
       return setForm({ ...form, [event.target.name]: cpfMask(event.target.value) });
@@ -78,15 +78,15 @@ export default function RegisterClientModal() {
       return setForm({ ...form, telefone: phone })
     }
     if (event.target.name === 'cep') {
-      return setFormAdress({ ...formAdress, [event.target.name]: cepMask(event.target.value) });
+      return setFormAddress({ ...formAddress, [event.target.name]: cepMask(event.target.value) });
     }
   }
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${cepUnmask(event.target.value)}/json/`)
       if (response && response.data) {
-        setFormAdress(formAdress => ({
-          ...formAdress,
+        setFormAddress(formAddress => ({
+          ...formAddress,
           logradouro: response.data.logradouro || '',
           bairro: response.data.bairro || '',
           cidade: response.data.localidade || '',
@@ -142,35 +142,21 @@ export default function RegisterClientModal() {
         cpf: cpfUnmask(form.cpf),
         email: form.email,
         telefone: cellPhoneUnmask(form.telefone),
-        ...formAdress
+        ...formAddress
       }, {
         headers: {
           authorization: token,
         }
       });
       await ClientCadaster()
-      // if (filterNameClient) {
-      //   await setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
-      // }
       setFilterNameClient("")
       setOpenModalRegister(false)
-      /* console.log(arrayFilterClientList);
-      if(filterNameClient){
-        return (arrayFilterClientList.unshift({ nome: form.nome,
-          cpf: cpfUnmask(form.cpf),
-          email: form.email,
-          telefone: cellPhoneUnmask(form.telefone),
-          status: "Em dia",
-          ...formAdress}));
-      } */
       toast.success(
         'Cliente Cadastro com Sucesso!', {
         className: 'customToastify-success',
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
-      // reloadClientList();
     } catch (error) {
-      console.log(error)
       if (error.response) {
         if (error.response.status === 401 && error.response.data.message === "token expirado") {
           clearAll()
@@ -224,27 +210,27 @@ export default function RegisterClientModal() {
           <div className='formInformation'>
             <div>
               <label htmlFor="inputCEP" className='mouse-pointer'><h1>CEP</h1></label>
-              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={cepMask(formAdress.cep)} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" maxLength={9} placeholder='Digite o CEP' id='inputCEP' ref={inputRef} name='cep' value={cepMask(formAddress.cep)} onBlur={(event) => searchCep(event)} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
               <label htmlFor="inputNeighborhood" className='mouse-pointer'><h1>Bairro</h1></label>
-              <input type="text" placeholder='Digite o Bairro' name='bairro' id='inputNeighborhood' ref={inputRef} value={formAdress.bairro} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" placeholder='Digite o Bairro' name='bairro' id='inputNeighborhood' ref={inputRef} value={formAddress.bairro} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
           <label htmlFor="inputCompl" className='mouse-pointer'><h1>Complemento</h1></label>
-          <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAdress.complemento} onChange={(event) => handleChangeForm(event)} />
+          <input type="text" placeholder='Digite o complemento' id='inputCompl' ref={inputRef} name='complemento' value={formAddress.complemento} onChange={(event) => handleChangeForm(event)} />
           <div>
-            <label htmlFor="inputAdress" className='mouse-pointer'><h1>Endereço</h1></label>
-            <input type="text" placeholder='Digite o endereço' id='inputAdress' ref={inputRef} name='logradouro' value={formAdress.logradouro} onChange={(event) => handleChangeForm(event)} />
+            <label htmlFor="inputAddress" className='mouse-pointer'><h1>Endereço</h1></label>
+            <input type="text" placeholder='Digite o endereço' id='inputAddress' ref={inputRef} name='logradouro' value={formAddress.logradouro} onChange={(event) => handleChangeForm(event)} />
           </div>
           <div className='formAndress'>
             <div>
               <label htmlFor="inputCity" className='mouse-pointer'><h1>Cidade</h1></label>
-              <input type="text" placeholder='Digite o Cidade' name='cidade' id='inputCity' ref={inputRef} disabled={validationInputDisabled} value={formAdress.cidade} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" placeholder='Digite o Cidade' name='cidade' id='inputCity' ref={inputRef} disabled={validationInputDisabled} value={formAddress.cidade} onChange={(event) => handleChangeForm(event)} />
             </div>
             <div>
               <label htmlFor="inputUF" className='mouse-pointer'><h1>UF</h1></label>
-              <input type="text" placeholder='Digite o UF' name='estado' id='inputUF' ref={inputRef} disabled={validationInputDisabled} value={formAdress.estado} onChange={(event) => handleChangeForm(event)} />
+              <input type="text" placeholder='Digite o UF' name='estado' id='inputUF' ref={inputRef} disabled={validationInputDisabled} value={formAddress.estado} onChange={(event) => handleChangeForm(event)} />
             </div>
           </div>
         </div>

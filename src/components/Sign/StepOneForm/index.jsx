@@ -71,8 +71,8 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
           <span className="step-one-form-name label-forms">Nome*</span>
           <input
             className={`step-one-form-input input-forms ${errorName
-                ? "step-one-form-input input-forms errorLine"
-                : "step-one-form-input input-forms"
+              ? "step-one-form-input input-forms errorLine"
+              : "step-one-form-input input-forms"
               }`}
             type="text"
             name="username"
@@ -93,8 +93,8 @@ const StepOneForm = ({ setCurrentStep, signUpForm, setSignUpForm }) => {
           <span className="step-one-form-email label-forms">E-mail*</span>
           <input
             className={`step-one-form-input input-forms ${errorEmail
-                ? "step-one-form-input input-forms errorLine"
-                : "step-one-form-input input-forms"
+              ? "step-one-form-input input-forms errorLine"
+              : "step-one-form-input input-forms"
               }`}
             type="email"
             name="email"

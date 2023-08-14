@@ -41,7 +41,7 @@ export default function EditClientModal() {
     cpf: idListChargesClick.client[0].cpf === null ? '' : cpfMask(idListChargesClick.client[0].cpf),
     telefone: idListChargesClick.client[0].telefone === null ? '' : cellPhoneMask(idListChargesClick.client[0].telefone),
   });
-  const [formAdressEditClient, setFormAdressEditClient] = useState({
+  const [formAddressEditClient, setFormAddressEditClient] = useState({
     logradouro: idListChargesClick.client[0].endereco === null ? '' : idListChargesClick.client[0].endereco,
     bairro: idListChargesClick.client[0].bairro === null ? '' : idListChargesClick.client[0].bairro,
     cep: idListChargesClick.client[0].cep == null ? "" : idListChargesClick.client[0].cep,
@@ -53,8 +53,8 @@ export default function EditClientModal() {
   function handleChangeForm(event) {
     return setForm({ ...form, [event.target.name]: event.target.value });
   }
-  function handleChangeFormAdress(event) {
-    return setFormAdressEditClient({ ...formAdressEditClient, [event.target.name]: event.target.value, });
+  function handleChangeFormAddress(event) {
+    return setFormAddressEditClient({ ...formAddressEditClient, [event.target.name]: event.target.value, });
   }
   function handleChangeFormTel(e) {
     const inputNumberTel = e.target.value.replace(/\D/g, '')
@@ -85,7 +85,7 @@ export default function EditClientModal() {
   async function searchCep(event) {
     try {
       const response = await apiCep.get(`${event.target.value}/json/`);
-      setFormAdressEditClient({
+      setFormAddressEditClient({
         logradouro: response.data.logradouro,
         bairro: response.data.bairro,
         cep: response.data.cep,
@@ -142,12 +142,12 @@ export default function EditClientModal() {
         ...form,
         cpf: cpfUnmask(form.cpf),
         telefone: cellPhoneUnmask(form.telefone),
-        logradouro: formAdressEditClient.logradouro === '' || formAdressEditClient.logradouro === null ? '' : formAdressEditClient.logradouro,
-        bairro: formAdressEditClient.bairro === '' || formAdressEditClient.bairro === null ? '' : formAdressEditClient.bairro,
-        cidade: formAdressEditClient.cidade === '' || formAdressEditClient.cidade === null ? '' : formAdressEditClient.cidade,
-        estado: formAdressEditClient.estado === '' || formAdressEditClient.estado === null ? '' : formAdressEditClient.estado,
-        complemento: formAdressEditClient.complemento === '' || formAdressEditClient.complemento === null ? '' : formAdressEditClient.complemento,
-        cep: formAdressEditClient.cep === '' || formAdressEditClient.cep === null ? '' : cepUnmask(formAdressEditClient.cep)
+        logradouro: formAddressEditClient.logradouro === '' || formAddressEditClient.logradouro === null ? '' : formAddressEditClient.logradouro,
+        bairro: formAddressEditClient.bairro === '' || formAddressEditClient.bairro === null ? '' : formAddressEditClient.bairro,
+        cidade: formAddressEditClient.cidade === '' || formAddressEditClient.cidade === null ? '' : formAddressEditClient.cidade,
+        estado: formAddressEditClient.estado === '' || formAddressEditClient.estado === null ? '' : formAddressEditClient.estado,
+        complemento: formAddressEditClient.complemento === '' || formAddressEditClient.complemento === null ? '' : formAddressEditClient.complemento,
+        cep: formAddressEditClient.cep === '' || formAddressEditClient.cep === null ? '' : cepUnmask(formAddressEditClient.cep)
       }, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -288,8 +288,8 @@ export default function EditClientModal() {
                   id="inputCEP"
                   ref={inputRef}
                   name="cep"
-                  value={cepMask(formAdressEditClient.cep)}
-                  onChange={(event) => handleChangeFormAdress(event)}
+                  value={cepMask(formAddressEditClient.cep)}
+                  onChange={(event) => handleChangeFormAddress(event)}
                   onBlur={(event) => searchCep(event)}
                 />
               </div>
@@ -302,13 +302,13 @@ export default function EditClientModal() {
                   placeholder="Digite o Bairro"
                   name="bairro"
                   id="inputNeighborhood"
-                  value={formAdressEditClient.bairro}
+                  value={formAddressEditClient.bairro}
                   ref={inputRef}
-                  onChange={(event) => handleChangeFormAdress(event)}
+                  onChange={(event) => handleChangeFormAddress(event)}
                 />
               </div>
             </div>
-            <div className="AdressEditClientModal">
+            <div className="AddressEditClientModal">
               <label htmlFor="inputCompl" className="mouse-pointer">
                 <h1>Complemento</h1>
               </label>
@@ -318,20 +318,20 @@ export default function EditClientModal() {
                 id="inputCompl"
                 ref={inputRef}
                 name="complemento"
-                value={formAdressEditClient.complemento}
-                onChange={(event) => handleChangeFormAdress(event)}
+                value={formAddressEditClient.complemento}
+                onChange={(event) => handleChangeFormAddress(event)}
               />
-              <label htmlFor="inputAdress" className="mouse-pointer">
+              <label htmlFor="inputAddress" className="mouse-pointer">
                 <h1>Endereço</h1>
               </label>
               <input
                 type="text"
                 placeholder="Digite o endereço"
-                id="inputAdress"
+                id="inputAddress"
                 ref={inputRef}
                 name="logradouro"
-                value={formAdressEditClient.logradouro}
-                onChange={(event) => handleChangeFormAdress(event)}
+                value={formAddressEditClient.logradouro}
+                onChange={(event) => handleChangeFormAddress(event)}
               />
             </div>
             <div className="formAndress">
@@ -345,8 +345,8 @@ export default function EditClientModal() {
                   name="cidade"
                   id="inputCity"
                   ref={inputRef}
-                  value={formAdressEditClient.cidade}
-                  onChange={(event) => handleChangeFormAdress(event)}
+                  value={formAddressEditClient.cidade}
+                  onChange={(event) => handleChangeFormAddress(event)}
                 />
               </div>
               <div>
@@ -359,8 +359,8 @@ export default function EditClientModal() {
                   name="estado"
                   id="inputUF"
                   ref={inputRef}
-                  value={formAdressEditClient.estado}
-                  onChange={(event) => handleChangeFormAdress(event)}
+                  value={formAddressEditClient.estado}
+                  onChange={(event) => handleChangeFormAddress(event)}
                 />
               </div>
             </div>

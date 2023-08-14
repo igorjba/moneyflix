@@ -84,7 +84,7 @@ function Main() {
     }
   }
 
-  function titleAtived() {
+  function titleActive() {
     if (!imageNavHome) {
       setTitle("Resumo de Cobranças");
     }
@@ -106,7 +106,7 @@ function Main() {
   }
 
   useEffect(() => {
-    titleAtived();
+    titleActive();
   }, []);
 
   useEffect(() => {
@@ -140,7 +140,7 @@ function Main() {
     <div className="initial mainBody">
       <nav className="initial navegation">
         <div
-          className={`initial nav-icons mouse-pointer ${!imageNavHome && "atived"
+          className={`initial nav-icons mouse-pointer ${!imageNavHome && "active"
             }`}
           onClick={(event) => {
             setImageNavClient(true),
@@ -157,7 +157,7 @@ function Main() {
           />
         </div>
         <div
-          className={`initial nav-icons mouse-pointer ${!imageNavClient && "atived"
+          className={`initial nav-icons mouse-pointer ${!imageNavClient && "active"
             }`}
           onClick={(event) => {
             setImageNavClient(false),
@@ -177,7 +177,7 @@ function Main() {
           />
         </div>
         <div
-          className={`initial nav-icons mouse-pointer ${!imageNavCharge && "atived"
+          className={`initial nav-icons mouse-pointer ${!imageNavCharge && "active"
             }`}
           onClick={(event) => {
             setImageNavClient(true),

@@ -12,9 +12,9 @@ import {
   dateDDMMYYYYMask,
   moneyMask,
 } from "../../../utils/inputMasks";
+import FilterData from "../FilterData";
 import NotFoundCharges from "../NotFoundCharges";
 import "./style.css";
-import FilterData from "../FilterData";
 
 export default function ChargesListPage() {
   const { ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges,
@@ -72,9 +72,9 @@ export default function ChargesListPage() {
       setColorArrowBottom("#3F3F55");
       setColorArrowTop("#3F3F55");
       setCountOrder(1);
-      if(filterName){
+      if (filterName) {
         return setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
-      }else {
+      } else {
         return ListCharges();
       }
     }
@@ -82,7 +82,7 @@ export default function ChargesListPage() {
   function orderIdCharges() {
     setCountOrderIdCharges(countOrderIdCharges + 1);
     if (countOrderIdCharges === 1) {
-      const orderId = (filterName ? arrayFilterChargesList :infoClientCharges).slice().sort(function (a, b) {
+      const orderId = (filterName ? arrayFilterChargesList : infoClientCharges).slice().sort(function (a, b) {
         return a.id_cobranca - b.id_cobranca;
       });
       setColorArrowTopId("#3F3F55");
@@ -94,9 +94,9 @@ export default function ChargesListPage() {
       setColorArrowTopId("#3F3F55");
       setCountOrderIdCharges(1);
 
-      if(filterName){
+      if (filterName) {
         return setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
-      }else {
+      } else {
         return ListCharges();
       }
     }
@@ -114,17 +114,16 @@ export default function ChargesListPage() {
   }
   const handleOkCharges = (event) => {
     if (event.key === 'Enter') {
-        searchNameChargesList();
-      }
+      searchNameChargesList();
+    }
   }
   async function searchNameChargesList() {
     const validationFunctionSearch = parseFloat(searchNameCharges);
-    const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
+    const resultValidationFunctionSearch = !isNaN(validationFunctionSearch);
     let searchInformationCharges = {};
-    resultValidationFunctionSearct
+    resultValidationFunctionSearch
       ? (searchInformationCharges = { id: searchNameCharges })
       : (searchInformationCharges = { cliente: searchNameCharges });
-      console.log(searchInformationCharges);
     try {
       const response = await api.get("cobranca", {
         headers: {
@@ -139,17 +138,17 @@ export default function ChargesListPage() {
       setSearchNameCharges("");
       await setInfoClientCharges(response.data);
       setCheckListClientChargesLength(false);
-      
-      if(filterName){
+
+      if (filterName) {
         await setArrayFilterChargesList(response.data.filter((charges) => charges.status === filterName))
-        if(!(response.data.filter((charges) => charges.status === filterName)).length){
+        if (!(response.data.filter((charges) => charges.status === filterName)).length) {
           setCheckListClientChargesLength(true)
         }
       }
     } catch (error) {
-        setCheckListClientChargesLength(true);
-        inputSearch.current.value = "";
-        setSearchNameCharges("")
+      setCheckListClientChargesLength(true);
+      inputSearch.current.value = "";
+      setSearchNameCharges("")
       if (error.response) {
         if (
           error.response.status === 401 &&
@@ -171,15 +170,6 @@ export default function ChargesListPage() {
       });
     }
   }
-  /* function verifySearchNameChargesList(event) {
-    if (inputSearch.current.value === "") {
-      ListCharges();
-      return setCheckListClientChargesLength(false);
-    } else {
-      searchNameChargesList(event);
-    }
-  } */
-  
 
   useEffect(() => {
     setTitle("Cobranças");
@@ -187,12 +177,11 @@ export default function ChargesListPage() {
   }, [imageNavCharge]);
 
   useEffect(() => {
-    //setTitle("Cobranças");
     if (filterName) {
       setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
-    } else{
+    } else {
       ListCharges();
-    } 
+    }
   }, [])
 
   useEffect(() => {

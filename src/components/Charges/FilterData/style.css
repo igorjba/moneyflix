@@ -1,41 +1,40 @@
 .container-modal-filter-data-charges {
+    position: absolute;
+    z-index: 1;
+    top: 5.5rem;
+    left: 11rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     border-radius: 3rem;
     padding: 3.5rem;
-
-    position: absolute;
-    top: 5.5rem;
-    left: 11rem;
-
     max-width: 30rem;
     width: 100%;
+
     background-color: var(--bg-modal);
     box-shadow: 0px 4px 42px 0px rgba(0, 0, 0, 0.20);
-
-    z-index: 1;
 }
 
-.set-Filter-Data{
+.set-Filter-Data {
     position: absolute;
+    z-index: 10;
     top: -1.2rem;
     right: 8%;
 
     height: 1.4rem;
     width: 2.5rem;
 
-    z-index: 10;
 }
 
-.container-modal-filter-data-charges label h1{
+.container-modal-filter-data-charges label h1 {
     text-align: start;
     font-size: var(--fz-14);
     font-weight: var(--fw-medium);
     line-height: var(--lineh-20);
 }
 
-.input-Filter-Data{
+.input-Filter-Data {
     display: flex;
     align-items: center;
 
@@ -48,7 +47,7 @@
     background-color: var(--bg-nav);
 }
 
-.input-Filter-Data h1{
+.input-Filter-Data h1 {
     margin-left: 8px;
 
     font-size: var(--fz-16);
@@ -56,7 +55,7 @@
     line-height: var(--lineh-24);
 }
 
-.input-Check-Filter-Data{
+.input-Check-Filter-Data {
     height: 24px;
     width: 24px;
     background-color: #C8C8D7;
@@ -65,16 +64,16 @@
     cursor: pointer;
 }
 
-.container-button-filter-data-charges{
+.container-button-filter-data-charges {
     display: flex;
     flex-direction: column;
 }
 
-.container-button-filter-data-charges :first-child{
+.container-button-filter-data-charges :first-child {
     margin-top: 3.5rem;
 }
 
-.container-button-filter-data-charges :last-child{
+.container-button-filter-data-charges :last-child {
     margin-top: 0.8rem;
 
     background-color: var(--bg-white-gray);
@@ -83,8 +82,8 @@
 
 .container-modal-filter-data-charges button {
     height: 3.8rem;
-
     border-radius: 1rem;
+
     background-color: var(--bg-pink);
     color: var(--bg-modal);
 }
