@@ -142,12 +142,15 @@ function Main() {
         <div
           className={`initial nav-icons mouse-pointer ${!imageNavHome && "active"
             }`}
-          onClick={(event) => {
+          onClick={() => {
             setImageNavClient(true),
               setImageNavHome(false),
               setImageNavCharge(true),
               setTitleNameSecond(""),
               setTitleNameThird("");
+              setFilterNameClient("")
+              setFilterName("")
+              setIdClientDetail({ ...idClientDetail, status: false });
           }}
         >
           <img
@@ -167,7 +170,7 @@ function Main() {
             setIdClientDetail({ ...idClientDetail, status: false });
             setTitleNameThird("");
             setFilterNameClient("")
-
+            console.log(imageNavCharge, imageNavClient, imageNavHome);
           }}
         >
           <img
@@ -181,11 +184,13 @@ function Main() {
             }`}
           onClick={(event) => {
             setImageNavClient(true),
-              setImageNavHome(true),
-              setImageNavCharge(false),
-              setTitleNameSecond(""),
-              setTitleNameThird("");
-            setFilterName("")
+            setImageNavHome(true),
+            setImageNavCharge(false),
+            setTitleNameSecond(""),
+            setTitleNameThird(""),
+            setFilterName(""),
+            setIdClientDetail({ ...idClientDetail, status: false });
+            console.log(imageNavCharge, imageNavClient, imageNavHome);
           }}
         >
           <img
