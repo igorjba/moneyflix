@@ -139,12 +139,18 @@ export default function ChargesListPage() {
       await setInfoClientCharges(response.data);
       setCheckListClientChargesLength(false);
 
+      if(!response.data.length){
+        setCheckListClientChargesLength(true)
+      }
+
       if (filterName) {
         await setArrayFilterChargesList(response.data.filter((charges) => charges.status === filterName))
         if (!(response.data.filter((charges) => charges.status === filterName)).length) {
           setCheckListClientChargesLength(true)
         }
       }
+
+
     } catch (error) {
       setCheckListClientChargesLength(true);
       inputSearch.current.value = "";
