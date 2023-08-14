@@ -7,25 +7,18 @@ import ClienteOverdue from "../../../assets/ClienteOverdue.svg";
 import Expired from "../../../assets/Expired.svg";
 import Paid from "../../../assets/Paid.svg";
 import Pending from "../../../assets/Pending.svg";
-import toastError from "../../../assets/toastError.svg";
+import home from "../../../assets/homeIconBlack.svg";
 import useUser from "../../../hooks/useUser.jsx";
 import { moneyMask } from "../../../utils/inputMasks.jsx";
+import { clearAll } from "../../../utils/localStorage.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
-import home from "../../../assets/homeIconBlack.svg";
-import { clearAll } from "../../../utils/localStorage.jsx";
 
 export default function HomePage() {
   const {
     setTitle,
-    token,
-    setTitleNameSecond,
-    setTitleNameThird,
-    setImageNavClient,
-    setImageNavHome,
-    setImageNavCharge,
-    setListClientByStatus,
+    token
   } = useUser();
   const [data, setData] = useState({});
   const navigate = useNavigate();
@@ -120,12 +113,12 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroVencidas?.[0]?.count}
           cardL={data.Vencidas}
-          search = {"Vencida"}
-          navclient = {true}
-          navcharge = {false}
+          search={"Vencida"}
+          navClient={true}
+          navCharge={false}
           isClientData={false}
           isLastCard={false}
-          />
+        />
         <SummaryCardsList
           titleCard="Cobranças Previstas"
           backgroundColorTotalClient={{
@@ -134,12 +127,12 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroPendentes?.[0]?.count}
           cardL={data.Pendentes}
-          search = {"Pendente"}
-          navclient = {true}
-          navcharge = {false}
+          search={"Pendente"}
+          navClient={true}
+          navCharge={false}
           isClientData={false}
           isLastCard={false}
-          />
+        />
         <SummaryCardsList
           titleCard="Cobranças Pagas"
           backgroundColorTotalClient={{
@@ -148,9 +141,9 @@ export default function HomePage() {
           }}
           totalClient={data.qtdRegistroPagas?.[0]?.count}
           cardL={data.Pagas}
-          search = {"Paga"}
-          navclient = {true}
-          navcharge = {false}
+          search={"Paga"}
+          navClient={true}
+          navCharge={false}
           isClientData={false}
           isLastCard={false}
         />
@@ -166,16 +159,8 @@ export default function HomePage() {
           isClientData={true}
           isLastCard={true}
           search={"Inadimplente"}
-          navclient = {false}
-          navcharge = {true}
-          /* seeAll={(event) => {
-            setListClientByStatus("Inadimplente"),
-              setImageNavClient(false),
-              setImageNavHome(true),
-              setImageNavCharge(true),
-              setTitleNameSecond(""),
-              setTitleNameThird("");
-          }} */
+          navClient={false}
+          navCharge={true}
         />
         <SummaryCardsList
           titleCard="Clientes em dia"
@@ -189,16 +174,8 @@ export default function HomePage() {
           isClientData={true}
           isLastCard={true}
           search={"Em dia"}
-          navclient={false}
-          navcharge={true}
-/*           seeAll={(event) => {
-              setImageNavClient(false),
-              setImageNavHome(true),
-              setImageNavCharge(true),
-              setTitleNameSecond(""),
-              setTitleNameThird(""),
-              setListClientByStatus("Em dia")
-          }} */
+          navClient={false}
+          navCharge={true}
         />
       </div>
     </>

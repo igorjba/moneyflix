@@ -28,8 +28,7 @@ export default function EditChargesModal() {
     verifyDate,
     setVerifyDate,
     filterName,
-    arrayFilterChargesList,
-    setArrayFilterChargesList
+    arrayFilterChargesList
   } = useCharges();
   const { token, setGetInformationClientDetail, getInformationClientDetail, imageNavCharge, search } = useUser();
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ export default function EditChargesModal() {
       return setFormEditCharges({ ...formEditCharges, status: "Pendente" });
     }
   }
-  function dateSendDatebase(event) {
+  function dateSendDatabase(event) {
     const spreadNumber = event.split("/");
     const [day, month, year] = spreadNumber;
     setVerifyDate(0);
@@ -104,12 +103,12 @@ export default function EditChargesModal() {
           ...openModalEditCharges,
           status: false,
         }));
-        if(filterName || search){
-        const indiceArrayCharges = arrayFilterChargesList.find(cobranca =>  cobranca.id_cobranca === openModalEditCharges.id_charges);
-        indiceArrayCharges.descricao = formEditCharges.descricao
-        indiceArrayCharges.valor = formEditCharges.valor.replace(/\./g, "")
-        indiceArrayCharges.vencimento = formEditCharges.vencimento
-        indiceArrayCharges.status = formEditCharges.status
+        if (filterName || search) {
+          const indiceArrayCharges = arrayFilterChargesList.find(cobranca => cobranca.id_cobranca === openModalEditCharges.id_charges);
+          indiceArrayCharges.descricao = formEditCharges.descricao
+          indiceArrayCharges.valor = formEditCharges.valor.replace(/\./g, "")
+          indiceArrayCharges.vencimento = formEditCharges.vencimento
+          indiceArrayCharges.status = formEditCharges.status
         }
         toast.success("Cobrança Atualizada com Sucesso!", {
           className: "customToastify-success",
@@ -220,7 +219,7 @@ export default function EditChargesModal() {
                 onBlur={(event) =>
                   setFormEditCharges({
                     ...formEditCharges,
-                    vencimento: dateSendDatebase(event.target.defaultValue),
+                    vencimento: dateSendDatabase(event.target.defaultValue),
                   })
                 }
               />

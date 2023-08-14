@@ -7,7 +7,7 @@ import openEye from "../../../assets/OpenEye.svg";
 import closed from '../../../assets/close.svg';
 import toastError from '../../../assets/toastError.svg';
 import useUser from '../../../hooks/useUser';
-import { FullName, cellPhoneMask, cellPhoneUnmask, completedName, cpfMask, cpfUnmask, removeSpace } from '../../../utils/inputMasks';
+import { cellPhoneMask, cellPhoneUnmask, completedName, cpfMask, cpfUnmask } from '../../../utils/inputMasks';
 import { clearAll } from '../../../utils/localStorage';
 import { validateEmail, validateName, validatePassword } from '../../../utils/validation';
 import './style.css';

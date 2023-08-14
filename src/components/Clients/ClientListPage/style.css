@@ -18,18 +18,6 @@
     color: var(--font-clr-gray-text-modal);
 }
 
-@media (max-width: 768px) {
-
-    .header {
-        flex-direction: column;
-        gap: 3rem;
-    }
-
-    .client-header {
-        align-self: center;
-    }
-}
-
 .ClientOrder svg {
     align-self: center;
 }
@@ -53,6 +41,7 @@
 .header-table-client {
     position: sticky;
     top: 0;
+
     background-color: var(--bg-modal);
 }
 
@@ -66,13 +55,14 @@
 
 
 .nameSelectDetail:hover {
-    color: var(--bg-pink) !important;
     transform: scale(1.1);
 
     word-break: keep-all;
     white-space: nowrap;
     overflow: visible;
     z-index: 4;
+
+    color: var(--bg-pink) !important;
 }
 
 .view-detail-mouse-over-effect {
@@ -88,12 +78,11 @@
 }
 
 .situation {
-    text-align: center;
-
     padding: 0 0.8rem;
     border-radius: 0.8rem;
     gap: 0.4rem;
 
+    text-align: center;
     font-weight: var(--fw-medium) !important;
     line-height: 2rem !important;
 }
@@ -119,6 +108,18 @@
 .tableAll {
     animation-duration: 1s;
     animation-name: slidein;
+}
+
+@media (max-width: 768px) {
+
+    .header {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .client-header {
+        align-self: center;
+    }
 }
 
 @keyframes slidein {

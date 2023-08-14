@@ -29,13 +29,13 @@ export default function DeleteCharge() {
         }
       );
       setModalDelete({ ...openModalDelete, status: false });
-      
+
       toast.success("Cobrança excluída com Sucesso!", {
         className: "customToastify-success",
         icon: ({ theme, type }) => <img src={success} alt="" />,
       });
-      if(filterName || search){
-        const indiceArrayChargesDelete = arrayFilterChargesList.findIndex(cobranca =>  cobranca.id_cobranca === openModalDelete.id_charges);
+      if (filterName || search) {
+        const indiceArrayChargesDelete = arrayFilterChargesList.findIndex(cobranca => cobranca.id_cobranca === openModalDelete.id_charges);
         arrayFilterChargesList.splice(indiceArrayChargesDelete, 1)
       }
       if (imageNavCharge) {

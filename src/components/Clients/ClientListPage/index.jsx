@@ -39,7 +39,6 @@ export default function ClientListPage() {
   const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false);
   const inputSearch = useRef(null);
 
-  /* const [arrayFilterClientList, setArrayFilterClientList] = useState([]) */
   let informationTableViewClient = filterNameClient ? arrayFilterClientList : clientRegisters
 
 
@@ -69,9 +68,9 @@ export default function ClientListPage() {
       setColorArrowBottom("#3F3F55");
       setColorArrowTop("#3F3F55");
       setCountOrder(1);
-      if(filterNameClient){
+      if (filterNameClient) {
         return setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
-      }else {
+      } else {
         return ClientCadaster()
       }
     }
@@ -103,21 +102,21 @@ export default function ClientListPage() {
       await setClientRegisters(response.data);
       setOpenNotFoundClient(true);
 
-      if(filterNameClient){
+      if (filterNameClient) {
         await setArrayFilterClientList(response.data.filter((client) => client.status === filterNameClient))
 
-        if(!(response.data.filter((client) => client.status === filterNameClient)).length){
+        if (!(response.data.filter((client) => client.status === filterNameClient)).length) {
           setOpenNotFoundClient(false);
         }
-        }
-        
+      }
+
     } catch (error) {
       setOpenNotFoundClient(false);
       setSearchNameClient("");
       inputSearch.current.value = "";
     }
-    
-}
+
+  }
 
 
   useEffect(() => {
@@ -137,17 +136,12 @@ export default function ClientListPage() {
   }, [filterNameClient])
 
   useEffect(() => {
-    if(filterNameClient){
+    if (filterNameClient) {
       setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
-    }else {
+    } else {
       ClientCadaster();
-    } 
+    }
   }, [])
-
-/*   useEffect(() => {
-    setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
-  }, [!setOpenModalRegister]) */
-
 
   return (
     <>
@@ -274,7 +268,7 @@ export default function ClientListPage() {
             <tbody className="extract-table">
               {informationTableViewClient.map((client) => {
                 const statusClassClient = client.status === "Inadimplente" ? "situationDefaulter" :
-                client.status === "Em dia" ? "situationOk" : ""
+                  client.status === "Em dia" ? "situationOk" : ""
                 return (
                   <tr key={client.id_cliente}>
                     <td className="view-detail-mouse-over-effect">

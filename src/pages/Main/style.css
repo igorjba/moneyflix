@@ -38,7 +38,7 @@
   justify-content: center;
 }
 
-.atived {
+.active {
   width: 100%;
   border-right: 0.3rem solid var(--bg-pink);
 }

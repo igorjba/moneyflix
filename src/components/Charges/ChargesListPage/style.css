@@ -7,13 +7,6 @@
     background-color: var(--font-clr-white);
 }
 
-@media (max-width: 768px) {
-    .container-page-charges {
-        flex-direction: column;
-        gap: 3rem;
-    }
-}
-
 .charge-header {
     color: var(--font-clr-gray-text-modal);
 }
@@ -30,7 +23,6 @@
     width: 40% !important;
 
     overflow: hidden;
-
 }
 
 .imagem-table-charge {
@@ -77,4 +69,11 @@
 .number-table {
     word-wrap: break-word;
     white-space: normal;
+}
+
+@media (max-width: 768px) {
+    .container-page-charges {
+        flex-direction: column;
+        gap: 3rem;
+    }
 }

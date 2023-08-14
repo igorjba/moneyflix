@@ -1,29 +1,29 @@
-.modal-Not-Charges{
+.modal-Not-Charges {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
     margin-top: 2.576rem;
     padding: 0 2.2rem;
-
-
     border-radius: 3rem;
     max-height: 61.8rem;
+
     background-color: var(--bg-modal);
 }
 
-.div-error-image{
+.div-error-image {
     position: relative;
 }
 
-.modal-Not-Charges img:last-child{
+.modal-Not-Charges img:last-child {
     position: absolute;
 
     top: 5rem;
     left: 35rem
 }
 
-.container-text-notfound-charges{
+.container-text-not-found-charges {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,16 +31,16 @@
     padding-bottom: 4rem;
 }
 
-.modal-Not-Charges h2:first-child{
+.modal-Not-Charges h2:first-child {
     font-size: 2.8rem;
     font-style: var(--fstyle-normal);
     font-weight: var(--fw-medium);
     line-height: normal;
 
-    color: var(--font-clr-text-notfound-charges);
+    color: var(--font-clr-text-not-found-charges);
 }
 
-.modal-Not-Charges h2:last-child{
+.modal-Not-Charges h2:last-child {
     font-size: var(--fz-24);
     font-style: var(--fstyle-normal);
     font-weight: var(--fw-medium);
