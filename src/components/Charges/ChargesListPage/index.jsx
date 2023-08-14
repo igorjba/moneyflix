@@ -36,8 +36,6 @@ export default function ChargesListPage() {
   const [openModalFilterData, setOpenModalFilterData] = useState(false);
   const inputSearch = useRef(null);
 
-
-  //const [arrayFilterChargesList, setArrayFilterChargesList] = useState([])
   let informationTableVier = filterName ? arrayFilterChargesList : infoClientCharges;
 
 
@@ -440,7 +438,6 @@ export default function ChargesListPage() {
                   </tr>
                 );
               })}
-
             </tbody>
           </table>
         </div>
