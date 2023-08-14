@@ -43,7 +43,7 @@ function useChargesUser() {
   const navigate = useNavigate();
 
   const [filterName, setFilterName] = useState('')
-
+  const [arrayFilterChargesList, setArrayFilterChargesList] = useState([])
 
 
 
@@ -131,6 +131,8 @@ function useChargesUser() {
     setOpenModalDetailCharges,
     filterName,
     setFilterName,
+    arrayFilterChargesList,
+    setArrayFilterChargesList
   };
 }
 
