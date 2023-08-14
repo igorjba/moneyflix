@@ -130,19 +130,26 @@ export default function ChargesListPage() {
           ...searchInformationCharges,
         },
       });
+
+      console.log(response.data);
+
       inputSearch.current.value = "";
       setSearchNameCharges("")
       await setInfoClientCharges(response.data);
+      setCheckListClientChargesLength(false)
+
+      
       if(filterName){
-        setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+        setArrayFilterChargesList(response.data.filter((charges) => charges.status === filterName))
+        console.log(arrayFilterChargesList);
       }
       
-      if (response.data.length) {
-        return setCheckListClientChargesLength(false);
-      } else if (!response.data.length) {
-        return setCheckListClientChargesLength(true);
-      }
+
+      
     } catch (error) {
+        setCheckListClientChargesLength(false);
+        inputSearch.current.value = "";
+        setSearchNameCharges("")
       if (error.response) {
         if (
           error.response.status === 401 &&

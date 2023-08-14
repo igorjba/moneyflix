@@ -104,8 +104,16 @@ export default function ClientListPage() {
       setOpenNotFoundClient(true);
 
       if(filterNameClient){
-        return setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+        await setArrayFilterClientList(response.data.filter((client) => client.status === filterNameClient))
+
+        if(!(response.data.filter((client) => client.status === filterNameClient)).length){
+          setOpenNotFoundClient(false);
         }
+        }
+        
+
+
+
 
     } catch (error) {
       setOpenNotFoundClient(false);
