@@ -15,14 +15,6 @@ function validateName(name) {
         return { isValid: false, message: "Nome inválido" };
     }
 
-    const namesArray = name.split(" ");
-    const hasMultipleSpaces = namesArray.some(namePart => namePart === "");
-
-    /* Tem a necessidade disso, podemos remover os espaços e quando ele salva ja vai estar sem os espaços*/
-   /*  if (hasMultipleSpaces) {
-        return { isValid: false, message: "Nome inválido" };
-    } */
-
     return { isValid: true, message: "Nome válido" };
 }
 
@@ -85,8 +77,8 @@ function validateCPF(cpf) {
         let result = 0;
         let countCPF = 0;
         for (let index = 10; index > 1; index--) {
-            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
-            result = (Consultarcpf * index) + result;
+            let checkCPF = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (checkCPF * index) + result;
             countCPF++;
         }
         result = (result % 11)
@@ -100,8 +92,8 @@ function validateCPF(cpf) {
         result = 0;
         countCPF = 0;
         for (let index = 11; index > 1; index--) {
-            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
-            result = (Consultarcpf * index) + result;
+            let checkCPF = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (checkCPF * index) + result;
             countCPF++;
         }
         result = (result % 11)
@@ -119,8 +111,8 @@ function validateCPFLength(cpf) {
         let result = 0;
         let countCPF = 0;
         for (let index = 10; index > 1; index--) {
-            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
-            result = (Consultarcpf * index) + result;
+            let checkCPF = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (checkCPF * index) + result;
             countCPF++;
         }
         result = (result % 11)
@@ -134,8 +126,8 @@ function validateCPFLength(cpf) {
         result = 0;
         countCPF = 0;
         for (let index = 11; index > 1; index--) {
-            let Consultarcpf = Number(cpf.slice([countCPF], [countCPF + 1]))
-            result = (Consultarcpf * index) + result;
+            let checkCPF = Number(cpf.slice([countCPF], [countCPF + 1]))
+            result = (checkCPF * index) + result;
             countCPF++;
         }
         result = (result % 11)

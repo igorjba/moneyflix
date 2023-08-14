@@ -10,14 +10,16 @@
 
 .charges-modal {
     position: relative;
+    flex-shrink: 0;
+
     width: 100%;
     max-width: 60rem;
     height: 100%;
     max-height: 46.1rem;
-    flex-shrink: 0;
     border-radius: 30px;
-    background: #FFF;
     padding: 1.5rem;
+
+    background: #FFF;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -25,21 +27,24 @@
     position: absolute;
     top: 2.425rem;
     right: 2.4rem;
+
     cursor: pointer;
 }
 
 h2.modal-title {
-    color: var(--cinzas-cinza-2, #3F3F55);
+    position: absolute;
+    top: 4rem;
+    right: 22rem;
+
+    margin-bottom: 1.6rem;
+
     font-family: Montserrat;
     font-size: 26px;
     font-style: normal;
     font-weight: 600;
     line-height: 130%;
-    position: absolute;
-    top: 4rem;
-    right: 22rem;
-    margin-bottom: 1.6rem;
 
+    color: var(--cinzas-cinza-2, #3F3F55);
 
 }
 
@@ -47,40 +52,47 @@ h2.modal-title {
     position: absolute;
     top: calc(4rem + 1.6rem + 26px);
     left: 5.6rem;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+
+    margin-top: 1.6rem;
     width: 48.9rem;
     height: 33.1rem;
-    font-size: 18px;
-    color: #3F3F55;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 400;
+
+    font-size: var(--fz-18);
+    font-family: var(--ff-montserrat);
+    font-style: var(--fstyle-normal);
+    font-weight: var(--fw-regular);
     line-height: 130%;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-top: 1.6rem;
+
+    color: var(--font-clr-gray-text-modal);
 }
 
 .info-detail {
     display: flex;
-    gap: 1.6rem;
-    align-items: baseline;
     flex-direction: column;
+    gap: 1.6rem;
+
+    align-items: baseline;
 }
 
 .charges-details div p {
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--cinzas-cinza-2, #3F3F55);
-    font-family: Montserrat;
     margin-bottom: 0.2rem;
+
+    font-weight: 600;
+    font-size: var(--fz-16);
+    font-family: var(--ff-montserrat);
+
+    color: var(--cinzas-cinza-2, --font-clr-gray-text-modal);
 }
 
 
 .charges-details div span {
-    font-size: 16px;
-    color: var(--cinzas-cinza-2, #3F3F55);
-    font-family: Montserrat;
+    font-size: var(--fz-16);
+    font-family: var(--ff-montserrat);
+
+    color: var(--cinzas-cinza-2, --font-clr-gray-text-modal);
 }
 
 .vencimento-valor,
@@ -93,23 +105,19 @@ h2.modal-title {
 
 .info-detail {
     display: flex;
-    width: 243px;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 8px;
-}
 
-/* .description-detail {
-    width: 100%;
-} */
+    width: 243px;
+}
 
 .status-text {
     text-align: center;
 
     padding: 0 0.8rem;
     border-radius: 0.8rem;
-
 
     font-weight: var(--fw-medium) !important;
     line-height: 2rem !important;
@@ -134,6 +142,7 @@ h2.modal-title {
     position: absolute;
     top: 4.1rem;
     left: 4.9rem;
+
     width: 3.2rem;
     height: 3.2rem;
 }

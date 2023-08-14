@@ -1,15 +1,17 @@
 import { useState } from "react";
-import checkboxGreenFilter from "../../../assets/checkboxFilterData.svg";
 import set from "../../../assets/Set.svg";
+import checkboxGreenFilter from "../../../assets/checkboxFilterData.svg";
+import useClient from "../../../hooks/useClient";
 import useUser from "../../../hooks/useUser";
 import "./style.css";
 
 export default function FilterDataClient({ setOpenModalFilterDataClient }) {
   const [verifyCheckboxFilterData, setVerifyCheckboxFilterData] = useState(true);
   const { setImageNavClient, setListClientByStatus } = useUser();
+  const { setFilterNameClient } = useClient();
 
-  function submitButtonFilterClient(){
-    (verifyCheckboxFilterData ? setListClientByStatus("Inadimplente") : setListClientByStatus("Em dia"))
+  function submitButtonFilterClient() {
+    (verifyCheckboxFilterData ? setFilterNameClient("Inadimplente") : setFilterNameClient("Em dia"))
     setOpenModalFilterDataClient(false)
     setImageNavClient(false)
   }
@@ -20,7 +22,7 @@ export default function FilterDataClient({ setOpenModalFilterDataClient }) {
         <label htmlFor="">
           <h1>Status</h1>
         </label>
-        <div className="input-Filter-Data mouse-pointer" onClick={() => {setVerifyCheckboxFilterData(true)}} >
+        <div className="input-Filter-Data mouse-pointer" onClick={() => { setVerifyCheckboxFilterData(true) }} >
           <div className="input-Check-Filter-Data" onClick={() => setVerifyCheckboxFilterData(true)} > {verifyCheckboxFilterData && (<img src={checkboxGreenFilter} alt="" />)} </div>
           <h1>Inadiplementes</h1>
         </div>

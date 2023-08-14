@@ -12,33 +12,32 @@ import {
   dateDDMMYYYYMask,
   moneyMask,
 } from "../../../utils/inputMasks";
+import FilterData from "../FilterData";
 import NotFoundCharges from "../NotFoundCharges";
 import "./style.css";
-import FilterData from "../FilterData";
 
 export default function ChargesListPage() {
-  const {
-    backgroundSituation,
-    ListCharges,
-    infoClientCharges,
-    setInfoClientCharges,
-    setModalDelete,
-    setOpenModalEditCharges,
-    setOpenModalDetailCharges,
-    openModalDetailCharges,
-  } = useCharges();
-  const { setTitle, token, imageNavClient } = useUser();
+  const { ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges,
+    openModalDetailCharges, filterName, arrayFilterChargesList, setArrayFilterChargesList } = useCharges();
+
+  const { setTitle, token, imageNavCharge } = useUser();
+
   const [countOrder, setCountOrder] = useState(1);
-  const [countOrderIdCharges, setcountOrderIdCharges] = useState(1);
-  const [corarrowTop, setCorArrowTop] = useState("#3F3F55");
-  const [corarrowBottom, setCorArrowBottom] = useState("#3F3F55");
-  const [corarrowTopId, setCorArrowTopId] = useState("#3F3F55");
-  const [corarrowBottomId, setCorArrowBottomId] = useState("#3F3F55");
+  const [countOrderIdCharges, setCountOrderIdCharges] = useState(1);
+
+  const [colorArrowTop, setColorArrowTop] = useState("#3F3F55");
+  const [colorArrowBottom, setColorArrowBottom] = useState("#3F3F55");
+  const [colorArrowTopId, setColorArrowTopId] = useState("#3F3F55");
+  const [colorArrowBottomId, setColorArrowBottomId] = useState("#3F3F55");
+
   const [searchNameCharges, setSearchNameCharges] = useState("");
-  const [checkListClientChargesLength, setCheckListClientChargesLength] =
-    useState(false);
+  const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
+
   const [openModalFilterData, setOpenModalFilterData] = useState(false);
   const inputSearch = useRef(null);
+
+  let informationTableVier = filterName ? arrayFilterChargesList : infoClientCharges;
+
 
   function informationDeleteCharges(event) {
     setModalDelete({
@@ -49,48 +48,57 @@ export default function ChargesListPage() {
   function orderName() {
     setCountOrder(countOrder + 1);
     if (countOrder === 1) {
-      const order = infoClientCharges.slice().sort(function (a, b) {
+      const order = (filterName ? arrayFilterChargesList : infoClientCharges).slice().sort(function (a, b) {
         let x = a.cliente.toUpperCase();
         let y = b.cliente.toUpperCase();
 
         return x == y ? 0 : x > y ? 1 : -1;
       });
-      setCorArrowTop("#3F3F55");
-      setCorArrowBottom("#DA0175");
-      setInfoClientCharges(order);
+      setColorArrowTop("#3F3F55");
+      setColorArrowBottom("#DA0175");
+      filterName ? setArrayFilterChargesList(order) : setInfoClientCharges(order);
     }
     if (countOrder === 2) {
-      const order = infoClientCharges.slice().sort(function (a, b) {
+      const order = (filterName ? arrayFilterChargesList : infoClientCharges).slice().sort(function (a, b) {
         let x = a.cliente.toUpperCase();
         let y = b.cliente.toUpperCase();
         return x == y ? 0 : x < y ? 1 : -1;
       });
-      setCorArrowBottom("#3F3F55");
-      setCorArrowTop("#DA0175");
-      setInfoClientCharges(order);
+      setColorArrowBottom("#3F3F55");
+      setColorArrowTop("#DA0175");
+      filterName ? setArrayFilterChargesList(order) : setInfoClientCharges(order);
     }
     if (countOrder === 3) {
-      ListCharges();
-      setCorArrowBottom("#3F3F55");
-      setCorArrowTop("#3F3F55");
+      setColorArrowBottom("#3F3F55");
+      setColorArrowTop("#3F3F55");
       setCountOrder(1);
+      if (filterName) {
+        return setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+      } else {
+        return ListCharges();
+      }
     }
   }
   function orderIdCharges() {
-    setcountOrderIdCharges(countOrderIdCharges + 1);
+    setCountOrderIdCharges(countOrderIdCharges + 1);
     if (countOrderIdCharges === 1) {
-      const orderId = infoClientCharges.slice().sort(function (a, b) {
+      const orderId = (filterName ? arrayFilterChargesList : infoClientCharges).slice().sort(function (a, b) {
         return a.id_cobranca - b.id_cobranca;
       });
-      setCorArrowTopId("#3F3F55");
-      setCorArrowBottomId("#DA0175");
-      setInfoClientCharges(orderId);
+      setColorArrowTopId("#3F3F55");
+      setColorArrowBottomId("#DA0175");
+      filterName ? setArrayFilterChargesList(orderId) : setInfoClientCharges(orderId);
     }
     if (countOrderIdCharges === 2) {
-      ListCharges();
-      setCorArrowBottomId("#3F3F55");
-      setCorArrowTopId("#3F3F55");
-      setcountOrderIdCharges(1);
+      setColorArrowBottomId("#3F3F55");
+      setColorArrowTopId("#3F3F55");
+      setCountOrderIdCharges(1);
+
+      if (filterName) {
+        return setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+      } else {
+        return ListCharges();
+      }
     }
   }
   function informationEditCharges(event) {
@@ -104,11 +112,16 @@ export default function ChargesListPage() {
       statusPage: event.status,
     });
   }
+  const handleOkCharges = (event) => {
+    if (event.key === 'Enter') {
+      searchNameChargesList();
+    }
+  }
   async function searchNameChargesList() {
     const validationFunctionSearch = parseFloat(searchNameCharges);
-    const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
+    const resultValidationFunctionSearch = !isNaN(validationFunctionSearch);
     let searchInformationCharges = {};
-    resultValidationFunctionSearct
+    resultValidationFunctionSearch
       ? (searchInformationCharges = { id: searchNameCharges })
       : (searchInformationCharges = { cliente: searchNameCharges });
     try {
@@ -120,14 +133,22 @@ export default function ChargesListPage() {
           ...searchInformationCharges,
         },
       });
+
       inputSearch.current.value = "";
-      setInfoClientCharges(response.data);
-      if (response.data.length) {
-        return setCheckListClientChargesLength(false);
-      } else if (!response.data.length) {
-        return setCheckListClientChargesLength(true);
+      setSearchNameCharges("");
+      await setInfoClientCharges(response.data);
+      setCheckListClientChargesLength(false);
+
+      if (filterName) {
+        await setArrayFilterChargesList(response.data.filter((charges) => charges.status === filterName))
+        if (!(response.data.filter((charges) => charges.status === filterName)).length) {
+          setCheckListClientChargesLength(true)
+        }
       }
     } catch (error) {
+      setCheckListClientChargesLength(true);
+      inputSearch.current.value = "";
+      setSearchNameCharges("")
       if (error.response) {
         if (
           error.response.status === 401 &&
@@ -149,34 +170,24 @@ export default function ChargesListPage() {
       });
     }
   }
-  function verifySearchNameChargesList(event) {
-    if (inputSearch.current.value === "") {
-      ListCharges();
-      return setCheckListClientChargesLength(false);
-    } else {
-      searchNameChargesList(event);
-    }
-  }
-  const handleOk = (event) => {
-    if(event.key === 'Enter'){
-      searchNameChargesList()
-    }
-  }
 
   useEffect(() => {
     setTitle("Cobranças");
-  }, [imageNavClient]);
+    setCheckListClientChargesLength(false)
+  }, [imageNavCharge]);
 
   useEffect(() => {
-    if (!openModalFilterData) {
+    if (filterName) {
+      setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+    } else {
       ListCharges();
-      backgroundSituation();
     }
-  }, [openModalFilterData]);
+  }, [])
 
   useEffect(() => {
-    backgroundSituation();
-  }, [infoClientCharges]);
+    setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+  }, [filterName])
+
   return (
     <>
       <div className="container-page-charges initial">
@@ -191,10 +202,11 @@ export default function ChargesListPage() {
               alt="Filtrar"
               onClick={() => setOpenModalFilterData(true)}
             />
-            </button>
-            {openModalFilterData && (
-              <FilterData setOpenModalFilterData={setOpenModalFilterData} />
-            )}
+          </button>
+          {openModalFilterData && (
+            <FilterData
+              setOpenModalFilterData={setOpenModalFilterData} />
+          )}
           <div className="search-container">
             <input
               placeholder="Pesquisa"
@@ -202,13 +214,13 @@ export default function ChargesListPage() {
               type="text"
               name="Filter nome"
               onChange={(e) => setSearchNameCharges(e.target.value)}
-              onKeyDown={handleOk}
+              onKeyDown={handleOkCharges}
             />
             <img
               src={lupa}
               alt="Lupa"
               className="search"
-              onClick={(event) => verifySearchNameChargesList(event)}
+              onClick={(event) => searchNameChargesList(event)}
             />
           </div>
         </div>
@@ -235,7 +247,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottom}
+                          stroke={colorArrowBottom}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -243,7 +255,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottom}
+                          stroke={colorArrowBottom}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -251,7 +263,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTop}
+                          stroke={colorArrowTop}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -259,7 +271,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTop}
+                          stroke={colorArrowTop}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -295,7 +307,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector"
                           d="M9.5 10.5L9.5 23.25"
-                          stroke={corarrowBottomId}
+                          stroke={colorArrowBottomId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -303,7 +315,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_2"
                           d="M12.5 20.25L9.5 23.25L6.5 20.25"
-                          stroke={corarrowBottomId}
+                          stroke={colorArrowBottomId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -311,7 +323,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_3"
                           d="M15.5 13.5L15.5 0.75"
-                          stroke={corarrowTopId}
+                          stroke={colorArrowTopId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -319,7 +331,7 @@ export default function ChargesListPage() {
                         <path
                           id="Vector_4"
                           d="M12.5 3.75L15.5 0.75L18.5 3.75"
-                          stroke={corarrowTopId}
+                          stroke={colorArrowTopId}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -355,7 +367,10 @@ export default function ChargesListPage() {
               </tr>
             </thead>
             <tbody className="extract-table">
-              {infoClientCharges.map((charges) => {
+              {informationTableVier.map((charges) => {
+                const statusClass = charges.status === "Vencida" ? "statusDefeated" :
+                  charges.status === "Pendente" ? "statusPending" :
+                    charges.status === "Paga" ? "statusPay" : ""
                 return (
                   <tr className="extract-table" key={charges.id_cobranca}>
                     <td
@@ -387,7 +402,7 @@ export default function ChargesListPage() {
                     </td>
                     <td>
                       <div className="div-status-charge">
-                        <h1 className="status-text">{charges.status}</h1>
+                        <h1 className={`status-text ${statusClass}`}>{charges.status}</h1>
                       </div>
                     </td>
                     <td className="description-table-charge">

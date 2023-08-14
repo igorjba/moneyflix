@@ -1,5 +1,5 @@
+import { useEffect, useRef, useState } from "react";
 import { NumericFormat, PatternFormat } from "react-number-format";
-import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,10 +8,10 @@ import checkboxGreen from "../../../assets/Checkbox.svg";
 import IconCharge from "../../../assets/IconCharge.svg";
 import success from "../../../assets/Success-Toast.svg";
 import closed from "../../../assets/close.svg";
+import useCharges from "../../../hooks/useCharges";
 import useUser from "../../../hooks/useUser";
 import { completedName, dateDDMMYYYYMask } from "../../../utils/inputMasks";
 import { clearAll } from "../../../utils/localStorage";
-import useCharges from "../../../hooks/useCharges";
 import "./style.css";
 
 export default function RegisterChargesModal() {
@@ -59,7 +59,7 @@ export default function RegisterChargesModal() {
       });
     }
   }
-  function dateSendDatebase(event) {
+  function dateSendDatabase(event) {
     const spreadNumber = event.split("/");
     const [day, month, year] = spreadNumber;
     setVerifyDate(0);
@@ -125,7 +125,7 @@ export default function RegisterChargesModal() {
             navigate("/login");
           }
         }
-        toast.error(console.log(error), error.response.data.message, {
+        toast.error(error.response.data.message, {
           className: "customToastify-error",
           icon: ({ theme, type }) => <img src={error} alt="" />,
         });
@@ -139,7 +139,6 @@ export default function RegisterChargesModal() {
   }, []);
   return (
     <div className="main-modal-flex modal-charge register-charge-modal">
-      {/*       <div></div> */}
       <img
         src={closed}
         className="main-modal-flex-close mouse-pointer"
@@ -205,7 +204,7 @@ export default function RegisterChargesModal() {
                 onBlur={(event) =>
                   setFormRegisterCharges({
                     ...formRegisterCharges,
-                    vencimento: dateSendDatebase(event.target.defaultValue),
+                    vencimento: dateSendDatabase(event.target.defaultValue),
                   })} />
               {errorDate && (<span className="errorCharges"><h1>{errorDate}</h1></span>)}
             </div>

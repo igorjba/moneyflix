@@ -81,9 +81,9 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           icon: ({ theme, type }) => <img src={success} alt="" />,
         });
       }, 2000);
-      
+
     } catch (error) {
-      
+
       setTimeout(() => {
         setOpenLoading(false);
         toast.error(error.response.data.message, {
@@ -130,7 +130,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
       ...localForm,
     });
 
-      login();
+    login();
   };
 
   const token = localStorage.getItem("token");
@@ -148,9 +148,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
         <div className="container-email-sign-in-form container-input">
           <span className="sign-in-form-email span-forms">E-mail</span>
           <input
-            className={`${
-              errorEmail ? "errorLine" : ""
-            } sign-in-form-input input-forms`}
+            className={`${errorEmail ? "errorLine" : ""
+              } sign-in-form-input input-forms`}
             type="email"
             name="email"
             value={localForm.email}
@@ -178,9 +177,8 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
           </div>
 
           <input
-            className={`${
-              errorPassword ? "errorLine" : ""
-            } sign-in-form-input input-forms input-password`}
+            className={`${errorPassword ? "errorLine" : ""
+              } sign-in-form-input input-forms input-password`}
             type={showPassword ? "text" : "password"}
             name="password"
             value={localForm.password}

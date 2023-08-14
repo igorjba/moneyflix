@@ -13,12 +13,6 @@
   filter: drop-shadow(0px 4px 4px rgba(172, 217, 197, 0.25));
 }
 
-@media (max-width: 768px) {
-  .card {
-    max-width: 55.6rem;
-  }
-}
-
 .last-card {
   max-width: 55.6rem;
   width: 100%;
@@ -79,11 +73,11 @@
   text-transform: capitalize;
   font-size: 14px;
   font-weight: 400;
-  color: var(--font-table);
-
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  color: var(--font-table);
 }
 
 .table-main-card thead :first-child {
@@ -92,11 +86,12 @@
 
 .table-main-card tr :first-child {
   max-width: 17rem;
+  padding-left: 3.2rem;
+  padding-right: 0.5rem;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-left: 3.2rem;
-  padding-right: 0.5rem;
 }
 
 .footerTable {
@@ -118,7 +113,6 @@
   cursor: pointer;
 }
 
-/* Para aplicar o scroll quando pequeno a tabela no tamanho de celular*/
 .table-main-card {
   width: 100%;
   border-collapse: collapse;
@@ -142,9 +136,14 @@
 
 .titlesTable th {
   white-space: break-spaces;
-  /* Deixar o ID Cliente quebrado */
 }
 
-.extract-table-dashbord:hover{
+.extract-table-dashbord:hover {
   background-color: rgba(237, 237, 235, 0.395);
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 55.6rem;
+  }
 }

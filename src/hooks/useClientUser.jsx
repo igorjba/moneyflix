@@ -3,18 +3,20 @@ import { toast } from "react-toastify";
 import api from "../api/api";
 import useUser from "./useUser";
 
-function useClientUser(){
-    const {token, listClientByStatus} = useUser()
-    const [clientRegisters, setClientRegisters] = useState([]);
-    const [openModalRegister, setOpenModalRegister] = useState(false);
-    const [idClientDetail, setIdClientDetail] = useState({
-      status: false,
-      id_client: ''
-    });
-    const [openModalEditClient, setOpenModalEditClient] = useState(false)
-  function filterStatus(data, condition) {
-    return data.filter((client) => client.status === condition);
-  }
+function useClientUser() {
+  const { token, listClientByStatus } = useUser()
+  const [clientRegisters, setClientRegisters] = useState([]);
+  const [openModalRegister, setOpenModalRegister] = useState(false);
+  const [idClientDetail, setIdClientDetail] = useState({
+    status: false,
+    id_client: ''
+  });
+  const [openModalEditClient, setOpenModalEditClient] = useState(false)
+
+  const [filterNameClient, setFilterNameClient] = useState('')
+
+  const [arrayFilterClientList, setArrayFilterClientList] = useState([])
+
 
   async function ClientCadaster() {
     try {
@@ -24,11 +26,6 @@ function useClientUser(){
         },
       });
 
-      if (listClientByStatus) {
-        return setClientRegisters(
-          filterStatus(response.data, listClientByStatus)
-        );
-      }
       setClientRegisters(response.data);
     } catch (error) {
       if (error.response) {
@@ -46,7 +43,6 @@ function useClientUser(){
           navigate("/login");
         }
       }
-      console.log(error);
       toast.error(error.response.data.message, {
         className: "customToastify-error",
         icon: ({ theme, type }) => <img src={error} alt="" />,
@@ -54,7 +50,15 @@ function useClientUser(){
     }
   }
 
+  async function reloadClientList() {
+    await ClientCadaster();
+    if (filterNameClient) {
+      setArrayFilterClientList(clientRegisters.filter(client => client.status === filterNameClient));
+    }
+  }
+
   return {
+    reloadClientList,
     clientRegisters,
     setClientRegisters,
     openModalRegister,
@@ -64,6 +68,10 @@ function useClientUser(){
     openModalEditClient,
     setOpenModalEditClient,
     ClientCadaster,
+    filterNameClient,
+    setFilterNameClient,
+    arrayFilterClientList,
+    setArrayFilterClientList
   };
 }
 

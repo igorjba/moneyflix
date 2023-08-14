@@ -27,8 +27,10 @@ export default function EditChargesModal() {
     ListCharges,
     verifyDate,
     setVerifyDate,
+    filterName,
+    arrayFilterChargesList
   } = useCharges();
-  const { token, setGetInformationClientDetail, getInformationClientDetail, imageNavCharge } = useUser();
+  const { token, setGetInformationClientDetail, getInformationClientDetail, imageNavCharge, search } = useUser();
   const navigate = useNavigate();
   const inputRef = useRef(null);
   let validate = 0;
@@ -58,7 +60,7 @@ export default function EditChargesModal() {
       return setFormEditCharges({ ...formEditCharges, status: "Pendente" });
     }
   }
-  function dateSendDatebase(event) {
+  function dateSendDatabase(event) {
     const spreadNumber = event.split("/");
     const [day, month, year] = spreadNumber;
     setVerifyDate(0);
@@ -101,6 +103,13 @@ export default function EditChargesModal() {
           ...openModalEditCharges,
           status: false,
         }));
+        if (filterName || search) {
+          const indiceArrayCharges = arrayFilterChargesList.find(cobranca => cobranca.id_cobranca === openModalEditCharges.id_charges);
+          indiceArrayCharges.descricao = formEditCharges.descricao
+          indiceArrayCharges.valor = formEditCharges.valor.replace(/\./g, "")
+          indiceArrayCharges.vencimento = formEditCharges.vencimento
+          indiceArrayCharges.status = formEditCharges.status
+        }
         toast.success("Cobrança Atualizada com Sucesso!", {
           className: "customToastify-success",
           icon: ({ theme, type }) => <img src={success} alt="" />,
@@ -126,7 +135,7 @@ export default function EditChargesModal() {
             navigate("/login");
           }
         }
-        toast.error(console.log(error), error.response.data.message, {
+        toast.error(error.response.data.message, {
           className: "customToastify-error",
           icon: ({ theme, type }) => <img src={error} alt="" />,
         });
@@ -210,7 +219,7 @@ export default function EditChargesModal() {
                 onBlur={(event) =>
                   setFormEditCharges({
                     ...formEditCharges,
-                    vencimento: dateSendDatebase(event.target.defaultValue),
+                    vencimento: dateSendDatabase(event.target.defaultValue),
                   })
                 }
               />
@@ -234,8 +243,8 @@ export default function EditChargesModal() {
                 decimalSeparator=","
                 placeholder="0,00"
                 name="vencimento"
-                allowNegative={false} //não pode numero negativo
-                fixedDecimalScale={true} //fixar numeros decimais só 2 casas nao sei confirmar
+                allowNegative={false}
+                fixedDecimalScale={true}
                 onValueChange={(number) => {
                   setFormEditCharges({
                     ...formEditCharges,

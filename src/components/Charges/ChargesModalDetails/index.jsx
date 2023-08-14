@@ -1,17 +1,17 @@
 import React from 'react';
-import { dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
-import closed from '../../../assets/close.svg';
 import iconCharge from '../../../assets/IconCharge.svg';
-import './style.css';
+import closed from '../../../assets/close.svg';
 import useCharges from '../../../hooks/useCharges';
+import { dateDDMMYYYYMask, moneyMask } from '../../../utils/inputMasks';
+import './style.css';
 
 export default function ChargesModal() {
-    const {setOpenModalDetailCharges, openModalDetailCharges} = useCharges()
+    const { setOpenModalDetailCharges, openModalDetailCharges } = useCharges()
 
     return (
         <div className="charges-modal-container">
             <div className="charges-modal">
-                <img src={closed} alt="Fechar" className="close-button" onClick={() => setOpenModalDetailCharges({...openModalDetailCharges, status:false})} />
+                <img src={closed} alt="Fechar" className="close-button" onClick={() => setOpenModalDetailCharges({ ...openModalDetailCharges, status: false })} />
                 <div className="modal-title-container">
                     <img src={iconCharge} alt="Ícone de Cobrança" className="charge-icon" />
                     <h2 className="modal-title">Detalhes da Cobrança</h2>

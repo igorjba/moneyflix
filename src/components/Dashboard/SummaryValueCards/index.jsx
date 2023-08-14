@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
 
 export default function SummaryValueCards({
@@ -8,15 +6,6 @@ export default function SummaryValueCards({
   TitleCard,
   ValueCard,
 }) {
-  function formatValue(value) {
-    return value?.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    });
-  }
-  //const valueCardFormated = formatValue(parseInt(ValueCard));
 
   return (
     <div
