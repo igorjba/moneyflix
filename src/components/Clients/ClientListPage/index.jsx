@@ -51,8 +51,8 @@ export default function ClientListPage() {
         let y = b.nome_cliente.toUpperCase();
         return x == y ? 0 : x > y ? 1 : -1;
       });
-      setCorArrowTop("#3F3F55");
-      setCorArrowBottom("#DA0175");
+      setColorArrowTop("#3F3F55");
+      setColorArrowBottom("#DA0175");
       filterNameClient ? setArrayFilterClientList(order) : setClientRegisters(order);
     }
     if (countOrder === 2) {
@@ -61,13 +61,13 @@ export default function ClientListPage() {
         let y = b.nome_cliente.toUpperCase();
         return x == y ? 0 : x < y ? 1 : -1;
       });
-      setCorArrowBottom("#3F3F55");
-      setCorArrowTop("#DA0175");
+      setColorArrowBottom("#3F3F55");
+      setColorArrowTop("#DA0175");
       filterNameClient ? setArrayFilterClientList(order) : setClientRegisters(order);
     }
     if (countOrder === 3) {
-      setCorArrowBottom("#3F3F55");
-      setCorArrowTop("#3F3F55");
+      setColorArrowBottom("#3F3F55");
+      setColorArrowTop("#3F3F55");
       setCountOrder(1);
       if(filterNameClient){
         return setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
@@ -104,8 +104,16 @@ export default function ClientListPage() {
       setOpenNotFoundClient(true);
 
       if(filterNameClient){
-        return setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+        await setArrayFilterClientList(response.data.filter((client) => client.status === filterNameClient))
+
+        if(!(response.data.filter((client) => client.status === filterNameClient)).length){
+          setOpenNotFoundClient(false);
         }
+        }
+        
+
+
+
 
     } catch (error) {
       setOpenNotFoundClient(false);
