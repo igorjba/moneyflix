@@ -14,7 +14,6 @@ import { clearAll } from "../../../utils/localStorage.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
-import home from "../../../assets/homeIconBlack.svg";
 import useClient from "../../../hooks/useClient.jsx";
 
 export default function HomePage() {
@@ -159,15 +158,6 @@ export default function HomePage() {
           iconCard={ClienteOverdue}
           isClientData={true}
           isLastCard={true}
-          seeAll={(event) => {
-            setListClientByStatus("Inadimplente"),
-              setImageNavClient(false),
-              (idClientDetail.status = false),
-              setImageNavHome(true),
-              setImageNavCharge(true),
-              setTitleNameSecond(""),
-              setTitleNameThird("");
-          }}
           search={"Inadimplente"}
           navClient={false}
           navCharge={true}
@@ -183,15 +173,6 @@ export default function HomePage() {
           iconCard={ClienteOK}
           isClientData={true}
           isLastCard={true}
-          seeAll={(event) => {
-            setListClientByStatus("Em dia"),
-              setImageNavClient(false),
-              (idClientDetail.status = false),
-              setImageNavHome(true),
-              setImageNavCharge(true),
-              setTitleNameSecond(""),
-              setTitleNameThird("");
-          }}
           search={"Em dia"}
           navClient={false}
           navCharge={true}
