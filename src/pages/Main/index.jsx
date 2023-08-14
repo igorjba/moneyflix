@@ -170,7 +170,6 @@ function Main() {
             setIdClientDetail({ ...idClientDetail, status: false });
             setTitleNameThird("");
             setFilterNameClient("")
-            console.log(imageNavCharge, imageNavClient, imageNavHome);
           }}
         >
           <img
@@ -190,7 +189,6 @@ function Main() {
             setTitleNameThird(""),
             setFilterName(""),
             setIdClientDetail({ ...idClientDetail, status: false });
-            console.log(imageNavCharge, imageNavClient, imageNavHome);
           }}
         >
           <img
