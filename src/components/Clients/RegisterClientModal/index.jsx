@@ -17,7 +17,7 @@ import useClient from '../../../hooks/useClient';
 
 export default function RegisterClientModal() {
   const navigate = useNavigate();
-  const { setOpenModalRegister, ClientCadaster, filterNameClient, setArrayFilterClientList, clientRegisters, arrayFilterClientList } = useClient()
+  const { setOpenModalRegister, ClientCadaster, setFilterNameClient, filterNameClient, setArrayFilterClientList, clientRegisters, arrayFilterClientList, reloadClientList } = useClient()
   const { token } = useUser();
   const [form, setForm] = useState({
     nome: '',
@@ -149,9 +149,10 @@ export default function RegisterClientModal() {
         }
       });
       await ClientCadaster()
-      if(filterNameClient){
-        await setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
-      }
+      // if (filterNameClient) {
+      //   await setArrayFilterClientList(clientRegisters.filter((client) => client.status === filterNameClient))
+      // }
+      setFilterNameClient("")
       setOpenModalRegister(false)
       /* console.log(arrayFilterClientList);
       if(filterNameClient){
@@ -167,7 +168,9 @@ export default function RegisterClientModal() {
         className: 'customToastify-success',
         icon: ({ theme, type }) => <img src={success} alt="" />
       });
+      // reloadClientList();
     } catch (error) {
+      console.log(error)
       if (error.response) {
         if (error.response.status === 401 && error.response.data.message === "token expirado") {
           clearAll()
