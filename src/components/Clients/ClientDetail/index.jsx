@@ -42,7 +42,7 @@ export default function ClientDetail() {
   } = useUser();
 
   const [detailsData, setDetailsData] = useState({});
-  const [countOrderDueDate, setcountOrderDueDate] = useState(1);
+  const [countOrderDueDate, setCountOrderDueDate] = useState(1);
   const [countOrderIdCharges, setCountOrderIdCharges] = useState(1);
   const [colorArrowTopId, setColorArrowTopId] = useState("#3F3F55");
   const [colorArrowBottomId, setColorArrowBottomId] = useState("#3F3F55");
@@ -122,7 +122,7 @@ export default function ClientDetail() {
   function orderDueDate() {
     setColorArrowTopId("#3F3F55");
     setColorArrowBottomId("#3F3F55");
-    setcountOrderDueDate(countOrderDueDate + 1);
+    setCountOrderDueDate(countOrderDueDate + 1);
     if (countOrderDueDate === 1) {
       const orderDue = infoClientCharges.slice().sort(function (a, b) {
         const dateA = new Date(a.vencimento);
@@ -142,7 +142,7 @@ export default function ClientDetail() {
       setColorArrowBottomDue("#DA0175");
       setColorArrowTopDue("#3F3F55");
       setInfoClientCharges(orderDue);
-      setcountOrderDueDate(1);
+      setCountOrderDueDate(1);
     }
   }
 
