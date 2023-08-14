@@ -18,9 +18,9 @@ import FilterData from "../FilterData";
 
 export default function ChargesListPage() {
   const { ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges,
-    openModalDetailCharges, filterName } = useCharges();
+    openModalDetailCharges, filterName, arrayFilterChargesList, setArrayFilterChargesList } = useCharges();
 
-  const { setTitle, token, imageNavClient } = useUser();
+  const { setTitle, token, imageNavCharge } = useUser();
 
   const [countOrder, setCountOrder] = useState(1);
   const [countOrderIdCharges, setCountOrderIdCharges] = useState(1);
@@ -37,7 +37,7 @@ export default function ChargesListPage() {
   const inputSearch = useRef(null);
 
 
-  const [arrayFilterChargesList, setArrayFilterChargesList] = useState([])
+  //const [arrayFilterChargesList, setArrayFilterChargesList] = useState([])
   let informationTableVier = filterName ? arrayFilterChargesList : infoClientCharges;
 
 
@@ -114,13 +114,19 @@ export default function ChargesListPage() {
       statusPage: event.status,
     });
   }
-  async function searchNameChargesList(e) {
+  const handleOkCharges = (event) => {
+    if (event.key === 'Enter') {
+        searchNameChargesList();
+      }
+  }
+  async function searchNameChargesList() {
     const validationFunctionSearch = parseFloat(searchNameCharges);
     const resultValidationFunctionSearct = !isNaN(validationFunctionSearch);
     let searchInformationCharges = {};
     resultValidationFunctionSearct
       ? (searchInformationCharges = { id: searchNameCharges })
       : (searchInformationCharges = { cliente: searchNameCharges });
+      console.log(searchInformationCharges);
     try {
       const response = await api.get("cobranca", {
         headers: {
@@ -131,23 +137,19 @@ export default function ChargesListPage() {
         },
       });
 
-      console.log(response.data);
-
       inputSearch.current.value = "";
-      setSearchNameCharges("")
+      setSearchNameCharges("");
       await setInfoClientCharges(response.data);
-      setCheckListClientChargesLength(false)
-
+      setCheckListClientChargesLength(false);
       
       if(filterName){
-        setArrayFilterChargesList(response.data.filter((charges) => charges.status === filterName))
-        console.log(arrayFilterChargesList);
+        await setArrayFilterChargesList(response.data.filter((charges) => charges.status === filterName))
+        if(!(response.data.filter((charges) => charges.status === filterName)).length){
+          setCheckListClientChargesLength(true)
+        }
       }
-      
-
-      
     } catch (error) {
-        setCheckListClientChargesLength(false);
+        setCheckListClientChargesLength(true);
         inputSearch.current.value = "";
         setSearchNameCharges("")
       if (error.response) {
@@ -171,31 +173,23 @@ export default function ChargesListPage() {
       });
     }
   }
-  function verifySearchNameChargesList(event) {
+  /* function verifySearchNameChargesList(event) {
     if (inputSearch.current.value === "") {
       ListCharges();
       return setCheckListClientChargesLength(false);
     } else {
       searchNameChargesList(event);
     }
-  }
-  const handleOk = (event) => {
-    if (event.key === 'Enter') {
-      if (inputSearch.current.value === "") {
-        ListCharges();
-        return setCheckListClientChargesLength(false);
-      } else {
-        searchNameChargesList();
-      }
-    }
-  }
-/* 
-  useEffect(() => {
-    setTitle("Cobranças");
-  }, [imageNavClient]); */
+  } */
+  
 
   useEffect(() => {
     setTitle("Cobranças");
+    setCheckListClientChargesLength(false)
+  }, [imageNavCharge]);
+
+  useEffect(() => {
+    //setTitle("Cobranças");
     if (filterName) {
       setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
     } else{
@@ -233,13 +227,13 @@ export default function ChargesListPage() {
               type="text"
               name="Filter nome"
               onChange={(e) => setSearchNameCharges(e.target.value)}
-              onKeyDown={handleOk}
+              onKeyDown={handleOkCharges}
             />
             <img
               src={lupa}
               alt="Lupa"
               className="search"
-              onClick={(event) => verifySearchNameChargesList(event)}
+              onClick={(event) => searchNameChargesList(event)}
             />
           </div>
         </div>
