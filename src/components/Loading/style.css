@@ -1,39 +1,45 @@
 .loading-container {
-  width: 100vw;
-  height: 100vh;
-  background: #ffffffa8;
   position: fixed;
   z-index: 1;
 
+  width: 100vw;
+  height: 100vh;
+
+  background: #ffffffa8;
 }
 
 .loading-container h4 {
   position: absolute;
-  bottom: 20px;
   left: 20px;
+
+  bottom: 20px;
   margin: 0;
+
   font-weight: 200;
-  opacity: .5;
   font-family: sans-serif;
+
+  opacity: .5;
   color: #ffffff00;
 }
 
 #loader {
-  width: 100px;
-  height: 40px;
   position: absolute;
   top: 50%;
   left: 50%;
+
+  width: 100px;
+  height: 40px;
   margin: -20px -50px;
 }
 
 #loader div {
-  width: 20px;
-  height: 20px;
-  background: var(--bg-pink);
-  border-radius: 50%;
   position: absolute;
 
+  width: 20px;
+  height: 20px;
+
+  background: var(--bg-pink);
+  border-radius: 50%;
 }
 
 #d1 {

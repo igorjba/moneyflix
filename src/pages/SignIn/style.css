@@ -19,12 +19,6 @@
   background-size: cover;
 }
 
-@media (max-width: 768px) {
-  .sign-in-img {
-    display: none;
-  }
-}
-
 .container-sign-in-form {
   display: flex;
   justify-content: center;
@@ -45,4 +39,11 @@
   text-align: center;
 
   color: #034A2A;
+}
+
+
+@media (max-width: 768px) {
+  .sign-in-img {
+    display: none;
+  }
 }
