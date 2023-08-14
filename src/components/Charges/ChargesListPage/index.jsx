@@ -50,7 +50,7 @@ export default function ChargesListPage() {
   function orderName() {
     setCountOrder(countOrder + 1);
     if (countOrder === 1) {
-      const order = infoClientCharges.slice().sort(function (a, b) {
+      const order = (filterName ? arrayFilterChargesList : infoClientCharges).slice().sort(function (a, b) {
         let x = a.cliente.toUpperCase();
         let y = b.cliente.toUpperCase();
 
@@ -58,40 +58,49 @@ export default function ChargesListPage() {
       });
       setColorArrowTop("#3F3F55");
       setColorArrowBottom("#DA0175");
-      setInfoClientCharges(order);
+      filterName ? setArrayFilterChargesList(order) : setInfoClientCharges(order);
     }
     if (countOrder === 2) {
-      const order = infoClientCharges.slice().sort(function (a, b) {
+      const order = (filterName ? arrayFilterChargesList : infoClientCharges).slice().sort(function (a, b) {
         let x = a.cliente.toUpperCase();
         let y = b.cliente.toUpperCase();
         return x == y ? 0 : x < y ? 1 : -1;
       });
       setColorArrowBottom("#3F3F55");
       setColorArrowTop("#DA0175");
-      setInfoClientCharges(order);
+      filterName ? setArrayFilterChargesList(order) : setInfoClientCharges(order);
     }
     if (countOrder === 3) {
-      ListCharges();
       setColorArrowBottom("#3F3F55");
       setColorArrowTop("#3F3F55");
       setCountOrder(1);
+      if(filterName){
+        return setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+      }else {
+        return ListCharges();
+      }
     }
   }
   function orderIdCharges() {
     setCountOrderIdCharges(countOrderIdCharges + 1);
     if (countOrderIdCharges === 1) {
-      const orderId = infoClientCharges.slice().sort(function (a, b) {
+      const orderId = (filterName ? arrayFilterChargesList :infoClientCharges).slice().sort(function (a, b) {
         return a.id_cobranca - b.id_cobranca;
       });
       setColorArrowTopId("#3F3F55");
       setColorArrowBottomId("#DA0175");
-      setInfoClientCharges(orderId);
+      filterName ? setArrayFilterChargesList(orderId) : setInfoClientCharges(orderId);
     }
     if (countOrderIdCharges === 2) {
-      ListCharges();
       setColorArrowBottomId("#3F3F55");
       setColorArrowTopId("#3F3F55");
       setCountOrderIdCharges(1);
+
+      if(filterName){
+        return setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
+      }else {
+        return ListCharges();
+      }
     }
   }
   function informationEditCharges(event) {
@@ -121,14 +130,26 @@ export default function ChargesListPage() {
           ...searchInformationCharges,
         },
       });
+
+      console.log(response.data);
+
       inputSearch.current.value = "";
-      setInfoClientCharges(response.data);
-      if (response.data.length) {
-        return setCheckListClientChargesLength(false);
-      } else if (!response.data.length) {
-        return setCheckListClientChargesLength(true);
+      setSearchNameCharges("")
+      await setInfoClientCharges(response.data);
+      setCheckListClientChargesLength(false)
+
+      
+      if(filterName){
+        setArrayFilterChargesList(response.data.filter((charges) => charges.status === filterName))
+        console.log(arrayFilterChargesList);
       }
+      
+
+      
     } catch (error) {
+        setCheckListClientChargesLength(false);
+        inputSearch.current.value = "";
+        setSearchNameCharges("")
       if (error.response) {
         if (
           error.response.status === 401 &&
@@ -168,19 +189,18 @@ export default function ChargesListPage() {
       }
     }
   }
+/* 
+  useEffect(() => {
+    setTitle("Cobranças");
+  }, [imageNavClient]); */
 
   useEffect(() => {
     setTitle("Cobranças");
-  }, [imageNavClient]);
-
-  useEffect(() => {
     if (filterName) {
       setArrayFilterChargesList(infoClientCharges.filter((charges) => charges.status === filterName))
-    } else if (infoClientCharges.length) {
+    } else{
       ListCharges();
-    } else if (!infoClientCharges.length) {
-      ListCharges();
-    }
+    } 
   }, [])
 
   useEffect(() => {
