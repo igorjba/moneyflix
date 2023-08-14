@@ -21,13 +21,6 @@
   background-color: var(--bg-nav);
 }
 
-@media (max-width: 768px) {
-  .sign-up-steps {
-    display: none;
-  }
-
-}
-
 .sign-up-steps-item {
   display: flex;
   align-items: flex-start;
@@ -157,10 +150,11 @@
   background-color: var(--bg-modal);
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
-  color: var(--font-clr-gray-text-modal);
   font-family: var(--ff-inter);
   font-weight: var(--fw-regular);
   font-size: 1.6rem;
+
+  color: var(--font-clr-gray-text-modal);
 
 }
 
@@ -189,12 +183,6 @@
   margin-bottom: 7.16%;
 }
 
-@media (max-width: 768px) {
-  .container-sign-up-indicator-forms {
-    display: none;
-  }
-}
-
 .steps-bar {
   max-width: 8.2rem;
   width: 100%;
@@ -205,4 +193,14 @@
 
 .sign-up-indicator-forms-one {
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .sign-up-steps {
+    display: none;
+  }
+
+  .container-sign-up-indicator-forms {
+    display: none;
+  }
 }
