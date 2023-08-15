@@ -213,7 +213,7 @@ const SignInForm = ({ signInForm, setSignInForm }) => {
 
       <div className="container-sign-in-form-subtitle">
         <span className="sign-in-form-subtitle">
-          Ainda não possui uma conta?
+          {`Ainda não possui uma conta? `}
           <Link className="sign-in-form-link" to="/cadastro">
             Cadastre-se
           </Link>
