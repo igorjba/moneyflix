@@ -28,9 +28,15 @@ export default function EditChargesModal() {
     verifyDate,
     setVerifyDate,
     filterName,
-    arrayFilterChargesList
+    arrayFilterChargesList,
   } = useCharges();
-  const { token, setGetInformationClientDetail, getInformationClientDetail, imageNavCharge, search } = useUser();
+  const {
+    token,
+    setGetInformationClientDetail,
+    getInformationClientDetail,
+    imageNavCharge,
+    search,
+  } = useUser();
   const navigate = useNavigate();
   const inputRef = useRef(null);
   let validate = 0;
@@ -63,18 +69,25 @@ export default function EditChargesModal() {
   function dateSendDatabase(event) {
     const spreadNumber = event.split("/");
     const [day, month, year] = spreadNumber;
-    setVerifyDate(0);
 
     if (spreadNumber.length !== 3) {
       setVerifyDate(1);
+      return;
     }
+
+    const fullYear = parseInt(year);
+    if (isNaN(fullYear) || fullYear < 1000 || fullYear > 9999) {
+      setErrorDate("Ano inválido");
+      return;
+    }
+
+    setVerifyDate(0);
+    setErrorDate("");
     return `${year}-${month}-${day}`;
   }
   async function sendInformationEditCharges(event) {
     event.preventDefault();
-    setErrorDescription(""),
-      setErrorDate(""),
-      setErrorValue("");
+    setErrorDescription(""), setErrorDate(""), setErrorValue("");
     if (!formEditCharges.descricao) {
       setErrorDescription("Este campo deve ser preenchido");
       validate = +1;
@@ -88,7 +101,8 @@ export default function EditChargesModal() {
     }
     if (validate === 0 && verifyDate === 0) {
       try {
-        const response = await api.put(`cobranca/editar/${openModalEditCharges.id_charges}`,
+        const response = await api.put(
+          `cobranca/editar/${openModalEditCharges.id_charges}`,
           {
             ...formEditCharges,
             valor: formEditCharges.valor.replace(/\./g, ""),
@@ -104,11 +118,14 @@ export default function EditChargesModal() {
           status: false,
         }));
         if (filterName || search) {
-          const indiceArrayCharges = arrayFilterChargesList.find(cobranca => cobranca.id_cobranca === openModalEditCharges.id_charges);
-          indiceArrayCharges.descricao = formEditCharges.descricao
-          indiceArrayCharges.valor = formEditCharges.valor.replace(/\./g, "")
-          indiceArrayCharges.vencimento = formEditCharges.vencimento
-          indiceArrayCharges.status = formEditCharges.status
+          const indiceArrayCharges = arrayFilterChargesList.find(
+            (cobranca) =>
+              cobranca.id_cobranca === openModalEditCharges.id_charges
+          );
+          indiceArrayCharges.descricao = formEditCharges.descricao;
+          indiceArrayCharges.valor = formEditCharges.valor.replace(/\./g, "");
+          indiceArrayCharges.vencimento = formEditCharges.vencimento;
+          indiceArrayCharges.status = formEditCharges.status;
         }
         toast.success("Cobrança Atualizada com Sucesso!", {
           className: "customToastify-success",
@@ -117,7 +134,7 @@ export default function EditChargesModal() {
         if (imageNavCharge) {
           return setGetInformationClientDetail(!getInformationClientDetail);
         } else {
-          ListCharges()
+          ListCharges();
         }
       } catch (error) {
         if (error.response) {
@@ -143,9 +160,7 @@ export default function EditChargesModal() {
     }
   }
   useEffect(() => {
-    setErrorDescription(""),
-      setErrorDate(""),
-      setErrorValue("");
+    setErrorDescription(""), setErrorDate(""), setErrorValue("");
   }, []);
   return (
     <div className="main-modal-flex modal-charge edit-charge-modal">
@@ -187,8 +202,9 @@ export default function EditChargesModal() {
               Descrição*
             </label>
             <textarea
-              className={`charges-input-description ${errorDescription ? "errorChargesLine" : " "
-                }`}
+              className={`charges-input-description ${
+                errorDescription ? "errorChargesLine" : " "
+              }`}
               id="descriptionInput"
               ref={inputRef}
               value={formEditCharges.descricao}

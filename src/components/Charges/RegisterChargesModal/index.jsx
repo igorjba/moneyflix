@@ -62,18 +62,25 @@ export default function RegisterChargesModal() {
   function dateSendDatabase(event) {
     const spreadNumber = event.split("/");
     const [day, month, year] = spreadNumber;
-    setVerifyDate(0);
 
     if (spreadNumber.length !== 3) {
       setVerifyDate(1);
+      return;
     }
+
+    const fullYear = parseInt(year);
+    if (isNaN(fullYear) || fullYear < 1000 || fullYear > 9999) {
+      setErrorDate("Ano inválido");
+      return;
+    }
+
+    setVerifyDate(0);
+    setErrorDate("");
     return `${year}-${month}-${day}`;
   }
   async function sendInformationCharges(event) {
     event.preventDefault();
-    setErrorDescription(""),
-      setErrorDate(""),
-      setErrorValue("");
+    setErrorDescription(""), setErrorDate(""), setErrorValue("");
     if (!formRegisterCharges.descricao) {
       setErrorDescription("Este campo deve ser preenchido");
       validate = +1;
@@ -133,9 +140,7 @@ export default function RegisterChargesModal() {
     }
   }
   useEffect(() => {
-    setErrorDescription(""),
-      setErrorDate(""),
-      setErrorValue("");
+    setErrorDescription(""), setErrorDate(""), setErrorValue("");
   }, []);
   return (
     <div className="main-modal-flex modal-charge register-charge-modal">
@@ -173,7 +178,9 @@ export default function RegisterChargesModal() {
               Descrição*
             </label>
             <textarea
-              className={`charges-input-description ${errorDescription ? "errorChargesLine" : " "}`}
+              className={`charges-input-description ${
+                errorDescription ? "errorChargesLine" : " "
+              }`}
               id="descriptionInput"
               ref={inputRef}
               placeholder="Digite a descrição"
@@ -205,8 +212,14 @@ export default function RegisterChargesModal() {
                   setFormRegisterCharges({
                     ...formRegisterCharges,
                     vencimento: dateSendDatabase(event.target.defaultValue),
-                  })} />
-              {errorDate && (<span className="errorCharges"><h1>{errorDate}</h1></span>)}
+                  })
+                }
+              />
+              {errorDate && (
+                <span className="errorCharges">
+                  <h1>{errorDate}</h1>
+                </span>
+              )}
             </div>
             <div className="container-input-value">
               <label htmlFor="valueInput" className="mouse-pointer">
@@ -235,14 +248,26 @@ export default function RegisterChargesModal() {
           </div>
           <div>
             <h1>Status</h1>
-            <div className="testeInput mouse-pointer" onClick={() => statusCharges(true)}>
-              <div className="inputParaCheck mouse-pointer" onClick={() => statusCharges(true)}>
+            <div
+              className="testeInput mouse-pointer"
+              onClick={() => statusCharges(true)}
+            >
+              <div
+                className="inputParaCheck mouse-pointer"
+                onClick={() => statusCharges(true)}
+              >
                 {verifyCheckbox && <img src={checkboxGreen} alt="" />}
               </div>
               <h1>Cobrança Paga</h1>
             </div>
-            <div className="testeInput mouse-pointer" onClick={() => statusCharges(false)}>
-              <div className="inputParaCheck mouse-pointer" onClick={() => statusCharges(false)}>
+            <div
+              className="testeInput mouse-pointer"
+              onClick={() => statusCharges(false)}
+            >
+              <div
+                className="inputParaCheck mouse-pointer"
+                onClick={() => statusCharges(false)}
+              >
                 {!verifyCheckbox && <img src={checkboxGreen} alt="" />}
               </div>
               <h1>Cobrança Pendente</h1>
