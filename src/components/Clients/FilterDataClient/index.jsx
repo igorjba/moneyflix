@@ -38,7 +38,7 @@ export default function FilterDataClient({ setOpenModalFilterDataClient }) {
             {" "}
             {verifyCheckboxFilterData && (
               <img src={checkboxGreenFilter} alt="" />
-            )}{" "}
+            )}
           </div>
           <h1>Inadiplementes</h1>
         </div>
@@ -60,8 +60,7 @@ export default function FilterDataClient({ setOpenModalFilterDataClient }) {
       <div className="container-button-filter-data">
         <button onClick={() => submitButtonFilterClient()}> Aplicar </button>
         <button onClick={() => setOpenModalFilterDataClient(false)}>
-          {" "}
-          Cancelar{" "}
+          Cancelar
         </button>
       </div>
     </div>

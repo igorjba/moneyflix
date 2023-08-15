@@ -18,7 +18,7 @@ import "./style.css";
 
 export default function ChargesListPage() {
   const { ListCharges, infoClientCharges, setInfoClientCharges, setModalDelete, setOpenModalEditCharges, setOpenModalDetailCharges,
-    openModalDetailCharges, filterName, arrayFilterChargesList, setArrayFilterChargesList } = useCharges();
+    openModalDetailCharges, filterName, arrayFilterChargesList, setArrayFilterChargesList, setCheckListClientChargesLength, checkListClientChargesLength } = useCharges();
 
   const { setTitle, token, imageNavCharge } = useUser();
 
@@ -31,7 +31,7 @@ export default function ChargesListPage() {
   const [colorArrowBottomId, setColorArrowBottomId] = useState("#3F3F55");
 
   const [searchNameCharges, setSearchNameCharges] = useState("");
-  const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
+  
 
   const [openModalFilterData, setOpenModalFilterData] = useState(false);
   const inputSearch = useRef(null);
