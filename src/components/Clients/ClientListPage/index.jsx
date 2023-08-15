@@ -28,14 +28,16 @@ export default function ClientListPage() {
     ClientCadaster,
     filterNameClient,
     arrayFilterClientList,
-    setArrayFilterClientList
+    setArrayFilterClientList,
+    openNotFoundClient,
+    setOpenNotFoundClient
   } = useClient();
 
   const [countOrder, setCountOrder] = useState(1);
   const [colorArrowTop, setColorArrowTop] = useState("#3F3F55");
   const [colorArrowBottom, setColorArrowBottom] = useState("#3F3F55");
   const [searchNameClient, setSearchNameClient] = useState("");
-  const [openNotFoundClient, setOpenNotFoundClient] = useState(true);
+  
   const [openModalFilterDataClient, setOpenModalFilterDataClient] = useState(false);
   const inputSearch = useRef(null);
 

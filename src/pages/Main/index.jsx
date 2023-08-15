@@ -28,13 +28,15 @@ import "./style.css";
 
 function Main() {
   const [maxWidthTextHeader, setMaxWidthTextHeader] = useState('113.8rem');
-  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail, setFilterNameClient } = useClient()
+  const { openModalRegister, openModalEditClient, idClientDetail, setIdClientDetail, setFilterNameClient, ClientCadaster, setOpenNotFoundClient } = useClient()
   const {
     openModalCharges,
     openModalEditCharges,
     openModalDelete,
     openModalDetailCharges,
-    setFilterName
+    setFilterName,
+    ListCharges,
+    setCheckListClientChargesLength
   } = useCharges();
 
   const {
@@ -164,12 +166,14 @@ function Main() {
             }`}
           onClick={(event) => {
             setImageNavClient(false),
-              setImageNavHome(true),
-              setImageNavCharge(true);
+            setImageNavHome(true),
+            setImageNavCharge(true);
             setTitleNameSecond("");
             setIdClientDetail({ ...idClientDetail, status: false });
             setTitleNameThird("");
             setFilterNameClient("")
+            ClientCadaster()
+            setOpenNotFoundClient(true)
           }}
         >
           <img
@@ -188,7 +192,9 @@ function Main() {
             setTitleNameSecond(""),
             setTitleNameThird(""),
             setFilterName(""),
-            setIdClientDetail({ ...idClientDetail, status: false });
+            setIdClientDetail({ ...idClientDetail, status: false }),
+            ListCharges(),
+            setCheckListClientChargesLength(false);
           }}
         >
           <img
