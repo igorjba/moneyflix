@@ -15,7 +15,8 @@ function useUserProvider() {
   const [titleNameThird, setTitleNameThird] = useState("");
   const [openLoading, setOpenLoading] = useState(false);
   const [openModalEditProfile, setOpenModalEditProfile] = useState(false);
-  const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] = useState(false);
+  const [openModalEditProfileSuccess, setOpenModalEditProfileSuccess] =
+    useState(false);
   const [resumeName, setResumeName] = useState("");
   const [imageNavClient, setImageNavClient] = useState(true);
   const [imageNavHome, setImageNavHome] = useState(false);
@@ -99,54 +100,49 @@ function useUserProvider() {
     senha: "",
     confirmeSenha: "",
   });
-  const [listClientByStatus, setListClientByStatus] = useState("");
 
-  return (
-    {
-      setOpenModalEditProfileSuccess,
-      openModalEditProfileSuccess,
-      getProfile,
-      setGetProfile,
-      openModalEditProfile,
-      setOpenModalEditProfile,
-      title,
-      setTitle,
-      token,
-      nameUser,
-      setNameUser,
-      loggedInUser,
-      setLoggedInUser,
-      idListChargesClick,
-      setIdListChargesClick,
-      idClientDetail,
-      setIdClientDetail,
-      clientDetailPage,
-      setClientDetailPage,
-      titleNameSecond,
-      setTitleNameSecond,
-      openLoading,
-      setOpenLoading,
-      getInformationClientDetail,
-      setGetInformationClientDetail,
-      setTitleNameThird,
-      titleNameThird,
-      resumeName,
-      setResumeName,
-      imageNavClient,
-      setImageNavClient,
-      imageNavHome,
-      setImageNavHome,
-      imageNavCharge,
-      setImageNavCharge,
-      modalExit,
-      setModalExit,
-      openModalEdit,
-      setOpenModalEdit,
-      getUserDetails,
-      listClientByStatus,
-      setListClientByStatus,
-    }
-  )
+  return {
+    setOpenModalEditProfileSuccess,
+    openModalEditProfileSuccess,
+    getProfile,
+    setGetProfile,
+    openModalEditProfile,
+    setOpenModalEditProfile,
+    title,
+    setTitle,
+    token,
+    nameUser,
+    setNameUser,
+    loggedInUser,
+    setLoggedInUser,
+    idListChargesClick,
+    setIdListChargesClick,
+    idClientDetail,
+    setIdClientDetail,
+    clientDetailPage,
+    setClientDetailPage,
+    titleNameSecond,
+    setTitleNameSecond,
+    openLoading,
+    setOpenLoading,
+    getInformationClientDetail,
+    setGetInformationClientDetail,
+    setTitleNameThird,
+    titleNameThird,
+    resumeName,
+    setResumeName,
+    imageNavClient,
+    setImageNavClient,
+    imageNavHome,
+    setImageNavHome,
+    imageNavCharge,
+    setImageNavCharge,
+    modalExit,
+    setModalExit,
+    openModalEdit,
+    setOpenModalEdit,
+    getUserDetails,
+  };
 }
 
 export default useUserProvider;
