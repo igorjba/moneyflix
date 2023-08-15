@@ -23,6 +23,7 @@ function useUserProvider() {
   const [imageNavCharge, setImageNavCharge] = useState(true);
   const [modalExit, setModalExit] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [openEditLogoutMobileModal, setOpenEditLogoutMobileModal] = useState(false)
 
   async function getUserDetails() {
     try {
@@ -102,6 +103,8 @@ function useUserProvider() {
   });
 
   return {
+    setOpenEditLogoutMobileModal,
+    openEditLogoutMobileModal,
     setOpenModalEditProfileSuccess,
     openModalEditProfileSuccess,
     getProfile,

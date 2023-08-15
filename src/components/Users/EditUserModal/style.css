@@ -11,7 +11,7 @@
 }
 
 .edit-user-modal.default-modal {
-    width: 49.1rem;
+    max-width: 49.1rem;
 }
 
 .information-edit-modal {

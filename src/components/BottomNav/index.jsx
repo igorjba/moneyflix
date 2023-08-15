@@ -17,9 +17,7 @@ export default function BottomNav() {
         setImageNavClient,
         imageNavCharge,
         setImageNavCharge,
-        setOpenModalEdit,
-        setOpenModalEditProfile,
-        getUserDetails,
+        setOpenEditLogoutMobileModal,
     } = useUser();
 
     const { idClientDetail, setIdClientDetail } = useClient()
@@ -41,13 +39,16 @@ export default function BottomNav() {
         }
     }
 
-    async function openModal() {
-        setOpenModalEditProfile(true)
-        setModalExit(false);
-        await getUserDetails();
-        setOpenModalEdit(true)
-    }
+    // async function openModal() {
+    //     setOpenModalEditProfile(true)
+    //     setModalExit(false);
+    //     await getUserDetails();
+    //     setOpenModalEdit(true)
+    // }
 
+    function handleOpenEditLogoutMobileModal() {
+        setOpenEditLogoutMobileModal(true)
+    }
     return (
         <>
             <nav className="bottom-nav">
@@ -69,7 +70,7 @@ export default function BottomNav() {
                 >
                     <img src={imageNavCharge ? chargeIcon : chargeIconPink} alt="Cobranças" />
                 </div>
-                <div className="title circle-perfil" onClick={openModal}>
+                <div className="title circle-perfil" onClick={handleOpenEditLogoutMobileModal}>
                     <h1>{resumeName}</h1>
                 </div>
             </nav>
