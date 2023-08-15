@@ -19,7 +19,6 @@ import useClient from "../../../hooks/useClient.jsx";
 
 export default function HomePage() {
   const { setTitle, token } = useUser();
-  const { idClientDetail } = useClient();
   const { ListCharges } = useCharges();
   const [data, setData] = useState({});
   const navigate = useNavigate();
