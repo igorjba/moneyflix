@@ -1,0 +1,12 @@
+.container-edit-logout-mobile-modal {
+    position: relative;
+    z-index: 4;
+
+    max-width: 49.1rem;
+    width: 100%;
+    padding: 4rem 5.6rem 4rem 5.6rem;
+    border-radius: 3rem;
+
+    background-color: var(--bg-modal);
+    box-shadow: 0px 0px 1rem var(--font-clr-gray-title);
+}
