@@ -14,11 +14,13 @@ import { clearAll } from "../../../utils/localStorage.jsx";
 import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
+import useCharges from "../../../hooks/useCharges.jsx";
 import useClient from "../../../hooks/useClient.jsx";
 
 export default function HomePage() {
   const { setTitle, token } = useUser();
   const { idClientDetail } = useClient();
+  const { ListCharges } = useCharges();
   const [data, setData] = useState({});
   const navigate = useNavigate();
 
@@ -58,6 +60,7 @@ export default function HomePage() {
   useEffect(() => {
     fetchData();
     setTitle("Resumo de Cobranças");
+    ListCharges();
   }, []);
 
   return (
