@@ -4,12 +4,37 @@ import useUser from "../../../hooks/useUser";
 import { completedName, moneyMask } from "../../../utils/inputMasks";
 import "./style.css";
 
-export default function SummaryCardsList({ iconCard, titleCard, totalClient, cardL, backgroundColorTotalClient, isClientData, isLastCard, search,
-  navClient, navCharge, }) {
-
-  const { ListCharges, setFilterName, infoClientCharges, setOpenModalDetailCharges } = useCharges();
-  const { setImageNavClient, setImageNavHome, setImageNavCharge, setTitleNameSecond, setTitleNameThird } = useUser();
-  const { setFilterNameClient, clientRegisters, ClientCadaster } = useClientUser()
+export default function SummaryCardsList({
+  iconCard,
+  titleCard,
+  totalClient,
+  cardL,
+  backgroundColorTotalClient,
+  isClientData,
+  isLastCard,
+  search,
+  navClient,
+  navCharge,
+}) {
+  const {
+    ListCharges,
+    setFilterName,
+    infoClientCharges,
+    setOpenModalDetailCharges,
+  } = useCharges();
+  const {
+    setImageNavClient,
+    setImageNavHome,
+    setImageNavCharge,
+    setTitleNameSecond,
+    setTitleNameThird,
+  } = useUser();
+  const {
+    setFilterNameClient,
+    clientRegisters,
+    ClientCadaster,
+    setIdClientDetail,
+  } = useClientUser();
 
   function maskCPF(e) {
     const inputNumberCPF = e.replace(/\D/g, "");
@@ -32,28 +57,28 @@ export default function SummaryCardsList({ iconCard, titleCard, totalClient, car
   }
 
   async function filterActiveInformationHome() {
-
     if (infoClientCharges.length) {
-      return (setFilterName(search),
+      return (
+        setFilterName(search),
         setImageNavClient(navClient),
         setImageNavHome(true),
         setImageNavCharge(navCharge),
         setTitleNameSecond(""),
-        setTitleNameThird(""))
+        setTitleNameThird("")
+      );
     }
 
-    await ListCharges()
-    setFilterName(search)
+    await ListCharges();
+    setFilterName(search);
 
-    setImageNavClient(navClient)
-    setImageNavHome(true)
-    setImageNavCharge(navCharge)
-    setTitleNameSecond("")
-    setTitleNameThird("")
+    setImageNavClient(navClient);
+    setImageNavHome(true);
+    setImageNavCharge(navCharge);
+    setTitleNameSecond("");
+    setTitleNameThird("");
   }
 
   async function filterActiveInformationHomeClient() {
-
     if (clientRegisters.length) {
       return (
         setFilterNameClient(search),
@@ -62,22 +87,35 @@ export default function SummaryCardsList({ iconCard, titleCard, totalClient, car
         setImageNavCharge(navCharge),
         setTitleNameSecond(""),
         setTitleNameThird("")
-      )
+      );
     }
 
-    await ClientCadaster()
-    setFilterNameClient(search)
+    await ClientCadaster();
+    setFilterNameClient(search);
 
     setImageNavClient(navClient),
       setImageNavHome(true),
       setImageNavCharge(navCharge),
       setTitleNameSecond(""),
-      setTitleNameThird("")
+      setTitleNameThird("");
   }
 
   function modalDetailDashbordCharges(client) {
     if (!isClientData) {
-      setOpenModalDetailCharges({ status: true, informationDetail: { charges: client } })
+      setOpenModalDetailCharges({
+        status: true,
+        informationDetail: { charges: client },
+      });
+    } else {
+      setIdClientDetail({
+        status: true,
+        id_client: client.id_cliente,
+      });
+      setImageNavClient(navClient);
+      setImageNavHome(true);
+      setImageNavCharge(navCharge);
+      setTitleNameSecond("");
+      setTitleNameThird("");
     }
   }
 
@@ -103,7 +141,9 @@ export default function SummaryCardsList({ iconCard, titleCard, totalClient, car
           <thead className="titlesTable">
             <tr>
               <th>Clientes</th>
-              <th className="class-id-max">{isClientData ? "ID do Cliente" : "ID da cob."}</th>
+              <th className="class-id-max">
+                {isClientData ? "ID do Cliente" : "ID da cob."}
+              </th>
               <th>{isClientData ? "CPF" : "Valor"}</th>
             </tr>
           </thead>
@@ -112,11 +152,15 @@ export default function SummaryCardsList({ iconCard, titleCard, totalClient, car
               {cardL &&
                 cardL.map((client) => {
                   return (
-                    <tr key={client.id_cobranca || client.id_cliente} onClick={() => modalDetailDashbordCharges(client)} className="mouse-pointer extract-table-dashbord">
-                      <td  >
+                    <tr
+                      key={client.id_cobranca || client.id_cliente}
+                      onClick={() => modalDetailDashbordCharges(client)}
+                      className="mouse-pointer extract-table-dashbord"
+                    >
+                      <td>
                         {client.cliente || completedName(client.nome_cliente)}
                       </td>
-                      <td >
+                      <td>
                         {isClientData
                           ? client.id_cliente
                           : client.id_cobranca || "-"}
@@ -134,7 +178,15 @@ export default function SummaryCardsList({ iconCard, titleCard, totalClient, car
         </table>
       </div>
       <div className="footerTable initial">
-        <span onClick={isLastCard ? filterActiveInformationHomeClient : filterActiveInformationHome}>Ver todos</span>
+        <span
+          onClick={
+            isLastCard
+              ? filterActiveInformationHomeClient
+              : filterActiveInformationHome
+          }
+        >
+          Ver todos
+        </span>
       </div>
     </div>
   );
