@@ -15,12 +15,10 @@ import SummaryCardsList from "../../Dashboard/SummaryCardsList";
 import SummaryValueCards from "../../Dashboard/SummaryValueCards";
 import "./style.css";
 import useCharges from "../../../hooks/useCharges.jsx";
+import useClient from "../../../hooks/useClient.jsx";
 
 export default function HomePage() {
-  const {
-    setTitle,
-    token
-  } = useUser();
+  const { setTitle, token } = useUser();
   const { ListCharges } = useCharges();
   const [data, setData] = useState({});
   const navigate = useNavigate();
@@ -61,7 +59,7 @@ export default function HomePage() {
   useEffect(() => {
     fetchData();
     setTitle("Resumo de Cobranças");
-    ListCharges()
+    ListCharges();
   }, []);
 
   return (
@@ -77,8 +75,9 @@ export default function HomePage() {
           TitleCard="Cobranças Pagas"
           ValueCard={
             data.totalValorPagas?.[0]?.sum === "" ||
-              data.totalValorPagas?.[0]?.sum === undefined ||
-              data.totalValorPagas?.[0]?.sum === null ? moneyMask("000")
+            data.totalValorPagas?.[0]?.sum === undefined ||
+            data.totalValorPagas?.[0]?.sum === null
+              ? moneyMask("000")
               : moneyMask(data.totalValorPagas?.[0]?.sum)
           }
         />
@@ -88,8 +87,8 @@ export default function HomePage() {
           TitleCard="Cobranças Vencidas"
           ValueCard={
             data.totalValorVencidas?.[0]?.sum === "" ||
-              data.totalValorVencidas?.[0]?.sum === undefined ||
-              data.totalValorVencidas?.[0]?.sum === null
+            data.totalValorVencidas?.[0]?.sum === undefined ||
+            data.totalValorVencidas?.[0]?.sum === null
               ? moneyMask("000")
               : moneyMask(data.totalValorVencidas?.[0]?.sum)
           }
@@ -100,8 +99,8 @@ export default function HomePage() {
           TitleCard="Cobranças Previstas"
           ValueCard={
             data.totalValorPendentes?.[0]?.sum === "" ||
-              data.totalValorPendentes?.[0]?.sum === undefined ||
-              data.totalValorPendentes?.[0]?.sum === null
+            data.totalValorPendentes?.[0]?.sum === undefined ||
+            data.totalValorPendentes?.[0]?.sum === null
               ? moneyMask("000")
               : moneyMask(data.totalValorPendentes?.[0]?.sum)
           }

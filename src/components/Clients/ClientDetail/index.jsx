@@ -222,7 +222,7 @@ export default function ClientDetail() {
                 <td>
                   <h1>
                     {detailsData.telefone === null ||
-                      detailsData.telefone === undefined
+                    detailsData.telefone === undefined
                       ? ""
                       : phoneAndCelMask2(detailsData.telefone)}
                   </h1>
@@ -437,10 +437,10 @@ export default function ClientDetail() {
                 <th className="imagem-table-header"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="extract-table">
               {infoClientCharges.map((charges) => {
                 return (
-                  <tr className="extract-table" key={charges.id_cobranca}>
+                  <tr key={charges.id_cobranca}>
                     <td
                       className="mouse-pointer"
                       onClick={() =>
@@ -480,7 +480,7 @@ export default function ClientDetail() {
                         }
                       />
                       <img
-                        className="mouse-pointer"
+                        className="mouse-pointer transform-image-charges"
                         src={deleteCharge}
                         alt="Deletar"
                         onClick={() =>
