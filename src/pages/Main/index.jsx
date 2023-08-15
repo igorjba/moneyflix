@@ -25,6 +25,7 @@ import useCharges from "../../hooks/useCharges";
 import useClient from "../../hooks/useClient";
 import useUser from "../../hooks/useUser";
 import "./style.css";
+import EditLogoutMobileModal from "../../components/EditLogoutMobileModal";
 
 function Main() {
   const [maxWidthTextHeader, setMaxWidthTextHeader] = useState('113.8rem');
@@ -63,6 +64,7 @@ function Main() {
     titleNameSecond,
     titleNameThird,
     setTitleNameThird,
+    openEditLogoutMobileModal,
   } = useUser();
 
   function toTitleCase(name) {
@@ -150,9 +152,9 @@ function Main() {
               setImageNavCharge(true),
               setTitleNameSecond(""),
               setTitleNameThird("");
-              setFilterNameClient("")
-              setFilterName("")
-              setIdClientDetail({ ...idClientDetail, status: false });
+            setFilterNameClient("")
+            setFilterName("")
+            setIdClientDetail({ ...idClientDetail, status: false });
           }}
         >
           <img
@@ -166,8 +168,8 @@ function Main() {
             }`}
           onClick={(event) => {
             setImageNavClient(false),
-            setImageNavHome(true),
-            setImageNavCharge(true);
+              setImageNavHome(true),
+              setImageNavCharge(true);
             setTitleNameSecond("");
             setIdClientDetail({ ...idClientDetail, status: false });
             setTitleNameThird("");
@@ -187,14 +189,14 @@ function Main() {
             }`}
           onClick={(event) => {
             setImageNavClient(true),
-            setImageNavHome(true),
-            setImageNavCharge(false),
-            setTitleNameSecond(""),
-            setTitleNameThird(""),
-            setFilterName(""),
-            setIdClientDetail({ ...idClientDetail, status: false }),
-            ListCharges(),
-            setCheckListClientChargesLength(false);
+              setImageNavHome(true),
+              setImageNavCharge(false),
+              setTitleNameSecond(""),
+              setTitleNameThird(""),
+              setFilterName(""),
+              setIdClientDetail({ ...idClientDetail, status: false }),
+              ListCharges(),
+              setCheckListClientChargesLength(false);
           }}
         >
           <img
@@ -225,6 +227,11 @@ function Main() {
         }}
       />
       <div className="center">
+        {openEditLogoutMobileModal && (
+          <div className="background-modal initial">
+            <EditLogoutMobileModal />
+          </div>
+        )}
         {openModalEditClient && (
           <div className="background-modal initial">
             {openModalEditClient && <EditClientModal />}
