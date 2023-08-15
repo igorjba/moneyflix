@@ -9,15 +9,14 @@ function useClientUser() {
   const [openModalRegister, setOpenModalRegister] = useState(false);
   const [idClientDetail, setIdClientDetail] = useState({
     status: false,
-    id_client: ''
+    id_client: "",
   });
-  const [openModalEditClient, setOpenModalEditClient] = useState(false)
+  const [openModalEditClient, setOpenModalEditClient] = useState(false);
 
-  const [filterNameClient, setFilterNameClient] = useState('')
-
-  const [arrayFilterClientList, setArrayFilterClientList] = useState([])
+  const [filterNameClient, setFilterNameClient] = useState("");
 
   const [openNotFoundClient, setOpenNotFoundClient] = useState(true);
+  const [arrayFilterClientList, setArrayFilterClientList] = useState([]);
 
   async function ClientCadaster() {
     try {
@@ -54,7 +53,9 @@ function useClientUser() {
   async function reloadClientList() {
     await ClientCadaster();
     if (filterNameClient) {
-      setArrayFilterClientList(clientRegisters.filter(client => client.status === filterNameClient));
+      setArrayFilterClientList(
+        clientRegisters.filter((client) => client.status === filterNameClient)
+      );
     }
   }
 
