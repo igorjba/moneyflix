@@ -4,7 +4,7 @@ import api from "../api/api";
 import useUser from "./useUser";
 
 function useClientUser() {
-  const { token } = useUser();
+  const { token } = useUser()
   const [clientRegisters, setClientRegisters] = useState([]);
   const [openModalRegister, setOpenModalRegister] = useState(false);
   const [idClientDetail, setIdClientDetail] = useState({
@@ -15,6 +15,7 @@ function useClientUser() {
 
   const [filterNameClient, setFilterNameClient] = useState("");
 
+  const [openNotFoundClient, setOpenNotFoundClient] = useState(true);
   const [arrayFilterClientList, setArrayFilterClientList] = useState([]);
 
   async function ClientCadaster() {
@@ -73,6 +74,8 @@ function useClientUser() {
     setFilterNameClient,
     arrayFilterClientList,
     setArrayFilterClientList,
+    openNotFoundClient,
+    setOpenNotFoundClient
   };
 }
 

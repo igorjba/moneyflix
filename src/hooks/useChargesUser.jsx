@@ -45,7 +45,7 @@ function useChargesUser() {
   const [filterName, setFilterName] = useState('')
   const [arrayFilterChargesList, setArrayFilterChargesList] = useState([])
 
-
+  const [checkListClientChargesLength, setCheckListClientChargesLength] = useState(false);
 
   async function ListCharges() {
 
@@ -132,7 +132,9 @@ function useChargesUser() {
     filterName,
     setFilterName,
     arrayFilterChargesList,
-    setArrayFilterChargesList
+    setArrayFilterChargesList,
+    checkListClientChargesLength,
+    setCheckListClientChargesLength
   };
 }
 
