@@ -26,6 +26,7 @@ import useClient from "../../hooks/useClient";
 import useUser from "../../hooks/useUser";
 import "./style.css";
 import EditLogoutMobileModal from "../../components/EditLogoutMobileModal";
+import LogoutModalMobile from "../../components/LogoutModalMobile";
 
 function Main() {
   const [maxWidthTextHeader, setMaxWidthTextHeader] = useState('113.8rem');
@@ -65,6 +66,7 @@ function Main() {
     titleNameThird,
     setTitleNameThird,
     openEditLogoutMobileModal,
+    openModalLogoutMobile
   } = useUser();
 
   function toTitleCase(name) {
@@ -227,6 +229,10 @@ function Main() {
         }}
       />
       <div className="center">
+      {openModalLogoutMobile && (
+      <div className="background-modal initial"> 
+      <LogoutModalMobile />
+      </div>)}
         {openEditLogoutMobileModal && (
           <div className="background-modal initial">
             <EditLogoutMobileModal />
@@ -271,7 +277,6 @@ function Main() {
             {openModalDelete.status && <DeleteCharge />}
           </div>
         )}
-
         {openModalDetailCharges.status && (
           <div className="background-modal initial">
             {openModalDetailCharges.status && <ChargesModal />}
@@ -289,7 +294,6 @@ function Main() {
               </h2>
               <h3 className="detail-client-set">{titleNameSecond}</h3>
               <h3 className="detail-cliente-title-second">{titleNameThird}</h3>
-
             </div>
             <div className="initial header-perfil">
               <div className="title circle-perfil">

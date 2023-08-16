@@ -10,3 +10,7 @@
     background-color: var(--bg-modal);
     box-shadow: 0px 0px 1rem var(--font-clr-gray-title);
 }
+
+.image-bye-cat{
+    width: 30rem;
+}
