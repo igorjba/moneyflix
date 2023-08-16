@@ -31,7 +31,7 @@ export default function ChargesListPage() {
   const [colorArrowBottomId, setColorArrowBottomId] = useState("#3F3F55");
 
   const [searchNameCharges, setSearchNameCharges] = useState("");
-  
+
 
   const [openModalFilterData, setOpenModalFilterData] = useState(false);
   const inputSearch = useRef(null);
@@ -139,7 +139,7 @@ export default function ChargesListPage() {
       await setInfoClientCharges(response.data);
       setCheckListClientChargesLength(false);
 
-      if(!response.data.length){
+      if (!response.data.length) {
         setCheckListClientChargesLength(true)
       }
 

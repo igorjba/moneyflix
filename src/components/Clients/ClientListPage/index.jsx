@@ -172,8 +172,7 @@ export default function ClientListPage() {
             className="addClient"
             onClick={() => setOpenModalRegister(true)}
           >
-            {" "}
-            + Adicionar Cliente{" "}
+            + Adicionar Cliente
           </button>
           <button className="button-filter">
             <img
@@ -294,8 +293,8 @@ export default function ClientListPage() {
                   client.status === "Inadimplente"
                     ? "situationDefaulter"
                     : client.status === "Em dia"
-                    ? "situationOk"
-                    : "";
+                      ? "situationOk"
+                      : "";
                 return (
                   <tr key={client.id_cliente}>
                     <td className="view-detail-mouse-over-effect">
