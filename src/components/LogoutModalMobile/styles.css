@@ -1,4 +1,4 @@
-.modal-logout{
+.modal-logout {
     position: relative;
     z-index: 4;
 
@@ -6,17 +6,19 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    
+
     max-width: 49.1rem;
 }
 
-.container-button-modal{
+.container-button-modal {
     display: flex;
     justify-content: space-evenly;
+
     width: 100%;
+    margin-bottom: 4rem;
 }
 
-.modal-logout button{
+.modal-logout button {
     width: 15rem;
     height: 5rem;
     border-radius: 5rem;
@@ -24,11 +26,11 @@
     box-shadow: 0px 0px 0.5rem var(--font-clr-gray-title);
 }
 
-.modal-logout button:first-child{
+.modal-logout button:first-child {
     color: #77afba;
 }
 
-.modal-logout button:last-child{
+.modal-logout button:last-child {
     background-color: #DA0175;
     color: #fff;
 }

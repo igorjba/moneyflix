@@ -43,6 +43,10 @@
   border-right: 0.3rem solid var(--bg-pink);
 }
 
+.bottom-active {
+  width: 100%;
+}
+
 .center {
   display: flex;
   flex-direction: column;
@@ -226,10 +230,10 @@ header h2 {
 .bottom-nav .nav-icon {
   flex: 1;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
 }
 
-.bottom-nav .nav-icon.active {
+.bottom-nav .nav-icon.bottom-active {
   border-top: 3px solid var(--bg-pink);
 }
 

@@ -35,12 +35,11 @@ export default function FilterDataClient({ setOpenModalFilterDataClient }) {
             className="input-Check-Filter-Data"
             onClick={() => setVerifyCheckboxFilterData(true)}
           >
-            {" "}
             {verifyCheckboxFilterData && (
               <img src={checkboxGreenFilter} alt="" />
             )}
           </div>
-          <h1>Inadiplementes</h1>
+          <h1>Inadimplentes</h1>
         </div>
         <div
           className="input-Filter-Data mouse-pointer"
