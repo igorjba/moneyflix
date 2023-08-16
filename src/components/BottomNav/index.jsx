@@ -11,7 +11,6 @@ import useUser from '../../hooks/useUser';
 export default function BottomNav() {
     const { resumeName,
         imageNavHome,
-        setModalExit,
         setImageNavHome,
         imageNavClient,
         setImageNavClient,
@@ -39,13 +38,6 @@ export default function BottomNav() {
         }
     }
 
-    // async function openModal() {
-    //     setOpenModalEditProfile(true)
-    //     setModalExit(false);
-    //     await getUserDetails();
-    //     setOpenModalEdit(true)
-    // }
-
     function handleOpenEditLogoutMobileModal() {
         setOpenEditLogoutMobileModal(true)
     }
@@ -53,19 +45,19 @@ export default function BottomNav() {
         <>
             <nav className="bottom-nav">
                 <div
-                    className={`nav-icon ${!imageNavHome && 'active'}`}
+                    className={`nav-icon ${!imageNavHome && 'bottom-active'}`}
                     onClick={() => onClick('home')}
                 >
                     <img src={imageNavHome ? homeIcon : homePinkIcon} alt="Inicio" />
                 </div>
                 <div
-                    className={`nav-icon ${!imageNavClient && 'active'}`}
+                    className={`nav-icon ${!imageNavClient && 'bottom-active'}`}
                     onClick={() => onClick('client')}
                 >
                     <img src={imageNavClient ? clientIcon : clientIconPink} alt="Cliente" />
                 </div>
                 <div
-                    className={`nav-icon ${!imageNavCharge && 'active'}`}
+                    className={`nav-icon ${!imageNavCharge && 'bottom-active'}`}
                     onClick={() => onClick('charge')}
                 >
                     <img src={imageNavCharge ? chargeIcon : chargeIconPink} alt="Cobranças" />
