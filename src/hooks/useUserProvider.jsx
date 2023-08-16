@@ -24,6 +24,7 @@ function useUserProvider() {
   const [modalExit, setModalExit] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openEditLogoutMobileModal, setOpenEditLogoutMobileModal] = useState(false)
+  const [openModalLogoutMobile, setOpenModalLogoutMobile] = useState(false)
 
   async function getUserDetails() {
     try {
@@ -145,6 +146,8 @@ function useUserProvider() {
     openModalEdit,
     setOpenModalEdit,
     getUserDetails,
+    openModalLogoutMobile,
+    setOpenModalLogoutMobile
   };
 }
 
